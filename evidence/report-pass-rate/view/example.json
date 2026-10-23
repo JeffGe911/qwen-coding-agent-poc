@@ -3,7 +3,7 @@
   "blind": true,
   "model": "qwen2.5-coder:7b",
   "run_id": "20261023T193344Z-report_pass_rate-af15fe39",
-  "status": "awaiting_approval",
+  "status": "succeeded",
   "stop_reason": null,
   "sample_input": [
     {
@@ -29,19 +29,29 @@
     "skipped": 1,
     "pass_rate": 0.5
   },
-  "actual_after": null,
-  "actual_after_note": "Not computed: no approved, passing proposal yet.",
+  "actual_after": {
+    "passed": 2,
+    "failed": 1,
+    "skipped": 1,
+    "pass_rate": 0.6667
+  },
+  "actual_after_note": null,
   "baseline_tests": {
     "passed": 8,
     "tests": 21,
     "failures": 13,
     "errors": 0
   },
-  "after_tests": null,
+  "after_tests": {
+    "passed": 21,
+    "tests": 21,
+    "failures": 0,
+    "errors": 0
+  },
   "attempts": [
     {
       "attempt": 1,
-      "status": "awaiting_approval",
+      "status": "passed",
       "digest": "4389e85471b596354cc57cbf85cf701a36e5cafd92f35e09ba061e82ca3081d2",
       "generation_seconds": 4.54,
       "usage": {
@@ -52,13 +62,21 @@
         "completion_tokens": 337,
         "total_tokens": 2281
       },
-      "reviewer": null,
-      "reviewed_at": null,
-      "approval_wait_seconds": null,
+      "reviewer": "Jeff (approved in chat; command run by Claude)",
+      "reviewed_at": "2026-10-23T20:21:56.995836+00:00",
+      "approval_wait_seconds": 2887.205,
       "error": null
     }
   ],
-  "approval_events": [],
+  "approval_events": [
+    {
+      "at": "2026-10-23T20:21:56.996124+00:00",
+      "type": "approve",
+      "reviewer": "Jeff (approved in chat; command run by Claude)",
+      "digest": "4389e85471b596354cc57cbf85cf701a36e5cafd92f35e09ba061e82ca3081d2",
+      "attempt": 1
+    }
+  ],
   "contract": {
     "prompt_sha256": "afa3f06258ad64042d2fc75ee4cb8096529c7ab42c860031e97f646e401e8764",
     "policy_revision": 2,

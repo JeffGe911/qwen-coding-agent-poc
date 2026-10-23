@@ -1,16 +1,16 @@
 {
   "started_runs": 1,
-  "completed_evaluations": 0,
-  "succeeded": 0,
-  "first_attempt_successes": 0,
-  "success_rate_completed": null,
-  "success_rate_started": 0.0,
-  "first_attempt_rate_completed": null,
-  "first_attempt_rate_started": 0.0,
+  "completed_evaluations": 1,
+  "succeeded": 1,
+  "first_attempt_successes": 1,
+  "success_rate_completed": 1.0,
+  "success_rate_started": 1.0,
+  "first_attempt_rate_completed": 1.0,
+  "first_attempt_rate_started": 1.0,
   "categories": {
     "task_success": {
       "label": "任务成功",
-      "count": 0
+      "count": 1
     },
     "repair_failed": {
       "label": "修复失败",
@@ -18,7 +18,7 @@
     },
     "pending_approval": {
       "label": "待审批",
-      "count": 1
+      "count": 0
     },
     "policy_blocked": {
       "label": "策略拦截",
@@ -42,7 +42,7 @@
     "success_rate_completed": "已完成执行评测 = 任务成功 + 修复失败（只含经人工批准并真正跑完 pytest 的运行）"
   },
   "statuses": {
-    "awaiting_approval": 1
+    "succeeded": 1
   },
   "note": "One run is one task trial (up to 3 proposals). Framework/unit test pass rates are NOT model repair rates. Small samples only demonstrate the workflow.",
   "runs": [
@@ -88,10 +88,24 @@
             "completion_tokens": 337,
             "total_tokens": 2281
           },
-          "status": "awaiting_approval"
+          "status": "passed",
+          "reviewer": "Jeff (approved in chat; command run by Claude)",
+          "reviewed_at": "2026-10-23T20:21:56.995836+00:00",
+          "approval_wait_seconds": 2887.205,
+          "result": {
+            "exit_code": 0,
+            "tests": 21,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0,
+            "passed": 21,
+            "output": ".....................                                                    [100%]\n- generated xml file: C:\\Users\\Jeff1\\AppData\\Local\\Temp\\qwen-pytest-jvz4suj2\\results.xml -\n21 passed in 0.10s\n",
+            "visible_feedback": "",
+            "elapsed_seconds": 0.398
+          }
         }
       ],
-      "status": "awaiting_approval",
+      "status": "succeeded",
       "baseline": {
         "exit_code": 1,
         "tests": 21,
@@ -104,7 +118,7 @@
         "elapsed_seconds": 0.527
       },
       "feedback": "Visible test failures:\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\report-pass-rate\\runs\\20261023T193344Z-report_pass_rate-af15fe39\\workspace\\test_visible.py:19: in test_mixed_results\n    assert summarize_results(results) == {\"passed\": 2, \"failed\": 1, \"skipped\": 1, \"pass_rate\": 0.6667}\nE   AssertionError: assert {'failed': 1,... 'skipped': 1} == {'failed': 1,... 'skipped': 1}\nE     \nE     Omitting 3 identical items, use -vv to show\nE     Differing items:\nE     {'pass_rate': 0.5} != {'pass_rate': 0.6667}\nE     Use -v to get more diff\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\report-pass-rate\\runs\\20261023T193344Z-report_pass_rate-af15fe39\\workspace\\test_visible.py:39: in test_rounding_to_four_decimals\n    assert summarize_results(records(\"passed\", \"failed\", \"failed\"))[\"pass_rate\"] == 0.3333\nE   assert 0.3333333333333333 == 0.3333\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\report-pass-rate\\runs\\20261023T193344Z-report_pass_rate-af15fe39\\workspace\\test_visible.py:45: in test_unknown_status_raises_value_error\n    summarize_results(records(\"passed\", \"flaky\"))\nsolution.py:4: in summarize_results\n    ???\nE   KeyError: 'flaky'\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\report-pass-rate\\runs\\20261023T193344Z-report_pass_rate-af15fe39\\workspace\\test_visible.py:50: in test_missing_status_raises_value_error\n    summarize_results([{\"name\": \"login\", \"status\": \"passed\"}, {\"name\": \"no_status\"}])\nsolution.py:4: in summarize_results\n    ???\nE   KeyError: 'status'\nOther evaluation cases may also fail; follow the full requirement.",
-      "wall_seconds_first_to_last_event": 5.097
+      "wall_seconds_first_to_last_event": 2892.706
     }
   ]
 }

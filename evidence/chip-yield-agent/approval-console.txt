@@ -1,0 +1,5 @@
+command started 2026-10-23T20:22:04Z
+$ python -m qwen_agent decide evidence/chip-yield-agent/runs/20261023T200053Z-chip_final_yield-3d2bde61 approve --digest ef559867f6c1c1db51405b3ced7eefc8f0044ea91791efc1c440717b62c30046 --reviewer "Jeff (approved in chat; command run by Claude)"
+Run: evidence\chip-yield-agent\runs\20261023T200053Z-chip_final_yield-3d2bde61
+Status: policy_blocked
+exit_code=1

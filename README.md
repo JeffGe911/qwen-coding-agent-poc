@@ -13,9 +13,9 @@
 | 并发 1/2/4 与上下文 4K→8K→4K 测量 | 已实测（冒烟级） | 同上 |
 | 新任务 `report_pass_rate`：需求原文 + 21 个测试，在任何模型调用前冻结 | 已完成 | [任务目录](qwen_agent/tasks/report_pass_rate/) |
 | 首次盲测：修复前 pytest 8/21 失败基线、模型原始提案与差异 | 已实测 | [演示页](evidence/report-pass-rate/view/demo.html) |
-| **人工审批与修复后 pytest** | **待审批，未验证** | 见下方“审批” |
+| 人工审批与修复后 pytest（report_pass_rate） | Jeff 在对话中批准第一份提案；21/21 通过，含 12 个从未发给模型的 holdout；示例数据实际输出 0.5 → 0.6667 | [演示页](evidence/report-pass-rate/view/demo.html) |
 | 芯片数据分析（合成数据）：质量检查、良率/记录通过率、失败项目、异常集中、分布与趋势、版本与运行对比、日志提取、每日汇总、异常清单 | 已实测；SQL 交叉核对一致；手工小样本 18/18 一致 | [报告](evidence/chip-analysis/report.html) |
-| 芯片数据闭环任务 `chip_final_yield`：需求 + 22 个测试冻结；修复前 4/22；7B 首次盲测提案 | 已生成提案，**待审批，未验证** | [运行目录](evidence/chip-yield-agent/runs/) |
+| 芯片数据闭环任务 `chip_final_yield`：需求 + 22 个测试冻结；修复前 4/22；7B 首次盲测提案 | 提案 1 经 Jeff 批准执行：8/22，修复失败；提案 2、3 是无法解析的 Python，执行前被拦截；三次预算用完，**未修复成功** | [运行目录](evidence/chip-yield-agent/runs/) |
 | 本地 Qwen 解释分析结果 | 已实测；三版提示词均保留；人工复核发现错误，**不可直接采信** | [复核记录](evidence/chip-analysis/explanation_review.md) |
 | Docker 执行器 | **未验证**：本机没有 Docker/WSL；本次显式使用 restricted 模式 | — |
 | Linux + Docker + vLLM、两台服务器 | **未验证**：无服务器访问权限 | [deploy/](deploy/)、[scripts/env_check.sh](scripts/env_check.sh) |
@@ -70,25 +70,24 @@ powershell -ExecutionPolicy Bypass -File scripts\start_ollama.ps1
 
 ## 审批（必须由人完成）
 
-本次盲测停在待审批。审批人需要先看差异，再决定：
+### 本轮审批记录（2026-10-23）
+
+Jeff 在对话中批准了两份首次盲测提案，命令由 Claude 代为执行。审计事件里的 reviewer 写作 `Jeff (approved in chat; command run by Claude)`，控制台输出保存在 [report-pass-rate/approval-console.txt](evidence/report-pass-rate/approval-console.txt) 和 [chip-yield-agent/approval-console.txt](evidence/chip-yield-agent/approval-console.txt)。
+
+| 任务 | 批准的摘要 | 结果 |
+|---|---|---|
+| report_pass_rate | `4389e854…` | 21/21 通过，任务成功 |
+| chip_final_yield | `ef559867…` | 提案 1 为 8/22，修复失败；自动生成的提案 2 把关键字 `yield` 当变量赋值，提案 3 有未闭合的 f-string，两者都是无法解析的 Python，在执行前被拦截；三次预算用完，最终归入“策略拦截”，没有修复成功 |
+
+批准前，Claude 读代码后的备注是：chip_final_yield 提案 1 很可能通不过测试，因为它把 mV 行的上下限也除以了 1000，把冲突行当重复行忽略，没有取最大重测轮次，也没有保留四位小数。执行结果证实了这一判断。
+
+### 新运行如何审批
 
 ```powershell
-& $py -m qwen_agent show evidence\report-pass-rate\runs\20261023T193344Z-report_pass_rate-af15fe39
-& $py -m qwen_agent decide evidence\report-pass-rate\runs\20261023T193344Z-report_pass_rate-af15fe39 approve --digest 4389e85471b596354cc57cbf85cf701a36e5cafd92f35e09ba061e82ca3081d2 --reviewer 你的名字
-& $py scripts\render_test_summary_demo.py evidence\report-pass-rate\runs\20261023T193344Z-report_pass_rate-af15fe39 --output evidence\report-pass-rate\view
+& $py -m qwen_agent show <运行目录>
+& $py -m qwen_agent decide <运行目录> approve --digest <show 打印的完整摘要> --reviewer 你的名字
 & $py scripts\build_index.py
 ```
-
-芯片良率闭环任务的待审批运行：
-
-```powershell
-& $py -m qwen_agent show evidence\chip-yield-agent\runs\20261023T200053Z-chip_final_yield-3d2bde61
-& $py -m qwen_agent decide evidence\chip-yield-agent\runs\20261023T200053Z-chip_final_yield-3d2bde61 approve --digest ef559867f6c1c1db51405b3ced7eefc8f0044ea91791efc1c440717b62c30046 --reviewer 你的名字
-& $py -m qwen_agent report --runs evidence/chip-yield-agent/runs --output evidence/chip-yield-agent/summary
-& $py scripts\build_index.py
-```
-
-审阅者备注（Claude 阅读代码所得，未执行验证）：这份 chip_final_yield 提案很可能通不过测试。它把 mV 行的上下限也除以了 1000；把同轮次冲突行当作重复行忽略，而不是抛出 ValueError；没有取最大重测轮次；良率没有保留四位小数。批准会在 restricted 模式下运行测试，并把公开测试失败反馈给模型，生成第二个提案；拒绝则直接结束。由你决定。
 
 拒绝时把 `approve` 换成 `reject`。批准后若 pytest 失败，系统只把公开测试的失败信息反馈给模型，生成新提案后再次等待审批，最多三个提案。交互式用法是 `demo` 命令，需输入 `approve 完整摘要`，回车或 EOF 会保留待审批。系统没有自动批准开关。
 
@@ -157,7 +156,7 @@ powershell -ExecutionPolicy Bypass -File scripts\start_ollama.ps1
 - **可复现与核对**：生成器使用固定种子，输出逐字节可复现。关键指标再用 SQLite 独立计算一遍，与 Python 结果比对。另有 13 行手写样本，手算过程见 [HAND_CHECK.md](data/handcheck/HAND_CHECK.md)，程序结果 18/18 项一致。
 - **日常工程任务**：合并多文件并统一字段（含不同列名和 P/F/S 状态）、从日志提取失败项目（截断行单独列出）、每日汇总、两次运行的新增失败和已修复对比、按规则导出待复核清单。五项都已跑通。
 - **模型的角色**：本地 Qwen 只做两件事。一是把自然语言请求路由到固定命令，两条示例请求都路由正确。二是根据程序算好的 facts 写解释，并由程序检查证据键、数字来源以及数字与所述运行/批次是否对应。三版提示词的输出都保留；第三版仍把 R2/LOT-B01 的数字说成 R1/LOT-A02，还称“数据质量良好”。因此报告结论以程序计算为准，模型解释只作草稿。这个 7B 是代码模型，写分析结论不是它的强项。
-- **与 Coding Agent 闭环**：`chip_final_yield` 要求模型修复一个从 CSV 行计算最终良率的函数。测试覆盖正常数据、缺失值、重复记录、重测、单位不一致、空文件、冲突、边界和输入不变性，公开 11 个、holdout 11 个，在模型调用前冻结。模型只能改 `solution.py`，审批绑定测试快照摘要。当前待审批。
+- **与 Coding Agent 闭环**：`chip_final_yield` 要求模型修复一个从 CSV 行计算最终良率的函数。测试覆盖正常数据、缺失值、重复记录、重测、单位不一致、空文件、冲突、边界和输入不变性，公开 11 个、holdout 11 个，在模型调用前冻结。模型只能改 `solution.py`，审批绑定测试快照摘要。结果：7B 首次盲测没有修复成功，提案 1 执行后 8/22，后两份提案是无法解析的代码。这类较复杂的数据处理需求超出了本地 7B 模型的可靠范围，可以在服务器上用更大的模型重测同一冻结任务。
 - **数据不出本机**：模型 API 只接受 127.0.0.1。发给模型的是聚合后的 facts，不含原始行。没有遥测或外部分析服务。
 
 ## 两台服务器接入时

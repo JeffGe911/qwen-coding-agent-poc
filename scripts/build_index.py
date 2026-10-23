@@ -47,6 +47,20 @@ def table(header, rows):
     return f'<div class="wrap"><table><tr>{head}</tr>{body}</table></div>'
 
 
+def round_status():
+    """One line per blind task of this round, read from the run state files."""
+    parts = []
+    for rel in ("report-pass-rate/runs", "chip-yield-agent/runs"):
+        for path in sorted((EV / rel).glob("*/state.json")):
+            s = read_json(path)
+            steps = []
+            for a in s["attempts"]:
+                r = a.get("result")
+                steps.append(f"提案{a['attempt']} {a['status']}" + (f" {r['passed']}/{r['tests']}" if r else ""))
+            parts.append(f"{s['task']['id']} 最终 {s['status']}（{'，'.join(steps)}" + (f"，终止原因 {s['stop_reason']}" if s.get("stop_reason") else "") + "）")
+    return "；".join(parts)
+
+
 def chip_section():
     base = EV / "chip-analysis"
     if not (base / "analysis.json").exists():
@@ -143,7 +157,8 @@ def main():
     blind_line = "未运行"
     if blind_state:
         blind_line = {"awaiting_approval": "待人工审批：模型提案已生成并通过策略校验，代码尚未执行，修复后结果未验证。",
-                      "succeeded": "已人工批准并通过全部 21 个测试。"}.get(blind_state["status"], f"状态：{blind_state['status']}")
+                      "succeeded": "report_pass_rate 第一份提案经人工批准后通过全部 21 个测试（含 12 个从未发给模型的 holdout）。"}.get(blind_state["status"], f"状态：{blind_state['status']}")
+        blind_line += " 芯片闭环任务：" + round_status().split("；")[-1] + "。"
 
     doc = f'''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'"><title>Qwen Agent 本地实测</title><style>
 *{{box-sizing:border-box}}body{{margin:0;background:#101922;color:#e6edf3;font:15px system-ui;line-height:1.65}}main{{max-width:1180px;margin:auto;padding:28px 16px}}h1{{font-size:28px;margin:6px 0}}h2{{font-size:20px;margin-top:34px;border-bottom:1px solid #2d4352;padding-bottom:6px}}h3{{font-size:16px;margin:22px 0 4px}}p,li{{color:#b8c8d3}}a{{color:#80dfc0}}.cards{{display:flex;gap:10px;flex-wrap:wrap}}.card{{background:#1a2a38;border:1px solid #2d4352;border-radius:12px;padding:12px 16px;min-width:118px}}.card strong{{display:block;font-size:26px;color:#80dfc0}}.note{{background:#2a2418;border:1px solid #8a6a3a;border-radius:12px;padding:12px 16px}}.wrap{{overflow-x:auto}}table{{border-collapse:collapse;width:100%;font-size:13px}}td,th{{text-align:left;padding:7px;border-bottom:1px solid #304452;vertical-align:top;overflow-wrap:anywhere}}pre{{white-space:pre-wrap;overflow-wrap:anywhere;background:#0d151e;padding:12px;border-radius:10px;font:12px/1.55 ui-monospace,monospace}}small{{color:#8fa3b1}}
@@ -172,7 +187,7 @@ def main():
 
 {chip_section()}
 <h2>6. 未验证 / 未完成</h2><ul>
-<li>两个盲测提案（report_pass_rate、chip_final_yield）都尚未人工审批，修复后 pytest 和修复后程序输出均未验证。</li>
+<li>本轮两个盲测运行的当前状态：{esc(round_status())}。待审批的提案在批准前不执行，其修复后结果未验证。</li>
 <li>芯片数据分析只用了合成数据；没有真实数据，指标口径（良率、重测、异常）都是列出的假设，未经业务确认；不支持 xlsx（需要 openpyxl，可先另存为 CSV）。</li>
 <li>Docker 执行器（无网络、只读、非 root、资源限额）：本机未安装 Docker 和 WSL，<b>未验证</b>；本次使用显式选择的 restricted 模式，它不是操作系统级沙箱。</li>
 <li>Linux + Docker + vLLM 部署（deploy/compose.vllm.yaml）与两台服务器：没有服务器访问权限，<b>未验证</b>；scripts/env_check.sh 尚未在任何 Linux 主机执行。</li>

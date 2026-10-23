@@ -1,13 +1,18 @@
 <!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'"><title>本地 Qwen 修复通过率</title><style>
 *{box-sizing:border-box}body{margin:0;background:#101922;color:#edf3f7;font:15px system-ui;line-height:1.65}main{max-width:1120px;margin:auto;padding:32px 16px}.eyebrow{color:#80dfc0;letter-spacing:.12em;font-size:12px}h1{font-size:30px;line-height:1.3;margin:10px 0}h2{font-size:18px;margin-top:0}p,li{color:#b8c8d3}.badge{display:inline-block;padding:6px 14px;border:1px solid #426858;border-radius:20px;color:#80dfc0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}.card{background:#1a2a38;border:1px solid #2d4352;border-radius:14px;padding:20px;margin:16px 0}.warn{border-color:#8a6a3a}.number{font-size:40px;font-weight:750;color:#80dfc0}.old{color:#f4b18a}.muted{color:#7f93a1}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#0d151e;padding:14px;border-radius:10px;font:12.5px/1.6 ui-monospace,monospace}.wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13px}td,th{text-align:left;padding:7px;border-bottom:1px solid #334957}small{color:#a7bac7}details{margin:14px 0}summary{cursor:pointer;font-weight:600}@media(max-width:720px){.grid{grid-template-columns:1fr}h1{font-size:24px}}
-</style><main><div class="eyebrow">LOCAL QWEN · CODING AGENT · report_pass_rate</div><h1>本地 Qwen 修复测试报告通过率</h1><p>原程序把“跳过”的用例算进分母。本地 Qwen 只能返回一个完整的 solution.py；经人工审批后才在受限执行器中运行固定的 pytest。</p><span class="badge">等待人工审批 · 模型代码尚未执行</span><p><small>模型：qwen2.5-coder:7b · API：http://127.0.0.1:11437/v1（仅本机） · 执行器：restricted（受限 Python 演示模式，不是操作系统级沙箱）</small></p>
-<div class="grid"><section class="card"><h2>修复前 · 程序实际输出</h2><div class="number old">0.5</div><p>2 ÷ 4：跳过的用例被算进分母</p><small>基线 pytest：8 / 21 通过</small></section><section class="card"><h2>修复后 · 程序实际输出</h2><div class="number muted">未验证</div><p>尚无已批准且通过测试的代码，不计算、不填写期望值</p><small>修复后 pytest：尚未执行</small></section></div>
+</style><main><div class="eyebrow">LOCAL QWEN · CODING AGENT · report_pass_rate</div><h1>本地 Qwen 修复测试报告通过率</h1><p>原程序把“跳过”的用例算进分母。本地 Qwen 只能返回一个完整的 solution.py；经人工审批后才在受限执行器中运行固定的 pytest。</p><span class="badge">修复成功 · pytest 全部通过</span><p><small>模型：qwen2.5-coder:7b · API：http://127.0.0.1:11437/v1（仅本机） · 执行器：restricted（受限 Python 演示模式，不是操作系统级沙箱）</small></p>
+<div class="grid"><section class="card"><h2>修复前 · 程序实际输出</h2><div class="number old">0.5</div><p>2 ÷ 4：跳过的用例被算进分母</p><small>基线 pytest：8 / 21 通过</small></section><section class="card"><h2>修复后 · 程序实际输出</h2><div class="number">0.6667</div><p>2 ÷ (2 + 1)，由已批准代码在独立进程中真实计算</p><small>修复后 pytest：21 / 21</small></section></div>
 <div class="grid"><section class="card"><h2>示例输入（合成数据）</h2><table><tr><th>用例</th><th>status</th></tr><tr><td>login</td><td>passed</td></tr><tr><td>permissions</td><td>passed</td></tr><tr><td>export</td><td>failed</td></tr><tr><td>external_device</td><td>skipped</td></tr></table></section><section class="card"><h2>输出 JSON</h2><p><small>修复前（原程序真实输出）</small></p><pre>{
   &quot;passed&quot;: 2,
   &quot;failed&quot;: 1,
   &quot;skipped&quot;: 1,
   &quot;pass_rate&quot;: 0.5
-}</pre><p><small>修复后</small></p><pre>尚未批准并执行模型代码</pre></section></div>
+}</pre><p><small>修复后</small></p><pre>{
+  &quot;passed&quot;: 2,
+  &quot;failed&quot;: 1,
+  &quot;skipped&quot;: 1,
+  &quot;pass_rate&quot;: 0.6667
+}</pre></section></div>
 <section class="card"><h2>修复前 pytest 真实失败结果</h2><pre>FAILED ..\..\..\..\Documents\Codex\2026-10-23\qwen-coding-agent-poc-ollama-vllm\outputs\qwen-agent-poc\evidence\report-pass-rate\runs\20261023T193344Z-report_pass_rate-af15fe39\workspace\test_visible.py::test_mixed_results
 FAILED ..\..\..\..\Documents\Codex\2026-10-23\qwen-coding-agent-poc-ollama-vllm\outputs\qwen-agent-poc\evidence\report-pass-rate\runs\20261023T193344Z-report_pass_rate-af15fe39\workspace\test_visible.py::test_rounding_to_four_decimals
 FAILED ..\..\..\..\Documents\Codex\2026-10-23\qwen-coding-agent-poc-ollama-vllm\outputs\qwen-agent-poc\evidence\report-pass-rate\runs\20261023T193344Z-report_pass_rate-af15fe39\workspace\test_visible.py::test_unknown_status_raises_value_error
@@ -120,7 +125,7 @@ FAILED ..\..\..\..\Documents\Codex\2026-10-23\qwen-coding-agent-poc-ollama-vllm\
 FAILED ..\..\..\..\Documents\Codex\2026-10-23\qwen-coding-agent-poc-ollama-vllm\outputs\qwen-agent-poc\evidence\report-pass-rate\runs\20261023T193344Z-report_pass_rate-af15fe39\workspace\test_holdout.py::test_input_unchanged_even_when_raising
 13 failed, 8 passed in 0.17s
 </pre></details></section>
-<section class="card"><h2>提案与审批记录</h2><div class="wrap"><table><tr><th>提案</th><th>状态</th><th>生成耗时 s</th><th>提示/输出 tokens</th><th>审批摘要</th><th>reviewer</th><th>等待审批 s</th><th>pytest</th><th>原因</th></tr><tr><td>1</td><td>awaiting_approval</td><td>4.54</td><td>1944 / 337</td><td>4389e85471b59635…</td><td>未审批</td><td>-</td><td>未执行</td><td></td></tr></table></div><details open><summary>提案 1 · 模型原始代码差异（awaiting_approval）</summary><pre>--- before/solution.py
+<section class="card"><h2>提案与审批记录</h2><div class="wrap"><table><tr><th>提案</th><th>状态</th><th>生成耗时 s</th><th>提示/输出 tokens</th><th>审批摘要</th><th>reviewer</th><th>等待审批 s</th><th>pytest</th><th>原因</th></tr><tr><td>1</td><td>passed</td><td>4.54</td><td>1944 / 337</td><td>4389e85471b59635…</td><td>Jeff (approved in chat; command run by Claude)</td><td>2887.205</td><td>21/21 (0.398s)</td><td></td></tr></table></div><details open><summary>提案 1 · 模型原始代码差异（passed）</summary><pre>--- before/solution.py
 +++ after/solution.py
 @@ -1,6 +1,15 @@
  def summarize_results(results):
@@ -144,8 +149,10 @@ FAILED ..\..\..\..\Documents\Codex\2026-10-23\qwen-coding-agent-poc-ollama-vllm\
 1. Using `result.get(&quot;status&quot;)` to safely retrieve the status, raising a ValueError if the status is unknown.
 2. Calculating the total number of executed cases (`total_executed`) by summing `passed` and `failed`.
 3. Using `round` to ensure the pass rate is rounded to four decimal places.
-4. Handling the case where there are no executed cases by setting `pass_rate` to 0.0.</pre></details><h2>审批事件</h2><ul><li>暂无审批事件。</li></ul></section>
-<section class="card warn"><h2>下一步：人工审批</h2><p>审阅上面的差异后，在项目目录执行（批准只对这一份代码 + 测试快照 + 配置的摘要有效）：</p><pre>..\..\work\.venv\Scripts\python.exe -m qwen_agent decide "evidence\report-pass-rate\runs\20261023T193344Z-report_pass_rate-af15fe39" approve --digest 4389e85471b596354cc57cbf85cf701a36e5cafd92f35e09ba061e82ca3081d2 --reviewer 你的名字
-..\..\work\.venv\Scripts\python.exe scripts\render_test_summary_demo.py "evidence\report-pass-rate\runs\20261023T193344Z-report_pass_rate-af15fe39" --output evidence\report-pass-rate\view</pre><p>拒绝则把 approve 换成 reject。批准后若 pytest 失败，系统会把公开测试的失败信息反馈给模型并生成新提案，新提案需要重新审批。</p></section>
+4. Handling the case where there are no executed cases by setting `pass_rate` to 0.0.</pre></details><h2>审批事件</h2><ul><li>2026-10-23T20:21:56.996124+00:00 · approve · reviewer=Jeff (approved in chat; command run by Claude) · 提案 1 · 摘要 4389e85471b596354cc57cbf85cf701a36e5cafd92f35e09ba061e82ca3081d2</li></ul></section>
 
+<section class="card"><h2>修复后 pytest 输出</h2><pre>.....................                                                    [100%]
+- generated xml file: C:\Users\Jeff1\AppData\Local\Temp\qwen-pytest-jvz4suj2\results.xml -
+21 passed in 0.10s
+</pre></section>
 <p><small>本任务的需求原文与 21 个测试在任何模型调用之前写好并冻结（frozen.json 记录 SHA-256），这是该任务的首次盲测运行。<br>run_id：20261023T193344Z-report_pass_rate-af15fe39 · 终止原因：-<br>契约摘要（提示词/策略/任务文件）：{&quot;prompt_sha256&quot;: &quot;afa3f06258ad64042d2fc75ee4cb8096529c7ab42c860031e97f646e401e8764&quot;, &quot;policy_revision&quot;: 2, &quot;policy_sha256&quot;: &quot;98f066638f7285c342b9c36872d49967449c624d34e27d58e6c7adff497bb7db&quot;, &quot;task_files_sha256&quot;: {&quot;solution.py&quot;: &quot;31c3fdaf01017ac7838533b2876f55e1a20c6dc4203aafd140eef66f8729547f&quot;, &quot;test_visible.py&quot;: &quot;317343b157e692fdc3bd0239d26dd7714c623725510973096d395c3d04a30e1a&quot;, &quot;test_holdout.py&quot;: &quot;4273736a10f3e996c4d8c0972e028dfe88ce2e390135c005b1c436c3ba20376f&quot;, &quot;task.json&quot;: &quot;ac36e35de82c6c9f804f3611024fbf7820abab99dee1d867463d0b23f70351d7&quot;}}</small></p></main></html>
