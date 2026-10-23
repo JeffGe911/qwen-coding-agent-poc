@@ -1,0 +1,4 @@
+{"at": "2026-10-23T18:19:15.738813+00:00", "type": "created", "task": "normalize_names", "sandbox": "restricted"}
+{"at": "2026-10-23T18:19:17.320269+00:00", "type": "policy_blocked", "attempt": 1, "digest": "9a48d770e11e275d87a6154fe47ab94d2e2467ed8981a9f023cae75dd7ce8d89", "error": "Forbidden attribute: add"}
+{"at": "2026-10-23T18:21:55.223903+00:00", "type": "policy_blocked", "attempt": 2, "digest": "f93fd890dbd19ae0896c3c78a9d4484dcba8feb7185069014eb2a0ebdcda1c88", "error": "Forbidden attribute: add"}
+{"at": "2026-10-23T18:24:21.796335+00:00", "type": "policy_blocked", "attempt": 3, "digest": "b86efb59c4e0c810d995328fd56d97fd43f71a51cb251560c3dde3cde09e34f1", "error": "Forbidden attribute: add"}

@@ -1,0 +1,75 @@
+{
+  "run_id": "20261023T181915Z-normalize_names-2f0b01a1",
+  "created_at": "2026-10-23T18:19:15.736863+00:00",
+  "task": {
+    "id": "normalize_names",
+    "description": "Fix normalize_names(names). Given a list of strings, trim whitespace and lowercase each string, discard empty normalized names, and remove duplicates while preserving first occurrence order. Return a new list without mutating the input. Keep the function signature unchanged."
+  },
+  "config": {
+    "base_url": "http://127.0.0.1:11435/v1",
+    "model": "qwen2.5-coder:1.5b",
+    "sandbox": "restricted",
+    "max_attempts": 3,
+    "timeout_seconds": 20
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "digest": "9a48d770e11e275d87a6154fe47ab94d2e2467ed8981a9f023cae75dd7ce8d89",
+      "generation_seconds": 0.901,
+      "usage": {
+        "prompt_tokens": 732,
+        "prompt_tokens_details": {
+          "cached_tokens": 127
+        },
+        "completion_tokens": 161,
+        "total_tokens": 893
+      },
+      "status": "policy_blocked",
+      "error": "Forbidden attribute: add"
+    },
+    {
+      "attempt": 2,
+      "digest": "f93fd890dbd19ae0896c3c78a9d4484dcba8feb7185069014eb2a0ebdcda1c88",
+      "generation_seconds": 0.963,
+      "usage": {
+        "prompt_tokens": 756,
+        "prompt_tokens_details": {
+          "cached_tokens": 725
+        },
+        "completion_tokens": 162,
+        "total_tokens": 918
+      },
+      "status": "policy_blocked",
+      "error": "Forbidden attribute: add"
+    },
+    {
+      "attempt": 3,
+      "digest": "b86efb59c4e0c810d995328fd56d97fd43f71a51cb251560c3dde3cde09e34f1",
+      "generation_seconds": 0.979,
+      "usage": {
+        "prompt_tokens": 780,
+        "prompt_tokens_details": {
+          "cached_tokens": 749
+        },
+        "completion_tokens": 155,
+        "total_tokens": 935
+      },
+      "status": "policy_blocked",
+      "error": "Forbidden attribute: add"
+    }
+  ],
+  "status": "policy_blocked",
+  "baseline": {
+    "exit_code": 1,
+    "tests": 6,
+    "failures": 5,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 1,
+    "output": "F.FFFF                                                                   [100%]\n================================== FAILURES ===================================\n_________________________ test_clean_and_deduplicate __________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_visible.py:5: in test_clean_and_deduplicate\n    assert normalize_names([\" Alice \", \"BOB\", \"alice\", \"\", \"  \"]) == [\"alice\", \"bob\"]\nE   AssertionError: assert [' Alice ', '...ce', '', '  '] == ['alice', 'bob']\nE     \nE     At index 0 diff: ' Alice ' != 'alice'\nE     Left contains 3 more items, first extra item: 'alice'\nE     Use -v to get more diff\n____________________________ test_input_unchanged _____________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_visible.py:14: in test_input_unchanged\n    assert normalize_names(source) == [\"z\", \"a\"]\nE   AssertionError: assert [' Z ', 'A', 'z'] == ['z', 'a']\nE     \nE     At index 0 diff: ' Z ' != 'z'\nE     Left contains one more item: 'z'\nE     Use -v to get more diff\n________________________________ test_unicode _________________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_holdout.py:5: in test_unicode\n    assert normalize_names([\" ÉVA \", \"éva\", \" 张三 \"]) == [\"éva\", \"张三\"]\nE   AssertionError: assert [' ÉVA ', 'éva', ' 张三 '] == ['éva', '张三']\nE     \nE     At index 0 diff: ' ÉVA ' != 'éva'\nE     Left contains one more item: ' 张三 '\nE     Use -v to get more diff\n________________________ test_order_and_separate_list _________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_holdout.py:11: in test_order_and_separate_list\n    assert result == [\"b\", \"a\", \"c\"]\nE   AssertionError: assert ['b', 'a', 'b', 'c', 'a'] == ['b', 'a', 'c']\nE     \nE     At index 2 diff: 'b' != 'c'\nE     Left contains 2 more items, first extra item: 'c'\nE     Use -v to get more diff\n_______________________________ test_whitespace _______________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_holdout.py:16: in test_whitespace\n    assert normalize_names([\"\\t\", \"\\n\", \" A\\t\", \"a\"]) == [\"a\"]\nE   AssertionError: assert ['\\t', '\\n', ' A\\t', 'a'] == ['a']\nE     \nE     At index 0 diff: '\\t' != 'a'\nE     Left contains 3 more items, first extra item: '\\n'\nE     Use -v to get more diff\n- generated xml file: C:\\Users\\Jeff1\\AppData\\Local\\Temp\\qwen-pytest-rn9k4145\\results.xml -\n=========================== short test summary info ===========================\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_visible.py::test_clean_and_deduplicate\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_visible.py::test_input_unchanged\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_holdout.py::test_unicode\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_holdout.py::test_order_and_separate_list\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_holdout.py::test_whitespace\n5 failed, 1 passed in 0.20s\n",
+    "visible_feedback": "..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_visible.py:5: in test_clean_and_deduplicate\n    assert normalize_names([\" Alice \", \"BOB\", \"alice\", \"\", \"  \"]) == [\"alice\", \"bob\"]\nE   AssertionError: assert [' Alice ', '...ce', '', '  '] == ['alice', 'bob']\nE     \nE     At index 0 diff: ' Alice ' != 'alice'\nE     Left contains 3 more items, first extra item: 'alice'\nE     Use -v to get more diff\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_visible.py:14: in test_input_unchanged\n    assert normalize_names(source) == [\"z\", \"a\"]\nE   AssertionError: assert [' Z ', 'A', 'z'] == ['z', 'a']\nE     \nE     At index 0 diff: ' Z ' != 'z'\nE     Left contains one more item: 'z'\nE     Use -v to get more diff",
+    "elapsed_seconds": 0.653
+  },
+  "feedback": "Visible test failures:\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_visible.py:5: in test_clean_and_deduplicate\n    assert normalize_names([\" Alice \", \"BOB\", \"alice\", \"\", \"  \"]) == [\"alice\", \"bob\"]\nE   AssertionError: assert [' Alice ', '...ce', '', '  '] == ['alice', 'bob']\nE     \nE     At index 0 diff: ' Alice ' != 'alice'\nE     Left contains 3 more items, first extra item: 'alice'\nE     Use -v to get more diff\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_visible.py:14: in test_input_unchanged\n    assert normalize_names(source) == [\"z\", \"a\"]\nE   AssertionError: assert [' Z ', 'A', 'z'] == ['z', 'a']\nE     \nE     At index 0 diff: ' Z ' != 'z'\nE     Left contains one more item: 'z'\nE     Use -v to get more diff\nOther evaluation cases may also fail; follow the full requirement.\nPrevious proposal rejected before execution: Forbidden attribute: add. Use simple loops and list.append; define all local variables.\nPrevious proposal rejected before execution: Forbidden attribute: add. Use simple loops and list.append; define all local variables."
+}

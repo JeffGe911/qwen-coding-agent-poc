@@ -1,0 +1,7 @@
+{
+  "id": "chip_final_yield",
+  "revision": 1,
+  "blind": true,
+  "provenance": "Written 2026-10-23 for the chip data-analysis scenario. Requirement and tests frozen (frozen.json) before any model call for this task. SYNTHETIC field layout, not a real company schema.",
+  "description": "业务场景：芯片测试数据从 CSV 导出后要计算最终良率。现有函数 summarize_chip_yield(rows, required_items) 有缺陷，需要修复。\n\n需求：\n1. rows 是从 CSV 读出的字典列表，每行代表一颗芯片一个测试项目的一次测量。所有值都是字符串，字段为 chip_id、test_item、value、unit、lower、upper、retest。required_items 是必测项目名称列表。\n2. 完全相同的重复行（所有字段都相同）只计一次，被忽略的行数记入 duplicates_ignored。\n3. 同一 chip_id 和 test_item 有多次测量时，以 retest 数值最大的那次为最终结果，retest 按整数比较。同一 chip_id、test_item、retest 出现内容不同的两行时，抛出 ValueError。\n4. unit 只能是 \"V\" 或 \"mV\"。lower 和 upper 的单位始终是 V；unit 为 \"mV\" 时，value 先除以 1000 再比较。出现其他单位时抛出 ValueError。\n5. 最终结果的 value 为空字符串时视为缺失：该测量判为不通过，并计入 missing_values。\n6. 测量通过的条件是 lower <= value <= upper（含边界）。\n7. 芯片通过的条件是 required_items 中每一项都有最终结果且全部通过；缺少任一必测项目的芯片判为不通过。\n8. 返回字典，恰好包含 chips（出现过的芯片数）、passed_chips、yield（passed_chips / chips，保留四位小数；没有芯片时为 0.0）、failed_chip_ids（升序列表）、duplicates_ignored、missing_values。\n9. 空输入（空文件）返回 chips 为 0、passed_chips 为 0、yield 为 0.0、failed_chip_ids 为空列表、duplicates_ignored 为 0、missing_values 为 0。\n10. 不修改输入数据。"
+}

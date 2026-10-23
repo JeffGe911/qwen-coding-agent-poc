@@ -1,0 +1,188 @@
+{
+  "data_label": "合成数据",
+  "rows": {
+    "input": 1629,
+    "after_dedup": 1623,
+    "empty_files": [
+      "R2_empty.csv"
+    ]
+  },
+  "quality_counts": {
+    "unit_converted": 80,
+    "limit_mismatch": 80,
+    "incomplete_chip": 10,
+    "duplicate_row": 6,
+    "missing_value": 3,
+    "conflicting_measurement": 2,
+    "status_inconsistent": 2,
+    "implausible_value": 2,
+    "empty_file": 1,
+    "missing_status": 1
+  },
+  "record_pass_rate_by_lot": [
+    {
+      "run_id": "R1",
+      "lot_id": "LOT-A01",
+      "pass_rows": 397,
+      "fail_rows": 3,
+      "record_pass_rate": 0.9925
+    },
+    {
+      "run_id": "R1",
+      "lot_id": "LOT-A02",
+      "pass_rows": 392,
+      "fail_rows": 21,
+      "record_pass_rate": 0.9492
+    },
+    {
+      "run_id": "R2",
+      "lot_id": "LOT-A02",
+      "pass_rows": 395,
+      "fail_rows": 13,
+      "record_pass_rate": 0.9681
+    },
+    {
+      "run_id": "R2",
+      "lot_id": "LOT-B01",
+      "pass_rows": 389,
+      "fail_rows": 4,
+      "record_pass_rate": 0.9898
+    }
+  ],
+  "yield_by_lot": [
+    {
+      "run_id": "R1",
+      "lot_id": "LOT-A01",
+      "chips": 80,
+      "pass": 77,
+      "fail": 3,
+      "incomplete": 0,
+      "yield_all": 0.9625,
+      "yield_complete_only": 0.9625,
+      "first_pass_yield_all": 0.9625
+    },
+    {
+      "run_id": "R1",
+      "lot_id": "LOT-A02",
+      "chips": 80,
+      "pass": 72,
+      "fail": 8,
+      "incomplete": 0,
+      "yield_all": 0.9,
+      "yield_complete_only": 0.9,
+      "first_pass_yield_all": 0.8375
+    },
+    {
+      "run_id": "R2",
+      "lot_id": "LOT-A02",
+      "chips": 80,
+      "pass": 75,
+      "fail": 5,
+      "incomplete": 0,
+      "yield_all": 0.9375,
+      "yield_complete_only": 0.9375,
+      "first_pass_yield_all": 0.9
+    },
+    {
+      "run_id": "R2",
+      "lot_id": "LOT-B01",
+      "chips": 80,
+      "pass": 67,
+      "fail": 3,
+      "incomplete": 10,
+      "yield_all": 0.8375,
+      "yield_complete_only": 0.9571,
+      "first_pass_yield_all": 0.8375
+    }
+  ],
+  "top_items": [
+    {
+      "rank": 1,
+      "test_item": "IDDQ",
+      "final_fail_chips": 13,
+      "final_fail_rate": 0.0406
+    },
+    {
+      "rank": 2,
+      "test_item": "TEMP_OFFSET",
+      "final_fail_chips": 3,
+      "final_fail_rate": 0.0094
+    },
+    {
+      "rank": 3,
+      "test_item": "LEAK",
+      "final_fail_chips": 2,
+      "final_fail_rate": 0.0063
+    },
+    {
+      "rank": 4,
+      "test_item": "FMAX",
+      "final_fail_chips": 1,
+      "final_fail_rate": 0.0032
+    },
+    {
+      "rank": 5,
+      "test_item": "VREF",
+      "final_fail_chips": 0,
+      "final_fail_rate": 0.0
+    }
+  ],
+  "concentration_wafer": [
+    {
+      "run_id": "R1",
+      "lot_id": "LOT-A02",
+      "wafer_id": "W02",
+      "test_item": "IDDQ",
+      "fail_chips": 8,
+      "valid_chips": 40,
+      "fail_rate": 0.2,
+      "rest_fail_rate": 0.0179,
+      "ratio_vs_rest": 11.17
+    }
+  ],
+  "assumption_ids": [
+    "A1 记录口径：测试记录通过率 = PASS 行数 / (PASS + FAIL 行数",
+    "A2 最终结果：同一 运行+芯片+项目 取重测轮次最大的那一行；若该轮次存在内容冲突的",
+    "A3 判定依据：使用测试机记录的状态（status）。状态与上下限不一致的行在质量检查",
+    "A4 芯片通过：items.json 中每个必测项目在该运行中都有最终 PASS。任一",
+    "A5 良率给出两个分母：良率(全部) = PASS 芯片 / 全部芯片（INCOMPL",
+    "A6 不同运行分开统计。R2 对 LOT-A02 的复测不与 R1 合并成一个良率，而",
+    "A7 上下限以每行自带的上下限为准（测试机就是这样判定的）；不同文件上下限不一致时在质",
+    "A8 分布与趋势只用首测（轮次 0）、数值有效、未被判为不可信或冲突的值，避免重测样本",
+    "A9 异常集中判定（启发式，不是统计检验）：某批次/晶圆在某项目上最终 FAIL 芯片",
+    "A10 相关不等于因果：报告中的差异只描述数据，不推断芯片失效根因。"
+  ],
+  "version_compare": {
+    "a": {
+      "run_id": "R1",
+      "lot_id": "LOT-A02"
+    },
+    "b": {
+      "run_id": "R2",
+      "lot_id": "LOT-A02"
+    },
+    "programs": {
+      "R1": [
+        "TP-1.4"
+      ],
+      "R2": [
+        "TP-1.5"
+      ]
+    },
+    "paired_mean_diff_b_minus_a": {
+      "VREF": 6e-05,
+      "IDDQ": -0.27379,
+      "LEAK": -0.0056,
+      "FMAX": -1.16125,
+      "TEMP_OFFSET": -0.02112
+    }
+  },
+  "run_diff": {
+    "base_run": "R1",
+    "new_run": "R2",
+    "counts": {
+      "new_failure": 1,
+      "fixed": 4
+    }
+  }
+}

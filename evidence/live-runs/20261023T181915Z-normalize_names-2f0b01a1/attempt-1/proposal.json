@@ -1,0 +1,6 @@
+{
+  "code": "def normalize_names(names):\n    return [name.strip().lower() for name in names if name.strip() and name not in seen and seen.add(name)]",
+  "explanation": "The function `normalize_names` takes a list of strings as input. It uses a list comprehension to iterate over each name in the input list. For each name, it first trims any leading or trailing whitespace using the `strip()` method. Then, it converts the name to lowercase using the `lower()` method. The function checks if the name is not empty and not already in the `seen` set. If the name passes these checks, it is added to the `seen` set and included in the output list. The output list is returned without mutating the input list.",
+  "attempt": 1,
+  "digest": "9a48d770e11e275d87a6154fe47ab94d2e2467ed8981a9f023cae75dd7ce8d89"
+}

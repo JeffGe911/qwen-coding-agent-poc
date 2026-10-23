@@ -1,0 +1,88 @@
+{
+  "rows_input": {
+    "expected": 13,
+    "actual": 13
+  },
+  "rows_after_dedup": {
+    "expected": 12,
+    "actual": 12
+  },
+  "record_pass_rate": {
+    "expected": 0.6364,
+    "actual": 0.6364
+  },
+  "chips": {
+    "expected": 5,
+    "actual": 5
+  },
+  "chips_pass": {
+    "expected": 2,
+    "actual": 2
+  },
+  "chips_fail": {
+    "expected": 2,
+    "actual": 2
+  },
+  "chips_incomplete": {
+    "expected": 1,
+    "actual": 1
+  },
+  "yield_all": {
+    "expected": 0.4,
+    "actual": 0.4
+  },
+  "yield_complete_only": {
+    "expected": 0.5,
+    "actual": 0.5
+  },
+  "first_pass_yield_all": {
+    "expected": 0.2,
+    "actual": 0.2
+  },
+  "IDDQ_final_fail_chips": {
+    "expected": 2,
+    "actual": 2
+  },
+  "IDDQ_fail_rows": {
+    "expected": 3,
+    "actual": 3
+  },
+  "VREF_final_fail_chips": {
+    "expected": 0,
+    "actual": 0
+  },
+  "VREF_fail_rows": {
+    "expected": 1,
+    "actual": 1
+  },
+  "duplicate_row_lines": {
+    "expected": [
+      10
+    ],
+    "actual": [
+      10
+    ]
+  },
+  "missing_value_lines": {
+    "expected": [
+      12
+    ],
+    "actual": [
+      12
+    ]
+  },
+  "unit_converted_lines": {
+    "expected": [
+      4,
+      6
+    ],
+    "actual": [
+      4,
+      6
+    ]
+  },
+  "status_inconsistent_lines": {
+    "expected": [],
+    "actual": []
+  }
+}

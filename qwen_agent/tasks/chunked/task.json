@@ -1,0 +1,1 @@
+{"id":"chunked","description":"Implement chunked(items, size). Split a list into consecutive new lists with at most size elements; preserve order and keep the final short chunk. Empty input returns []. Raise ValueError when size is not a positive integer, including bool, float, string and None. Do not mutate items. Keep the function signature unchanged."}

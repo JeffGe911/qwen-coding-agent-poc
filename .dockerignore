@@ -1,0 +1,9 @@
+evidence
+runs
+tests
+tasks
+.venv
+__pycache__
+deploy/.env
+*.key
+*.pem

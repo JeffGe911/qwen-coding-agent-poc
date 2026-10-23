@@ -1,0 +1,5 @@
+run_id,lot_id,pass_rows,fail_rows,skip_rows,no_status_rows,record_pass_rate
+R1,LOT-A01,397,3,0,0,0.9925
+R1,LOT-A02,392,21,0,0,0.9492
+R2,LOT-A02,395,13,0,0,0.9681
+R2,LOT-B01,389,4,8,1,0.9898

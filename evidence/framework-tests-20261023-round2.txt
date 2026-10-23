@@ -1,0 +1,127 @@
+........................................................................ [ 82%]
+...............                                                          [100%]
+=================================== PASSES ====================================
+_______________________ test_demo_enter_leaves_pending ________________________
+---------------------------- Captured stdout call -----------------------------
+Run: C:\Users\Jeff1\AppData\Local\Temp\pytest-of-Jeff1\pytest-7\test_demo_enter_leaves_pending0\20261023T200507Z-clamp-5f286afa
+Status: awaiting_approval
+--- before/solution.py
++++ after/solution.py
+@@ -1,2 +1,4 @@
+ def clamp(value, lower, upper):
+-    return value
++    if lower > upper:
++        raise ValueError('invalid bounds')
++    return min(max(value, lower), upper)
+
+Explanation: test fixture, not a live Qwen result
+Approval digest: 9502aa8b3b5dae8cbc59e4c7390f404fd4ef47a2a6304d23704513d264612f41
+Human review: python -m qwen_agent decide "C:\Users\Jeff1\AppData\Local\Temp\pytest-of-Jeff1\pytest-7\test_demo_enter_leaves_pending0\20261023T200507Z-clamp-5f286afa" approve --digest 9502aa8b3b5dae8cbc59e4c7390f404fd4ef47a2a6304d23704513d264612f41 --reviewer YOUR_NAME
+Left pending; no execution.
+________________________ test_demo_eof_leaves_pending _________________________
+---------------------------- Captured stdout call -----------------------------
+Run: C:\Users\Jeff1\AppData\Local\Temp\pytest-of-Jeff1\pytest-7\test_demo_eof_leaves_pending0\20261023T200508Z-clamp-c6ca180e
+Status: awaiting_approval
+--- before/solution.py
++++ after/solution.py
+@@ -1,2 +1,4 @@
+ def clamp(value, lower, upper):
+-    return value
++    if lower > upper:
++        raise ValueError('invalid bounds')
++    return min(max(value, lower), upper)
+
+Explanation: test fixture, not a live Qwen result
+Approval digest: 6ccb923e662bc04090011f51a9c27e637ad07ba415d846e3319e11649f79dc79
+Human review: python -m qwen_agent decide "C:\Users\Jeff1\AppData\Local\Temp\pytest-of-Jeff1\pytest-7\test_demo_eof_leaves_pending0\20261023T200508Z-clamp-c6ca180e" approve --digest 6ccb923e662bc04090011f51a9c27e637ad07ba415d846e3319e11649f79dc79 --reviewer YOUR_NAME
+
+Left pending; no execution.
+=========================== short test summary info ===========================
+PASSED tests/test_chip_analysis.py::test_hand_check_sample_matches_manual_arithmetic
+PASSED tests/test_chip_analysis.py::test_generator_is_deterministic
+PASSED tests/test_chip_analysis.py::test_every_injected_issue_with_a_line_is_detected
+PASSED tests/test_chip_analysis.py::test_column_aliases_and_units_are_normalized
+PASSED tests/test_chip_analysis.py::test_review_rows_trace_back_to_the_original_line
+PASSED tests/test_chip_analysis.py::test_sql_and_python_agree
+PASSED tests/test_chip_analysis.py::test_record_rate_and_chip_yield_are_different_metrics
+PASSED tests/test_chip_analysis.py::test_concentration_flags_the_shifted_wafer_only
+PASSED tests/test_chip_analysis.py::test_log_extraction_and_malformed_line
+PASSED tests/test_chip_analysis.py::test_run_comparison_on_shared_lot
+PASSED tests/test_chip_analysis.py::test_directory_with_only_an_empty_file
+PASSED tests/test_chip_analysis.py::test_explanation_checks_catch_misattribution_missing_keys_and_no_numbers
+PASSED tests/test_chip_analysis.py::test_route_rejects_commands_outside_the_allowlist
+PASSED tests/test_chip_analysis.py::test_assist_refuses_non_loopback_endpoints
+PASSED tests/test_cli.py::test_demo_enter_leaves_pending
+PASSED tests/test_cli.py::test_demo_eof_leaves_pending
+PASSED tests/test_client.py::test_remote_or_ambiguous_endpoint_rejected[http://example.com/v1]
+PASSED tests/test_client.py::test_remote_or_ambiguous_endpoint_rejected[http://127.0.0.1.evil.com/v1]
+PASSED tests/test_client.py::test_remote_or_ambiguous_endpoint_rejected[http://0.0.0.0:8000/v1]
+PASSED tests/test_client.py::test_remote_or_ambiguous_endpoint_rejected[file:///v1]
+PASSED tests/test_client.py::test_remote_or_ambiguous_endpoint_rejected[http://u:p@localhost/v1]
+PASSED tests/test_client.py::test_remote_or_ambiguous_endpoint_rejected[http://localhost/v1?url=evil]
+PASSED tests/test_client.py::test_remote_or_ambiguous_endpoint_rejected[http://localhost/other]
+PASSED tests/test_client.py::test_remote_or_ambiguous_endpoint_rejected[http://localhost/v1#x]
+PASSED tests/test_client.py::test_loopback_endpoint[http://127.0.0.1:11434/v1]
+PASSED tests/test_client.py::test_loopback_endpoint[http://localhost:8000/v1/]
+PASSED tests/test_client.py::test_loopback_endpoint[http://[::1]:8000/v1]
+PASSED tests/test_client.py::test_redirects_rejected
+PASSED tests/test_client.py::test_client_schema_and_payload_exclude_holdout
+PASSED tests/test_frozen_chip_task.py::test_task_files_match_frozen_digests
+PASSED tests/test_frozen_chip_task.py::test_buggy_original_is_policy_valid_and_fails_baseline
+PASSED tests/test_frozen_chip_task.py::test_reference_solution_passes_everything
+PASSED tests/test_frozen_task.py::test_task_files_match_frozen_digests
+PASSED tests/test_frozen_task.py::test_original_code_fails_baseline
+PASSED tests/test_frozen_task.py::test_reference_solution_passes_everything
+PASSED tests/test_frozen_task.py::test_holdout_is_not_in_model_prompt
+PASSED tests/test_gateway.py::test_auth_routes_health_metrics
+PASSED tests/test_gateway.py::test_upstream_failure_is_closed
+PASSED tests/test_gateway.py::test_oversize_body_and_streaming_rejected
+PASSED tests/test_gateway.py::test_missing_key_cannot_start
+PASSED tests/test_policy.py::test_dangerous_syntax_blocked[import os]
+PASSED tests/test_policy.py::test_dangerous_syntax_blocked[def f():\n import socket]
+PASSED tests/test_policy.py::test_dangerous_syntax_blocked[def f():\n return open('x')]
+PASSED tests/test_policy.py::test_dangerous_syntax_blocked[def f():\n return eval('1')]
+PASSED tests/test_policy.py::test_dangerous_syntax_blocked[def f():\n return exec('x=1')]
+PASSED tests/test_policy.py::test_dangerous_syntax_blocked[def f(x):\n return x.__class__]
+PASSED tests/test_policy.py::test_dangerous_syntax_blocked[def f():\n return globals()]
+PASSED tests/test_policy.py::test_dangerous_syntax_blocked[def f():\n return __import__('os')]
+PASSED tests/test_policy.py::test_dangerous_syntax_blocked[def f():\n return getattr(str, 'x')]
+PASSED tests/test_policy.py::test_dangerous_syntax_blocked[def f():\n while True: pass]
+PASSED tests/test_policy.py::test_dangerous_syntax_blocked[class X: pass]
+PASSED tests/test_policy.py::test_dangerous_syntax_blocked[x = 1]
+PASSED tests/test_policy.py::test_dangerous_syntax_blocked[@print\ndef f():\n return 1]
+PASSED tests/test_policy.py::test_dangerous_syntax_blocked[def f(x=open('x')):\n return x]
+PASSED tests/test_policy.py::test_dangerous_syntax_blocked[def f(x: open('x')):\n return x]
+PASSED tests/test_policy.py::test_dangerous_syntax_blocked[def f():\n return (lambda: 1)()]
+PASSED tests/test_policy.py::test_dangerous_syntax_blocked[def f(x):\n return x.format()]
+PASSED tests/test_policy.py::test_dangerous_syntax_blocked[def f(x):\n return x[0]()]
+PASSED tests/test_policy.py::test_dangerous_syntax_blocked[def f():\n return 2 ** 999999999]
+PASSED tests/test_policy.py::test_dangerous_syntax_blocked[def f():\n return print('x')]
+PASSED tests/test_policy.py::test_dangerous_syntax_blocked[def f():\n break]
+PASSED tests/test_policy.py::test_safe_code_runs_with_restricted_builtins
+PASSED tests/test_policy.py::test_size_limit
+PASSED tests/test_policy.py::test_revision2_try_except_keyerror_is_allowed_and_runs
+PASSED tests/test_policy.py::test_revision2_still_blocks_reflection_and_format[def f(x):\n    try:\n        return x\n    except KeyError:\n        return x.__class__]
+PASSED tests/test_policy.py::test_revision2_still_blocks_reflection_and_format[def f(x):\n    return '{0.__class__}'.format(x)]
+PASSED tests/test_policy.py::test_revision2_still_blocks_reflection_and_format[def f():\n    try:\n        pass\n    except* KeyError:\n        pass]
+PASSED tests/test_report.py::test_denominators_and_zero_completed
+PASSED tests/test_report.py::test_report_escapes_model_output
+PASSED tests/test_report.py::test_every_status_lands_in_exactly_one_category
+PASSED tests/test_workflow.py::test_real_pytest_baseline_then_approved_repair
+PASSED tests/test_workflow.py::test_reject_never_executes
+PASSED tests/test_workflow.py::test_tampering_invalidates_approval[proposal]
+PASSED tests/test_workflow.py::test_tampering_invalidates_approval[test]
+PASSED tests/test_workflow.py::test_tampering_invalidates_approval[config]
+PASSED tests/test_workflow.py::test_tampering_invalidates_approval[digest]
+PASSED tests/test_workflow.py::test_retry_requires_new_approval_and_budget_is_enforced
+PASSED tests/test_workflow.py::test_policy_blocked_code_cannot_be_approved
+PASSED tests/test_workflow.py::test_worker_timeout
+PASSED tests/test_workflow.py::test_unknown_task_and_concurrent_lock
+PASSED tests/test_workflow.py::test_unchanged_code_finishes_without_execution
+PASSED tests/test_workflow.py::test_policy_block_auto_reproposes_with_feedback_and_needs_approval
+PASSED tests/test_workflow.py::test_model_error_manual_retry_gets_new_pending_proposal
+PASSED tests/test_workflow.py::test_repeated_blocked_proposal_stops_without_spending_budget
+PASSED tests/test_workflow.py::test_repeating_an_earlier_failed_proposal_stops
+PASSED tests/test_workflow.py::test_contract_is_recorded_and_bound_into_approval
+PASSED tests/test_workflow.py::test_candidate_missing_api_is_model_failure_not_infrastructure
+87 passed in 18.17s

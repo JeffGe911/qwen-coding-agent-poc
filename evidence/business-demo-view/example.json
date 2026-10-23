@@ -1,0 +1,51 @@
+{
+  "task": "test_summary",
+  "model": "qwen2.5-coder:7b",
+  "run_id": "20261023T184855Z-test_summary-036f2d1b",
+  "status": "succeeded",
+  "sample_input": [
+    {
+      "name": "login",
+      "status": "passed"
+    },
+    {
+      "name": "permissions",
+      "status": "passed"
+    },
+    {
+      "name": "export",
+      "status": "failed"
+    },
+    {
+      "name": "external_device",
+      "status": "skipped"
+    }
+  ],
+  "actual_before": {
+    "passed": 2,
+    "failed": 1,
+    "skipped": 1,
+    "pass_rate": 0.5
+  },
+  "actual_after": {
+    "passed": 2,
+    "failed": 1,
+    "skipped": 1,
+    "pass_rate": 0.6667
+  },
+  "baseline_tests": {
+    "passed": 5,
+    "tests": 11,
+    "failures": 6,
+    "errors": 0
+  },
+  "after_tests": {
+    "passed": 11,
+    "tests": 11,
+    "failures": 0,
+    "errors": 0
+  },
+  "approval_digest": "b0be04b50d9cffd65bf761d84d91a2819bb74a36e0e47e21ceed4bd0398255df",
+  "reviewer": "Jeff",
+  "attempts": 1
+}

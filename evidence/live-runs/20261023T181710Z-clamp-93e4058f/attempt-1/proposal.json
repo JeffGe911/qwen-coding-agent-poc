@@ -1,0 +1,6 @@
+{
+  "code": "def clamp(value, lower, upper):\n    if lower > upper:\n        raise ValueError\n    return min(max(value, lower), upper)",
+  "explanation": "The function `clamp` takes three arguments: `value`, `lower`, and `upper`. It first checks if `lower` is greater than `upper`. If so, it raises a `ValueError`. If not, it returns the minimum of `max(value, lower)` and `upper`. This ensures that the returned value is within the inclusive bounds specified by `lower` and `upper`. The function signature remains unchanged.",
+  "attempt": 1,
+  "digest": "0695c0df30efb1fb23ff53636819c5d846ab46a3b4546a66d58e56d297fa6a25"
+}

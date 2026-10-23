@@ -1,0 +1,70 @@
+{
+  "backend": "real local Ollama",
+  "checks": [
+    {
+      "check": "missing_auth",
+      "expected_status": 401,
+      "actual_status": 401,
+      "passed": true,
+      "response": "{\"error\":\"unauthorized\"}"
+    },
+    {
+      "check": "valid_auth",
+      "expected_status": 200,
+      "actual_status": 200,
+      "passed": true,
+      "response": "{\"object\": \"list\", \"data\": [{\"id\": \"qwen2.5-coder:1.5b\", \"object\": \"model\", \"created\": 1792779275, \"owned_by\": \"library\"}]}"
+    },
+    {
+      "check": "health",
+      "expected_status": 200,
+      "actual_status": 200,
+      "passed": true,
+      "response": "{\"status\": \"ready\", \"available_models\": 1}"
+    },
+    {
+      "check": "model_management_disabled",
+      "expected_status": 404,
+      "actual_status": 404,
+      "passed": true,
+      "response": "{\"error\":\"route disabled\"}"
+    },
+    {
+      "check": "alternate_inference_route_disabled",
+      "expected_status": 404,
+      "actual_status": 404,
+      "passed": true,
+      "response": "{\"error\":\"route disabled\"}"
+    },
+    {
+      "check": "real_authenticated_inference",
+      "expected_status": 200,
+      "actual_status": 200,
+      "passed": true,
+      "response": "{\"id\": \"chatcmpl-774\", \"object\": \"chat.completion\", \"created\": 1792779933, \"model\": \"qwen2.5-coder:1.5b\", \"system_fingerprint\": \"fp_ollama\", \"choices\": [{\"index\": 0, \"message\": {\"role\": \"assistant\", \"content\": \"READY\"}, \"finish_reason\": \"stop\"}], \"usage\": {\"prompt_tokens\": 32, \"prompt_tokens_details\": {\"cached_tokens\": 24}, \"completion_tokens\": 2, \"total_tokens\": 34}}"
+    },
+    {
+      "check": "metrics",
+      "expected_status": 200,
+      "actual_status": 200,
+      "passed": true,
+      "response": "qwen_gateway_requests_total 7\nqwen_gateway_denied_total 1\nqwen_gateway_upstream_errors_total 0\n"
+    },
+    {
+      "check": "gateway_restart_recovery",
+      "expected_status": 200,
+      "actual_status": 200,
+      "passed": true,
+      "response": "{\"status\": \"ready\", \"available_models\": 1}"
+    },
+    {
+      "check": "upstream_outage_fails_closed",
+      "expected_status": 503,
+      "actual_status": 503,
+      "passed": true,
+      "response": "{\"error\":\"local model unavailable\"}"
+    }
+  ],
+  "all_passed": true,
+  "note": "Gateway restart/outage checks; does not test Docker restart or GPU fault recovery."
+}

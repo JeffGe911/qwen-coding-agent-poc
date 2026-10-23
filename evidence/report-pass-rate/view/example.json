@@ -1,0 +1,73 @@
+{
+  "task": "report_pass_rate",
+  "blind": true,
+  "model": "qwen2.5-coder:7b",
+  "run_id": "20261023T193344Z-report_pass_rate-af15fe39",
+  "status": "awaiting_approval",
+  "stop_reason": null,
+  "sample_input": [
+    {
+      "name": "login",
+      "status": "passed"
+    },
+    {
+      "name": "permissions",
+      "status": "passed"
+    },
+    {
+      "name": "export",
+      "status": "failed"
+    },
+    {
+      "name": "external_device",
+      "status": "skipped"
+    }
+  ],
+  "actual_before": {
+    "passed": 2,
+    "failed": 1,
+    "skipped": 1,
+    "pass_rate": 0.5
+  },
+  "actual_after": null,
+  "actual_after_note": "Not computed: no approved, passing proposal yet.",
+  "baseline_tests": {
+    "passed": 8,
+    "tests": 21,
+    "failures": 13,
+    "errors": 0
+  },
+  "after_tests": null,
+  "attempts": [
+    {
+      "attempt": 1,
+      "status": "awaiting_approval",
+      "digest": "4389e85471b596354cc57cbf85cf701a36e5cafd92f35e09ba061e82ca3081d2",
+      "generation_seconds": 4.54,
+      "usage": {
+        "prompt_tokens": 1944,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens": 337,
+        "total_tokens": 2281
+      },
+      "reviewer": null,
+      "reviewed_at": null,
+      "approval_wait_seconds": null,
+      "error": null
+    }
+  ],
+  "approval_events": [],
+  "contract": {
+    "prompt_sha256": "afa3f06258ad64042d2fc75ee4cb8096529c7ab42c860031e97f646e401e8764",
+    "policy_revision": 2,
+    "policy_sha256": "98f066638f7285c342b9c36872d49967449c624d34e27d58e6c7adff497bb7db",
+    "task_files_sha256": {
+      "solution.py": "31c3fdaf01017ac7838533b2876f55e1a20c6dc4203aafd140eef66f8729547f",
+      "test_visible.py": "317343b157e692fdc3bd0239d26dd7714c623725510973096d395c3d04a30e1a",
+      "test_holdout.py": "4273736a10f3e996c4d8c0972e028dfe88ce2e390135c005b1c436c3ba20376f",
+      "task.json": "ac36e35de82c6c9f804f3611024fbf7820abab99dee1d867463d0b23f70351d7"
+    }
+  }
+}

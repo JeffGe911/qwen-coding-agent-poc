@@ -1,0 +1,65 @@
+$ python -m chip_analysis ask "分析这个目录里的测试 CSV，按批次汇总，找出失败最多的五个项目，并生成报告" --dir data/synthetic/raw --items data/synthetic/items.json --out evidence/chip-analysis/ask --execute
+Model plan (validated against the command allowlist):
+{
+  "command": "analyze",
+  "top_n": 5,
+  "date": "",
+  "base_run": "",
+  "new_run": "",
+  "reason": "按批次汇总，找出失败最多的五个项目，并生成报告"
+}
+{
+  "report": "evidence\\chip-analysis\\ask\\report.html",
+  "yield_by_lot": [
+    {
+      "run_id": "R1",
+      "lot_id": "LOT-A01",
+      "chips": 80,
+      "yield_all": 0.9625,
+      "yield_complete_only": 0.9625
+    },
+    {
+      "run_id": "R1",
+      "lot_id": "LOT-A02",
+      "chips": 80,
+      "yield_all": 0.9,
+      "yield_complete_only": 0.9
+    },
+    {
+      "run_id": "R2",
+      "lot_id": "LOT-A02",
+      "chips": 80,
+      "yield_all": 0.9375,
+      "yield_complete_only": 0.9375
+    },
+    {
+      "run_id": "R2",
+      "lot_id": "LOT-B01",
+      "chips": 80,
+      "yield_all": 0.8375,
+      "yield_complete_only": 0.9571
+    }
+exit=0
+
+$ python -m chip_analysis ask "对比 R1 和 R2 两次运行，列出新增失败和已修复的项目" --dir data/synthetic/raw --items data/synthetic/items.json --out evidence/chip-analysis/ask-compare --execute
+Model plan (validated against the command allowlist):
+{
+  "command": "compare_runs",
+  "top_n": 5,
+  "date": "",
+  "base_run": "R1",
+  "new_run": "R2",
+  "reason": "对比两次运行的新增失败和已修复项目"
+}
+{
+  "base_run": "R1",
+  "new_run": "R2",
+  "overlap_chip_items": 400,
+  "counts": {
+    "only_in_base": 400,
+    "new_failure": 1,
+    "fixed": 4,
+    "only_in_new": 400
+  }
+}
+exit=0

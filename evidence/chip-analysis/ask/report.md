@@ -1,0 +1,52 @@
+# 芯片测试数据分析（合成数据）
+
+生成于 2026-10-23T20:01:21+00:00。数据为合成数据，口径假设见 analysis.json 的 assumptions。
+
+## 良率（按运行与批次）
+
+| 运行 | 批次 | 芯片 | PASS | FAIL | INCOMPLETE | 良率(全部) | 良率(仅完整) | 首测良率(全部) |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| R1 | LOT-A01 | 80 | 77 | 3 | 0 | 96.25% | 96.25% | 96.25% |
+| R1 | LOT-A02 | 80 | 72 | 8 | 0 | 90.00% | 90.00% | 83.75% |
+| R2 | LOT-A02 | 80 | 75 | 5 | 0 | 93.75% | 93.75% | 90.00% |
+| R2 | LOT-B01 | 80 | 67 | 3 | 10 | 83.75% | 95.71% | 83.75% |
+
+## 测试记录通过率（不是良率）
+
+| 运行 | 批次 | PASS 行 | FAIL 行 | 记录通过率 |
+|---|---|---:|---:|---:|
+| R1 | LOT-A01 | 397 | 3 | 99.25% |
+| R1 | LOT-A02 | 392 | 21 | 94.92% |
+| R2 | LOT-A02 | 395 | 13 | 96.81% |
+| R2 | LOT-B01 | 389 | 4 | 98.98% |
+
+## 失败最多的 5 个项目（最终 FAIL 芯片数）
+
+1. IDDQ：13 颗（含重测 FAIL 行 33）
+2. TEMP_OFFSET：3 颗（含重测 FAIL 行 5）
+3. LEAK：2 颗（含重测 FAIL 行 2）
+4. FMAX：1 颗（含重测 FAIL 行 1）
+5. VREF：0 颗（含重测 FAIL 行 0）
+
+## 异常集中（启发式 A9）
+
+- R1 LOT-A02 W02 IDDQ：8/40 失败，为其余合计的 11.17 倍
+
+## 数据质量
+
+- unit_converted：80
+- limit_mismatch：80
+- incomplete_chip：10
+- duplicate_row：6
+- missing_value：3
+- conflicting_measurement：2
+- status_inconsistent：2
+- implausible_value：2
+- empty_file：1
+- missing_status：1
+
+## 运行对比 R1 → R2
+
+{"new_failure": 1, "fixed": 4}
+
+相关不等于因果：本报告不推断芯片失效根因。

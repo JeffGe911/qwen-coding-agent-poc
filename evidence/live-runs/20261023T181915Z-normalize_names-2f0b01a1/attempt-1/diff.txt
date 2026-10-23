@@ -1,0 +1,6 @@
+--- before/solution.py
++++ after/solution.py
+@@ -1,2 +1,2 @@
+ def normalize_names(names):
+-    return names
++    return [name.strip().lower() for name in names if name.strip() and name not in seen and seen.add(name)]

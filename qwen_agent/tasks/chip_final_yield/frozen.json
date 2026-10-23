@@ -1,0 +1,14 @@
+{
+  "frozen_at_utc": "2026-10-23T20:00:27.481411+00:00",
+  "note": "Frozen before any model call for this task. Original buggy code passes 4/22 (visible 11, holdout 11); a reference solution kept only in tests/test_frozen_chip_task.py passes 22/22. SYNTHETIC rows.",
+  "baseline_original": [
+    22,
+    4
+  ],
+  "sha256": {
+    "solution.py": "b0576529219c4f238e51638a27581e156e41addec61d534962a37bbd650534bf",
+    "test_visible.py": "f8ccbb8f989512ce48244065fbe334256e9aaf2c3a8bf8f32638aff6b0d9bbed",
+    "test_holdout.py": "3d89345d0e627ac43295cc24a273253edb61e58198a1c36dfa62241dfd21dbce",
+    "task.json": "6b58ee3dc13e5950e84076be9d55ea92e7686dec26f2eecd726abcbdcde68aaa"
+  }
+}

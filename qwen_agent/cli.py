@@ -1,0 +1,105 @@
+import argparse
+import json
+from pathlib import Path
+import sys
+
+from .client import Client
+from .report import generate
+from .workflow import TASKS, decide, read_json, retry, start
+
+
+def show(run, state):
+    print(f"Run: {run}\nStatus: {state['status']}")
+    if state.get("error"):
+        print("Error:", state["error"])
+    if state["status"] == "awaiting_approval":
+        item = state["attempts"][-1]
+        folder = run / f"attempt-{item['attempt']}"
+        print((folder / "diff.txt").read_text(encoding="utf-8"))
+        print("Explanation:", read_json(folder / "proposal.json")["explanation"])
+        print("Approval digest:", item["digest"])
+        print(f'Human review: python -m qwen_agent decide "{run}" approve --digest {item["digest"]} --reviewer YOUR_NAME')
+
+
+def interactive(run, state, reviewer):
+    while state["status"] == "awaiting_approval":
+        show(run, state)
+        token = state["attempts"][-1]["digest"]
+        try:
+            answer = input(f"Type approve {token} or reject {token}; Enter leaves pending:\n> ").strip()
+        except (EOFError, KeyboardInterrupt):
+            print("\nLeft pending; no execution.")
+            return state
+        if answer not in {"approve " + token, "reject " + token}:
+            print("Left pending; no execution.")
+            return state
+        state = decide(run, answer.split()[0], token, reviewer)
+    show(run, state)
+    return state
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Small local coding agent with manual approval; no auto-approve option")
+    commands = parser.add_subparsers(dest="command", required=True)
+    doctor = commands.add_parser("doctor")
+    propose = commands.add_parser("start")
+    demo = commands.add_parser("demo")
+    for p in (doctor, propose, demo):
+        p.add_argument("--base-url", default="http://127.0.0.1:11434/v1")
+        p.add_argument("--model", default="qwen2.5-coder:1.5b")
+    task_ids = [p.name for p in TASKS.iterdir() if p.is_dir()]
+    for p in (propose, demo):
+        p.add_argument("--task", choices=task_ids + (["all"] if p is demo else []), required=True)
+        p.add_argument("--runs", type=Path, default=Path("runs"))
+        p.add_argument("--sandbox", choices=["docker", "restricted"], default="docker")
+        p.add_argument("--max-attempts", type=int, default=3)
+    demo.add_argument("--reviewer", required=True)
+    review = commands.add_parser("show")
+    review.add_argument("run", type=Path)
+    retry_parser = commands.add_parser("retry")
+    retry_parser.add_argument("run", type=Path)
+    decision = commands.add_parser("decide")
+    decision.add_argument("run", type=Path)
+    decision.add_argument("decision", choices=["approve", "reject"])
+    decision.add_argument("--digest", required=True)
+    decision.add_argument("--reviewer", required=True)
+    report = commands.add_parser("report")
+    report.add_argument("--runs", type=Path, default=Path("runs"))
+    report.add_argument("--output", type=Path, default=Path("evidence"))
+    args = parser.parse_args()
+    try:
+        if args.command == "doctor":
+            models = Client(args.base_url, args.model).models()
+            print(json.dumps(models, indent=2))
+            if args.model not in [m["id"] for m in models.get("data", [])]:
+                raise ValueError("Requested model is not loaded/available")
+        elif args.command in {"start", "demo"}:
+            selected = sorted(task_ids) if args.task == "all" else [args.task]
+            failed = False
+            for task_id in selected:
+                run, state = start(task_id, args.runs, args.base_url, args.model, args.sandbox, args.max_attempts)
+                if args.command == "demo":
+                    state = interactive(run, state, args.reviewer)
+                else:
+                    show(run, state)
+                failed |= state["status"] in {"infra_error", "model_error", "policy_blocked", "failed"}
+            return int(failed)
+        elif args.command == "show":
+            show(args.run, read_json(args.run / "state.json"))
+        elif args.command == "decide":
+            state = decide(args.run, args.decision, args.digest, args.reviewer)
+            show(args.run, state)
+            if state["status"] in {"failed", "infra_error", "model_error", "policy_blocked"}:
+                return 1
+        elif args.command == "retry":
+            state = retry(args.run)
+            show(args.run, state)
+            if state["status"] in {"failed", "infra_error", "model_error", "policy_blocked"}:
+                return 1
+        else:
+            print(json.dumps(generate(args.runs, args.output), indent=2, ensure_ascii=False))
+    except (OSError, ValueError, RuntimeError) as exc:
+        print(f"Error: {exc}", file=sys.stderr)
+        return 1
+    return 0
+

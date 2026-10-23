@@ -1,0 +1,11 @@
+{
+  "exit_code": 1,
+  "tests": 11,
+  "failures": 1,
+  "errors": 0,
+  "skipped": 0,
+  "passed": 10,
+  "output": "....F......                                                              [100%]\n================================== FAILURES ===================================\n_________________________ test_non_integer_size[True] _________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181917Z-chunked-cda0e5df\\attempt-1\\job\\test_holdout.py:7: in test_non_integer_size\n    with pytest.raises(ValueError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE <class 'ValueError'>\n- generated xml file: C:\\Users\\Jeff1\\AppData\\Local\\Temp\\qwen-pytest-x9_y0c52\\results.xml -\n=========================== short test summary info ===========================\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181917Z-chunked-cda0e5df\\attempt-1\\job\\test_holdout.py::test_non_integer_size[True]\n1 failed, 10 passed in 0.19s\n",
+  "visible_feedback": "",
+  "elapsed_seconds": 0.695
+}

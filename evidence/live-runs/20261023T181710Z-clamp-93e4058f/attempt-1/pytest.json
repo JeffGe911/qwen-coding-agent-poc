@@ -1,0 +1,11 @@
+{
+  "exit_code": 0,
+  "tests": 8,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "passed": 8,
+  "output": "........                                                                 [100%]\n- generated xml file: C:\\Users\\Jeff1\\AppData\\Local\\Temp\\qwen-pytest-9j3_s4if\\results.xml -\n8 passed in 0.11s\n",
+  "visible_feedback": "",
+  "elapsed_seconds": 0.64
+}

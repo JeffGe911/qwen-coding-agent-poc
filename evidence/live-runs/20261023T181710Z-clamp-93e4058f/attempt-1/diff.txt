@@ -1,0 +1,8 @@
+--- before/solution.py
++++ after/solution.py
+@@ -1,2 +1,4 @@
+ def clamp(value, lower, upper):
+-    return value
++    if lower > upper:
++        raise ValueError
++    return min(max(value, lower), upper)

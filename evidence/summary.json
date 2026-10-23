@@ -1,0 +1,221 @@
+{
+  "started_runs": 3,
+  "completed_evaluations": 2,
+  "succeeded": 1,
+  "first_attempt_successes": 1,
+  "success_rate_completed": 0.5,
+  "success_rate_started": 0.3333333333333333,
+  "first_attempt_rate_completed": 0.5,
+  "first_attempt_rate_started": 0.3333333333333333,
+  "statuses": {
+    "failed": 1,
+    "policy_blocked": 1,
+    "succeeded": 1
+  },
+  "note": "One run is one task trial. Pending/blocked/rejected/errors are shown separately. Three toy tasks do not estimate production coding quality.",
+  "runs": [
+    {
+      "run_id": "20261023T181710Z-clamp-93e4058f",
+      "created_at": "2026-10-23T18:17:10.142768+00:00",
+      "task": {
+        "id": "clamp",
+        "description": "Fix clamp(value, lower, upper). Return value constrained to inclusive numeric bounds. If lower > upper raise ValueError. Equal bounds are valid. Support integers and floats. Keep the function signature unchanged."
+      },
+      "config": {
+        "base_url": "http://127.0.0.1:11435/v1",
+        "model": "qwen2.5-coder:1.5b",
+        "sandbox": "restricted",
+        "max_attempts": 3,
+        "timeout_seconds": 20
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "digest": "0695c0df30efb1fb23ff53636819c5d846ab46a3b4546a66d58e56d297fa6a25",
+          "generation_seconds": 45.974,
+          "usage": {
+            "prompt_tokens": 739,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "completion_tokens": 127,
+            "total_tokens": 866
+          },
+          "status": "passed",
+          "reviewer": "Jeff",
+          "reviewed_at": "2026-10-23T18:20:22.389039+00:00",
+          "result": {
+            "exit_code": 0,
+            "tests": 8,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0,
+            "passed": 8,
+            "output": "........                                                                 [100%]\n- generated xml file: C:\\Users\\Jeff1\\AppData\\Local\\Temp\\qwen-pytest-9j3_s4if\\results.xml -\n8 passed in 0.11s\n",
+            "visible_feedback": "",
+            "elapsed_seconds": 0.64
+          }
+        }
+      ],
+      "status": "succeeded",
+      "baseline": {
+        "exit_code": 1,
+        "tests": 8,
+        "failures": 6,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 2,
+        "output": "FF.FFFF.                                                                 [100%]\n================================== FAILURES ===================================\n____________________________ test_clamp[-2-0-10-0] ____________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181710Z-clamp-93e4058f\\workspace\\test_visible.py:7: in test_clamp\n    assert clamp(value, low, high) == want\nE   assert -2 == 0\nE    +  where -2 = clamp(-2, 0, 10)\n___________________________ test_clamp[20-0-10-10] ____________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181710Z-clamp-93e4058f\\workspace\\test_visible.py:7: in test_clamp\n    assert clamp(value, low, high) == want\nE   assert 20 == 10\nE    +  where 20 = clamp(20, 0, 10)\n_____________________________ test_invalid_bounds _____________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181710Z-clamp-93e4058f\\workspace\\test_visible.py:11: in test_invalid_bounds\n    with pytest.raises(ValueError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE <class 'ValueError'>\n_____________________ test_boundaries[1.5-0.25-1.25-1.25] _____________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181710Z-clamp-93e4058f\\workspace\\test_holdout.py:7: in test_boundaries\n    assert clamp(value, low, high) == want\nE   assert 1.5 == 1.25\nE    +  where 1.5 = clamp(1.5, 0.25, 1.25)\n________________________ test_boundaries[-10--5--1--5] ________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181710Z-clamp-93e4058f\\workspace\\test_holdout.py:7: in test_boundaries\n    assert clamp(value, low, high) == want\nE   assert -10 == -5\nE    +  where -10 = clamp(-10, -5, -1)\n_________________________ test_boundaries[100-3-3-3] __________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181710Z-clamp-93e4058f\\workspace\\test_holdout.py:7: in test_boundaries\n    assert clamp(value, low, high) == want\nE   assert 100 == 3\nE    +  where 100 = clamp(100, 3, 3)\n- generated xml file: C:\\Users\\Jeff1\\AppData\\Local\\Temp\\qwen-pytest-n8uf5tcv\\results.xml -\n=========================== short test summary info ===========================\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181710Z-clamp-93e4058f\\workspace\\test_visible.py::test_clamp[-2-0-10-0]\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181710Z-clamp-93e4058f\\workspace\\test_visible.py::test_clamp[20-0-10-10]\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181710Z-clamp-93e4058f\\workspace\\test_visible.py::test_invalid_bounds\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181710Z-clamp-93e4058f\\workspace\\test_holdout.py::test_boundaries[1.5-0.25-1.25-1.25]\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181710Z-clamp-93e4058f\\workspace\\test_holdout.py::test_boundaries[-10--5--1--5]\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181710Z-clamp-93e4058f\\workspace\\test_holdout.py::test_boundaries[100-3-3-3]\n6 failed, 2 passed in 0.15s\n",
+        "visible_feedback": "..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181710Z-clamp-93e4058f\\workspace\\test_visible.py:7: in test_clamp\n    assert clamp(value, low, high) == want\nE   assert -2 == 0\nE    +  where -2 = clamp(-2, 0, 10)\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181710Z-clamp-93e4058f\\workspace\\test_visible.py:7: in test_clamp\n    assert clamp(value, low, high) == want\nE   assert 20 == 10\nE    +  where 20 = clamp(20, 0, 10)\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181710Z-clamp-93e4058f\\workspace\\test_visible.py:11: in test_invalid_bounds\n    with pytest.raises(ValueError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE <class 'ValueError'>",
+        "elapsed_seconds": 0.727
+      },
+      "feedback": "Visible test failures:\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181710Z-clamp-93e4058f\\workspace\\test_visible.py:7: in test_clamp\n    assert clamp(value, low, high) == want\nE   assert -2 == 0\nE    +  where -2 = clamp(-2, 0, 10)\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181710Z-clamp-93e4058f\\workspace\\test_visible.py:7: in test_clamp\n    assert clamp(value, low, high) == want\nE   assert 20 == 10\nE    +  where 20 = clamp(20, 0, 10)\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181710Z-clamp-93e4058f\\workspace\\test_visible.py:11: in test_invalid_bounds\n    with pytest.raises(ValueError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE <class 'ValueError'>\nOther evaluation cases may also fail; follow the full requirement."
+    },
+    {
+      "run_id": "20261023T181915Z-normalize_names-2f0b01a1",
+      "created_at": "2026-10-23T18:19:15.736863+00:00",
+      "task": {
+        "id": "normalize_names",
+        "description": "Fix normalize_names(names). Given a list of strings, trim whitespace and lowercase each string, discard empty normalized names, and remove duplicates while preserving first occurrence order. Return a new list without mutating the input. Keep the function signature unchanged."
+      },
+      "config": {
+        "base_url": "http://127.0.0.1:11435/v1",
+        "model": "qwen2.5-coder:1.5b",
+        "sandbox": "restricted",
+        "max_attempts": 3,
+        "timeout_seconds": 20
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "digest": "9a48d770e11e275d87a6154fe47ab94d2e2467ed8981a9f023cae75dd7ce8d89",
+          "generation_seconds": 0.901,
+          "usage": {
+            "prompt_tokens": 732,
+            "prompt_tokens_details": {
+              "cached_tokens": 127
+            },
+            "completion_tokens": 161,
+            "total_tokens": 893
+          },
+          "status": "policy_blocked",
+          "error": "Forbidden attribute: add"
+        },
+        {
+          "attempt": 2,
+          "digest": "f93fd890dbd19ae0896c3c78a9d4484dcba8feb7185069014eb2a0ebdcda1c88",
+          "generation_seconds": 0.963,
+          "usage": {
+            "prompt_tokens": 756,
+            "prompt_tokens_details": {
+              "cached_tokens": 725
+            },
+            "completion_tokens": 162,
+            "total_tokens": 918
+          },
+          "status": "policy_blocked",
+          "error": "Forbidden attribute: add"
+        },
+        {
+          "attempt": 3,
+          "digest": "b86efb59c4e0c810d995328fd56d97fd43f71a51cb251560c3dde3cde09e34f1",
+          "generation_seconds": 0.979,
+          "usage": {
+            "prompt_tokens": 780,
+            "prompt_tokens_details": {
+              "cached_tokens": 749
+            },
+            "completion_tokens": 155,
+            "total_tokens": 935
+          },
+          "status": "policy_blocked",
+          "error": "Forbidden attribute: add"
+        }
+      ],
+      "status": "policy_blocked",
+      "baseline": {
+        "exit_code": 1,
+        "tests": 6,
+        "failures": 5,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1,
+        "output": "F.FFFF                                                                   [100%]\n================================== FAILURES ===================================\n_________________________ test_clean_and_deduplicate __________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_visible.py:5: in test_clean_and_deduplicate\n    assert normalize_names([\" Alice \", \"BOB\", \"alice\", \"\", \"  \"]) == [\"alice\", \"bob\"]\nE   AssertionError: assert [' Alice ', '...ce', '', '  '] == ['alice', 'bob']\nE     \nE     At index 0 diff: ' Alice ' != 'alice'\nE     Left contains 3 more items, first extra item: 'alice'\nE     Use -v to get more diff\n____________________________ test_input_unchanged _____________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_visible.py:14: in test_input_unchanged\n    assert normalize_names(source) == [\"z\", \"a\"]\nE   AssertionError: assert [' Z ', 'A', 'z'] == ['z', 'a']\nE     \nE     At index 0 diff: ' Z ' != 'z'\nE     Left contains one more item: 'z'\nE     Use -v to get more diff\n________________________________ test_unicode _________________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_holdout.py:5: in test_unicode\n    assert normalize_names([\" ÉVA \", \"éva\", \" 张三 \"]) == [\"éva\", \"张三\"]\nE   AssertionError: assert [' ÉVA ', 'éva', ' 张三 '] == ['éva', '张三']\nE     \nE     At index 0 diff: ' ÉVA ' != 'éva'\nE     Left contains one more item: ' 张三 '\nE     Use -v to get more diff\n________________________ test_order_and_separate_list _________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_holdout.py:11: in test_order_and_separate_list\n    assert result == [\"b\", \"a\", \"c\"]\nE   AssertionError: assert ['b', 'a', 'b', 'c', 'a'] == ['b', 'a', 'c']\nE     \nE     At index 2 diff: 'b' != 'c'\nE     Left contains 2 more items, first extra item: 'c'\nE     Use -v to get more diff\n_______________________________ test_whitespace _______________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_holdout.py:16: in test_whitespace\n    assert normalize_names([\"\\t\", \"\\n\", \" A\\t\", \"a\"]) == [\"a\"]\nE   AssertionError: assert ['\\t', '\\n', ' A\\t', 'a'] == ['a']\nE     \nE     At index 0 diff: '\\t' != 'a'\nE     Left contains 3 more items, first extra item: '\\n'\nE     Use -v to get more diff\n- generated xml file: C:\\Users\\Jeff1\\AppData\\Local\\Temp\\qwen-pytest-rn9k4145\\results.xml -\n=========================== short test summary info ===========================\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_visible.py::test_clean_and_deduplicate\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_visible.py::test_input_unchanged\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_holdout.py::test_unicode\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_holdout.py::test_order_and_separate_list\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_holdout.py::test_whitespace\n5 failed, 1 passed in 0.20s\n",
+        "visible_feedback": "..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_visible.py:5: in test_clean_and_deduplicate\n    assert normalize_names([\" Alice \", \"BOB\", \"alice\", \"\", \"  \"]) == [\"alice\", \"bob\"]\nE   AssertionError: assert [' Alice ', '...ce', '', '  '] == ['alice', 'bob']\nE     \nE     At index 0 diff: ' Alice ' != 'alice'\nE     Left contains 3 more items, first extra item: 'alice'\nE     Use -v to get more diff\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_visible.py:14: in test_input_unchanged\n    assert normalize_names(source) == [\"z\", \"a\"]\nE   AssertionError: assert [' Z ', 'A', 'z'] == ['z', 'a']\nE     \nE     At index 0 diff: ' Z ' != 'z'\nE     Left contains one more item: 'z'\nE     Use -v to get more diff",
+        "elapsed_seconds": 0.653
+      },
+      "feedback": "Visible test failures:\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_visible.py:5: in test_clean_and_deduplicate\n    assert normalize_names([\" Alice \", \"BOB\", \"alice\", \"\", \"  \"]) == [\"alice\", \"bob\"]\nE   AssertionError: assert [' Alice ', '...ce', '', '  '] == ['alice', 'bob']\nE     \nE     At index 0 diff: ' Alice ' != 'alice'\nE     Left contains 3 more items, first extra item: 'alice'\nE     Use -v to get more diff\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181915Z-normalize_names-2f0b01a1\\workspace\\test_visible.py:14: in test_input_unchanged\n    assert normalize_names(source) == [\"z\", \"a\"]\nE   AssertionError: assert [' Z ', 'A', 'z'] == ['z', 'a']\nE     \nE     At index 0 diff: ' Z ' != 'z'\nE     Left contains one more item: 'z'\nE     Use -v to get more diff\nOther evaluation cases may also fail; follow the full requirement.\nPrevious proposal rejected before execution: Forbidden attribute: add. Use simple loops and list.append; define all local variables.\nPrevious proposal rejected before execution: Forbidden attribute: add. Use simple loops and list.append; define all local variables."
+    },
+    {
+      "run_id": "20261023T181917Z-chunked-cda0e5df",
+      "created_at": "2026-10-23T18:19:17.651533+00:00",
+      "task": {
+        "id": "chunked",
+        "description": "Implement chunked(items, size). Split a list into consecutive new lists with at most size elements; preserve order and keep the final short chunk. Empty input returns []. Raise ValueError when size is not a positive integer, including bool, float, string and None. Do not mutate items. Keep the function signature unchanged."
+      },
+      "config": {
+        "base_url": "http://127.0.0.1:11435/v1",
+        "model": "qwen2.5-coder:1.5b",
+        "sandbox": "restricted",
+        "max_attempts": 3,
+        "timeout_seconds": 20
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "digest": "e7690cb7cfa16865c531ff91b70c1adf53a915a5fcfe011305e3e3dba8dd17b4",
+          "generation_seconds": 0.801,
+          "usage": {
+            "prompt_tokens": 654,
+            "prompt_tokens_details": {
+              "cached_tokens": 126
+            },
+            "completion_tokens": 160,
+            "total_tokens": 814
+          },
+          "status": "failed",
+          "reviewer": "Jeff",
+          "reviewed_at": "2026-10-23T18:20:23.328483+00:00",
+          "result": {
+            "exit_code": 1,
+            "tests": 11,
+            "failures": 1,
+            "errors": 0,
+            "skipped": 0,
+            "passed": 10,
+            "output": "....F......                                                              [100%]\n================================== FAILURES ===================================\n_________________________ test_non_integer_size[True] _________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181917Z-chunked-cda0e5df\\attempt-1\\job\\test_holdout.py:7: in test_non_integer_size\n    with pytest.raises(ValueError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^\nE   Failed: DID NOT RAISE <class 'ValueError'>\n- generated xml file: C:\\Users\\Jeff1\\AppData\\Local\\Temp\\qwen-pytest-x9_y0c52\\results.xml -\n=========================== short test summary info ===========================\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181917Z-chunked-cda0e5df\\attempt-1\\job\\test_holdout.py::test_non_integer_size[True]\n1 failed, 10 passed in 0.19s\n",
+            "visible_feedback": "",
+            "elapsed_seconds": 0.695
+          }
+        },
+        {
+          "attempt": 2,
+          "digest": "8a498851b741c71ebe777d774eea4bc06e6ec244a48447c5a15999b2856d3b95",
+          "generation_seconds": 0.8,
+          "usage": {
+            "prompt_tokens": 398,
+            "prompt_tokens_details": {
+              "cached_tokens": 203
+            },
+            "completion_tokens": 160,
+            "total_tokens": 558
+          },
+          "status": "no_change"
+        }
+      ],
+      "status": "failed",
+      "baseline": {
+        "exit_code": 1,
+        "tests": 11,
+        "failures": 4,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 7,
+        "output": "FF.......FF                                                              [100%]\n================================== FAILURES ===================================\n_________________________________ test_chunks _________________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181917Z-chunked-cda0e5df\\workspace\\test_visible.py:6: in test_chunks\n    assert chunked([1, 2, 3, 4, 5], 2) == [[1, 2], [3, 4], [5]]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsolution.py:2: in chunked\n    ???\nE   ValueError: not implemented\n_________________________________ test_empty __________________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181917Z-chunked-cda0e5df\\workspace\\test_visible.py:10: in test_empty\n    assert chunked([], 3) == []\n           ^^^^^^^^^^^^^^\nsolution.py:2: in chunked\n    ???\nE   ValueError: not implemented\n______________________________ test_no_mutation _______________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181917Z-chunked-cda0e5df\\workspace\\test_holdout.py:13: in test_no_mutation\n    result = chunked(source, 8)\n             ^^^^^^^^^^^^^^^^^^\nsolution.py:2: in chunked\n    ???\nE   ValueError: not implemented\n_____________________________ test_exact_multiple _____________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181917Z-chunked-cda0e5df\\workspace\\test_holdout.py:20: in test_exact_multiple\n    assert chunked([1, 2, 3, 4], 2) == [[1, 2], [3, 4]]\n           ^^^^^^^^^^^^^^^^^^^^^^^^\nsolution.py:2: in chunked\n    ???\nE   ValueError: not implemented\n- generated xml file: C:\\Users\\Jeff1\\AppData\\Local\\Temp\\qwen-pytest-y2ld8r7n\\results.xml -\n=========================== short test summary info ===========================\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181917Z-chunked-cda0e5df\\workspace\\test_visible.py::test_chunks\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181917Z-chunked-cda0e5df\\workspace\\test_visible.py::test_empty\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181917Z-chunked-cda0e5df\\workspace\\test_holdout.py::test_no_mutation\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181917Z-chunked-cda0e5df\\workspace\\test_holdout.py::test_exact_multiple\n4 failed, 7 passed in 0.19s\n",
+        "visible_feedback": "..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181917Z-chunked-cda0e5df\\workspace\\test_visible.py:6: in test_chunks\n    assert chunked([1, 2, 3, 4, 5], 2) == [[1, 2], [3, 4], [5]]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsolution.py:2: in chunked\n    ???\nE   ValueError: not implemented\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\live-runs\\20261023T181917Z-chunked-cda0e5df\\workspace\\test_visible.py:10: in test_empty\n    assert chunked([], 3) == []\n           ^^^^^^^^^^^^^^\nsolution.py:2: in chunked\n    ???\nE   ValueError: not implemented",
+        "elapsed_seconds": 0.741
+      },
+      "feedback": "Visible test failures:\n\nOther evaluation cases may also fail; follow the full requirement."
+    }
+  ]
+}

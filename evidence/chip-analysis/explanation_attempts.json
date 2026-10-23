@@ -1,0 +1,230 @@
+{
+  "note": "Mechanical re-check of saved model outputs (raw responses unchanged). Passing these checks does not make a statement correct; see explanation_review.md for the manual review.",
+  "attempts": [
+    {
+      "file": "evidence/chip-analysis/explanation_prompt_v1.json",
+      "prompt_revision": 1,
+      "findings": 2,
+      "findings_with_number": 0,
+      "findings_with_valid_evidence": 2,
+      "numbers_not_in_facts": [],
+      "latency_seconds": 4.267,
+      "usage": {
+        "prompt_tokens": 1319,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens": 301,
+        "total_tokens": 1620
+      },
+      "checks": [
+        {
+          "claim": "记录通过率较高",
+          "evidence": [
+            "record_pass_rate_by_lot[1].record_pass_rate",
+            "record_pass_rate_by_lot[2].record_pass_rate",
+            "record_pass_rate_by_lot[3].record_pass_rate"
+          ],
+          "evidence_keys_found": true,
+          "missing_evidence_keys": [],
+          "claim_has_number": false,
+          "numbers_not_in_facts": [],
+          "numbers_misattributed": []
+        },
+        {
+          "claim": "芯片良率较低",
+          "evidence": [
+            "yield_by_lot[1].yield_all",
+            "yield_by_lot[2].yield_all",
+            "yield_by_lot[3].yield_all"
+          ],
+          "evidence_keys_found": true,
+          "missing_evidence_keys": [],
+          "claim_has_number": false,
+          "numbers_not_in_facts": [],
+          "numbers_misattributed": []
+        }
+      ]
+    },
+    {
+      "file": "evidence/chip-analysis/explanation_prompt_v2.json",
+      "prompt_revision": 2,
+      "findings": 5,
+      "findings_with_number": 0,
+      "findings_with_valid_evidence": 4,
+      "numbers_not_in_facts": [],
+      "latency_seconds": 7.395,
+      "usage": {
+        "prompt_tokens": 1457,
+        "prompt_tokens_details": {
+          "cached_tokens": 3
+        },
+        "completion_tokens": 568,
+        "total_tokens": 2025
+      },
+      "checks": [
+        {
+          "claim": "各运行各批次的良率，以及 yield_all 与 yield_complete_only 两个分母为何不同（incomplete 芯片）",
+          "evidence": [
+            "yield_by_lot[1].yield_all",
+            "yield_by_lot[1].yield_complete_only",
+            "yield_by_lot[1].incomplete"
+          ],
+          "evidence_keys_found": true,
+          "missing_evidence_keys": [],
+          "claim_has_number": false,
+          "numbers_not_in_facts": [],
+          "numbers_misattributed": []
+        },
+        {
+          "claim": "失败最多的测试项目",
+          "evidence": [
+            "top_items[0].test_item",
+            "top_items[0].final_fail_rate"
+          ],
+          "evidence_keys_found": true,
+          "missing_evidence_keys": [],
+          "claim_has_number": false,
+          "numbers_not_in_facts": [],
+          "numbers_misattributed": []
+        },
+        {
+          "claim": "concentration_wafer 中的异常集中",
+          "evidence": [
+            "concentration_wafer[0].wafer_id",
+            "concentration_wafer[0].test_item",
+            "concentration_wafer[0].fail_rate"
+          ],
+          "evidence_keys_found": true,
+          "missing_evidence_keys": [],
+          "claim_has_number": false,
+          "numbers_not_in_facts": [],
+          "numbers_misattributed": []
+        },
+        {
+          "claim": "version_compare 与 run_diff 显示的变化",
+          "evidence": [
+            "version_compare.a.programs.R1",
+            "version_compare.b.programs.R2",
+            "run_diff.counts.new_failure",
+            "run_diff.counts.fixed"
+          ],
+          "evidence_keys_found": false,
+          "missing_evidence_keys": [
+            "version_compare.a.programs.R1",
+            "version_compare.b.programs.R2"
+          ],
+          "claim_has_number": false,
+          "numbers_not_in_facts": [],
+          "numbers_misattributed": []
+        },
+        {
+          "claim": "quality_counts 中会影响结论的数据质量问题",
+          "evidence": [
+            "quality_counts.unit_converted",
+            "quality_counts.limit_mismatch",
+            "quality_counts.incomplete_chip",
+            "quality_counts.duplicate_row",
+            "quality_counts.missing_value",
+            "quality_counts.conflicting_measurement",
+            "quality_counts.status_inconsistent",
+            "quality_counts.implausible_value",
+            "quality_counts.empty_file",
+            "quality_counts.missing_status"
+          ],
+          "evidence_keys_found": true,
+          "missing_evidence_keys": [],
+          "claim_has_number": false,
+          "numbers_not_in_facts": [],
+          "numbers_misattributed": []
+        }
+      ]
+    },
+    {
+      "file": "evidence/chip-analysis/explanation_prompt_v3.json",
+      "prompt_revision": 3,
+      "findings": 5,
+      "findings_with_number": 5,
+      "findings_with_valid_evidence": 5,
+      "numbers_not_in_facts": [],
+      "latency_seconds": 17.213,
+      "usage": {
+        "prompt_tokens": 1555,
+        "prompt_tokens_details": {
+          "cached_tokens": 173
+        },
+        "completion_tokens": 1160,
+        "total_tokens": 2715
+      },
+      "checks": [
+        {
+          "claim": "运行 R1 的批次 LOT-A02 有 10 颗 incomplete 芯片，因此 yield_all 为 0.9 而 yield_complete_only 为 0.9571。",
+          "evidence": [
+            "yield_by_lot[1].incomplete",
+            "yield_by_lot[1].yield_all",
+            "yield_by_lot[1].yield_complete_only"
+          ],
+          "evidence_keys_found": true,
+          "missing_evidence_keys": [],
+          "claim_has_number": true,
+          "numbers_not_in_facts": [],
+          "numbers_misattributed": [
+            "0.9571"
+          ]
+        },
+        {
+          "claim": "失败最多的测试项目是 IDDQ，失败率为 0.0406。",
+          "evidence": [
+            "top_items[0].test_item",
+            "top_items[0].final_fail_rate"
+          ],
+          "evidence_keys_found": true,
+          "missing_evidence_keys": [],
+          "claim_has_number": true,
+          "numbers_not_in_facts": [],
+          "numbers_misattributed": []
+        },
+        {
+          "claim": "在 concentration_wafer 中，LOT-A02 的 W02 晶圆在 IDDQ 项目上异常集中，失败率为 0.2。",
+          "evidence": [
+            "concentration_wafer[0].lot_id",
+            "concentration_wafer[0].wafer_id",
+            "concentration_wafer[0].test_item",
+            "concentration_wafer[0].fail_rate"
+          ],
+          "evidence_keys_found": true,
+          "missing_evidence_keys": [],
+          "claim_has_number": true,
+          "numbers_not_in_facts": [],
+          "numbers_misattributed": []
+        },
+        {
+          "claim": "版本比较显示，R2 对 LOT-A02 的 VREF、IDDQ、LEAK、FMAX 和 TEMP_OFFSET 项目有变化，其中 VREF 增加了 6e-05，而 IDDQ 减少了 0.27379。",
+          "evidence": [
+            "version_compare.paired_mean_diff_b_minus_a.VREF",
+            "version_compare.paired_mean_diff_b_minus_a.IDDQ",
+            "version_compare.paired_mean_diff_b_minus_a.LEAK",
+            "version_compare.paired_mean_diff_b_minus_a.FMAX",
+            "version_compare.paired_mean_diff_b_minus_a.TEMP_OFFSET"
+          ],
+          "evidence_keys_found": true,
+          "missing_evidence_keys": [],
+          "claim_has_number": true,
+          "numbers_not_in_facts": [],
+          "numbers_misattributed": []
+        },
+        {
+          "claim": "quality_counts 中，有 10 颗芯片因 incomplete 状态而被标记为质量问题。",
+          "evidence": [
+            "quality_counts.incomplete_chip"
+          ],
+          "evidence_keys_found": true,
+          "missing_evidence_keys": [],
+          "claim_has_number": true,
+          "numbers_not_in_facts": [],
+          "numbers_misattributed": []
+        }
+      ]
+    }
+  ]
+}

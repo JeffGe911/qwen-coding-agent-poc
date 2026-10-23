@@ -1,0 +1,11 @@
+--- before/solution.py
++++ after/solution.py
+@@ -1,2 +1,7 @@
+ def normalize_names(names):
+-    return names
++    normalized = set()
++    for name in names:
++        name = name.strip().lower()
++        if name:
++            normalized.add(name)
++    return list(normalized)

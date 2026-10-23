@@ -1,0 +1,6 @@
+{
+  "dataset": "SYNTHETIC hand-check sample (13 rows), written by hand",
+  "items": {"VREF": {"unit": "V", "lower": 1.19, "upper": 1.21}, "IDDQ": {"unit": "mA", "lower": 0.0, "upper": 5.0}},
+  "required_items": ["VREF", "IDDQ"],
+  "unit_factors": {"mV->V": 0.001, "V->mV": 1000.0}
+}

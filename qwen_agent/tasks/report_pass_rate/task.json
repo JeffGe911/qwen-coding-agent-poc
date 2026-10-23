@@ -1,0 +1,7 @@
+{
+  "id": "report_pass_rate",
+  "revision": 1,
+  "blind": true,
+  "provenance": "Requirement text copied verbatim from the user's 2026-10-23 request. Tests written and frozen (frozen.json) before any model call for this task. Do not edit; create a new revision instead and keep this one.",
+  "description": "业务场景：内部自动化测试报告错误地计算通过率，需要修复 summarize_results(results)。\n\n需求：\n1. 输入为字典列表，status 为 passed、failed 或 skipped。\n2. 返回恰好包含 passed、failed、skipped、pass_rate 四个字段。\n3. 通过率 = passed / (passed + failed)，跳过用例不能计入分母。\n4. 通过率保留四位小数。\n5. 没有实际执行的用例时，pass_rate 为 0.0。\n6. 未知或缺失 status 时抛出 ValueError。\n7. 不修改输入数据。\n\n示例输入：\n[\n  {\"name\": \"login\", \"status\": \"passed\"},\n  {\"name\": \"permissions\", \"status\": \"passed\"},\n  {\"name\": \"export\", \"status\": \"failed\"},\n  {\"name\": \"external_device\", \"status\": \"skipped\"}\n]\n\n正确输出：\n{\n  \"passed\": 2,\n  \"failed\": 1,\n  \"skipped\": 1,\n  \"pass_rate\": 0.6667\n}"
+}

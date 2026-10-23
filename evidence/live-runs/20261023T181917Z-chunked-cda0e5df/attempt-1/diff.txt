@@ -1,0 +1,8 @@
+--- before/solution.py
++++ after/solution.py
+@@ -1,2 +1,4 @@
+ def chunked(items, size):
+-    raise ValueError("not implemented")
++    if not isinstance(size, int) or size <= 0:
++        raise ValueError("not implemented")
++    return [items[i:i+size] for i in range(0, len(items), size)]

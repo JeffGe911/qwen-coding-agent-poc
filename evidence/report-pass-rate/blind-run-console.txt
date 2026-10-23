@@ -1,0 +1,33 @@
+command started 2026-10-23T19:33:44Z
+$ python -m qwen_agent start --task report_pass_rate --model qwen2.5-coder:7b --base-url http://127.0.0.1:11437/v1 --sandbox restricted --runs evidence/report-pass-rate/runs
+Run: C:\Users\Jeff1\Documents\Codex\2026-10-23\qwen-coding-agent-poc-ollama-vllm\outputs\qwen-agent-poc\evidence\report-pass-rate\runs\20261023T193344Z-report_pass_rate-af15fe39
+Status: awaiting_approval
+--- before/solution.py
++++ after/solution.py
+@@ -1,6 +1,15 @@
+ def summarize_results(results):
+     summary = {"passed": 0, "failed": 0, "skipped": 0}
+     for result in results:
+-        summary[result["status"]] += 1
+-    summary["pass_rate"] = summary["passed"] / len(results) if results else 0.0
++        status = result.get("status")
++        if status == "passed":
++            summary["passed"] += 1
++        elif status == "failed":
++            summary["failed"] += 1
++        elif status == "skipped":
++            summary["skipped"] += 1
++        else:
++            raise ValueError(f"Unknown status: {status}")
++    total_executed = summary["passed"] + summary["failed"]
++    summary["pass_rate"] = round(summary["passed"] / total_executed, 4) if total_executed else 0.0
+     return summary
+
+Explanation: The original code did not handle the calculation of the pass rate correctly, especially when there were no executed cases. It also did not check for unknown or missing statuses, which would cause a KeyError. The updated code addresses these issues by:
+1. Using `result.get("status")` to safely retrieve the status, raising a ValueError if the status is unknown.
+2. Calculating the total number of executed cases (`total_executed`) by summing `passed` and `failed`.
+3. Using `round` to ensure the pass rate is rounded to four decimal places.
+4. Handling the case where there are no executed cases by setting `pass_rate` to 0.0.
+Approval digest: 4389e85471b596354cc57cbf85cf701a36e5cafd92f35e09ba061e82ca3081d2
+Human review: python -m qwen_agent decide "C:\Users\Jeff1\Documents\Codex\2026-10-23\qwen-coding-agent-poc-ollama-vllm\outputs\qwen-agent-poc\evidence\report-pass-rate\runs\20261023T193344Z-report_pass_rate-af15fe39" approve --digest 4389e85471b596354cc57cbf85cf701a36e5cafd92f35e09ba061e82ca3081d2 --reviewer YOUR_NAME
+exit_code=0

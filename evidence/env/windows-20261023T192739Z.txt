@@ -1,0 +1,76 @@
+﻿collected_at_utc: 20261023T192739Z
+host: JEDOUBLEF
+
+=== OS ===
+Microsoft Windows 11 家庭版 中文版 version=10.0.26200 build=26200 arch=64 位
+
+=== CPU ===
+Intel(R) Core(TM) Ultra 9 275HX cores=24 logical=24
+
+=== Memory ===
+total_GiB=31.38 free_GiB=3.81
+
+=== Disks ===
+C: used_GiB=744.0 free_GiB=179.9
+D: used_GiB=578.7 free_GiB=352.8
+
+=== Display adapters (WMI; AdapterRAM is capped at 4GB and is not reliable VRAM) ===
+Intel(R) Graphics driver=32.0.101.8424
+NVIDIA GeForce RTX 5070 Ti Laptop GPU driver=32.0.15.9191
+
+=== nvidia-smi (CUDA Version here = max CUDA supported by the DRIVER, not an installed toolkit) ===
+path: C:\Windows\system32\nvidia-smi.exe
+Fri Oct 23 12:27:41 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 591.91                 Driver Version: 591.91         CUDA Version: 13.1     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                  Driver-Model | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 5070 ...  WDDM  |   00000000:01:00.0 Off |                  N/A |
+| N/A   51C    P5             16W /  121W |     582MiB /  12227MiB |     52%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A           19580    C+G   ...n\NvContainer\nvcontainer.exe      N/A      |
+|    0   N/A  N/A           50376    C+G   ...ends\LeagueClientUxRender.exe      N/A      |
++-----------------------------------------------------------------------------------------+
+
+=== nvidia-smi query ===
+path: C:\Windows\system32\nvidia-smi.exe
+index, name, memory.total [MiB], memory.used [MiB], driver_version, compute_cap
+0, NVIDIA GeForce RTX 5070 Ti Laptop GPU, 12227 MiB, 582 MiB, 591.91, 12.0
+
+=== CUDA Toolkit (nvcc) ===
+nvcc : NOT FOUND in PATH
+
+=== Python ===
+path: C:\Users\Jeff1\AppData\Local\Programs\Python\Python313\python.exe
+Python 3.13.4
+path: C:\Users\Jeff1\AppData\Local\Programs\Python\Python313\python.exe
+pytest installed: False
+vllm installed: False
+
+=== Docker / NVIDIA Container Toolkit / WSL ===
+docker : NOT FOUND in PATH
+nvidia-ctk : NOT FOUND in PATH
+wsl --status (exit=50): 未安装适用于 Linux 的 Windows 子系统。可通过运行 “wsl.exe --install” 进行安装。
+
+有关详细信息，请访问 https://aka.ms/wslinstall
+
+=== Ollama / vLLM / llama processes ===
+pid=28256 name=ollama.exe cmd="C:\Users\Jeff1\Documents\Codex\2026-10-23\qwen-coding-agent-poc-ollama-vllm\work\runtime\ollama\ollama.exe" serve
+
+=== Listening ports of interest (11434-11437 Ollama, 8000 vLLM, 8080/11436 gateway) ===
+127.0.0.1:11435 pid=28256 ollama
+
+=== Model directories ===
+C:\Users\Jeff1\.ollama\models : missing
+C:\Users\Jeff1\.cache\huggingface : 0.00 GiB
+C:\Users\Jeff1\Documents\Codex\2026-10-23\qwen-coding-agent-poc-ollama-vllm\work\runtime\models : 5.28 GiB

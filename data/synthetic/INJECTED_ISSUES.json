@@ -1,0 +1,126 @@
+{
+  "seed": 20261023,
+  "note": "SYNTHETIC data. Ground truth for data-quality checks.",
+  "issues": [
+    {
+      "rule": "missing_value",
+      "file": "raw/R1_LOT-A01.csv",
+      "line": 40
+    },
+    {
+      "rule": "missing_value",
+      "file": "raw/R1_LOT-A01.csv",
+      "line": 217
+    },
+    {
+      "rule": "missing_value",
+      "file": "raw/R1_LOT-A01.csv",
+      "line": 340
+    },
+    {
+      "rule": "duplicate_row",
+      "file": "raw/R1_LOT-A01.csv",
+      "line": 8,
+      "duplicate_of_line": 7
+    },
+    {
+      "rule": "duplicate_row",
+      "file": "raw/R1_LOT-A01.csv",
+      "line": 92,
+      "duplicate_of_line": 91
+    },
+    {
+      "rule": "duplicate_row",
+      "file": "raw/R1_LOT-A01.csv",
+      "line": 155,
+      "duplicate_of_line": 154
+    },
+    {
+      "rule": "duplicate_row",
+      "file": "raw/R1_LOT-A01.csv",
+      "line": 157,
+      "duplicate_of_line": 156
+    },
+    {
+      "rule": "duplicate_row",
+      "file": "raw/R1_LOT-A01.csv",
+      "line": 307,
+      "duplicate_of_line": 306
+    },
+    {
+      "rule": "duplicate_row",
+      "file": "raw/R1_LOT-A01.csv",
+      "line": 385,
+      "duplicate_of_line": 384
+    },
+    {
+      "rule": "unit_converted",
+      "file": "raw/R1_LOT-A02.csv",
+      "detail": "all VREF rows in mV",
+      "count": 80
+    },
+    {
+      "rule": "column_aliases",
+      "file": "raw/R2_LOT-A02_rescreen.csv",
+      "detail": "different column names, P/F/S status, slash dates"
+    },
+    {
+      "rule": "limit_mismatch",
+      "file": "raw/R2_LOT-B01.csv",
+      "detail": "IDDQ upper 5.5 vs 5.0 elsewhere",
+      "count": 80
+    },
+    {
+      "rule": "skip_required_item",
+      "file": "raw/R2_LOT-B01.csv",
+      "detail": "FMAX SKIP",
+      "chips": [
+        "LOT-B01/W01/D003",
+        "LOT-B01/W01/D004",
+        "LOT-B01/W01/D005",
+        "LOT-B01/W01/D006",
+        "LOT-B01/W02/D021",
+        "LOT-B01/W02/D022",
+        "LOT-B01/W02/D023",
+        "LOT-B01/W02/D024"
+      ]
+    },
+    {
+      "rule": "implausible_value",
+      "file": "raw/R2_LOT-B01.csv",
+      "line": 149
+    },
+    {
+      "rule": "status_inconsistent",
+      "file": "raw/R2_LOT-B01.csv",
+      "line": 251
+    },
+    {
+      "rule": "status_inconsistent",
+      "file": "raw/R2_LOT-B01.csv",
+      "line": 72
+    },
+    {
+      "rule": "missing_status",
+      "file": "raw/R2_LOT-B01.csv",
+      "line": 366
+    },
+    {
+      "rule": "conflicting_measurement",
+      "file": "raw/R2_LOT-B01.csv",
+      "lines": [
+        257,
+        258
+      ]
+    },
+    {
+      "rule": "empty_file",
+      "file": "raw/R2_empty.csv"
+    },
+    {
+      "rule": "malformed_log_line",
+      "file": "logs/tester_R2_2026-10-22.log",
+      "line": 815
+    }
+  ]
+}

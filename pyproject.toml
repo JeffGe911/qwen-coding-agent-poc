@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qwen-agent-poc"
+version = "0.1.0"
+description = "A small local coding agent with explicit human approval"
+requires-python = ">=3.11"
+dependencies = ["pytest==8.4.2"]
+
+[project.scripts]
+qwen-agent = "qwen_agent.cli:main"
+chip-analysis = "chip_analysis.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["qwen_agent*", "chip_analysis*"]
+
+[tool.setuptools.package-data]
+qwen_agent = ["tasks/*/*.py", "tasks/*/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+

@@ -1,0 +1,6 @@
+rank,test_item,final_fail_chips,fail_rows_incl_retests,final_valid_chips,final_fail_rate
+1,IDDQ,13,33,320,0.0406
+2,TEMP_OFFSET,3,5,320,0.0094
+3,LEAK,2,2,320,0.0063
+4,FMAX,1,1,311,0.0032
+5,VREF,0,0,319,0.0

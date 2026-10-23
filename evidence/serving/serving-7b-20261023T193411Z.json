@@ -1,0 +1,431 @@
+{
+  "at_utc": "2026-10-23T19:34:11.351083+00:00",
+  "base_url": "http://127.0.0.1:11437/v1",
+  "model": "qwen2.5-coder:7b",
+  "gpu_before": {
+    "exit_code": 0,
+    "columns": [
+      "name",
+      "driver_version",
+      "memory_total_MiB",
+      "memory_used_MiB",
+      "utilization_percent",
+      "temperature_C"
+    ],
+    "csv": "NVIDIA GeForce RTX 5070 Ti Laptop GPU, 591.91, 12227, 5684, 52, 52"
+  },
+  "models": {
+    "object": "list",
+    "data": [
+      {
+        "id": "qwen2.5-coder:7b",
+        "object": "model",
+        "created": 1792781197,
+        "owned_by": "library"
+      },
+      {
+        "id": "qwen2.5-coder:1.5b",
+        "object": "model",
+        "created": 1792779275,
+        "owned_by": "library"
+      }
+    ]
+  },
+  "measurement": "8 warm requests per client concurrency level 1,2,4; whole response latency, not streaming TTFT. Server-side parallel slots are set by OLLAMA_NUM_PARALLEL (see the launch record); extra client concurrency queues. Smoke benchmark, not a capacity test.",
+  "warmup_request": {
+    "ok": true,
+    "seconds": 0.3909433998633176,
+    "usage": {
+      "prompt_tokens": 45,
+      "prompt_tokens_details": {
+        "cached_tokens": 26
+      },
+      "completion_tokens": 19,
+      "total_tokens": 64
+    },
+    "finish_reason": "stop"
+  },
+  "warm_batches": [
+    {
+      "client_concurrency": 1,
+      "requests": [
+        {
+          "ok": true,
+          "seconds": 0.2183952999766916,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 37
+            },
+            "completion_tokens": 19,
+            "total_tokens": 64
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.2566875000484288,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 19,
+            "total_tokens": 64
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.2537283001001924,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 19,
+            "total_tokens": 64
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.23791239992715418,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 19,
+            "total_tokens": 64
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.2343268000986427,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 19,
+            "total_tokens": 64
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.2577527000103146,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 19,
+            "total_tokens": 64
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.23674469999969006,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 19,
+            "total_tokens": 64
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.26013770001009107,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 19,
+            "total_tokens": 64
+          },
+          "finish_reason": "stop"
+        }
+      ],
+      "wall_seconds": 1.9563164000865072,
+      "success_count": 8,
+      "request_latency_p50_seconds": 0.2458203500136733,
+      "request_latency_p95_seconds": 0.26013770001009107,
+      "aggregate_output_tokens_per_second": 77.69704327647544
+    },
+    {
+      "client_concurrency": 2,
+      "requests": [
+        {
+          "ok": true,
+          "seconds": 8.291258700191975,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 26
+            },
+            "completion_tokens": 19,
+            "total_tokens": 64
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 8.27710760012269,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 19,
+            "total_tokens": 64
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.2618768000975251,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 19,
+            "total_tokens": 64
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.26275340002030134,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 19,
+            "total_tokens": 64
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.3065094999037683,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 19,
+            "total_tokens": 64
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.276952899992466,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 19,
+            "total_tokens": 64
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.27874330012127757,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 19,
+            "total_tokens": 64
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.27951960009522736,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 19,
+            "total_tokens": 64
+          },
+          "finish_reason": "stop"
+        }
+      ],
+      "wall_seconds": 9.125755500048399,
+      "success_count": 8,
+      "request_latency_p50_seconds": 0.27913145010825247,
+      "request_latency_p95_seconds": 8.291258700191975,
+      "aggregate_output_tokens_per_second": 16.656155208102373
+    },
+    {
+      "client_concurrency": 4,
+      "requests": [
+        {
+          "ok": true,
+          "seconds": 0.2849237001501024,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 19,
+            "total_tokens": 64
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.5247875999193639,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 19,
+            "total_tokens": 64
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.5080435001291335,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 19,
+            "total_tokens": 64
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.2684055999852717,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 19,
+            "total_tokens": 64
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.47848960012197495,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 19,
+            "total_tokens": 64
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.4625476999208331,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 19,
+            "total_tokens": 64
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.5008040000684559,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 19,
+            "total_tokens": 64
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.4688738000113517,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 19,
+            "total_tokens": 64
+          },
+          "finish_reason": "stop"
+        }
+      ],
+      "wall_seconds": 1.01009720005095,
+      "success_count": 8,
+      "request_latency_p50_seconds": 0.4736817000666633,
+      "request_latency_p95_seconds": 0.5247875999193639,
+      "aggregate_output_tokens_per_second": 150.48056760511068
+    }
+  ],
+  "gpu_after": {
+    "exit_code": 0,
+    "columns": [
+      "name",
+      "driver_version",
+      "memory_total_MiB",
+      "memory_used_MiB",
+      "utilization_percent",
+      "temperature_C"
+    ],
+    "csv": "NVIDIA GeForce RTX 5070 Ti Laptop GPU, 591.91, 12227, 5683, 91, 63"
+  },
+  "version": {
+    "version": "0.40.9"
+  },
+  "loaded_models": {
+    "models": [
+      {
+        "name": "qwen2.5-coder:7b",
+        "model": "qwen2.5-coder:7b",
+        "size": 5140245380,
+        "digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen2",
+          "families": [
+            "qwen2"
+          ],
+          "parameter_size": "7.6B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-23T13:04:23.935403-07:00",
+        "size_vram": 5140245380,
+        "context_length": 4096,
+        "runner": "llamacpp"
+      }
+    ]
+  }
+}

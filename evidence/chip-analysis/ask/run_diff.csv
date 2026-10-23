@@ -1,0 +1,6 @@
+chip_key,test_item,change,R1_status,R2_status,R1_value,R2_value,R1_source,R2_source
+LOT-A02/W01/D032,TEMP_OFFSET,new_failure,PASS,FAIL,-1.98,-2.17,R1_LOT-A02.csv:161,R2_LOT-A02_rescreen.csv:402
+LOT-A02/W02/D004,IDDQ,fixed,FAIL,PASS,5.565,4.714,R1_LOT-A02.csv:404,R2_LOT-A02_rescreen.csv:405
+LOT-A02/W02/D012,IDDQ,fixed,FAIL,PASS,5.308,4.952,R1_LOT-A02.csv:406,R2_LOT-A02_rescreen.csv:258
+LOT-A02/W02/D034,IDDQ,fixed,FAIL,PASS,5.098,4.882,R1_LOT-A02.csv:412,R2_LOT-A02_rescreen.csv:368
+LOT-A02/W02/D035,IDDQ,fixed,FAIL,PASS,5.367,4.563,R1_LOT-A02.csv:413,R2_LOT-A02_rescreen.csv:373

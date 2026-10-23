@@ -1,0 +1,5 @@
+run_id,lot_id,chips,pass,fail,incomplete,yield_all,yield_complete_only,first_pass_yield_all
+R1,LOT-A01,80,77,3,0,0.9625,0.9625,0.9625
+R1,LOT-A02,80,72,8,0,0.9,0.9,0.8375
+R2,LOT-A02,80,75,5,0,0.9375,0.9375,0.9
+R2,LOT-B01,80,67,3,10,0.8375,0.9571,0.8375

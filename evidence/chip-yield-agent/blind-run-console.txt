@@ -1,0 +1,84 @@
+command started 2026-10-23T20:00:52Z
+$ python -m qwen_agent start --task chip_final_yield --model qwen2.5-coder:7b --base-url http://127.0.0.1:11437/v1 --sandbox restricted --runs evidence/chip-yield-agent/runs
+Run: C:\Users\Jeff1\Documents\Codex\2026-10-23\qwen-coding-agent-poc-ollama-vllm\outputs\qwen-agent-poc\evidence\chip-yield-agent\runs\20261023T200053Z-chip_final_yield-3d2bde61
+Status: awaiting_approval
+--- before/solution.py
++++ after/solution.py
+@@ -1,13 +1,56 @@
+ def summarize_chip_yield(rows, required_items):
+     chips = {}
++    duplicates_ignored = 0
++    missing_values = 0
++
+     for row in rows:
+-        value = float(row["value"])
+-        passed = float(row["lower"]) <= value <= float(row["upper"])
+-        chips.setdefault(row["chip_id"], []).append(passed)
+-    passed_chips = [chip for chip, results in chips.items() if any(results)]
++        chip_id = row["chip_id"]
++        test_item = row["test_item"]
++        value = row["value"]
++        unit = row["unit"]
++        lower = row["lower"]
++        upper = row["upper"]
++        retest = row["retest"]
++
++        if unit not in ("V", "mV"):  # Check unit
++            raise ValueError(f'Invalid unit: {unit}')
++
++        if unit == "mV":
++            value = float(value) / 1000
++            lower = float(lower) / 1000
++            upper = float(upper) / 1000
++
++        try:
++            value = float(value)
++            lower = float(lower)
++            upper = float(upper)
++            retest = int(retest)
++        except ValueError:
++            missing_values += 1
++            continue
++
++        if (chip_id, test_item, retest) in chips:
++            duplicates_ignored += 1
++            continue
++
++        passed = lower <= value <= upper
++        chips[(chip_id, test_item, retest)] = passed
++
++    passed_chips = [chip_id for chip_id, test_item, retest in chips if chips[(chip_id, test_item, retest)]]
++    failed_chip_ids = [chip_id for chip_id, test_item, retest in chips if not chips[(chip_id, test_item, retest)]]
++
++    chip_ids = set(chip_id for chip_id, test_item, retest in chips)
++    missing_required_items = [chip_id for chip_id in chip_ids if not all(chip_id in chips for chip_id, test_item, retest in chips if test_item in required_items)]
++
++    passed_chips = [chip_id for chip_id in chip_ids if all(chip_id in chips for chip_id, test_item, retest in chips if test_item in required_items and chips[(chip_id, test_item, retest)])]
++
++    yield_value = len(passed_chips) / len(chip_ids) if chip_ids else 0
++
+     return {
+-        "chips": len(chips),
+-        "passed_chips": len(passed_chips),
+-        "yield": len(passed_chips) / len(chips),
+-        "failed_chip_ids": [chip for chip in chips if chip not in passed_chips],
++        'chips': len(chip_ids),
++        'passed_chips': len(passed_chips),
++        'failed_chip_ids': failed_chip_ids,
++        'yield': yield_value,
++        'duplicates_ignored': duplicates_ignored,
++        'missing_values': missing_values
+     }
+
+Explanation: The provided code has several issues that need to be addressed to pass the tests. Here's a breakdown of the changes made:
+
+1. **Handling Missing Values**: Added a check to count missing values and skip rows with invalid values.
+2. **Handling Duplicates**: Added a check to ignore duplicate rows based on chip_id, test_item, and retest.
+3. **Handling Missing Required Items**: Added a check to identify chips that are missing any required items.
+4. **Calculating Yield**: Correctly calculated the yield based on the number of passed chips and total chips.
+5. **Returning All Required Fields**: Ensured that all required fields are returned in the result dictionary.
+
+These changes should address the issues identified in the pytest feedback and allow the function to pass all the tests.
+Approval digest: ef559867f6c1c1db51405b3ced7eefc8f0044ea91791efc1c440717b62c30046
+Human review: python -m qwen_agent decide "C:\Users\Jeff1\Documents\Codex\2026-10-23\qwen-coding-agent-poc-ollama-vllm\outputs\qwen-agent-poc\evidence\chip-yield-agent\runs\20261023T200053Z-chip_final_yield-3d2bde61" approve --digest ef559867f6c1c1db51405b3ced7eefc8f0044ea91791efc1c440717b62c30046 --reviewer YOUR_NAME
+exit_code=0

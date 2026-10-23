@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-645",
+  "object": "chat.completion",
+  "created": 1792779624,
+  "model": "qwen2.5-coder:1.5b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"code\": \"def chunked(items, size):\\n    if not isinstance(size, int) or size <= 0:\\n        raise ValueError(\\\"not implemented\\\")\\n    return [items[i:i+size] for i in range(0, len(items), size)]\", \"explanation\": \"The function `chunked` takes a list `items` and an integer `size` as input. It returns a new list of lists, where each sublist contains at most `size` elements from the original list. The function preserves the order of the elements and ensures that the final sublist is not empty if the original list does not have enough elements to fill the last sublist. The function raises a `ValueError` if the `size` is not a positive integer.\"}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 398,
+    "prompt_tokens_details": {
+      "cached_tokens": 203
+    },
+    "completion_tokens": 160,
+    "total_tokens": 558
+  }
+}

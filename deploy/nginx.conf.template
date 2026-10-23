@@ -1,0 +1,39 @@
+# /health and /metrics are also authenticated; raw vLLM port is never published.
+map $http_authorization $authenticated {
+    default 0;
+    "Bearer ${LOCAL_MODEL_API_KEY}" 1;
+}
+log_format minimal '$time_iso8601 $request_method $uri $status $request_time';
+limit_req_zone $binary_remote_addr zone=api_rate:10m rate=2r/s;
+limit_conn_zone $binary_remote_addr zone=api_conn:10m;
+server {
+    listen 8080;
+    server_tokens off;
+    access_log /var/log/nginx/access.log minimal;
+    client_max_body_size 64k;
+    client_body_timeout 10s;
+    if ($authenticated = 0) { return 401; }
+    limit_req zone=api_rate burst=8 nodelay;
+    limit_req_status 429;
+    limit_conn api_conn 4;
+    proxy_read_timeout 180s;
+    proxy_connect_timeout 5s;
+    proxy_buffering off;
+    location = /v1/chat/completions {
+        limit_except POST { deny all; }
+        proxy_pass http://inference:8000;
+    }
+    location = /v1/models {
+        limit_except GET { deny all; }
+        proxy_pass http://inference:8000;
+    }
+    location = /health {
+        limit_except GET { deny all; }
+        proxy_pass http://inference:8000;
+    }
+    location = /metrics {
+        limit_except GET { deny all; }
+        proxy_pass http://inference:8000;
+    }
+    location / { return 404; }
+}

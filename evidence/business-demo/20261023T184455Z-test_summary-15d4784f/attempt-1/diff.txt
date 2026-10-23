@@ -1,0 +1,18 @@
+--- before/solution.py
++++ after/solution.py
+@@ -1,6 +1,13 @@
+ def summarize_results(results):
+     summary = {"passed": 0, "failed": 0, "skipped": 0}
+     for result in results:
+-        summary[result["status"]] += 1
++        if result["status"] == "passed":
++            summary["passed"] += 1
++        elif result["status"] == "failed":
++            summary["failed"] += 1
++        elif result["status"] == "skipped":
++            summary["skipped"] += 1
++        else:
++            raise ValueError(f"Unknown status: {result["status"]}")
+     summary["pass_rate"] = summary["passed"] / len(results) if results else 0.0
+-    return summary
++    return summary

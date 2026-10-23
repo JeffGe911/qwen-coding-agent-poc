@@ -1,0 +1,4 @@
+# Keep LF everywhere. Frozen task files are verified by SHA-256 of their exact bytes
+# (qwen_agent/tasks/*/frozen.json and the per-run contract), so checkout must not rewrite line endings.
+* text=auto eol=lf
+*.png binary

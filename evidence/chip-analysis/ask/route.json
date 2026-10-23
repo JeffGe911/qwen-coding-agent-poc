@@ -1,0 +1,98 @@
+{
+  "request": {
+    "model": "qwen2.5-coder:7b",
+    "temperature": 0,
+    "max_tokens": 200,
+    "stream": false,
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "route",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "command": {
+              "type": "string",
+              "enum": [
+                "analyze",
+                "daily",
+                "compare_runs",
+                "extract_log",
+                "review"
+              ]
+            },
+            "top_n": {
+              "type": "integer"
+            },
+            "date": {
+              "type": "string"
+            },
+            "base_run": {
+              "type": "string"
+            },
+            "new_run": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "command",
+            "top_n",
+            "date",
+            "base_run",
+            "new_run",
+            "reason"
+          ]
+        }
+      }
+    },
+    "messages": [
+      {
+        "role": "system",
+        "content": "把用户的中文请求映射为一个固定命令。可选命令：analyze=完整分析并生成报告（按批次/晶圆/项目汇总、失败最多的项目、异常集中、分布、比较）；daily=某一天的每日汇总；compare_runs=对比两次运行的新增失败和已修复项目；extract_log=从测试日志提取失败项目；review=按规则导出待复核异常清单。top_n 默认 5；date 用 YYYY-MM-DD，不需要时为空字符串；base_run/new_run 不需要时为空字符串。只返回 JSON。"
+      },
+      {
+        "role": "user",
+        "content": "分析这个目录里的测试 CSV，按批次汇总，找出失败最多的五个项目，并生成报告"
+      }
+    ]
+  },
+  "raw_response": {
+    "id": "chatcmpl-583",
+    "object": "chat.completion",
+    "created": 1792785681,
+    "model": "qwen2.5-coder:7b",
+    "system_fingerprint": "fp_ollama",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"command\": \"analyze\",\n  \"top_n\": 5,\n  \"date\": \"\",\n  \"base_run\": \"\",\n  \"new_run\": \"\",\n  \"reason\": \"按批次汇总，找出失败最多的五个项目，并生成报告\"\n}"
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 153,
+      "prompt_tokens_details": {
+        "cached_tokens": 3
+      },
+      "completion_tokens": 55,
+      "total_tokens": 208
+    }
+  },
+  "latency_seconds": 1.077,
+  "plan": {
+    "command": "analyze",
+    "top_n": 5,
+    "date": "",
+    "base_run": "",
+    "new_run": "",
+    "reason": "按批次汇总，找出失败最多的五个项目，并生成报告"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "run_id": "20261023T184710Z-test_summary-d719b003",
+  "created_at": "2026-10-23T18:47:10.108334+00:00",
+  "task": {
+    "id": "test_summary",
+    "description": "Fix summarize_results(results), a helper used by an internal automated test report. Input is a list of dictionaries containing status equal to passed, failed or skipped. Return a new dict with exactly passed, failed, skipped counts and pass_rate. pass_rate must be passed / (passed + failed), rounded to 4 decimal places; skipped tests must not reduce the rate. If no tests were executed, pass_rate is 0.0. Unknown or missing status must raise ValueError. Do not mutate the input. Use no imports and keep the function signature unchanged."
+  },
+  "config": {
+    "base_url": "http://127.0.0.1:11435/v1",
+    "model": "qwen2.5-coder:7b",
+    "sandbox": "restricted",
+    "max_attempts": 3,
+    "timeout_seconds": 20
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "digest": "a8d6d938ecd339f80f7a9f58ff0afb1682820c1365c8b9123cab6124eb6ffbd7",
+      "generation_seconds": 6.773,
+      "usage": {
+        "prompt_tokens": 944,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens": 273,
+        "total_tokens": 1217
+      },
+      "status": "awaiting_approval"
+    }
+  ],
+  "status": "awaiting_approval",
+  "baseline": {
+    "exit_code": 1,
+    "tests": 10,
+    "failures": 5,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 5,
+    "output": "F..FF..FF.                                                               [100%]\n================================== FAILURES ===================================\n___________________________ test_internal_test_run ____________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\business-demo-7b\\20261023T184710Z-test_summary-d719b003\\workspace\\test_visible.py:12: in test_internal_test_run\n    assert summarize_results(results) == {\nE   AssertionError: assert {'failed': 1,... 'skipped': 1} == {'failed': 1,... 'skipped': 1}\nE     \nE     Omitting 3 identical items, use -vv to show\nE     Differing items:\nE     {'pass_rate': 0.5} != {'pass_rate': 0.6667}\nE     Use -v to get more diff\n_____________________________ test_unknown_status _____________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\business-demo-7b\\20261023T184710Z-test_summary-d719b003\\workspace\\test_visible.py:29: in test_unknown_status\n    summarize_results([{\"status\": \"unknown\"}])\nsolution.py:4: in summarize_results\n    ???\nE   KeyError: 'unknown'\n_____________________________ test_missing_status _____________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\business-demo-7b\\20261023T184710Z-test_summary-d719b003\\workspace\\test_holdout.py:7: in test_missing_status\n    summarize_results([{\"name\": \"incomplete\"}])\nsolution.py:4: in summarize_results\n    ???\nE   KeyError: 'status'\n________________________ test_rates[statuses2-0.3333] _________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\business-demo-7b\\20261023T184710Z-test_summary-d719b003\\workspace\\test_holdout.py:19: in test_rates\n    assert summary[\"pass_rate\"] == rate\nE   assert 0.3333333333333333 == 0.3333\n__________________________ test_rates[statuses3-1.0] __________________________\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\business-demo-7b\\20261023T184710Z-test_summary-d719b003\\workspace\\test_holdout.py:19: in test_rates\n    assert summary[\"pass_rate\"] == rate\nE   assert 0.3333333333333333 == 1.0\n- generated xml file: C:\\Users\\Jeff1\\AppData\\Local\\Temp\\qwen-pytest-uld63kzo\\results.xml -\n=========================== short test summary info ===========================\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\business-demo-7b\\20261023T184710Z-test_summary-d719b003\\workspace\\test_visible.py::test_internal_test_run\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\business-demo-7b\\20261023T184710Z-test_summary-d719b003\\workspace\\test_visible.py::test_unknown_status\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\business-demo-7b\\20261023T184710Z-test_summary-d719b003\\workspace\\test_holdout.py::test_missing_status\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\business-demo-7b\\20261023T184710Z-test_summary-d719b003\\workspace\\test_holdout.py::test_rates[statuses2-0.3333]\nFAILED ..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\business-demo-7b\\20261023T184710Z-test_summary-d719b003\\workspace\\test_holdout.py::test_rates[statuses3-1.0]\n5 failed, 5 passed in 0.27s\n",
+    "visible_feedback": "..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\business-demo-7b\\20261023T184710Z-test_summary-d719b003\\workspace\\test_visible.py:12: in test_internal_test_run\n    assert summarize_results(results) == {\nE   AssertionError: assert {'failed': 1,... 'skipped': 1} == {'failed': 1,... 'skipped': 1}\nE     \nE     Omitting 3 identical items, use -vv to show\nE     Differing items:\nE     {'pass_rate': 0.5} != {'pass_rate': 0.6667}\nE     Use -v to get more diff\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\business-demo-7b\\20261023T184710Z-test_summary-d719b003\\workspace\\test_visible.py:29: in test_unknown_status\n    summarize_results([{\"status\": \"unknown\"}])\nsolution.py:4: in summarize_results\n    ???\nE   KeyError: 'unknown'",
+    "elapsed_seconds": 0.885
+  },
+  "feedback": "Visible test failures:\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\business-demo-7b\\20261023T184710Z-test_summary-d719b003\\workspace\\test_visible.py:12: in test_internal_test_run\n    assert summarize_results(results) == {\nE   AssertionError: assert {'failed': 1,... 'skipped': 1} == {'failed': 1,... 'skipped': 1}\nE     \nE     Omitting 3 identical items, use -vv to show\nE     Differing items:\nE     {'pass_rate': 0.5} != {'pass_rate': 0.6667}\nE     Use -v to get more diff\n..\\..\\..\\..\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\outputs\\qwen-agent-poc\\evidence\\business-demo-7b\\20261023T184710Z-test_summary-d719b003\\workspace\\test_visible.py:29: in test_unknown_status\n    summarize_results([{\"status\": \"unknown\"}])\nsolution.py:4: in summarize_results\n    ???\nE   KeyError: 'unknown'\nOther evaluation cases may also fail; follow the full requirement."
+}

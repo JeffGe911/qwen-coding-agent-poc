@@ -1,0 +1,11 @@
+run_id,test_item,fail_rows,final_fail_chips,final_valid_chips,final_fail_rate,final_not_valid
+R1,FMAX,1,1,160,0.0063,0
+R1,IDDQ,22,9,160,0.0563,0
+R1,LEAK,1,1,160,0.0063,0
+R1,TEMP_OFFSET,0,0,160,0.0,0
+R1,VREF,0,0,160,0.0,0
+R2,FMAX,0,0,151,0.0,9
+R2,IDDQ,11,4,160,0.025,0
+R2,LEAK,1,1,160,0.0063,0
+R2,TEMP_OFFSET,5,3,160,0.0187,0
+R2,VREF,0,0,159,0.0,1

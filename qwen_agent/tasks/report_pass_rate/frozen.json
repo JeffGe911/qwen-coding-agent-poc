@@ -1,0 +1,10 @@
+{
+  "frozen_at_utc": "2026-10-23T19:32:25.643261+00:00",
+  "note": "Frozen before any model call for this task. Verified: original buggy code passes 8/21 (visible 5/9, holdout 3/12); a reference solution kept only in tests/test_frozen_task.py passes 21/21. Changing any file below breaks tests/test_frozen_task.py on purpose.",
+  "sha256": {
+    "solution.py": "31c3fdaf01017ac7838533b2876f55e1a20c6dc4203aafd140eef66f8729547f",
+    "test_visible.py": "317343b157e692fdc3bd0239d26dd7714c623725510973096d395c3d04a30e1a",
+    "test_holdout.py": "4273736a10f3e996c4d8c0972e028dfe88ce2e390135c005b1c436c3ba20376f",
+    "task.json": "ac36e35de82c6c9f804f3611024fbf7820abab99dee1d867463d0b23f70351d7"
+  }
+}

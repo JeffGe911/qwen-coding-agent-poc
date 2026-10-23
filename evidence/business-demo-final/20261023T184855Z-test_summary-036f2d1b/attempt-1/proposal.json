@@ -1,0 +1,6 @@
+{
+  "code": "def summarize_results(results):\n    summary = {\"passed\": 0, \"failed\": 0, \"skipped\": 0}\n    for result in results:\n        if \"status\" not in result:\n            raise ValueError(\"Missing status\")\n        if result[\"status\"] not in summary:\n            raise ValueError(f\"Unknown status: {result[\"status\"]}\")\n        summary[result[\"status\"]] += 1\n    executed = summary[\"passed\"] + summary[\"failed\"]\n    pass_rate = round(summary[\"passed\"] / executed, 4) if executed else 0.0\n    return {\"passed\": summary[\"passed\"], \"failed\": summary[\"failed\"], \"skipped\": summary[\"skipped\"], \"pass_rate\": pass_rate}\n",
+  "explanation": "The original code did not correctly handle skipped tests and did not raise an error for unknown statuses. The updated code now correctly excludes skipped tests from the pass rate denominator and raises a ValueError for unknown statuses. It also ensures that the pass_rate is calculated correctly even if there are no executed tests.",
+  "attempt": 1,
+  "digest": "b0be04b50d9cffd65bf761d84d91a2819bb74a36e0e47e21ceed4bd0398255df"
+}

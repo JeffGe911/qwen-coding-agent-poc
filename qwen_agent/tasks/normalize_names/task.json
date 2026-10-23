@@ -1,0 +1,1 @@
+{"id":"normalize_names","description":"Fix normalize_names(names). Given a list of strings, trim whitespace and lowercase each string, discard empty normalized names, and remove duplicates while preserving first occurrence order. Return a new list without mutating the input. Keep the function signature unchanged."}

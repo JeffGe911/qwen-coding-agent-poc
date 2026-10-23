@@ -1,0 +1,6 @@
+{
+  "code": "def chunked(items, size):\n    if not isinstance(size, int) or size <= 0:\n        raise ValueError(\"not implemented\")\n    return [items[i:i+size] for i in range(0, len(items), size)]",
+  "explanation": "The function `chunked` takes a list `items` and an integer `size` as input. It returns a new list of lists, where each sublist contains at most `size` elements from the original list. The function preserves the order of the elements and ensures that the final sublist is not empty if the original list does not have enough elements to fill the last sublist. The function raises a `ValueError` if the `size` is not a positive integer.",
+  "attempt": 2,
+  "digest": "8a498851b741c71ebe777d774eea4bc06e6ec244a48447c5a15999b2856d3b95"
+}

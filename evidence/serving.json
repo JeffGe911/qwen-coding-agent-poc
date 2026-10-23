@@ -1,0 +1,207 @@
+{
+  "at_utc": "2026-10-23T18:21:55.537063+00:00",
+  "base_url": "http://127.0.0.1:11435/v1",
+  "model": "qwen2.5-coder:1.5b",
+  "gpu_before": {
+    "exit_code": 0,
+    "columns": [
+      "name",
+      "driver_version",
+      "memory_total_MiB",
+      "memory_used_MiB",
+      "utilization_percent",
+      "temperature_C"
+    ],
+    "csv": "NVIDIA GeForce RTX 5070 Ti Laptop GPU, 591.91, 12227, 2821, 89, 63"
+  },
+  "models": {
+    "object": "list",
+    "data": [
+      {
+        "id": "qwen2.5-coder:1.5b",
+        "object": "model",
+        "created": 1792779275,
+        "owned_by": "library"
+      }
+    ]
+  },
+  "measurement": "4 warm requests per concurrency; whole response latency, not streaming TTFT. This is a smoke benchmark, not a capacity test.",
+  "warmup_request": {
+    "ok": true,
+    "seconds": 0.1416726999450475,
+    "usage": {
+      "prompt_tokens": 45,
+      "prompt_tokens_details": {
+        "cached_tokens": 4
+      },
+      "completion_tokens": 20,
+      "total_tokens": 65
+    },
+    "finish_reason": "stop"
+  },
+  "warm_batches": [
+    {
+      "client_concurrency": 1,
+      "requests": [
+        {
+          "ok": true,
+          "seconds": 0.1469564000144601,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 37
+            },
+            "completion_tokens": 20,
+            "total_tokens": 65
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.15829209983348846,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 20,
+            "total_tokens": 65
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.14557920000515878,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 20,
+            "total_tokens": 65
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.1394246998243034,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 20,
+            "total_tokens": 65
+          },
+          "finish_reason": "stop"
+        }
+      ],
+      "wall_seconds": 0.5910307001322508,
+      "success_count": 4,
+      "request_latency_p50_seconds": 0.14626780000980943,
+      "request_latency_p95_seconds": 0.15829209983348846,
+      "aggregate_output_tokens_per_second": 135.35675893333283
+    },
+    {
+      "client_concurrency": 2,
+      "requests": [
+        {
+          "ok": true,
+          "seconds": 0.2670388000551611,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 20,
+            "total_tokens": 65
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.14939219993539155,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 20,
+            "total_tokens": 65
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.24070660001598299,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 20,
+            "total_tokens": 65
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "ok": true,
+          "seconds": 0.2402311998885125,
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 38
+            },
+            "completion_tokens": 20,
+            "total_tokens": 65
+          },
+          "finish_reason": "stop"
+        }
+      ],
+      "wall_seconds": 0.5078624000307173,
+      "success_count": 4,
+      "request_latency_p50_seconds": 0.24046889995224774,
+      "request_latency_p95_seconds": 0.2670388000551611,
+      "aggregate_output_tokens_per_second": 157.52298259363428
+    }
+  ],
+  "gpu_after": {
+    "exit_code": 0,
+    "columns": [
+      "name",
+      "driver_version",
+      "memory_total_MiB",
+      "memory_used_MiB",
+      "utilization_percent",
+      "temperature_C"
+    ],
+    "csv": "NVIDIA GeForce RTX 5070 Ti Laptop GPU, 591.91, 12227, 2822, 78, 62"
+  },
+  "version": {
+    "version": "0.40.9"
+  },
+  "loaded_models": {
+    "models": [
+      {
+        "name": "qwen2.5-coder:1.5b",
+        "model": "qwen2.5-coder:1.5b",
+        "size": 1169382440,
+        "digest": "d7372fd828518a4d38b1eb196c673c31a85f2ed302b3d1e406c4c2d1b64a0668",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen2",
+          "families": [
+            "qwen2"
+          ],
+          "parameter_size": "1.5B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-23T11:26:56.860112-07:00",
+        "size_vram": 1169382440,
+        "context_length": 4096,
+        "runner": "llamacpp"
+      }
+    ]
+  }
+}
