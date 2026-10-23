@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-56",
+  "object": "chat.completion",
+  "created": 1792784029,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"code\": \"def summarize_results(results):\\n    summary = {\\\"passed\\\": 0, \\\"failed\\\": 0, \\\"skipped\\\": 0}\\n    for result in results:\\n        status = result.get(\\\"status\\\")\\n        if status == \\\"passed\\\":\\n            summary[\\\"passed\\\"] += 1\\n        elif status == \\\"failed\\\":\\n            summary[\\\"failed\\\"] += 1\\n        elif status == \\\"skipped\\\":\\n            summary[\\\"skipped\\\"] += 1\\n        else:\\n            raise ValueError(f\\\"Unknown status: {status}\\\")\\n    total_executed = summary[\\\"passed\\\"] + summary[\\\"failed\\\"]\\n    summary[\\\"pass_rate\\\"] = round(summary[\\\"passed\\\"] / total_executed, 4) if total_executed else 0.0\\n    return summary\\n\",\n  \"explanation\": \"The original code did not handle the calculation of the pass rate correctly, especially when there were no executed cases. It also did not check for unknown or missing statuses, which would cause a KeyError. The updated code addresses these issues by:\\n1. Using `result.get(\\\"status\\\")` to safely retrieve the status, raising a ValueError if the status is unknown.\\n2. Calculating the total number of executed cases (`total_executed`) by summing `passed` and `failed`.\\n3. Using `round` to ensure the pass rate is rounded to four decimal places.\\n4. Handling the case where there are no executed cases by setting `pass_rate` to 0.0.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1944,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "completion_tokens": 337,
+    "total_tokens": 2281
+  }
+}

@@ -1,7 +1,9 @@
 .venv/
 __pycache__/
 .pytest_cache/
-runs/
+# Scratch run directories at the project root only; evidence/**/runs/ is kept on purpose.
+/runs/
+/runs-*/
 *.egg-info/
 deploy/.env
 *.key

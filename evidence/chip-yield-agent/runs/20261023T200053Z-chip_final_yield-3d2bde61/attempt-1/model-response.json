@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-377",
+  "object": "chat.completion",
+  "created": 1792785665,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n    \"code\": \"def summarize_chip_yield(rows, required_items):\\n    chips = {}\\n    duplicates_ignored = 0\\n    missing_values = 0\\n\\n    for row in rows:\\n        chip_id = row[\\\"chip_id\\\"]\\n        test_item = row[\\\"test_item\\\"]\\n        value = row[\\\"value\\\"]\\n        unit = row[\\\"unit\\\"]\\n        lower = row[\\\"lower\\\"]\\n        upper = row[\\\"upper\\\"]\\n        retest = row[\\\"retest\\\"]\\n\\n        if unit not in (\\\"V\\\", \\\"mV\\\"):  # Check unit\\n            raise ValueError(f'Invalid unit: {unit}')\\n\\n        if unit == \\\"mV\\\":\\n            value = float(value) / 1000\\n            lower = float(lower) / 1000\\n            upper = float(upper) / 1000\\n\\n        try:\\n            value = float(value)\\n            lower = float(lower)\\n            upper = float(upper)\\n            retest = int(retest)\\n        except ValueError:\\n            missing_values += 1\\n            continue\\n\\n        if (chip_id, test_item, retest) in chips:\\n            duplicates_ignored += 1\\n            continue\\n\\n        passed = lower <= value <= upper\\n        chips[(chip_id, test_item, retest)] = passed\\n\\n    passed_chips = [chip_id for chip_id, test_item, retest in chips if chips[(chip_id, test_item, retest)]]\\n    failed_chip_ids = [chip_id for chip_id, test_item, retest in chips if not chips[(chip_id, test_item, retest)]]\\n\\n    chip_ids = set(chip_id for chip_id, test_item, retest in chips)\\n    missing_required_items = [chip_id for chip_id in chip_ids if not all(chip_id in chips for chip_id, test_item, retest in chips if test_item in required_items)]\\n\\n    passed_chips = [chip_id for chip_id in chip_ids if all(chip_id in chips for chip_id, test_item, retest in chips if test_item in required_items and chips[(chip_id, test_item, retest)])]\\n\\n    yield_value = len(passed_chips) / len(chip_ids) if chip_ids else 0\\n\\n    return {\\n        'chips': len(chip_ids),\\n        'passed_chips': len(passed_chips),\\n        'failed_chip_ids': failed_chip_ids,\\n        'yield': yield_value,\\n        'duplicates_ignored': duplicates_ignored,\\n        'missing_values': missing_values\\n    }\\n\",\n    \"explanation\": \"The provided code has several issues that need to be addressed to pass the tests. Here's a breakdown of the changes made:\\n\\n1. **Handling Missing Values**: Added a check to count missing values and skip rows with invalid values.\\n2. **Handling Duplicates**: Added a check to ignore duplicate rows based on chip_id, test_item, and retest.\\n3. **Handling Missing Required Items**: Added a check to identify chips that are missing any required items.\\n4. **Calculating Yield**: Correctly calculated the yield based on the number of passed chips and total chips.\\n5. **Returning All Required Fields**: Ensured that all required fields are returned in the result dictionary.\\n\\nThese changes should address the issues identified in the pytest feedback and allow the function to pass all the tests.\" }"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 3584,
+    "prompt_tokens_details": {
+      "cached_tokens": 3
+    },
+    "completion_tokens": 762,
+    "total_tokens": 4346
+  }
+}

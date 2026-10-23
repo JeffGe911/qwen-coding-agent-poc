@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-36",
+  "object": "chat.completion",
+  "created": 1792786942,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n    \"code\": \"def summarize_chip_yield(rows, required_items):\\n    chips = {}\\n    duplicates_ignored = 0\\n    missing_values = 0\\n\\n    for row in rows:\\n        chip_id = row[\\\"chip_id\\\"]\\n        test_item = row[\\\"test_item\\\"]\\n        value = row[\\\"value\\\"]\\n        unit = row[\\\"unit\\\"]\\n        lower = row[\\\"lower\\\"]\\n        upper = row[\\\"upper\\\"]\\n        retest = row[\\\"retest\\\"]\\n\\n        if unit not in (\\\"V\\\", \\\"mV\\\"):  # Check unit\\n            raise ValueError(f'Invalid unit: {unit}')\\n\\n        if unit == \\\"mV\\\":\\n            value = float(value) / 1000\\n            lower = float(lower) / 1000\\n            upper = float(upper) / 1000\\n\\n        try:\\n            value = float(value)\\n            lower = float(lower)\\n            upper = float(upper)\\n            retest = int(retest)\\n        except ValueError:\\n            raise ValueError(f'Invalid value for row: {row}')\\n\\n        key = (chip_id, test_item, retest)\\n        if key in chips:\\n            if chips[key][2] != retest:\\n                raise ValueError(f'Conflicting rows for key: {key}\\nRow 1: {chips[key][0]}\\nRow 2: {row}')\\n            if value != chips[key][1]:\\n                raise ValueError(f'Conflicting values for key: {key}\\nRow 1: {chips[key][1]}\\nRow 2: {value}')\\n        else:\\n            chips[key] = (row, value, retest)\\n\\n    passed_chips = 0\\n    for chip_id, test_item in required_items:\\n        key = (chip_id, test_item, 0)\\n        if key in chips:\\n            if chips[key][1] >= chips[key][0][\\\"lower\\\"] and chips[key][1] <= chips[key][0][\\\"upper\\\"]:\\n                passed_chips += 1\\n        else:\\n            missing_values += 1\\n\\n    yield {\\n        \\\"chips\\\": len(chips),\\n        \\\"passed_chips\\\": passed_chips,\\n        \\\"yield\\\": passed_chips / len(chips) if len(chips) > 0 else 0,\\n        \\\"failed_chip_ids\\\": [chip_id for chip_id, test_item in required_items if (chip_id, test_item, 0) not in chips],\\n        \\\"duplicates_ignored\\\": duplicates_ignored,\\n        \\\"missing_values\\\": missing_values\\n    }\\n\",\n    \"explanation\": \"The provided code has been modified to include error handling for invalid values and to ensure that the yield expression is used correctly. The function now yields a dictionary containing the summary of the chip yield data, including the number of chips, passed chips, yield percentage, failed chip IDs, duplicates ignored, and missing values.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 3866,
+    "prompt_tokens_details": {
+      "cached_tokens": 3
+    },
+    "completion_tokens": 672,
+    "total_tokens": 4538
+  }
+}

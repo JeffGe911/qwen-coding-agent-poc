@@ -1,0 +1,63 @@
+--- before/solution.py
++++ after/solution.py
+@@ -26,31 +26,35 @@
+             upper = float(upper)
+             retest = int(retest)
+         except ValueError:
++            raise ValueError(f'Invalid value for row: {row}')
++
++        key = (chip_id, test_item, retest)
++        if key in chips:
++            if chips[key][2] != retest:
++                raise ValueError(f'Conflicting rows for key: {key}
++Row 1: {chips[key][0]}
++Row 2: {row}')
++            if value != chips[key][1]:
++                raise ValueError(f'Conflicting values for key: {key}
++Row 1: {chips[key][1]}
++Row 2: {value}')
++        else:
++            chips[key] = (row, value, retest)
++
++    passed_chips = 0
++    for chip_id, test_item in required_items:
++        key = (chip_id, test_item, 0)
++        if key in chips:
++            if chips[key][1] >= chips[key][0]["lower"] and chips[key][1] <= chips[key][0]["upper"]:
++                passed_chips += 1
++        else:
+             missing_values += 1
+-            continue
+ 
+-        if (chip_id, test_item, retest) in chips:
+-            duplicates_ignored += 1
+-            continue
+-
+-        passed = lower <= value <= upper
+-        chips[(chip_id, test_item, retest)] = passed
+-
+-    passed_chips = [chip_id for chip_id, test_item, retest in chips if chips[(chip_id, test_item, retest)]]
+-    failed_chip_ids = [chip_id for chip_id, test_item, retest in chips if not chips[(chip_id, test_item, retest)]]
+-
+-    chip_ids = set(chip_id for chip_id, test_item, retest in chips)
+-    missing_required_items = [chip_id for chip_id in chip_ids if not all(chip_id in chips for chip_id, test_item, retest in chips if test_item in required_items)]
+-
+-    passed_chips = [chip_id for chip_id in chip_ids if all(chip_id in chips for chip_id, test_item, retest in chips if test_item in required_items and chips[(chip_id, test_item, retest)])]
+-
+-    yield_value = len(passed_chips) / len(chip_ids) if chip_ids else 0
+-
+-    return {
+-        'chips': len(chip_ids),
+-        'passed_chips': len(passed_chips),
+-        'failed_chip_ids': failed_chip_ids,
+-        'yield': yield_value,
+-        'duplicates_ignored': duplicates_ignored,
+-        'missing_values': missing_values
++    yield {
++        "chips": len(chips),
++        "passed_chips": passed_chips,
++        "yield": passed_chips / len(chips) if len(chips) > 0 else 0,
++        "failed_chip_ids": [chip_id for chip_id, test_item in required_items if (chip_id, test_item, 0) not in chips],
++        "duplicates_ignored": duplicates_ignored,
++        "missing_values": missing_values
+     }

@@ -1,0 +1,55 @@
+--- before/solution.py
++++ after/solution.py
+@@ -30,27 +30,33 @@
+             continue
+ 
+         if (chip_id, test_item, retest) in chips:
+-            duplicates_ignored += 1
+-            continue
++            if chips[(chip_id, test_item, retest)]["retest"] < retest:
++                chips[(chip_id, test_item, retest)] = row
++                duplicates_ignored += 1
++            else:
++                duplicates_ignored += 1
++        else:
++            chips[(chip_id, test_item, retest)] = row
+ 
+-        passed = lower <= value <= upper
+-        chips[(chip_id, test_item, retest)] = passed
++    passed_chips = 0
++    for chip_id, test_item, retest in chips:
++        row = chips[(chip_id, test_item, retest)]
++        value = row["value"]
++        lower = row["lower"]
++        upper = row["upper"]
++        if lower <= value <= upper:
++            passed_chips += 1
++        else:
++            if test_item not in required_items:
++                passed_chips += 1
+ 
+-    passed_chips = [chip_id for chip_id, test_item, retest in chips if chips[(chip_id, test_item, retest)]]
+-    failed_chip_ids = [chip_id for chip_id, test_item, retest in chips if not chips[(chip_id, test_item, retest)]]
+-
+-    chip_ids = set(chip_id for chip_id, test_item, retest in chips)
+-    missing_required_items = [chip_id for chip_id in chip_ids if not all(chip_id in chips for chip_id, test_item, retest in chips if test_item in required_items)]
+-
+-    passed_chips = [chip_id for chip_id in chip_ids if all(chip_id in chips for chip_id, test_item, retest in chips if test_item in required_items and chips[(chip_id, test_item, retest)])]
+-
+-    yield_value = len(passed_chips) / len(chip_ids) if chip_ids else 0
++    yield = passed_chips / len(chips) if chips else 0
+ 
+     return {
+-        'chips': len(chip_ids),
+-        'passed_chips': len(passed_chips),
+-        'failed_chip_ids': failed_chip_ids,
+-        'yield': yield_value,
+-        'duplicates_ignored': duplicates_ignored,
+-        'missing_values': missing_values
++        "chips": len(chips),
++        "passed_chips": passed_chips,
++        "yield": yield,
++        "failed_chip_ids": [chip_id for chip_id, test_item, retest in chips if test_item not in required_items],
++        "duplicates_ignored": duplicates_ignored,
++        "missing_values": missing_values
+     }
