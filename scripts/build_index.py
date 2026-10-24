@@ -17,6 +17,7 @@ from qwen_agent.workflow import read_json
 
 EV = ROOT / "evidence"
 GROUPS = [
+    ("context-validation/*/runs", "配置验证 · 上下文与输出截断（r1 / r2 / r2b）", "同一冻结任务、提示词与策略；对比服务配置与输出预算，不是新的盲测；7B"),
     ("report-pass-rate/runs", "本次首次盲测 · report_pass_rate", "需求原文 + 21 个测试在模型调用前冻结；策略 v2；7B"),
     ("chip-yield-agent/runs", "本次首次盲测 · chip_final_yield（芯片数据闭环）", "需求 + 22 个测试在模型调用前冻结；策略 v2；7B"),
     ("business-demo-final", "历史 · test_summary 调整后", "任务说明和公开断言在看到模型失败后调整过，非盲测；7B"),
@@ -84,6 +85,26 @@ def chip_section():
             f'<li>自然语言入口：两条请求被路由到 analyze 与 compare_runs 并执行，见 chip-analysis/ask-console.txt。</li></ul>')
 
 
+def context_section():
+    path = EV / "context-validation" / "report.json"
+    if not path.exists():
+        return ""
+    rep = load(path)
+    rows = []
+    for cfg, c in rep["configs"].items():
+        s = c["service"]
+        runs = [r for r in rep["runs"] if r["config"] == cfg]
+        res = lambda task: next(("；".join(f"提案{a['attempt']} {a.get('prompt_tokens')}+{a.get('completion_tokens')} {a.get('finish_reason')}" for a in r["attempts"])
+                                 + f" → {r['status']}" + (f" {r['pytest']['passed']}/{r['pytest']['tests']}" if r["pytest"] else "") for r in runs if r["task"] == task), "未运行")
+        shifts = sum((a.get("server_log") or {}).get("context_shift", 0) for r in runs for a in r["attempts"])
+        rows.append((cfg, f"{s['effective']['n_ctx_seq']} × {s['effective']['n_seq_max']}", s["requested"]["max_tokens"], s["backend"],
+                     f"{s['residency'].get('gpu_fraction'):.0%}", f"{s['gpu_at_health_mib']:.0f}", shifts, res("chip_final_yield"), res("report_pass_rate")))
+    return ('<h2>6. 上下文溢出与输出截断（配置验证）</h2><p>原配置每请求上下文 4096：chip_final_yield 生成时触发 context shift（服务日志 n_discard=2045），API 仍报告 stop。'
+            '上下文 8192 后没有再溢出（最高 7662/8192），但 chip 的输出退化重复、达到输出预算（1600 / 4096 都截断），没有可审批的提案；原盲测提案 1 的大部分 code 在 shift 之前生成，原失败不能只归因于配置。<a href="context-validation/REPORT.md">完整对照报告</a></p>'
+            + table(["配置", "每请求上下文 × 并行", "输出预算", "后端", "GPU 驻留", "健康检查时显存 MiB", "context shift 次数", "chip_final_yield", "report_pass_rate"], rows)
+            + "<p><small>r2 / r2b 只是候选，ACTIVE 仍为 r1；r2 只有 1 个并行槽位，并发能力未测。</small></p>")
+
+
 def main():
     env_file = latest("env/windows-*.txt")
     env = env_file.read_text(encoding="utf-8-sig") if env_file else ""
@@ -140,7 +161,7 @@ def main():
 
     group_html, totals = [], []
     for rel, title, desc in GROUPS:
-        states = [read_json(p) for p in sorted((EV / rel).glob("*/state.json"))]
+        states = [read_json(p) for p in sorted(EV.glob(f"{rel}/*/state.json"))]
         if not states:
             continue
         totals.extend(states)
@@ -186,7 +207,8 @@ def main():
 {''.join(group_html)}
 
 {chip_section()}
-<h2>6. 未验证 / 未完成</h2><ul>
+{context_section()}
+<h2>7. 未验证 / 未完成</h2><ul>
 <li>本轮两个盲测运行的当前状态：{esc(round_status())}。待审批的提案在批准前不执行，其修复后结果未验证。</li>
 <li>芯片数据分析只用了合成数据；没有真实数据，指标口径（良率、重测、异常）都是列出的假设，未经业务确认；不支持 xlsx（需要 openpyxl，可先另存为 CSV）。</li>
 <li>Docker 执行器（无网络、只读、非 root、资源限额）：本机未安装 Docker 和 WSL，<b>未验证</b>；本次使用显式选择的 restricted 模式，它不是操作系统级沙箱。</li>

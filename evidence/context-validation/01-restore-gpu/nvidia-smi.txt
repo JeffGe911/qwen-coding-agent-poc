@@ -1,0 +1,6 @@
+2026-10-23T21:28:11Z
+memory.used [MiB], memory.free [MiB], memory.total [MiB], utilization.gpu [%]
+5082 MiB, 6863 MiB, 12227 MiB, 0 %
+pid, process_name, used_gpu_memory [MiB]
+19580, C:\Program Files\NVIDIA Corporation\NvContainer\nvcontainer.exe, [N/A]
+19628, C:\Users\Jeff1\Documents\Codex\2026-10-23\qwen-coding-agent-poc-ollama-vllm\work\runtime\ollama\lib\ollama\llama-server.exe, [N/A]

@@ -24,6 +24,10 @@ SYSTEM_PROMPT = (
 )
 
 
+# Output budget per proposal. Not part of the prompt digest; a run that changes it records it in state["config"].
+DEFAULT_MAX_TOKENS = 1600
+
+
 def prompt_sha256():
     return digest({"system": SYSTEM_PROMPT, "schema": SCHEMA})
 
@@ -45,10 +49,11 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 
 
 class Client:
-    def __init__(self, base_url, model, timeout=180):
+    def __init__(self, base_url, model, timeout=None):
         self.base_url = validate_url(base_url)
         self.model = model
-        self.timeout = timeout
+        # A stuck server must surface as a recorded model_error, not an endless wait.
+        self.timeout = timeout or float(os.environ.get("QWEN_AGENT_TIMEOUT", "180"))
         self.opener = urllib.request.build_opener(urllib.request.ProxyHandler({}), NoRedirect())
 
     def request(self, path, body=None):
@@ -65,9 +70,19 @@ class Client:
     def models(self):
         return self.request("/models")
 
-    def propose(self, task, code, tests, feedback):
+    def server_context(self):
+        """Per-request context of the loaded model as reported by Ollama's /api/ps; None elsewhere (vLLM, gateway)."""
+        request = urllib.request.Request(self.base_url[: -len("/v1")] + "/api/ps")
+        try:
+            with self.opener.open(request, timeout=10) as response:
+                models = json.loads(response.read(262144)).get("models", [])
+        except (OSError, ValueError):
+            return None
+        return next((m.get("context_length") for m in models if m.get("name") == self.model), None)
+
+    def propose(self, task, code, tests, feedback, max_tokens=DEFAULT_MAX_TOKENS):
         return self.request("/chat/completions", {
-            "model": self.model, "temperature": 0, "max_tokens": 1600, "stream": False,
+            "model": self.model, "temperature": 0, "max_tokens": max_tokens, "stream": False,
             "response_format": {"type": "json_schema", "json_schema": {"name": "patch", "strict": True, "schema": SCHEMA}},
             "messages": [
                 {"role": "system", "content": SYSTEM_PROMPT},

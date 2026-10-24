@@ -1,0 +1,127 @@
+{
+  "at_utc": "2026-10-23T21:08:15.048+00:00",
+  "base_url": "http://127.0.0.1:11437/v1",
+  "model": "qwen2.5-coder:7b",
+  "passed": false,
+  "checks": {
+    "health_status": "healthy",
+    "golden_all_ok": true,
+    "gpu_fraction": 1.0,
+    "context_tokens": 4096,
+    "proposals_ok": false,
+    "proposals": {
+      "report_pass_rate": true,
+      "chip_final_yield": false
+    }
+  },
+  "health": {
+    "at_utc": "2026-10-23T21:07:51.703+00:00",
+    "base_url": "http://127.0.0.1:11437/v1",
+    "model": "qwen2.5-coder:7b",
+    "checks": {
+      "process": {
+        "pid": 60424,
+        "ok": true
+      },
+      "port": {
+        "ok": true,
+        "seconds": 0.023
+      },
+      "api": {
+        "ok": true,
+        "seconds": 0.046,
+        "models": [
+          "qwen2.5-coder:7b",
+          "qwen2.5-coder:1.5b"
+        ]
+      },
+      "model": {
+        "ok": true,
+        "golden": [
+          {
+            "id": "arith",
+            "seconds": 0.326,
+            "answer": "391",
+            "usage": {
+              "prompt_tokens": 45,
+              "prompt_tokens_details": {
+                "cached_tokens": 24
+              },
+              "completion_tokens": 4,
+              "total_tokens": 49
+            },
+            "ok": true
+          },
+          {
+            "id": "json_schema",
+            "seconds": 0.178,
+            "answer": "{\n  \"answer\": 144\n}",
+            "usage": {
+              "prompt_tokens": 43,
+              "prompt_tokens_details": {
+                "cached_tokens": 24
+              },
+              "completion_tokens": 12,
+              "total_tokens": 55
+            },
+            "ok": true
+          }
+        ]
+      },
+      "residency": {
+        "ok": true,
+        "gpu_fraction": 1.0,
+        "size_bytes": 5140245380,
+        "size_vram_bytes": 5140245380,
+        "context_length": 4096
+      }
+    },
+    "status": "healthy"
+  },
+  "proposals": [
+    {
+      "task": "report_pass_rate",
+      "baseline": "8/21",
+      "context_tokens": 4096,
+      "seconds": 3.7,
+      "usage": {
+        "prompt_tokens": 1656,
+        "prompt_tokens_details": {
+          "cached_tokens": 4
+        },
+        "completion_tokens": 302,
+        "total_tokens": 1958
+      },
+      "finish_reason": "stop",
+      "context_ok": true,
+      "json_ok": true,
+      "code_sha256": "4833cb6613943ef495d224c2d016c6aa347265f566613a7f65eae7f7f960e10d",
+      "changed": true,
+      "policy_ok": true,
+      "ok": true
+    },
+    {
+      "task": "chip_final_yield",
+      "baseline": "4/22",
+      "context_tokens": 4096,
+      "seconds": 18.14,
+      "usage": {
+        "prompt_tokens": 2891,
+        "prompt_tokens_details": {
+          "cached_tokens": 4
+        },
+        "completion_tokens": 1600,
+        "total_tokens": 4491
+      },
+      "finish_reason": "length",
+      "context_ok": false,
+      "context_error": "Prompt + output used 4491 tokens, reaching the server context window of 4096; the server may have discarded part of the prompt (context shift). Increase the server context and start a new run",
+      "json_ok": false,
+      "policy_ok": false,
+      "changed": false,
+      "error": "JSONDecodeError: Unterminated string starting at: line 3 column 20 (char 2071)",
+      "ok": false
+    }
+  ],
+  "note": "Gate does not execute model code; pytest on proposals needs human approval via the agent."
+}

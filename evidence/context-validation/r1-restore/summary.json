@@ -1,0 +1,102 @@
+{
+  "label": "r1-restore",
+  "at_utc": "2026-10-24T04:16:52.420+00:00",
+  "note": "候选验证结束后恢复原配置 r1，只做服务层检查",
+  "requested": {
+    "model": "qwen2.5-coder:7b",
+    "context": 4096,
+    "parallel": 2,
+    "max_queue": 512,
+    "max_tokens": 1600
+  },
+  "gpu_before": {
+    "memory_used_mib": 0.0,
+    "memory_total_mib": 12227.0,
+    "utilization_pct": 0.0,
+    "temperature_c": 49.0
+  },
+  "restart": {
+    "stop": {
+      "cmd": "powershell -NoProfile -ExecutionPolicy Bypass -File D:\\新建文件夹\\qwen-coding-agent-poc\\scripts\\stop_ollama.ps1 -Port 11437 -Runtime C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\runtime",
+      "exit_code": 0,
+      "seconds": 4.7,
+      "stdout": "Stopped pid 23168 on port 11437; children ; port closed=True; leftover children=0; GPU memory used 0 MiB -> 0 MiB\nSTOPPED=23168",
+      "stderr": ""
+    },
+    "start": {
+      "cmd": "powershell -NoProfile -ExecutionPolicy Bypass -File D:\\新建文件夹\\qwen-coding-agent-poc\\scripts\\start_ollama.ps1 -Port 11437 -Context 4096 -NumParallel 2 -MaxQueue 512 -Evidence D:\\新建文件夹\\qwen-coding-agent-poc\\evidence\\serving -Runtime C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\runtime",
+      "exit_code": 0,
+      "seconds": 9.95,
+      "stdout": "Ollama 0.40.9 API ready on 127.0.0.1:11437 in 4.21 s (pid 47484). Model loads on first request.\nRECORD=D:\\新建文件夹\\qwen-coding-agent-poc\\evidence\\serving\\ollama-launch-11437-20261024T041700Z.json",
+      "stderr": "",
+      "record": "D:\\新建文件夹\\qwen-coding-agent-poc\\evidence\\serving\\ollama-launch-11437-20261024T041700Z.json"
+    }
+  },
+  "service": {
+    "status": "healthy",
+    "layers": {
+      "process": true,
+      "port": true,
+      "api": true,
+      "model": true,
+      "residency": true,
+      "disk": true
+    },
+    "golden": [
+      [
+        "arith",
+        "391",
+        true,
+        3.95
+      ],
+      [
+        "json_schema",
+        "{\n  \"answer\": 144\n}",
+        true,
+        0.191
+      ]
+    ],
+    "residency": {
+      "ok": true,
+      "gpu_fraction": 1.0,
+      "size_bytes": 5140245380,
+      "size_vram_bytes": 5140245380,
+      "context_length": 4096
+    },
+    "gpu_after_load": {
+      "memory_used_mib": 5082.0,
+      "memory_total_mib": 12227.0,
+      "utilization_pct": 34.0,
+      "temperature_c": 52.0
+    },
+    "launch_record_file": "evidence\\serving\\ollama-launch-11437-20261024T041700Z.json",
+    "effective": {
+      "launch_environment": {
+        "OLLAMA_HOST": "127.0.0.1:11437",
+        "OLLAMA_CONTEXT_LENGTH": "4096",
+        "OLLAMA_NUM_PARALLEL": "2",
+        "OLLAMA_MAX_QUEUE": "512",
+        "OLLAMA_MAX_LOADED_MODELS": "1",
+        "OLLAMA_KEEP_ALIVE": "30m",
+        "OLLAMA_NO_CLOUD": "1"
+      },
+      "inherited_environment": {},
+      "inference_compute": "id=0 filter_id=0 library=CUDA compute=12.0 name=CUDA0 description=\"NVIDIA GeForce RTX 5070 Ti Laptop GPU\" libdirs=ollama,cuda_v13 driver=13.1 pci_id=0000:01:00.0 type=discrete total=\"11.9 GiB\" available=\"10.8 GiB\"",
+      "llama_server_ctx_total": "8192",
+      "llama_server_parallel": "2",
+      "context_shift_enabled": true,
+      "n_ctx_seq": "4096",
+      "n_seq_max": "2",
+      "offloaded_layers": "29/29"
+    },
+    "ok": true
+  },
+  "generation": {},
+  "gpu_end": {
+    "memory_used_mib": 5082.0,
+    "memory_total_mib": 12227.0,
+    "utilization_pct": 34.0,
+    "temperature_c": 52.0
+  },
+  "server_log": "ollama-11437-20261024T041700Z.err.log"
+}

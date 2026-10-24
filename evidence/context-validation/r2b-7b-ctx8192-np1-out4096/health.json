@@ -1,0 +1,70 @@
+{
+  "at_utc": "2026-10-23T21:35:38.206+00:00",
+  "base_url": "http://127.0.0.1:11437/v1",
+  "model": "qwen2.5-coder:7b",
+  "checks": {
+    "process": {
+      "pid": 23168,
+      "ok": true
+    },
+    "port": {
+      "ok": true,
+      "seconds": 0.022
+    },
+    "api": {
+      "ok": true,
+      "seconds": 0.041,
+      "models": [
+        "qwen2.5-coder:7b",
+        "qwen2.5-coder:1.5b"
+      ]
+    },
+    "model": {
+      "ok": true,
+      "golden": [
+        {
+          "id": "arith",
+          "seconds": 0.479,
+          "answer": "391",
+          "usage": {
+            "prompt_tokens": 45,
+            "prompt_tokens_details": {
+              "cached_tokens": 24
+            },
+            "completion_tokens": 4,
+            "total_tokens": 49
+          },
+          "ok": true
+        },
+        {
+          "id": "json_schema",
+          "seconds": 0.174,
+          "answer": "{\n  \"answer\": 144\n}",
+          "usage": {
+            "prompt_tokens": 43,
+            "prompt_tokens_details": {
+              "cached_tokens": 24
+            },
+            "completion_tokens": 12,
+            "total_tokens": 55
+          },
+          "ok": true
+        }
+      ]
+    },
+    "residency": {
+      "ok": true,
+      "gpu_fraction": 1.0,
+      "size_bytes": 5148633988,
+      "size_vram_bytes": 5148633988,
+      "context_length": 8192
+    },
+    "disk": {
+      "ok": true,
+      "free_gib": 183.2,
+      "path": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\runtime",
+      "floor_gib": 10.0
+    }
+  },
+  "status": "healthy"
+}

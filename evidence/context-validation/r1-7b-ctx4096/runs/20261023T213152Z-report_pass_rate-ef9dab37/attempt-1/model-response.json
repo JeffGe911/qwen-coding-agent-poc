@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-472",
+  "object": "chat.completion",
+  "created": 1792791117,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"code\": \"def summarize_results(results):\\n    summary = {\\\"passed\\\": 0, \\\"failed\\\": 0, \\\"skipped\\\": 0}\\n    for result in results:\\n        status = result.get(\\\"status\\\")\\n        if status == \\\"passed\\\":\\n            summary[\\\"passed\\\"] += 1\\n        elif status == \\\"failed\\\":\\n            summary[\\\"failed\\\"] += 1\\n        elif status == \\\"skipped\\\":\\n            summary[\\\"skipped\\\"] += 1\\n        else:\\n            raise ValueError(f\\\"Unknown status: {status}\\\")\\n    total_executed = summary[\\\"passed\\\"] + summary[\\\"failed\\\"]\\n    summary[\\\"pass_rate\\\"] = round(summary[\\\"passed\\\"] / total_executed, 4) if total_executed else 0.0\\n    return summary\\n\",\n  \"explanation\": \"1. Initialize summary dictionary with keys 'passed', 'failed', 'skipped', and 'pass_rate'.\\n2. Iterate over each result in the input list.\\n3. Use get method to safely retrieve the 'status' key from each result. If 'status' is not present, raise ValueError.\\n4. Increment the corresponding counter in the summary dictionary based on the status.\\n5. Calculate the total number of executed cases (passed + failed).\\n6. Compute the pass rate by dividing the number of passed cases by the total number of executed cases, rounding to four decimal places. If no cases were executed, set pass_rate to 0.0.\\n7. Return the summary dictionary.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1860,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "completion_tokens": 340,
+    "total_tokens": 2200
+  }
+}

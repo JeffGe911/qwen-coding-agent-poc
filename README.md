@@ -15,12 +15,13 @@
 | 首次盲测：修复前 pytest 8/21 失败基线、模型原始提案与差异 | 已实测 | [演示页](evidence/report-pass-rate/view/demo.html) |
 | 人工审批与修复后 pytest（report_pass_rate） | Jeff 在对话中批准第一份提案；21/21 通过，含 12 个从未发给模型的 holdout；示例数据实际输出 0.5 → 0.6667 | [演示页](evidence/report-pass-rate/view/demo.html) |
 | 芯片数据分析（合成数据）：质量检查、良率/记录通过率、失败项目、异常集中、分布与趋势、版本与运行对比、日志提取、每日汇总、异常清单 | 已实测；SQL 交叉核对一致；手工小样本 18/18 一致 | [报告](evidence/chip-analysis/report.html) |
-| 芯片数据闭环任务 `chip_final_yield`：需求 + 22 个测试冻结；修复前 4/22；7B 首次盲测提案 | 提案 1 经 Jeff 批准执行：8/22，修复失败；提案 2、3 是无法解析的 Python，执行前被拦截；三次预算用完，**未修复成功** | [运行目录](evidence/chip-yield-agent/runs/) |
+| 芯片数据闭环任务 `chip_final_yield`：需求 + 22 个测试冻结；修复前 4/22；7B 首次盲测提案 | 提案 1 经 Jeff 批准执行：8/22，修复失败；提案 2、3 是无法解析的 Python，执行前被拦截；三次预算用完，**未修复成功**。事后查服务日志：三次生成都在中途触发 context shift（每请求上下文 4096），原证据被部分污染；提案 1 的大部分 code 在 shift 之前生成 | [运行目录](evidence/chip-yield-agent/runs/)、[context-shift.json](evidence/chip-yield-agent/context-shift.json) |
+| 上下文溢出与输出截断的配置验证（r1 原配置 vs r2 上下文 8192 × 并行 1 vs r2b 再加输出预算 4096） | r2 / r2b 上没有再出现 context shift（最高 7662/8192）；chip_final_yield 4 份提案都因输出退化重复、达到输出预算而截断，**仍未修复**；report_pass_rate 在 r1、r2 上经批准后各 21/21。r2 只是候选，ACTIVE 仍为 r1 | [验证报告](evidence/context-validation/REPORT.md) |
 | 本地 Qwen 解释分析结果 | 已实测；三版提示词均保留；人工复核发现错误，**不可直接采信** | [复核记录](evidence/chip-analysis/explanation_review.md) |
 | Docker 执行器 | **未验证**：本机没有 Docker/WSL；本次显式使用 restricted 模式 | — |
 | Linux + Docker + vLLM、两台服务器 | **未验证**：无服务器访问权限 | [deploy/](deploy/)、[scripts/env_check.sh](scripts/env_check.sh) |
 
-框架测试 87 个通过（[原始输出](evidence/framework-tests-20261023-round2.txt)），那是代码自测，**不是模型修复成功率**。
+框架测试 98 个通过（[原始输出](evidence/framework-tests-20261023-round3.txt)；上一轮 87 个），那是代码自测，**不是模型修复成功率**。
 
 ## 业务例子：测试报告通过率
 
@@ -31,12 +32,41 @@
 - [frozen.json](qwen_agent/tasks/report_pass_rate/frozen.json) 记录四个任务文件的 SHA-256。框架测试会校验摘要，并证明原代码 8/21、参考实现 21/21。参考实现只存在于框架测试中，从不发给模型。
 - 历史的 `test_summary` 任务说明和公开断言是在看到模型失败后调整过的，它的成功**不是盲测**。调整过程保留在 [BUSINESS_DEMO.md](BUSINESS_DEMO.md) 和 `evidence/business-demo*`。
 
+## 上下文溢出与输出截断（2026-10-23 配置验证）
+
+完整对照见 [evidence/context-validation/REPORT.md](evidence/context-validation/REPORT.md)，由 `scripts/build_context_report.py` 从原始证据生成。
+
+- **发现的问题**（两个独立问题）：
+  - 上下文容量：原服务每请求上下文 4096（2 个槽位）。原盲测 chip_final_yield 的三份提案（提示词 3584 / 3831 / 3866 token）在生成中途触发 context shift，llama-server 丢弃了提示词前部的 2045 个 token，API 仍返回 `finish_reason=stop`，当时的 Agent 没有察觉。
+  - 输出预算：接手后的门禁（提示词 2891）和 r1 重跑（3395）既触发 context shift，又在 1600 个输出 token 处被截断（`finish_reason=length`），JSON 不完整。
+- **改了什么**：
+  - Agent 分开检查“输出未正常结束”“提示词 + 输出达到上下文”“服务端上下文与运行配置不一致”，命中任何一项都记为 model_error，不进入审批。前提是运行配置里有 context_tokens：显式传 `--context-tokens`，或使用 ACTIVE 发布的 base-url / model 时自动取得；没有时（例如 vLLM 或网关）不检查溢出。
+  - 输出预算可用 `--max-tokens` 设置并写入运行配置（进入审批摘要），默认 1600。本轮 r1 / r2 的运行没有显式设置，配置里没有这个字段；之后的运行会始终记录。
+  - 提示词模板与 schema（prompt_sha256）、策略、冻结测试都没改。但实际用户消息里含运行目录路径和 pytest 输出，各次 chip 提示词的 token 数不同（3395 / 3413 / 3476…），配置之间的对比不是逐字相同的输入。
+  - 新增 `qwen_ops logscan`，从服务日志统计 context shift、截断、CPU 卸载、GPU 错误和启动告警（各日志的扫描结果见 logscan/）。
+  - 用不可变的发布清单保存 r1（原配置）、r2（上下文 8192 × 并行 1）、r2b（r2 加输出预算 4096）。
+  - 修复启动脚本：本轮有一次启动的调用方挂起、被强制结束，判断为句柄继承所致。改为 ShellExecute 启动后，从 Git Bash 和 Python（qwen_ops validate）调用都正常返回。
+- **证据**：
+  - 每套配置有 `summary.json`：请求值与日志里的实际生效值、显存、首轮各提案的 token 用量、finish_reason、JSON/Python/策略结果。r2b 的提案 2、3 在运行目录里。
+  - chip 运行只有模型原始响应，没有差异和 pytest，因为没有产生提案。差异和 pytest 只在 report_pass_rate 运行中。
+  - 每次启动的服务日志在 server-logs/，审批记录在 approval-record.md。
+- **已解决**：
+  - 在 max_tokens ≤ 4096、最多 3 次提案的条件下，r2 / r2b 没有再溢出（最高 7662 / 8192），服务日志里 context shift 为 0。但 chip 的输出从未正常结束，一个完整答案需要多少上下文仍不知道。
+  - 实测中，溢出 + 截断的输出被 Agent 记为 model_error，没有进入审批。“返回 stop 但溢出”的情况只在框架测试里验证过。
+  - r1 和 r2 显存基本相同（整卡 5082 / 5090 MiB，KV 总量都是 8192 token），没有 CPU 卸载（29/29 层在 GPU，驻留 100%）。
+  - 原配置可以恢复，`release verify` 无差异。
+- **仍失败 / 未确定**：
+  - chip_final_yield：r2（max_tokens 1600）和 r2b（4096）共 4 份提案，code 字符串都闭合了，但随后 explanation 一直重复，直到用完预算。JSON 不完整，没有可审批的代码，业务正确性无从验证。其中 r2b 提案 2 的 code 本身还有语法错误。本轮只有这一个任务、温度 0，在 1600 和 4096 两个预算下都退化，没有证据表明继续加预算能解决。改提示词或输出格式会改变评测合同（prompt_sha256）；采样参数（温度固定为 0，写在客户端里）目前不在合同和运行配置里，改之前应先把它记进去。
+  - r2 只有 1 个并行槽位，同时到达的第二个请求要排队；本轮没有做并发测试。
+- **回归**：report_pass_rate 在 r1、r2 上各开一个新运行。Jeff 在对话中批准后（摘要 e844f457… / 8bb2baba…，展示的差异见 approval-record.md），pytest 均为 21/21（含 12 个 holdout）。
+
 ## 启动与复现（Windows PowerShell，在本目录执行）
 
-本工作区已有虚拟环境 `..\..\work\.venv` 和便携 Ollama `..\..\work\runtime`。
+原工作区的虚拟环境在 `..\..\work\.venv`，便携 Ollama 在 `..\..\work\runtime`。仓库克隆到别处时，用环境变量指过去（脚本和 `qwen_ops` 都读它）。
 
 ```powershell
-$py = "..\..\work\.venv\Scripts\python.exe"
+$py = "..\..\work\.venv\Scripts\python.exe"          # 或该 venv 的绝对路径
+$env:QWEN_POC_RUNTIME = "..\..\work\runtime"          # 含 ollama\ollama.exe 和 models\ 的目录；默认值同此
 $env:PYTHONIOENCODING = "utf-8"
 
 # 1. 环境检查（只读）
@@ -64,7 +94,18 @@ powershell -ExecutionPolicy Bypass -File scripts\start_ollama.ps1
 & $py scripts\build_index.py
 ```
 
-停止服务时，用启动记录 `evidence\serving\ollama-launch-*.json` 中的 pid 执行 `Stop-Process -Id <pid>`。11435 端口上的旧实例由更早的会话启动，本次没有改动它。
+停止服务：`powershell -ExecutionPolicy Bypass -File scripts\stop_ollama.ps1 -Port 11437`。脚本只停本工作区 `ollama.exe` 监听的端口，并结束其进程树（含占显存的 llama-server）。11435 上的旧实例是早期运行（live-runs、business-demo、evidence/serving.json）用过的模型服务，启动者未记录；本轮没有对它执行启动或停止命令。本轮的进程快照和一次只读检查都显示它已不在运行（evidence/context-validation/00-state-before-restore/），退出原因**未查明**，也没有重新启动。
+
+运维检查（`qwen_ops`）：
+
+```powershell
+& $py -m qwen_ops health --port 11437 --model qwen2.5-coder:7b     # 分层：进程 / 端口 / API / 固定答案 / GPU 驻留 / 磁盘；退出码 = 第一个失败层
+& $py -m qwen_ops logscan --port 11437                              # 服务日志中的 context shift、截断、CPU 卸载、GPU 错误、5xx
+& $py -m qwen_ops release show                                      # 当前 ACTIVE 发布及其清单
+& $py -m qwen_ops release verify --name r1-7b-ctx4096               # 运行中的服务与清单（二进制、版本、模型 digest、参数）是否一致
+& $py -m qwen_ops validate --label <名字> --context 8192 --parallel 1   # 一套配置的分层验证，证据写入 evidence/context-validation/<名字>/
+& $py scripts\build_context_report.py                               # 由原始证据重新生成对照报告
+```
 
 从零安装：先执行 `python -m venv .venv`，再执行 `pip install -r requirements-lock.txt` 和 `pip install -e . --no-deps`。然后下载 Ollama 便携版，并在可联网时执行 `ollama pull qwen2.5-coder:7b`。之后运行完全离线。
 
@@ -72,14 +113,14 @@ powershell -ExecutionPolicy Bypass -File scripts\start_ollama.ps1
 
 ### 本轮审批记录（2026-10-23）
 
-Jeff 在对话中批准了两份首次盲测提案，命令由 Claude 代为执行。审计事件里的 reviewer 写作 `Jeff (approved in chat; command run by Claude)`，控制台输出保存在 [report-pass-rate/approval-console.txt](evidence/report-pass-rate/approval-console.txt) 和 [chip-yield-agent/approval-console.txt](evidence/chip-yield-agent/approval-console.txt)。
+Jeff 在对话中批准了两份首次盲测提案，随后执行了 decide 命令。审计事件里的 reviewer 字段保留当时写入的原文；控制台输出保存在 [report-pass-rate/approval-console.txt](evidence/report-pass-rate/approval-console.txt) 和 [chip-yield-agent/approval-console.txt](evidence/chip-yield-agent/approval-console.txt)。
 
 | 任务 | 批准的摘要 | 结果 |
 |---|---|---|
 | report_pass_rate | `4389e854…` | 21/21 通过，任务成功 |
 | chip_final_yield | `ef559867…` | 提案 1 为 8/22，修复失败；自动生成的提案 2 把关键字 `yield` 当变量赋值，提案 3 有未闭合的 f-string，两者都是无法解析的 Python，在执行前被拦截；三次预算用完，最终归入“策略拦截”，没有修复成功 |
 
-批准前，Claude 读代码后的备注是：chip_final_yield 提案 1 很可能通不过测试，因为它把 mV 行的上下限也除以了 1000，把冲突行当重复行忽略，没有取最大重测轮次，也没有保留四位小数。执行结果证实了这一判断。
+批准前的代码审阅备注是：chip_final_yield 提案 1 很可能通不过测试，因为它把 mV 行的上下限也除以了 1000，把冲突行当重复行忽略，没有取最大重测轮次，也没有保留四位小数。执行结果证实了这一判断。
 
 ### 新运行如何审批
 
@@ -156,7 +197,7 @@ Jeff 在对话中批准了两份首次盲测提案，命令由 Claude 代为执�
 - **可复现与核对**：生成器使用固定种子，输出逐字节可复现。关键指标再用 SQLite 独立计算一遍，与 Python 结果比对。另有 13 行手写样本，手算过程见 [HAND_CHECK.md](data/handcheck/HAND_CHECK.md)，程序结果 18/18 项一致。
 - **日常工程任务**：合并多文件并统一字段（含不同列名和 P/F/S 状态）、从日志提取失败项目（截断行单独列出）、每日汇总、两次运行的新增失败和已修复对比、按规则导出待复核清单。五项都已跑通。
 - **模型的角色**：本地 Qwen 只做两件事。一是把自然语言请求路由到固定命令，两条示例请求都路由正确。二是根据程序算好的 facts 写解释，并由程序检查证据键、数字来源以及数字与所述运行/批次是否对应。三版提示词的输出都保留；第三版仍把 R2/LOT-B01 的数字说成 R1/LOT-A02，还称“数据质量良好”。因此报告结论以程序计算为准，模型解释只作草稿。这个 7B 是代码模型，写分析结论不是它的强项。
-- **与 Coding Agent 闭环**：`chip_final_yield` 要求模型修复一个从 CSV 行计算最终良率的函数。测试覆盖正常数据、缺失值、重复记录、重测、单位不一致、空文件、冲突、边界和输入不变性，公开 11 个、holdout 11 个，在模型调用前冻结。模型只能改 `solution.py`，审批绑定测试快照摘要。结果：7B 首次盲测没有修复成功，提案 1 执行后 8/22，后两份提案是无法解析的代码。这类较复杂的数据处理需求超出了本地 7B 模型的可靠范围，可以在服务器上用更大的模型重测同一冻结任务。
+- **与 Coding Agent 闭环**：`chip_final_yield` 要求模型修复一个从 CSV 行计算最终良率的函数。测试覆盖正常数据、缺失值、重复记录、重测、单位不一致、空文件、冲突、边界和输入不变性，公开 11 个、holdout 11 个，在模型调用前冻结。模型只能改 `solution.py`，审批绑定测试快照摘要。结果：7B 首次盲测没有修复成功，提案 1 执行后 8/22，后两份提案是无法解析的代码。之前把它归结为“超出 7B 的可靠范围”。事后查服务日志发现，三份提案都在生成中途触发了 context shift，所以原证据被部分污染，不足以单独支持这个结论。但提案 1 的大部分 code 是在 shift 之前生成的，8/22 也不能只怪配置。上下文加到 8192 后（r2 / r2b），在当前提示词、温度 0、max_tokens 1600 / 4096 下，7B 仍然没有给出完整、可审批的提案：输出退化重复、达到预算。见上文“上下文溢出与输出截断”。
 - **数据不出本机**：模型 API 只接受 127.0.0.1。发给模型的是聚合后的 facts，不含原始行。没有遥测或外部分析服务。
 
 ## 两台服务器接入时

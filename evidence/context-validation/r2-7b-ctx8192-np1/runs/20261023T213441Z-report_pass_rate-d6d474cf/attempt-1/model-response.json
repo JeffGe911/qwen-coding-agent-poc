@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-160",
+  "object": "chat.completion",
+  "created": 1792791285,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"code\": \"def summarize_results(results):\\n    summary = {\\\"passed\\\": 0, \\\"failed\\\": 0, \\\"skipped\\\": 0}\\n    for result in results:\\n        status = result.get(\\\"status\\\")\\n        if status == \\\"passed\\\":\\n            summary[\\\"passed\\\"] += 1\\n        elif status == \\\"failed\\\":\\n            summary[\\\"failed\\\"] += 1\\n        elif status == \\\"skipped\\\":\\n            summary[\\\"skipped\\\"] += 1\\n        else:\\n            raise ValueError(f\\\"Unknown status: {status}\\\")\\n    total_executed = summary[\\\"passed\\\"] + summary[\\\"failed\\\"]\\n    summary[\\\"pass_rate\\\"] = round(summary[\\\"passed\\\"] / total_executed, 4) if total_executed else 0.0\\n    return summary\\n\",\n  \"explanation\": \"The original code did not handle the case where the status is not 'passed', 'failed', or 'skipped', and it did not correctly calculate the pass rate when there are no executed cases. The updated code includes checks for the status and raises a ValueError if an unknown status is encountered. It also calculates the pass rate correctly by dividing the number of passed cases by the total number of executed cases (passed + failed), rounding to four decimal places, and setting the pass rate to 0.0 if there are no executed cases.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1872,
+    "prompt_tokens_details": {
+      "cached_tokens": 4
+    },
+    "completion_tokens": 302,
+    "total_tokens": 2174
+  }
+}

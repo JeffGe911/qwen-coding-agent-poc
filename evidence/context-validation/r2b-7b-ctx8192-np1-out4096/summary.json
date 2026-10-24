@@ -1,0 +1,173 @@
+{
+  "label": "r2b-7b-ctx8192-np1-out4096",
+  "at_utc": "2026-10-23T21:35:38.152+00:00",
+  "note": "服务配置同 r2；Agent 输出预算 4096",
+  "requested": {
+    "model": "qwen2.5-coder:7b",
+    "context": 8192,
+    "parallel": 1,
+    "max_queue": 512,
+    "max_tokens": 4096
+  },
+  "gpu_before": {
+    "memory_used_mib": 5110.0,
+    "memory_total_mib": 12227.0,
+    "utilization_pct": 0.0,
+    "temperature_c": 50.0
+  },
+  "restart": {
+    "skipped": "server already running with exactly these settings"
+  },
+  "service": {
+    "status": "healthy",
+    "layers": {
+      "process": true,
+      "port": true,
+      "api": true,
+      "model": true,
+      "residency": true,
+      "disk": true
+    },
+    "golden": [
+      [
+        "arith",
+        "391",
+        true,
+        0.479
+      ],
+      [
+        "json_schema",
+        "{\n  \"answer\": 144\n}",
+        true,
+        0.174
+      ]
+    ],
+    "residency": {
+      "ok": true,
+      "gpu_fraction": 1.0,
+      "size_bytes": 5148633988,
+      "size_vram_bytes": 5148633988,
+      "context_length": 8192
+    },
+    "gpu_after_load": {
+      "memory_used_mib": 5110.0,
+      "memory_total_mib": 12227.0,
+      "utilization_pct": 100.0,
+      "temperature_c": 52.0
+    },
+    "launch_record_file": "evidence\\serving\\ollama-launch-11437-20261023T213428Z.json",
+    "effective": {
+      "launch_environment": {
+        "OLLAMA_HOST": "127.0.0.1:11437",
+        "OLLAMA_CONTEXT_LENGTH": "8192",
+        "OLLAMA_NUM_PARALLEL": "1",
+        "OLLAMA_MAX_QUEUE": "512",
+        "OLLAMA_MAX_LOADED_MODELS": "1",
+        "OLLAMA_KEEP_ALIVE": "30m",
+        "OLLAMA_NO_CLOUD": "1"
+      },
+      "inherited_environment": {},
+      "inference_compute": "id=0 filter_id=0 library=CUDA compute=12.0 name=CUDA0 description=\"NVIDIA GeForce RTX 5070 Ti Laptop GPU\" libdirs=ollama,cuda_v13 driver=13.1 pci_id=0000:01:00.0 type=discrete total=\"11.9 GiB\" available=\"10.8 GiB\"",
+      "llama_server_ctx_total": "8192",
+      "llama_server_parallel": "1",
+      "context_shift_enabled": true,
+      "n_ctx_seq": "8192",
+      "n_seq_max": "1",
+      "offloaded_layers": "29/29"
+    },
+    "ok": true
+  },
+  "generation": {
+    "chip_final_yield": {
+      "command": "python -m qwen_agent start --task chip_final_yield --base-url http://127.0.0.1:11437/v1 --model qwen2.5-coder:7b --sandbox restricted --runs evidence\\context-validation\\r2b-7b-ctx8192-np1-out4096\\runs --context-tokens 8192 --max-tokens 4096",
+      "exit_code": 1,
+      "seconds": 47.44,
+      "stderr": "",
+      "gpu_during_run": {
+        "peak_memory_used_mib": 5110.0,
+        "mean_utilization_pct": 91.7,
+        "samples": 85
+      },
+      "run": "evidence\\context-validation\\r2b-7b-ctx8192-np1-out4096\\runs\\20261023T213539Z-chip_final_yield-3955140b",
+      "status": "model_error",
+      "error": "ValueError: Output incomplete: finish_reason=length after 4096 completion tokens (output budget max_tokens=4096)",
+      "stop_reason": null,
+      "config": {
+        "base_url": "http://127.0.0.1:11437/v1",
+        "model": "qwen2.5-coder:7b",
+        "sandbox": "restricted",
+        "max_attempts": 3,
+        "timeout_seconds": 20,
+        "context_tokens": 8192,
+        "max_tokens": 4096
+      },
+      "contract": {
+        "prompt_sha256": "afa3f06258ad64042d2fc75ee4cb8096529c7ab42c860031e97f646e401e8764",
+        "policy_revision": 2,
+        "policy_sha256": "98f066638f7285c342b9c36872d49967449c624d34e27d58e6c7adff497bb7db",
+        "task_files_sha256": {
+          "solution.py": "b0576529219c4f238e51638a27581e156e41addec61d534962a37bbd650534bf",
+          "test_visible.py": "f8ccbb8f989512ce48244065fbe334256e9aaf2c3a8bf8f32638aff6b0d9bbed",
+          "test_holdout.py": "3d89345d0e627ac43295cc24a273253edb61e58198a1c36dfa62241dfd21dbce",
+          "task.json": "6b58ee3dc13e5950e84076be9d55ea92e7686dec26f2eecd726abcbdcde68aaa"
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "agent_status": "model_error",
+          "agent_error": "ValueError: Output incomplete: finish_reason=length after 4096 completion tokens (output budget max_tokens=4096)",
+          "generation_seconds": 46.879,
+          "prompt_tokens": 3476,
+          "completion_tokens": 4096,
+          "total_tokens": 7572,
+          "context_window": 8192,
+          "context_overflow": false,
+          "output_budget": 4096,
+          "hit_output_budget": true,
+          "finish_reason": "length",
+          "json_ok": false,
+          "json_error": "Unterminated string starting at: line 3 column 20 (char 1635)",
+          "python_ok": null,
+          "policy_ok": null
+        }
+      ],
+      "log_counts": {
+        "context_shift": 0,
+        "truncated": 0,
+        "gpu_error": 0,
+        "runner_exit": 0,
+        "queue_full": 0,
+        "cpu_offload": 0
+      },
+      "log_examples": {},
+      "server_timings": [
+        {
+          "task": 1944,
+          "phase": "prompt eval time",
+          "ms": 340.76,
+          "tokens": 1334
+        },
+        {
+          "task": 1944,
+          "phase": "eval time",
+          "ms": 46445.04,
+          "tokens": 4096
+        },
+        {
+          "task": 1944,
+          "phase": "total time",
+          "ms": 46785.8,
+          "tokens": 5430
+        }
+      ]
+    }
+  },
+  "gpu_end": {
+    "memory_used_mib": 5110.0,
+    "memory_total_mib": 12227.0,
+    "utilization_pct": 93.0,
+    "temperature_c": 72.0
+  },
+  "server_log": "ollama-11437-20261023T213428Z.err.log"
+}

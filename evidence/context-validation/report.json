@@ -1,0 +1,785 @@
+{
+  "configs": {
+    "r1-7b-ctx4096": {
+      "note": "原配置（接手时在用）；本轮对照基线",
+      "at_utc": "2026-10-23T21:31:51.910+00:00",
+      "server_log": "ollama-11437-20261023T212742Z.err.log",
+      "service": {
+        "status": "healthy",
+        "ok": true,
+        "golden": [
+          [
+            "arith",
+            "391",
+            true,
+            0.317
+          ],
+          [
+            "json_schema",
+            "{\n  \"answer\": 144\n}",
+            true,
+            0.177
+          ]
+        ],
+        "residency": {
+          "ok": true,
+          "gpu_fraction": 1.0,
+          "size_bytes": 5140245380,
+          "size_vram_bytes": 5140245380,
+          "context_length": 4096
+        },
+        "gpu_at_health_mib": 5082.0,
+        "restarted": false,
+        "backend": "CUDA",
+        "requested": {
+          "model": "qwen2.5-coder:7b",
+          "context": 4096,
+          "parallel": 2,
+          "max_queue": 512,
+          "max_tokens": 1600
+        },
+        "effective": {
+          "llama_server_ctx_total": "8192",
+          "llama_server_parallel": "2",
+          "n_ctx_seq": "4096",
+          "n_seq_max": "2",
+          "offloaded_layers": "29/29"
+        },
+        "log_counts": {
+          "context_shift": 1,
+          "truncated": 1,
+          "gpu_error": 0,
+          "runner_exit": 0,
+          "queue_full": 0,
+          "gpu_warning": 3,
+          "cpu_offload": 0
+        },
+        "log_examples": {
+          "context_shift": [
+            {
+              "line": 405,
+              "text": "slot   operator(): id  0 | task 378 | slot context shift, n_keep = 4, n_left = 4091, n_discard = 2045"
+            }
+          ],
+          "truncated": [
+            {
+              "line": 414,
+              "text": "slot      release: id  0 | task 378 | stop processing: n_tokens = 2949, truncated = 1"
+            }
+          ],
+          "gpu_warning": [
+            {
+              "line": 11,
+              "text": "time=2026-10-23T14:28:07.664-07:00 level=WARN source=runner.go:584 msg=\"llama-server GPU discovery watchdog timed out\" OLLAMA_LIBRARY_PATH=\"[C:\\\\Users\\\\Jeff1\\\\Documents\\\\Codex\\\\2026-10-23\\\\qwen-coding-agent-poc-ollama-vllm\\\\work\\\\runtime\\\\o"
+            },
+            {
+              "line": 12,
+              "text": "time=2026-10-23T14:28:07.664-07:00 level=INFO source=runner.go:522 msg=\"failure during llama-server GPU discovery\" OLLAMA_LIBRARY_PATH=\"[C:\\\\Users\\\\Jeff1\\\\Documents\\\\Codex\\\\2026-10-23\\\\qwen-coding-agent-poc-ollama-vllm\\\\work\\\\runtime\\\\ollam"
+            },
+            {
+              "line": 13,
+              "text": "time=2026-10-23T14:28:07.664-07:00 level=WARN source=runner.go:364 msg=\"unable to refresh free memory, using old values\""
+            }
+          ]
+        }
+      }
+    },
+    "r2-7b-ctx8192-np1": {
+      "note": "候选：同一 7B 权重与量化；每请求上下文 8192，并行 1（KV 总量与 r1 相同）；输出预算保持 1600",
+      "at_utc": "2026-10-23T21:34:24.329+00:00",
+      "server_log": "ollama-11437-20261023T213428Z.err.log",
+      "service": {
+        "status": "healthy",
+        "ok": true,
+        "golden": [
+          [
+            "arith",
+            "391",
+            true,
+            3.842
+          ],
+          [
+            "json_schema",
+            "{\n  \"answer\": 144\n}",
+            true,
+            0.174
+          ]
+        ],
+        "residency": {
+          "ok": true,
+          "gpu_fraction": 1.0,
+          "size_bytes": 5148633988,
+          "size_vram_bytes": 5148633988,
+          "context_length": 8192
+        },
+        "gpu_at_health_mib": 5090.0,
+        "restarted": true,
+        "backend": "CUDA",
+        "requested": {
+          "model": "qwen2.5-coder:7b",
+          "context": 8192,
+          "parallel": 1,
+          "max_queue": 512,
+          "max_tokens": 1600
+        },
+        "effective": {
+          "llama_server_ctx_total": "8192",
+          "llama_server_parallel": "1",
+          "n_ctx_seq": "8192",
+          "n_seq_max": "1",
+          "offloaded_layers": "29/29"
+        },
+        "log_counts": {
+          "context_shift": 0,
+          "truncated": 0,
+          "gpu_error": 0,
+          "runner_exit": 0,
+          "queue_full": 0,
+          "gpu_warning": 0,
+          "cpu_offload": 0
+        },
+        "log_examples": {}
+      }
+    },
+    "r2b-7b-ctx8192-np1-out4096": {
+      "note": "服务配置同 r2；Agent 输出预算 4096",
+      "at_utc": "2026-10-23T21:35:38.152+00:00",
+      "server_log": "ollama-11437-20261023T213428Z.err.log",
+      "service": {
+        "status": "healthy",
+        "ok": true,
+        "golden": [
+          [
+            "arith",
+            "391",
+            true,
+            0.479
+          ],
+          [
+            "json_schema",
+            "{\n  \"answer\": 144\n}",
+            true,
+            0.174
+          ]
+        ],
+        "residency": {
+          "ok": true,
+          "gpu_fraction": 1.0,
+          "size_bytes": 5148633988,
+          "size_vram_bytes": 5148633988,
+          "context_length": 8192
+        },
+        "gpu_at_health_mib": 5110.0,
+        "restarted": false,
+        "backend": "CUDA",
+        "requested": {
+          "model": "qwen2.5-coder:7b",
+          "context": 8192,
+          "parallel": 1,
+          "max_queue": 512,
+          "max_tokens": 4096
+        },
+        "effective": {
+          "llama_server_ctx_total": "8192",
+          "llama_server_parallel": "1",
+          "n_ctx_seq": "8192",
+          "n_seq_max": "1",
+          "offloaded_layers": "29/29"
+        },
+        "log_counts": {
+          "context_shift": 0,
+          "truncated": 0,
+          "gpu_error": 0,
+          "runner_exit": 0,
+          "queue_full": 0,
+          "gpu_warning": 0,
+          "cpu_offload": 0
+        },
+        "log_examples": {}
+      }
+    },
+    "r1-restore": {
+      "note": "候选验证结束后恢复原配置 r1，只做服务层检查",
+      "at_utc": "2026-10-24T04:16:52.420+00:00",
+      "server_log": "ollama-11437-20261024T041700Z.err.log",
+      "service": {
+        "status": "healthy",
+        "ok": true,
+        "golden": [
+          [
+            "arith",
+            "391",
+            true,
+            3.95
+          ],
+          [
+            "json_schema",
+            "{\n  \"answer\": 144\n}",
+            true,
+            0.191
+          ]
+        ],
+        "residency": {
+          "ok": true,
+          "gpu_fraction": 1.0,
+          "size_bytes": 5140245380,
+          "size_vram_bytes": 5140245380,
+          "context_length": 4096
+        },
+        "gpu_at_health_mib": 5082.0,
+        "restarted": true,
+        "backend": "CUDA",
+        "requested": {
+          "model": "qwen2.5-coder:7b",
+          "context": 4096,
+          "parallel": 2,
+          "max_queue": 512,
+          "max_tokens": 1600
+        },
+        "effective": {
+          "llama_server_ctx_total": "8192",
+          "llama_server_parallel": "2",
+          "n_ctx_seq": "4096",
+          "n_seq_max": "2",
+          "offloaded_layers": "29/29"
+        },
+        "log_counts": {
+          "context_shift": 0,
+          "truncated": 0,
+          "gpu_error": 0,
+          "runner_exit": 0,
+          "queue_full": 0,
+          "gpu_warning": 0,
+          "cpu_offload": 0
+        },
+        "log_examples": {}
+      }
+    }
+  },
+  "runs": [
+    {
+      "config": "r1-7b-ctx4096",
+      "task": "report_pass_rate",
+      "run": "evidence/context-validation/r1-7b-ctx4096/runs/20261023T213152Z-report_pass_rate-ef9dab37",
+      "status": "succeeded",
+      "contract": {
+        "prompt_sha256": "afa3f06258ad64042d2fc75ee4cb8096529c7ab42c860031e97f646e401e8764",
+        "policy_revision": 2,
+        "policy_sha256": "98f066638f7285c342b9c36872d49967449c624d34e27d58e6c7adff497bb7db",
+        "task_files_sha256": {
+          "solution.py": "31c3fdaf01017ac7838533b2876f55e1a20c6dc4203aafd140eef66f8729547f",
+          "test_visible.py": "317343b157e692fdc3bd0239d26dd7714c623725510973096d395c3d04a30e1a",
+          "test_holdout.py": "4273736a10f3e996c4d8c0972e028dfe88ce2e390135c005b1c436c3ba20376f",
+          "task.json": "ac36e35de82c6c9f804f3611024fbf7820abab99dee1d867463d0b23f70351d7"
+        }
+      },
+      "context_tokens": 4096,
+      "max_tokens": 1600,
+      "max_tokens_recorded": false,
+      "attempts": [
+        {
+          "attempt": 1,
+          "agent_status": "passed",
+          "agent_error": null,
+          "generation_seconds": 4.173,
+          "prompt_tokens": 1860,
+          "completion_tokens": 340,
+          "total_tokens": 2200,
+          "context_window": 4096,
+          "context_overflow": false,
+          "output_budget": 1600,
+          "hit_output_budget": false,
+          "finish_reason": "stop",
+          "json_ok": true,
+          "python_ok": true,
+          "policy_ok": true,
+          "server_log": {
+            "found": 1,
+            "task": 36,
+            "context_shift": 0,
+            "truncated": false,
+            "eval_tokens_per_s": 92.32
+          }
+        }
+      ],
+      "reviewer": "Jeff (approved in chat)",
+      "pytest": {
+        "tests": 21,
+        "passed": 21,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "approval_digest": "e844f45762c2aa52a129c41361ed145144a7055c2de44ea3090ff30d55aaf3c2",
+      "peak_gpu_mib": 5102.0
+    },
+    {
+      "config": "r1-7b-ctx4096",
+      "task": "chip_final_yield",
+      "run": "evidence/context-validation/r1-7b-ctx4096/runs/20261023T213157Z-chip_final_yield-297c621e",
+      "status": "model_error",
+      "contract": {
+        "prompt_sha256": "afa3f06258ad64042d2fc75ee4cb8096529c7ab42c860031e97f646e401e8764",
+        "policy_revision": 2,
+        "policy_sha256": "98f066638f7285c342b9c36872d49967449c624d34e27d58e6c7adff497bb7db",
+        "task_files_sha256": {
+          "solution.py": "b0576529219c4f238e51638a27581e156e41addec61d534962a37bbd650534bf",
+          "test_visible.py": "f8ccbb8f989512ce48244065fbe334256e9aaf2c3a8bf8f32638aff6b0d9bbed",
+          "test_holdout.py": "3d89345d0e627ac43295cc24a273253edb61e58198a1c36dfa62241dfd21dbce",
+          "task.json": "6b58ee3dc13e5950e84076be9d55ea92e7686dec26f2eecd726abcbdcde68aaa"
+        }
+      },
+      "context_tokens": 4096,
+      "max_tokens": 1600,
+      "max_tokens_recorded": false,
+      "attempts": [
+        {
+          "attempt": 1,
+          "agent_status": "model_error",
+          "agent_error": "ValueError: Output incomplete: finish_reason=length after 1600 completion tokens (output budget max_tokens=1600); Context overflow: prompt + output used 4995 tokens, reaching the server context window of 4096; the server may have discarded part of the prompt (context shift). Increase the server context and start a new run",
+          "generation_seconds": 18.422,
+          "prompt_tokens": 3395,
+          "completion_tokens": 1600,
+          "total_tokens": 4995,
+          "context_window": 4096,
+          "context_overflow": true,
+          "output_budget": 1600,
+          "hit_output_budget": true,
+          "finish_reason": "length",
+          "json_ok": false,
+          "json_error": "Unterminated string starting at: line 3 column 18 (char 1935)",
+          "python_ok": null,
+          "policy_ok": null,
+          "truncated_output": {
+            "explanation_offset_in_raw_json": 1920,
+            "decoded_code_chars": 1792,
+            "code_parses": true,
+            "explanation_words": 805,
+            "distinct_8gram_ratio": 0.252,
+            "top_phrase": "It did not handle the case when the",
+            "top_phrase_non_overlapping": 40
+          },
+          "server_log": {
+            "found": 1,
+            "task": 378,
+            "context_shift": 1,
+            "truncated": true,
+            "eval_tokens_per_s": 91.15
+          }
+        }
+      ],
+      "reviewer": null,
+      "pytest": null,
+      "approval_digest": null,
+      "peak_gpu_mib": 5102.0
+    },
+    {
+      "config": "r2-7b-ctx8192-np1",
+      "task": "report_pass_rate",
+      "run": "evidence/context-validation/r2-7b-ctx8192-np1/runs/20261023T213441Z-report_pass_rate-d6d474cf",
+      "status": "succeeded",
+      "contract": {
+        "prompt_sha256": "afa3f06258ad64042d2fc75ee4cb8096529c7ab42c860031e97f646e401e8764",
+        "policy_revision": 2,
+        "policy_sha256": "98f066638f7285c342b9c36872d49967449c624d34e27d58e6c7adff497bb7db",
+        "task_files_sha256": {
+          "solution.py": "31c3fdaf01017ac7838533b2876f55e1a20c6dc4203aafd140eef66f8729547f",
+          "test_visible.py": "317343b157e692fdc3bd0239d26dd7714c623725510973096d395c3d04a30e1a",
+          "test_holdout.py": "4273736a10f3e996c4d8c0972e028dfe88ce2e390135c005b1c436c3ba20376f",
+          "task.json": "ac36e35de82c6c9f804f3611024fbf7820abab99dee1d867463d0b23f70351d7"
+        }
+      },
+      "context_tokens": 8192,
+      "max_tokens": 1600,
+      "max_tokens_recorded": false,
+      "attempts": [
+        {
+          "attempt": 1,
+          "agent_status": "passed",
+          "agent_error": null,
+          "generation_seconds": 3.585,
+          "prompt_tokens": 1872,
+          "completion_tokens": 302,
+          "total_tokens": 2174,
+          "context_window": 8192,
+          "context_overflow": false,
+          "output_budget": 1600,
+          "hit_output_budget": false,
+          "finish_reason": "stop",
+          "json_ok": true,
+          "python_ok": true,
+          "policy_ok": true,
+          "server_log": {
+            "found": 1,
+            "task": 18,
+            "context_shift": 0,
+            "truncated": false,
+            "eval_tokens_per_s": 97.34
+          }
+        }
+      ],
+      "reviewer": "Jeff (approved in chat)",
+      "pytest": {
+        "tests": 21,
+        "passed": 21,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "approval_digest": "8bb2babaa5df77ddad3386505fc00b5af6c50bb3240c5a1d1f23f992a13c194a",
+      "peak_gpu_mib": 5110.0
+    },
+    {
+      "config": "r2-7b-ctx8192-np1",
+      "task": "chip_final_yield",
+      "run": "evidence/context-validation/r2-7b-ctx8192-np1/runs/20261023T213445Z-chip_final_yield-c1329f74",
+      "status": "model_error",
+      "contract": {
+        "prompt_sha256": "afa3f06258ad64042d2fc75ee4cb8096529c7ab42c860031e97f646e401e8764",
+        "policy_revision": 2,
+        "policy_sha256": "98f066638f7285c342b9c36872d49967449c624d34e27d58e6c7adff497bb7db",
+        "task_files_sha256": {
+          "solution.py": "b0576529219c4f238e51638a27581e156e41addec61d534962a37bbd650534bf",
+          "test_visible.py": "f8ccbb8f989512ce48244065fbe334256e9aaf2c3a8bf8f32638aff6b0d9bbed",
+          "test_holdout.py": "3d89345d0e627ac43295cc24a273253edb61e58198a1c36dfa62241dfd21dbce",
+          "task.json": "6b58ee3dc13e5950e84076be9d55ea92e7686dec26f2eecd726abcbdcde68aaa"
+        }
+      },
+      "context_tokens": 8192,
+      "max_tokens": 1600,
+      "max_tokens_recorded": false,
+      "attempts": [
+        {
+          "attempt": 1,
+          "agent_status": "model_error",
+          "agent_error": "ValueError: Output incomplete: finish_reason=length after 1600 completion tokens (output budget max_tokens=1600)",
+          "generation_seconds": 18.386,
+          "prompt_tokens": 3413,
+          "completion_tokens": 1600,
+          "total_tokens": 5013,
+          "context_window": 8192,
+          "context_overflow": false,
+          "output_budget": 1600,
+          "hit_output_budget": true,
+          "finish_reason": "length",
+          "json_ok": false,
+          "json_error": "Unterminated string starting at: line 3 column 18 (char 1877)",
+          "python_ok": null,
+          "policy_ok": null,
+          "truncated_output": {
+            "explanation_offset_in_raw_json": 1862,
+            "decoded_code_chars": 1735,
+            "code_parses": true,
+            "explanation_words": 822,
+            "distinct_8gram_ratio": 0.254,
+            "top_phrase": "It did not handle the case where the",
+            "top_phrase_non_overlapping": 37
+          },
+          "server_log": {
+            "found": 1,
+            "task": 322,
+            "context_shift": 0,
+            "truncated": false,
+            "eval_tokens_per_s": 91.18
+          }
+        }
+      ],
+      "reviewer": null,
+      "pytest": null,
+      "approval_digest": null,
+      "peak_gpu_mib": 5110.0
+    },
+    {
+      "config": "r2b-7b-ctx8192-np1-out4096",
+      "task": "chip_final_yield",
+      "run": "evidence/context-validation/r2b-7b-ctx8192-np1-out4096/runs/20261023T213539Z-chip_final_yield-3955140b",
+      "status": "model_error",
+      "contract": {
+        "prompt_sha256": "afa3f06258ad64042d2fc75ee4cb8096529c7ab42c860031e97f646e401e8764",
+        "policy_revision": 2,
+        "policy_sha256": "98f066638f7285c342b9c36872d49967449c624d34e27d58e6c7adff497bb7db",
+        "task_files_sha256": {
+          "solution.py": "b0576529219c4f238e51638a27581e156e41addec61d534962a37bbd650534bf",
+          "test_visible.py": "f8ccbb8f989512ce48244065fbe334256e9aaf2c3a8bf8f32638aff6b0d9bbed",
+          "test_holdout.py": "3d89345d0e627ac43295cc24a273253edb61e58198a1c36dfa62241dfd21dbce",
+          "task.json": "6b58ee3dc13e5950e84076be9d55ea92e7686dec26f2eecd726abcbdcde68aaa"
+        }
+      },
+      "context_tokens": 8192,
+      "max_tokens": 4096,
+      "max_tokens_recorded": true,
+      "attempts": [
+        {
+          "attempt": 1,
+          "agent_status": "model_error",
+          "agent_error": "ValueError: Output incomplete: finish_reason=length after 4096 completion tokens (output budget max_tokens=4096)",
+          "generation_seconds": 46.879,
+          "prompt_tokens": 3476,
+          "completion_tokens": 4096,
+          "total_tokens": 7572,
+          "context_window": 8192,
+          "context_overflow": false,
+          "output_budget": 4096,
+          "hit_output_budget": true,
+          "finish_reason": "length",
+          "json_ok": false,
+          "json_error": "Unterminated string starting at: line 3 column 20 (char 1635)",
+          "python_ok": null,
+          "policy_ok": null,
+          "truncated_output": {
+            "explanation_offset_in_raw_json": 1620,
+            "decoded_code_chars": 1511,
+            "code_parses": true,
+            "explanation_words": 2612,
+            "distinct_8gram_ratio": 0.083,
+            "top_phrase": "It did not handle the case where the",
+            "top_phrase_non_overlapping": 155
+          },
+          "server_log": {
+            "found": 1,
+            "task": 1944,
+            "context_shift": 0,
+            "truncated": false,
+            "eval_tokens_per_s": 88.17
+          }
+        },
+        {
+          "attempt": 2,
+          "agent_status": "model_error",
+          "agent_error": "ValueError: Output incomplete: finish_reason=length after 4096 completion tokens (output budget max_tokens=4096)",
+          "generation_seconds": 46.471,
+          "prompt_tokens": 3521,
+          "completion_tokens": 4096,
+          "total_tokens": 7617,
+          "context_window": 8192,
+          "context_overflow": false,
+          "output_budget": 4096,
+          "hit_output_budget": true,
+          "finish_reason": "length",
+          "json_ok": false,
+          "json_error": "Unterminated string starting at: line 3 column 18 (char 1981)",
+          "python_ok": null,
+          "policy_ok": null,
+          "truncated_output": {
+            "explanation_offset_in_raw_json": 1966,
+            "decoded_code_chars": 1834,
+            "code_parses": false,
+            "code_error": "closing parenthesis ']' does not match opening parenthesis '('（code 第 45 行）",
+            "explanation_words": 2806,
+            "distinct_8gram_ratio": 0.053,
+            "top_phrase": "when trying to access a non-existent key in",
+            "top_phrase_non_overlapping": 100
+          },
+          "server_log": {
+            "found": 1,
+            "task": 6042,
+            "context_shift": 0,
+            "truncated": false,
+            "eval_tokens_per_s": 88.84
+          }
+        },
+        {
+          "attempt": 3,
+          "agent_status": "model_error",
+          "agent_error": "ValueError: Output incomplete: finish_reason=length after 4096 completion tokens (output budget max_tokens=4096)",
+          "generation_seconds": 46.958,
+          "prompt_tokens": 3566,
+          "completion_tokens": 4096,
+          "total_tokens": 7662,
+          "context_window": 8192,
+          "context_overflow": false,
+          "output_budget": 4096,
+          "hit_output_budget": true,
+          "finish_reason": "length",
+          "json_ok": false,
+          "json_error": "Unterminated string starting at: line 3 column 20 (char 1883)",
+          "python_ok": null,
+          "policy_ok": null,
+          "truncated_output": {
+            "explanation_offset_in_raw_json": 1868,
+            "decoded_code_chars": 1745,
+            "code_parses": true,
+            "explanation_words": 2470,
+            "distinct_8gram_ratio": 0.137,
+            "top_phrase": "retest retest retest retest retest retest retest retest",
+            "top_phrase_non_overlapping": 43
+          },
+          "server_log": {
+            "found": 1,
+            "task": 10139,
+            "context_shift": 0,
+            "truncated": false,
+            "eval_tokens_per_s": 87.71
+          }
+        }
+      ],
+      "reviewer": null,
+      "pytest": null,
+      "approval_digest": null,
+      "peak_gpu_mib": 5110.0
+    }
+  ],
+  "releases": {
+    "active": "r1-7b-ctx4096",
+    "events": [
+      [
+        "snapshot",
+        "r1-7b-ctx4096"
+      ],
+      [
+        "adopt",
+        "r1-7b-ctx4096"
+      ],
+      [
+        "snapshot",
+        "r2-7b-ctx8192-np1"
+      ],
+      [
+        "snapshot",
+        "r2b-7b-ctx8192-np1-out4096"
+      ]
+    ],
+    "model_digests": [
+      "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364"
+    ],
+    "quantization": [
+      "Q4_K_M"
+    ]
+  },
+  "contracts": {
+    "prompt_policy": [
+      [
+        "afa3f06258ad64042d2fc75ee4cb8096529c7ab42c860031e97f646e401e8764",
+        2,
+        "98f066638f7285c342b9c36872d49967449c624d34e27d58e6c7adff497bb7db"
+      ]
+    ],
+    "task_files_per_task": {
+      "chip_final_yield": 1,
+      "report_pass_rate": 1
+    }
+  },
+  "pre_restore": {
+    "pid": 10128,
+    "started_at_utc": "20261023T210900Z",
+    "extra_env": {
+      "CUDA_VISIBLE_DEVICES": "-1"
+    },
+    "inference_compute": [
+      [
+        "Vulkan",
+        "NVIDIA GeForce RTX 5070 Ti Laptop GPU"
+      ]
+    ],
+    "api_ps": {
+      "models": []
+    },
+    "nvidia_smi_used": [
+      "0"
+    ],
+    "port_11435": [
+      "# 2026-10-24T04:38:20Z explicit check of the old 11435 instance (read-only)",
+      "nothing listening on 11435",
+      "pid 28256 not running"
+    ]
+  },
+  "history": [
+    {
+      "attempt": 1,
+      "status": "failed",
+      "prompt_tokens": 3584,
+      "completion_tokens": 762,
+      "total": 4346,
+      "finish_reason": "stop",
+      "n_discard": 2045,
+      "before_shift": 511,
+      "after_shift": 250,
+      "output_chars": 2918,
+      "code_field_end_char": 2106,
+      "shift_char_estimate": 1957
+    },
+    {
+      "attempt": 2,
+      "status": "policy_blocked",
+      "prompt_tokens": 3831,
+      "completion_tokens": 624,
+      "total": 4455,
+      "finish_reason": "stop",
+      "n_discard": 2045,
+      "before_shift": 264,
+      "after_shift": 359,
+      "output_chars": 2338,
+      "code_field_end_char": 2029,
+      "shift_char_estimate": 989,
+      "syntax_error": "code 第 53 行：assignment to yield expression not possible",
+      "syntax_error_char": 1633
+    },
+    {
+      "attempt": 3,
+      "status": "policy_blocked",
+      "prompt_tokens": 3866,
+      "completion_tokens": 672,
+      "total": 4538,
+      "finish_reason": "stop",
+      "n_discard": 2045,
+      "before_shift": 229,
+      "after_shift": 442,
+      "output_chars": 2414,
+      "code_field_end_char": 2052,
+      "shift_char_estimate": 823,
+      "syntax_error": "code 第 34 行：unterminated f-string literal (detected at line 34)",
+      "syntax_error_char": 1013
+    }
+  ],
+  "gate_r1": {
+    "at_utc": "2026-10-23T21:08:15.048+00:00",
+    "passed": false,
+    "checks": {
+      "health_status": "healthy",
+      "golden_all_ok": true,
+      "gpu_fraction": 1.0,
+      "context_tokens": 4096,
+      "proposals_ok": false,
+      "proposals": {
+        "report_pass_rate": true,
+        "chip_final_yield": false
+      }
+    },
+    "proposals": [
+      {
+        "task": "report_pass_rate",
+        "usage": {
+          "prompt_tokens": 1656,
+          "prompt_tokens_details": {
+            "cached_tokens": 4
+          },
+          "completion_tokens": 302,
+          "total_tokens": 1958
+        },
+        "context_ok": true,
+        "json_ok": true,
+        "policy_ok": true,
+        "finish_reason": "stop"
+      },
+      {
+        "task": "chip_final_yield",
+        "usage": {
+          "prompt_tokens": 2891,
+          "prompt_tokens_details": {
+            "cached_tokens": 4
+          },
+          "completion_tokens": 1600,
+          "total_tokens": 4491
+        },
+        "context_ok": false,
+        "json_ok": false,
+        "policy_ok": false,
+        "finish_reason": "length"
+      }
+    ]
+  },
+  "restore_verify": {
+    "name": "r1-7b-ctx4096",
+    "problems": []
+  }
+}

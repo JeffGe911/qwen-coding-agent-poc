@@ -1,0 +1,3 @@
+# 2026-10-24T04:38:20Z explicit check of the old 11435 instance (read-only)
+nothing listening on 11435
+pid 28256 not running

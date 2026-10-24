@@ -1,0 +1,2 @@
+127.0.0.1:11437 pid=10128 C:\Users\Jeff1\Documents\Codex\2026-10-23\qwen-coding-agent-poc-ollama-vllm\work\runtime\ollama\ollama.exe created=2026/10/23 14:09:00
+proc pid=10128 ppid=7780 ollama.exe created=2026/10/23 14:09:00 cmd="C:\Users\Jeff1\Documents\Codex\2026-10-23\qwen-coding-agent-poc-ollama-vllm\work\runtime\ollama\ollama.exe" serve 

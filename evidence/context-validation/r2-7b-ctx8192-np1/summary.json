@@ -1,0 +1,269 @@
+{
+  "label": "r2-7b-ctx8192-np1",
+  "at_utc": "2026-10-23T21:34:24.329+00:00",
+  "note": "候选：同一 7B 权重与量化；每请求上下文 8192，并行 1（KV 总量与 r1 相同）；输出预算保持 1600",
+  "requested": {
+    "model": "qwen2.5-coder:7b",
+    "context": 8192,
+    "parallel": 1,
+    "max_queue": 512,
+    "max_tokens": 1600
+  },
+  "gpu_before": {
+    "memory_used_mib": 5102.0,
+    "memory_total_mib": 12227.0,
+    "utilization_pct": 0.0,
+    "temperature_c": 47.0
+  },
+  "restart": {
+    "stop": {
+      "cmd": "powershell -NoProfile -ExecutionPolicy Bypass -File D:\\新建文件夹\\qwen-coding-agent-poc\\scripts\\stop_ollama.ps1 -Port 11437 -Runtime C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\runtime",
+      "exit_code": 0,
+      "seconds": 3.67,
+      "stdout": "Stopped pid 62276 on port 11437; children llama-server.exe:19628; port closed=True; leftover children=0; GPU memory used 5102 MiB -> 0 MiB\nSTOPPED=62276",
+      "stderr": ""
+    },
+    "start": {
+      "cmd": "powershell -NoProfile -ExecutionPolicy Bypass -File D:\\新建文件夹\\qwen-coding-agent-poc\\scripts\\start_ollama.ps1 -Port 11437 -Context 8192 -NumParallel 1 -MaxQueue 512 -Evidence D:\\新建文件夹\\qwen-coding-agent-poc\\evidence\\serving -Runtime C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\runtime",
+      "exit_code": 0,
+      "seconds": 8.82,
+      "stdout": "Ollama 0.40.9 API ready on 127.0.0.1:11437 in 3.35 s (pid 23168). Model loads on first request.\nRECORD=D:\\新建文件夹\\qwen-coding-agent-poc\\evidence\\serving\\ollama-launch-11437-20261023T213428Z.json",
+      "stderr": "",
+      "record": "D:\\新建文件夹\\qwen-coding-agent-poc\\evidence\\serving\\ollama-launch-11437-20261023T213428Z.json"
+    }
+  },
+  "service": {
+    "status": "healthy",
+    "layers": {
+      "process": true,
+      "port": true,
+      "api": true,
+      "model": true,
+      "residency": true,
+      "disk": true
+    },
+    "golden": [
+      [
+        "arith",
+        "391",
+        true,
+        3.842
+      ],
+      [
+        "json_schema",
+        "{\n  \"answer\": 144\n}",
+        true,
+        0.174
+      ]
+    ],
+    "residency": {
+      "ok": true,
+      "gpu_fraction": 1.0,
+      "size_bytes": 5148633988,
+      "size_vram_bytes": 5148633988,
+      "context_length": 8192
+    },
+    "gpu_after_load": {
+      "memory_used_mib": 5090.0,
+      "memory_total_mib": 12227.0,
+      "utilization_pct": 3.0,
+      "temperature_c": 49.0
+    },
+    "launch_record_file": "evidence\\serving\\ollama-launch-11437-20261023T213428Z.json",
+    "effective": {
+      "launch_environment": {
+        "OLLAMA_HOST": "127.0.0.1:11437",
+        "OLLAMA_CONTEXT_LENGTH": "8192",
+        "OLLAMA_NUM_PARALLEL": "1",
+        "OLLAMA_MAX_QUEUE": "512",
+        "OLLAMA_MAX_LOADED_MODELS": "1",
+        "OLLAMA_KEEP_ALIVE": "30m",
+        "OLLAMA_NO_CLOUD": "1"
+      },
+      "inherited_environment": {},
+      "inference_compute": "id=0 filter_id=0 library=CUDA compute=12.0 name=CUDA0 description=\"NVIDIA GeForce RTX 5070 Ti Laptop GPU\" libdirs=ollama,cuda_v13 driver=13.1 pci_id=0000:01:00.0 type=discrete total=\"11.9 GiB\" available=\"10.8 GiB\"",
+      "llama_server_ctx_total": "8192",
+      "llama_server_parallel": "1",
+      "context_shift_enabled": true,
+      "n_ctx_seq": "8192",
+      "n_seq_max": "1",
+      "offloaded_layers": "29/29"
+    },
+    "ok": true
+  },
+  "generation": {
+    "report_pass_rate": {
+      "command": "python -m qwen_agent start --task report_pass_rate --base-url http://127.0.0.1:11437/v1 --model qwen2.5-coder:7b --sandbox restricted --runs evidence\\context-validation\\r2-7b-ctx8192-np1\\runs --context-tokens 8192",
+      "exit_code": 0,
+      "seconds": 4.28,
+      "stderr": "",
+      "gpu_during_run": {
+        "peak_memory_used_mib": 5110.0,
+        "mean_utilization_pct": 71.2,
+        "samples": 8
+      },
+      "run": "evidence\\context-validation\\r2-7b-ctx8192-np1\\runs\\20261023T213441Z-report_pass_rate-d6d474cf",
+      "status": "awaiting_approval",
+      "error": null,
+      "stop_reason": null,
+      "config": {
+        "base_url": "http://127.0.0.1:11437/v1",
+        "model": "qwen2.5-coder:7b",
+        "sandbox": "restricted",
+        "max_attempts": 3,
+        "timeout_seconds": 20,
+        "context_tokens": 8192
+      },
+      "contract": {
+        "prompt_sha256": "afa3f06258ad64042d2fc75ee4cb8096529c7ab42c860031e97f646e401e8764",
+        "policy_revision": 2,
+        "policy_sha256": "98f066638f7285c342b9c36872d49967449c624d34e27d58e6c7adff497bb7db",
+        "task_files_sha256": {
+          "solution.py": "31c3fdaf01017ac7838533b2876f55e1a20c6dc4203aafd140eef66f8729547f",
+          "test_visible.py": "317343b157e692fdc3bd0239d26dd7714c623725510973096d395c3d04a30e1a",
+          "test_holdout.py": "4273736a10f3e996c4d8c0972e028dfe88ce2e390135c005b1c436c3ba20376f",
+          "task.json": "ac36e35de82c6c9f804f3611024fbf7820abab99dee1d867463d0b23f70351d7"
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "agent_status": "awaiting_approval",
+          "agent_error": null,
+          "generation_seconds": 3.585,
+          "prompt_tokens": 1872,
+          "completion_tokens": 302,
+          "total_tokens": 2174,
+          "context_window": 8192,
+          "context_overflow": false,
+          "output_budget": 1600,
+          "hit_output_budget": false,
+          "finish_reason": "stop",
+          "json_ok": true,
+          "python_ok": true,
+          "policy_ok": true
+        }
+      ],
+      "log_counts": {
+        "context_shift": 0,
+        "truncated": 0,
+        "gpu_error": 0,
+        "runner_exit": 0,
+        "queue_full": 0,
+        "cpu_offload": 0
+      },
+      "log_examples": {},
+      "server_timings": [
+        {
+          "task": 18,
+          "phase": "prompt eval time",
+          "ms": 424.19,
+          "tokens": 1868
+        },
+        {
+          "task": 18,
+          "phase": "eval time",
+          "ms": 3092.2,
+          "tokens": 302
+        },
+        {
+          "task": 18,
+          "phase": "total time",
+          "ms": 3516.39,
+          "tokens": 2170
+        }
+      ],
+      "approval_digest": "8bb2babaa5df77ddad3386505fc00b5af6c50bb3240c5a1d1f23f992a13c194a"
+    },
+    "chip_final_yield": {
+      "command": "python -m qwen_agent start --task chip_final_yield --base-url http://127.0.0.1:11437/v1 --model qwen2.5-coder:7b --sandbox restricted --runs evidence\\context-validation\\r2-7b-ctx8192-np1\\runs --context-tokens 8192",
+      "exit_code": 1,
+      "seconds": 19.0,
+      "stderr": "",
+      "gpu_during_run": {
+        "peak_memory_used_mib": 5110.0,
+        "mean_utilization_pct": 90.9,
+        "samples": 34
+      },
+      "run": "evidence\\context-validation\\r2-7b-ctx8192-np1\\runs\\20261023T213445Z-chip_final_yield-c1329f74",
+      "status": "model_error",
+      "error": "ValueError: Output incomplete: finish_reason=length after 1600 completion tokens (output budget max_tokens=1600)",
+      "stop_reason": null,
+      "config": {
+        "base_url": "http://127.0.0.1:11437/v1",
+        "model": "qwen2.5-coder:7b",
+        "sandbox": "restricted",
+        "max_attempts": 3,
+        "timeout_seconds": 20,
+        "context_tokens": 8192
+      },
+      "contract": {
+        "prompt_sha256": "afa3f06258ad64042d2fc75ee4cb8096529c7ab42c860031e97f646e401e8764",
+        "policy_revision": 2,
+        "policy_sha256": "98f066638f7285c342b9c36872d49967449c624d34e27d58e6c7adff497bb7db",
+        "task_files_sha256": {
+          "solution.py": "b0576529219c4f238e51638a27581e156e41addec61d534962a37bbd650534bf",
+          "test_visible.py": "f8ccbb8f989512ce48244065fbe334256e9aaf2c3a8bf8f32638aff6b0d9bbed",
+          "test_holdout.py": "3d89345d0e627ac43295cc24a273253edb61e58198a1c36dfa62241dfd21dbce",
+          "task.json": "6b58ee3dc13e5950e84076be9d55ea92e7686dec26f2eecd726abcbdcde68aaa"
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "agent_status": "model_error",
+          "agent_error": "ValueError: Output incomplete: finish_reason=length after 1600 completion tokens (output budget max_tokens=1600)",
+          "generation_seconds": 18.386,
+          "prompt_tokens": 3413,
+          "completion_tokens": 1600,
+          "total_tokens": 5013,
+          "context_window": 8192,
+          "context_overflow": false,
+          "output_budget": 1600,
+          "hit_output_budget": true,
+          "finish_reason": "length",
+          "json_ok": false,
+          "json_error": "Unterminated string starting at: line 3 column 18 (char 1877)",
+          "python_ok": null,
+          "policy_ok": null
+        }
+      ],
+      "log_counts": {
+        "context_shift": 0,
+        "truncated": 0,
+        "gpu_error": 0,
+        "runner_exit": 0,
+        "queue_full": 0,
+        "cpu_offload": 0
+      },
+      "log_examples": {},
+      "server_timings": [
+        {
+          "task": 322,
+          "phase": "prompt eval time",
+          "ms": 745.63,
+          "tokens": 3138
+        },
+        {
+          "task": 322,
+          "phase": "eval time",
+          "ms": 17537.26,
+          "tokens": 1600
+        },
+        {
+          "task": 322,
+          "phase": "total time",
+          "ms": 18282.9,
+          "tokens": 4738
+        }
+      ]
+    }
+  },
+  "gpu_end": {
+    "memory_used_mib": 5110.0,
+    "memory_total_mib": 12227.0,
+    "utilization_pct": 96.0,
+    "temperature_c": 67.0
+  },
+  "server_log": "ollama-11437-20261023T213428Z.err.log"
+}

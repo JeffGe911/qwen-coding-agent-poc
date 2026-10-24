@@ -1,0 +1,4 @@
+{"at_utc": "2026-10-23T21:07:51.474+00:00", "event": "snapshot", "name": "r1-7b-ctx4096", "server": {"port": 11437, "context": 4096, "parallel": 2, "max_queue": 512}, "model": "qwen2.5-coder:7b"}
+{"at_utc": "2026-10-23T21:07:51.475+00:00", "event": "adopt", "name": "r1-7b-ctx4096", "gated": false, "note": "pre-existing running service recorded as-is"}
+{"at_utc": "2026-10-23T21:32:45.697+00:00", "event": "snapshot", "name": "r2-7b-ctx8192-np1", "server": {"port": 11437, "context": 8192, "parallel": 1, "max_queue": 512}, "model": "qwen2.5-coder:7b"}
+{"at_utc": "2026-10-23T21:35:37.954+00:00", "event": "snapshot", "name": "r2b-7b-ctx8192-np1-out4096", "server": {"port": 11437, "context": 8192, "parallel": 1, "max_queue": 512}, "model": "qwen2.5-coder:7b"}

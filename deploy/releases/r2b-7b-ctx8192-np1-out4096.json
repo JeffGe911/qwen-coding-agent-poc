@@ -1,0 +1,31 @@
+{
+  "name": "r2b-7b-ctx8192-np1-out4096",
+  "created_at_utc": "2026-10-23T21:35:37.912+00:00",
+  "note": "候选 r2 的服务配置不变，只把 Agent 输出预算 max_tokens 从 1600 调到 4096（r2 上 chip_final_yield 因输出预算截断）。未激活。",
+  "server": {
+    "kind": "ollama-windows",
+    "port": 11437,
+    "context": 8192,
+    "parallel": 1,
+    "max_queue": 512,
+    "version": "0.40.9",
+    "exe": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\runtime\\ollama\\ollama.exe",
+    "exe_sha256": "0957bdaa7b52e163cdc7feb1275653f27c6b32e8ba309e957bdbb83493e97a4b"
+  },
+  "model": {
+    "name": "qwen2.5-coder:7b",
+    "digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+    "quantization": "Q4_K_M",
+    "parameter_size": "7.6B",
+    "format": "gguf"
+  },
+  "agent": {
+    "base_url": "http://127.0.0.1:11437/v1",
+    "model": "qwen2.5-coder:7b",
+    "prompt_sha256": "afa3f06258ad64042d2fc75ee4cb8096529c7ab42c860031e97f646e401e8764",
+    "policy_revision": 2,
+    "policy_sha256": "98f066638f7285c342b9c36872d49967449c624d34e27d58e6c7adff497bb7db",
+    "max_tokens": 4096,
+    "context_tokens": 8192
+  }
+}

@@ -1,0 +1,31 @@
+﻿{
+    "started_at_utc":  "20261023T212742Z",
+    "pid":  62276,
+    "wrapper_pid":  31396,
+    "command":  "\"C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\runtime\\ollama\\ollama.exe\" serve",
+    "exe_sha256":  "0957bdaa7b52e163cdc7feb1275653f27c6b32e8ba309e957bdbb83493e97a4b",
+    "server_version":  "0.40.9",
+    "api_ready_seconds":  3.12,
+    "environment":  {
+                        "OLLAMA_HOST":  "127.0.0.1:11437",
+                        "OLLAMA_MODELS":  "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\runtime\\models",
+                        "OLLAMA_CONTEXT_LENGTH":  "4096",
+                        "OLLAMA_NUM_PARALLEL":  "2",
+                        "OLLAMA_MAX_QUEUE":  "512",
+                        "OLLAMA_MAX_LOADED_MODELS":  "1",
+                        "OLLAMA_KEEP_ALIVE":  "30m",
+                        "OLLAMA_NO_CLOUD":  "1"
+                    },
+    "inherited_environment":  {
+
+                              },
+    "stderr_log":  "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\runtime\\logs\\ollama-11437-20261023T212742Z.err.log",
+    "startup_log_lines":  [
+                              "time=2026-10-23T14:27:43.104-07:00 level=INFO source=routes.go:2451 msg=\"server config\" env=\"map[CUDA_VISIBLE_DEVICES: GGML_VK_VISIBLE_DEVICES: GPU_DEVICE_ORDINAL: HIP_VISIBLE_DEVICES: HSA_OVERRIDE_GFX_VERSION: HTTPS_PROXY: HTTP_PROXY: LLAMA_ARG_FIT: LLAMA_ARG_FIT_TARGET: NO_PROXY: OLLAMA_CONTEXT_LENGTH:4096 OLLAMA_CREATE_REMOTE:false OLLAMA_DEBUG:INFO OLLAMA_DEBUG_LOG_REQUESTS:false OLLAMA_EDITOR: OLLAMA_FLASH_ATTENTION:false OLLAMA_GO_TEMPLATE:true OLLAMA_GPU_OVERHEAD:0 OLLAMA_HOST:http://127.0.0.1:11437 OLLAMA_IGPU_ENABLE: OLLAMA_KEEP_ALIVE:30m0s OLLAMA_KV_CACHE_TYPE: OLLAMA_LLM_LIBRARY: OLLAMA_LOAD_TIMEOUT:5m0s OLLAMA_MAX_LOADED_MODELS:1 OLLAMA_MAX_QUEUE:512 OLLAMA_MAX_TRANSFER_STREAMS:4 OLLAMA_MODELS:C:\\\\Users\\\\Jeff1\\\\Documents\\\\Codex\\\\2026-10-23\\\\qwen-coding-agent-poc-ollama-vllm\\\\work\\\\runtime\\\\models OLLAMA_NOHISTORY:false OLLAMA_NOPRUNE:false OLLAMA_NO_CLOUD:true OLLAMA_NUM_PARALLEL:2 OLLAMA_ORIGINS:[http://localhost https://localhost http://localhost:* https://localhost:* http://127.0.0.1 https://127.0.0.1 http://127.0.0.1:* https://127.0.0.1:* http://0.0.0.0 https://0.0.0.0 http://0.0.0.0:* https://0.0.0.0:* app://* file://* tauri://* vscode-webview://* vscode-file://*] OLLAMA_REMOTES:[ollama.com] OLLAMA_SCHED_SPREAD:false OLLAMA_VULKAN:true ROCR_VISIBLE_DEVICES:]\"",
+                              "time=2026-10-23T14:27:43.123-07:00 level=INFO source=routes.go:2513 msg=\"Listening on 127.0.0.1:11437 (version 0.40.9)\"",
+                              "time=2026-10-23T14:27:45.040-07:00 level=INFO source=runner.go:405 msg=\"dropping integrated GPU; to enable, set OLLAMA_IGPU_ENABLE=1\" id=0 library=Vulkan compute=0.0 name=Vulkan0 description=\"Intel(R) Graphics\" pci_id=\"\"",
+                              "time=2026-10-23T14:27:45.752-07:00 level=INFO source=types.go:32 msg=\"inference compute\" id=0 filter_id=0 library=CUDA compute=12.0 name=CUDA0 description=\"NVIDIA GeForce RTX 5070 Ti Laptop GPU\" libdirs=ollama,cuda_v13 driver=13.1 pci_id=0000:01:00.0 type=discrete total=\"11.9 GiB\" available=\"10.8 GiB\"",
+                              "time=2026-10-23T14:27:45.752-07:00 level=INFO source=routes.go:2563 msg=\"vram-based default context\" total_vram=\"11.9 GiB\" default_num_ctx=4096"
+                          ],
+    "note":  "nvidia-smi \u0027CUDA Version\u0027 is the driver capability. Ollama ships its own CUDA runtime (lib\\ollama\\cuda_v12, cuda_v13); no CUDA Toolkit is installed on this host."
+}

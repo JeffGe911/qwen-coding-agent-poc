@@ -1,0 +1,3 @@
+pid=31396 ppid=61308 cmd.exe created=2026/10/23 14:27:43
+pid=62276 ppid=31396 ollama.exe created=2026/10/23 14:27:43
+pid=19628 ppid=62276 llama-server.exe created=2026/10/23 14:28:07

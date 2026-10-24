@@ -158,3 +158,17 @@ Data Parallelism 是多个完整模型副本，主要扩吞吐，不能解决单
 | 并发 | 两次测量原样保留，见 `evidence/serving/serving-7b-*.json` 与 `evidence/index.html`；首次双槽并行出现一次约 8 秒的延迟，重测未复现 |
 
 这些是 Windows 笔记本上的冒烟测量，不代表 Linux 服务器容量。
+
+## 附：上下文溢出与输出截断的排查（2026-10-23 第三轮）
+
+结果与证据见 [evidence/context-validation/REPORT.md](evidence/context-validation/REPORT.md)。日志统计在本轮由 `qwen_ops validate` 和 `qwen_ops logscan`（同一扫描器）实际执行过，输出见 evidence/context-validation/logscan/。
+
+| 现象 | 怎么确认 | 处理 |
+|---|---|---|
+| 提案质量突然变差，API 却返回 `finish_reason=stop` | `python -m qwen_ops logscan --port 11437` 统计 `slot context shift` 和 `truncated = 1`；或看响应 usage：提示词 + 输出 ≥ 每请求上下文（`/api/ps` 的 context_length） | 提高 `OLLAMA_CONTEXT_LENGTH`（Ollama 下它就是每请求上下文）；要保持显存不变，同时减少 `OLLAMA_NUM_PARALLEL`（本轮 8192 × 1 与 4096 × 2 的 KV 总量相同）。单独减少并行槽位在 Ollama 下不会增加每请求上下文。日志里 llama-server 的 `-c` 是所有槽位的总量，`n_ctx_seq` 才是每请求的上下文 |
+| `finish_reason=length`，JSON 不完整 | usage 中 completion_tokens 等于 max_tokens | 先看原始输出是正常的长答案还是重复退化。本轮 chip 任务从 1600 加到 4096 没有改善；遇到重复退化时，优先排查提示词、输出格式和采样参数，而不是只加预算 |
+| 两者同时出现 | Agent 的 model_error 会同时列出 “Output incomplete” 和 “Context overflow” | 先解决上下文，再单独判断输出预算，不要只改一项就判定解决 |
+
+- 每请求上下文 × 并行槽位 = KV 总量，显存大致由它决定。4096 × 2 和 8192 × 1 的显存实测基本相同（nvidia-smi 整卡 5082 / 5090 MiB）。但后者只能同时处理一个请求。
+- 改配置时先登记候选清单（`python -m qwen_ops release snapshot --name ...`，清单不可覆盖），再用 `python -m qwen_ops validate` 分层留证据。确认可以回到原配置（`release verify`）之后，才考虑切换 ACTIVE；切换需要负责人批准具体版本和验收报告。
+- 启动脚本经 ShellExecute（`Start-Process` 不带重定向，再由 `cmd /c` 写日志）启动 `ollama.exe`。原因：带 `-Redirect*` 的 `Start-Process` 会把调用方的输出管道句柄继承给服务进程，读取脚本输出的调用方会一直等下去。本轮有一次启动的调用方挂起、被强制结束（evidence/context-validation/01-restore-gpu/console.txt），判断为这个原因；修改后从 Git Bash 和 Python 调用都正常返回。

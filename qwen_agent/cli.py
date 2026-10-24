@@ -8,6 +8,17 @@ from .report import generate
 from .workflow import TASKS, decide, read_json, retry, start
 
 
+def active_release_defaults():
+    """Base URL, model and per-request context of the release in service (deploy/releases/ACTIVE), else the historical defaults."""
+    releases = Path(__file__).resolve().parents[1] / "deploy" / "releases"
+    try:
+        name = (releases / "ACTIVE").read_text(encoding="utf-8").strip()
+        manifest = json.loads((releases / f"{name}.json").read_text(encoding="utf-8"))
+        return manifest["agent"]["base_url"], manifest["agent"]["model"], manifest["server"].get("context")
+    except (OSError, ValueError, KeyError):
+        return "http://127.0.0.1:11434/v1", "qwen2.5-coder:1.5b", None
+
+
 def show(run, state):
     print(f"Run: {run}\nStatus: {state['status']}")
     if state.get("error"):
@@ -44,15 +55,19 @@ def main():
     doctor = commands.add_parser("doctor")
     propose = commands.add_parser("start")
     demo = commands.add_parser("demo")
+    default_url, default_model, default_context = active_release_defaults()
     for p in (doctor, propose, demo):
-        p.add_argument("--base-url", default="http://127.0.0.1:11434/v1")
-        p.add_argument("--model", default="qwen2.5-coder:1.5b")
+        p.add_argument("--base-url", default=default_url)
+        p.add_argument("--model", default=default_model)
     task_ids = [p.name for p in TASKS.iterdir() if p.is_dir()]
     for p in (propose, demo):
         p.add_argument("--task", choices=task_ids + (["all"] if p is demo else []), required=True)
         p.add_argument("--runs", type=Path, default=Path("runs"))
         p.add_argument("--sandbox", choices=["docker", "restricted"], default="docker")
         p.add_argument("--max-attempts", type=int, default=3)
+        p.add_argument("--context-tokens", type=int,
+                       help="server context window per request; output reaching it is rejected (default: the active release's, when --base-url and --model are the release's)")
+        p.add_argument("--max-tokens", type=int, help="output budget per proposal (default 1600); recorded in the run config")
     demo.add_argument("--reviewer", required=True)
     review = commands.add_parser("show")
     review.add_argument("run", type=Path)
@@ -67,6 +82,8 @@ def main():
     report.add_argument("--runs", type=Path, default=Path("runs"))
     report.add_argument("--output", type=Path, default=Path("evidence"))
     args = parser.parse_args()
+    if getattr(args, "context_tokens", 1) is None and (args.base_url, args.model) == (default_url, default_model):
+        args.context_tokens = default_context  # the release window only describes the release's own server
     try:
         if args.command == "doctor":
             models = Client(args.base_url, args.model).models()
@@ -77,7 +94,8 @@ def main():
             selected = sorted(task_ids) if args.task == "all" else [args.task]
             failed = False
             for task_id in selected:
-                run, state = start(task_id, args.runs, args.base_url, args.model, args.sandbox, args.max_attempts)
+                run, state = start(task_id, args.runs, args.base_url, args.model, args.sandbox, args.max_attempts, context_tokens=args.context_tokens,
+                                   max_tokens=args.max_tokens)
                 if args.command == "demo":
                     state = interactive(run, state, args.reviewer)
                 else:

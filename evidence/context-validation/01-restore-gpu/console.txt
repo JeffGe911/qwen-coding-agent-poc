@@ -1,0 +1,20 @@
+# 2026-10-23T21:21:29Z stop the CUDA-hidden exploration instance (pid 10128)
+$ powershell -ExecutionPolicy Bypass -File scripts\stop_ollama.ps1 -Port 11437
+Stopped pid 10128 on port 11437; children conhost.exe:38244; port closed=True; leftover children=0; GPU memory used 0 MiB -> 0 MiB
+STOPPED=10128
+exit=0
+
+# 2026-10-23T21:21:35Z start with r1-7b-ctx4096 settings, no extra environment
+$ powershell -ExecutionPolicy Bypass -File scripts\start_ollama.ps1 -Port 11437 -Context 4096 -NumParallel 2 -MaxQueue 512
+Ollama 0.40.9 API ready on 127.0.0.1:11437 in 3.15 s (pid 48292). Model loads on first request.
+RECORD=D:\新建文件夹\qwen-coding-agent-poc\scripts\..\evidence\serving\ollama-launch-11437-20261023T212136Z.json
+[注：上面这次启动的调用方因句柄继承一直挂起，被强制结束；它与下面重新执行的命令同时写这个文件，中间几行（exit 码、说明行和 stop 命令行的开头）被覆盖。下面是重新执行的：powershell -ExecutionPolicy Bypass -File scripts\stop_ollama.ps1 -Port 11437]
+Stopped pid 48292 on port 11437; children conhost.exe:44156; port closed=True; leftover children=0; GPU memory used 0 MiB -> 0 MiB
+STOPPED=48292
+exit=0
+
+# 2026-10-23T21:27:42Z start with r1-7b-ctx4096 settings, no extra environment
+$ powershell -ExecutionPolicy Bypass -File scripts\start_ollama.ps1 -Port 11437 -Context 4096 -NumParallel 2 -MaxQueue 512
+Ollama 0.40.9 API ready on 127.0.0.1:11437 in 3.12 s (pid 62276). Model loads on first request.
+RECORD=D:\新建文件夹\qwen-coding-agent-poc\scripts\..\evidence\serving\ollama-launch-11437-20261023T212742Z.json
+exit=0
