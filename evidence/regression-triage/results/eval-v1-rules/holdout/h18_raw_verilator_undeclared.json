@@ -1,0 +1,94 @@
+{
+  "sample_id": "h18_raw_verilator_undeclared",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout/h18_raw_verilator_undeclared.log",
+    "sha256": "d84542b4626e537c51cf4f8a443ff8d81c4ffef2baf84d8e7c1b3dee4c13dad6",
+    "lines": 5,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "fail",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout/h18_raw_verilator_undeclared.log",
+            "line": 1,
+            "quote": "%Error: hdl/holdout/rtl\\crc8.v:35:20: Can't find definition of variable: 'crc_next'"
+          }
+        ],
+        "fingerprint": "compile_error:3aa53c8f",
+        "certainty": "confirmed",
+        "notes": [],
+        "suggestion": "先修第一条编译错误 dataset/holdout/h18_raw_verilator_undeclared.log:1：“%Error: hdl/holdout/rtl\\crc8.v:35:20: Can't find definition of variable: 'crc_next'”。之后的报错多半是它引起的连锁报错，修完再重新编译。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "compile_error:3aa53c8f",
+        "category": "compile_error",
+        "tests": [
+          "(log)"
+        ],
+        "example": {
+          "file": "dataset/holdout/h18_raw_verilator_undeclared.log",
+          "line": 1,
+          "quote": "%Error: hdl/holdout/rtl\\crc8.v:35:20: Can't find definition of variable: 'crc_next'"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": [
+      "原始编译器输出：日志中没有退出码"
+    ]
+  },
+  "score": {
+    "sample_id": "h18_raw_verilator_undeclared",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "(log)",
+        "gold": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "(log)"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

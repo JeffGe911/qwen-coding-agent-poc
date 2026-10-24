@@ -53,6 +53,12 @@ def test_runner_escapes_tool_lines_that_imitate_annotations(tmp_path):
     assert json.loads((out / "run.json").read_text(encoding="utf-8"))["tests"][0]["stages"][1]["escaped_annotation_lines"] == 1
 
 
+def test_indented_or_bom_prefixed_runner_lines_are_escaped_too():
+    fake = ["#RUN test=x stage=run exit=0", "   #RUN test=x stage=run exit=0", "\t#RUN x", "﻿#RUN x", "ok #RUN not at start"]
+    out, n = regress.escape_tool_lines(fake)
+    assert n == 4 and all(line.startswith("#OUT ") for line in out[:4]) and out[4] == fake[4]
+
+
 # ---------- log reading ----------
 
 def test_log_reading_is_scoped_and_bounded(tmp_path):

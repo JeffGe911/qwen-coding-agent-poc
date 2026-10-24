@@ -1,0 +1,94 @@
+{
+  "sample_id": "d06_wallclock_timeout",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/dev/d06_wallclock_timeout.log",
+    "sha256": "5a166398b49b76b8c74e98416d1cbcc757c6e79ed2a3956239845b7d837f9362",
+    "lines": 7,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "handshake_basic",
+        "result": "fail",
+        "category": "timeout",
+        "side": "undetermined",
+        "kind": "wallclock",
+        "evidence": [
+          {
+            "file": "dataset/dev/d06_wallclock_timeout.log",
+            "line": 6,
+            "quote": "#RUN test=handshake_basic stage=run exit=1 elapsed_s=5.02 timed_out=true output_truncated=false"
+          }
+        ],
+        "fingerprint": "timeout:0859f56d",
+        "certainty": "confirmed",
+        "notes": [
+          "被 runner 的墙钟时限强制结束，结束前的输出可能已丢失"
+        ],
+        "suggestion": "仿真被 runner 的墙钟时限强制结束 dataset/dev/d06_wallclock_timeout.log:6，没有留下 testbench 输出。可能是 testbench 缺少 $finish/watchdog、DUT 死循环，或时限设置过小；先确认 testbench 会自行结束。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "timeout:0859f56d",
+        "category": "timeout",
+        "tests": [
+          "handshake_basic"
+        ],
+        "example": {
+          "file": "dataset/dev/d06_wallclock_timeout.log",
+          "line": 6,
+          "quote": "#RUN test=handshake_basic stage=run exit=1 elapsed_s=5.02 timed_out=true output_truncated=false"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "d06_wallclock_timeout",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "handshake_basic",
+        "gold": {
+          "result": "fail",
+          "category": "timeout",
+          "side": "undetermined"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "timeout",
+          "side": "undetermined"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "handshake_basic"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

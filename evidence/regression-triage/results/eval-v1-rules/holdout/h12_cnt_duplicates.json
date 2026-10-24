@@ -1,0 +1,286 @@
+{
+  "sample_id": "h12_cnt_duplicates",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0002
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout/h12_cnt_duplicates.log",
+    "sha256": "6c8a1bb46a088aedeb48702e8e4823ef5cba9d181a3c0716231e5476acec4c24",
+    "lines": 41,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "cnt_rand_s11",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "undetermined",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout/h12_cnt_duplicates.log",
+            "line": 12,
+            "quote": "RESULT: FAIL  tb_updown  checks=159 mismatches=54"
+          },
+          {
+            "file": "dataset/holdout/h12_cnt_duplicates.log",
+            "line": 13,
+            "quote": "hdl/holdout/tb/tb_updown.sv:70: $finish called at 1620000 (1ps)"
+          },
+          {
+            "file": "dataset/holdout/h12_cnt_duplicates.log",
+            "line": 14,
+            "quote": "#RUN test=cnt_rand_s11 stage=run exit=0 elapsed_s=0.029 timed_out=false output_truncated=false"
+          }
+        ],
+        "fingerprint": "unknown:5665ebeb",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过"
+        ],
+        "suggestion": "证据不足，无法判断 dataset/holdout/h12_cnt_duplicates.log:12。需要完整的日志（含退出码和 testbench 结论行）或人工查看。"
+      },
+      {
+        "test_id": "cnt_up_only",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "undetermined",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout/h12_cnt_duplicates.log",
+            "line": 19,
+            "quote": "RESULT: PASS  tb_updown  checks=159 mismatches=0"
+          },
+          {
+            "file": "dataset/holdout/h12_cnt_duplicates.log",
+            "line": 20,
+            "quote": "hdl/holdout/tb/tb_updown.sv:70: $finish called at 1620000 (1ps)"
+          },
+          {
+            "file": "dataset/holdout/h12_cnt_duplicates.log",
+            "line": 21,
+            "quote": "#RUN test=cnt_up_only stage=run exit=0 elapsed_s=0.024 timed_out=false output_truncated=false"
+          }
+        ],
+        "fingerprint": "unknown:251f5a8d",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过"
+        ],
+        "suggestion": "证据不足，无法判断 dataset/holdout/h12_cnt_duplicates.log:19。需要完整的日志（含退出码和 testbench 结论行）或人工查看。"
+      },
+      {
+        "test_id": "cnt_rand_s29",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "undetermined",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout/h12_cnt_duplicates.log",
+            "line": 31,
+            "quote": "RESULT: FAIL  tb_updown  checks=159 mismatches=57"
+          },
+          {
+            "file": "dataset/holdout/h12_cnt_duplicates.log",
+            "line": 32,
+            "quote": "hdl/holdout/tb/tb_updown.sv:70: $finish called at 1620000 (1ps)"
+          },
+          {
+            "file": "dataset/holdout/h12_cnt_duplicates.log",
+            "line": 33,
+            "quote": "#RUN test=cnt_rand_s29 stage=run exit=0 elapsed_s=0.024 timed_out=false output_truncated=false"
+          }
+        ],
+        "fingerprint": "unknown:5665ebeb",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过"
+        ],
+        "suggestion": "证据不足，无法判断 dataset/holdout/h12_cnt_duplicates.log:31。需要完整的日志（含退出码和 testbench 结论行）或人工查看。"
+      },
+      {
+        "test_id": "crc_smoke",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "undetermined",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout/h12_cnt_duplicates.log",
+            "line": 38,
+            "quote": "[tb_crc8] SUMMARY: 6 frames, 0 bad -> PASS"
+          },
+          {
+            "file": "dataset/holdout/h12_cnt_duplicates.log",
+            "line": 39,
+            "quote": "hdl/holdout/tb/tb_crc8.sv:75: $finish called at 380000 (1ps)"
+          },
+          {
+            "file": "dataset/holdout/h12_cnt_duplicates.log",
+            "line": 40,
+            "quote": "#RUN test=crc_smoke stage=run exit=0 elapsed_s=0.027 timed_out=false output_truncated=false"
+          }
+        ],
+        "fingerprint": "unknown:05d261e1",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过"
+        ],
+        "suggestion": "证据不足，无法判断 dataset/holdout/h12_cnt_duplicates.log:38。需要完整的日志（含退出码和 testbench 结论行）或人工查看。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:5665ebeb",
+        "category": "unknown",
+        "tests": [
+          "cnt_rand_s11",
+          "cnt_rand_s29"
+        ],
+        "example": {
+          "file": "dataset/holdout/h12_cnt_duplicates.log",
+          "line": 12,
+          "quote": "RESULT: FAIL  tb_updown  checks=159 mismatches=54"
+        }
+      },
+      {
+        "fingerprint": "unknown:251f5a8d",
+        "category": "unknown",
+        "tests": [
+          "cnt_up_only"
+        ],
+        "example": {
+          "file": "dataset/holdout/h12_cnt_duplicates.log",
+          "line": 19,
+          "quote": "RESULT: PASS  tb_updown  checks=159 mismatches=0"
+        }
+      },
+      {
+        "fingerprint": "unknown:05d261e1",
+        "category": "unknown",
+        "tests": [
+          "crc_smoke"
+        ],
+        "example": {
+          "file": "dataset/holdout/h12_cnt_duplicates.log",
+          "line": 38,
+          "quote": "[tb_crc8] SUMMARY: 6 frames, 0 bad -> PASS"
+        }
+      }
+    ],
+    "flags": [
+      "duplicate_failures"
+    ],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "h12_cnt_duplicates",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "cnt_rand_s11",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "cnt_up_only",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "cnt_rand_s29",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "crc_smoke",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": [
+        "cnt_rand_s11",
+        "cnt_rand_s29"
+      ]
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "duplicate_failures"
+    ],
+    "flags_found": [
+      "duplicate_failures"
+    ],
+    "unknown_tests": 4,
+    "extra_citations_on_unmatched": 0
+  }
+}

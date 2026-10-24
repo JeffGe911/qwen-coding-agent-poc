@@ -11,6 +11,7 @@ import hashlib
 import json
 from pathlib import Path
 import platform
+import re
 import shutil
 import uuid
 
@@ -19,6 +20,17 @@ from . import sim
 
 def now():
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+
+# Leading whitespace or a byte-order mark must not let a testbench line pass for a runner line (holdout h15 used an
+# indented "#RUN"; logs from before this change only escaped column-1 forgeries).
+IMITATION = re.compile(r"^[\s﻿]*#RUN")
+
+
+def escape_tool_lines(tool_lines):
+    """Prefix tool output that looks like a runner annotation with "#OUT ", so only the runner writes "#RUN" lines."""
+    out = [("#OUT " + line) if IMITATION.match(line) else line for line in tool_lines]
+    return out, sum(1 for line in tool_lines if IMITATION.match(line))
 
 
 def run_regression(manifest_path, out_root, run_id=None):
@@ -42,10 +54,8 @@ def run_regression(manifest_path, out_root, run_id=None):
                 shown = " ".join([Path(argv[0]).name, *argv[1:]])
                 lines.append(f"#RUN test={test['test_id']} stage={stage} cmd={shown}")
                 r = sim.execute(argv, work, float(test.get("timeout_s", 10)))
-                # Tool output that starts like an annotation is escaped, so a testbench cannot forge runner lines.
-                tool_lines = r["output"].splitlines()
-                escaped = sum(1 for line in tool_lines if line.startswith("#RUN"))
-                lines.extend(("#OUT " + line) if line.startswith("#RUN") else line for line in tool_lines)
+                tool_lines, escaped = escape_tool_lines(r["output"].splitlines())
+                lines.extend(tool_lines)
                 r["escaped_annotation_lines"] = escaped
                 if r.get("tool_error"):
                     lines.append(f"#RUN test={test['test_id']} stage={stage} tool_error=\"{r['tool_error']}\" elapsed_s={r['elapsed_s']}")

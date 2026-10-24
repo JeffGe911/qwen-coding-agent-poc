@@ -1,0 +1,246 @@
+{
+  "sample_id": "d07_mixed",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0002
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/dev/d07_mixed.log",
+    "sha256": "1223e5d400b6ec0fac2cc5863a24c6996db7db42361032a479be20e89badb634",
+    "lines": 46,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "alu_basic",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/dev/d07_mixed.log",
+            "line": 7,
+            "quote": "TEST PASSED: tb_alu8"
+          }
+        ],
+        "fingerprint": null,
+        "certainty": "confirmed",
+        "notes": [],
+        "suggestion": "通过 dataset/dev/d07_mixed.log:7：“TEST PASSED: tb_alu8”。"
+      },
+      {
+        "test_id": "alu_syntax",
+        "result": "not_run",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/dev/d07_mixed.log",
+            "line": 11,
+            "quote": "hdl/rtl/alu8.v:25: syntax error"
+          }
+        ],
+        "fingerprint": "compile_error:849a9b12",
+        "certainty": "confirmed",
+        "notes": [
+          "第 29 行是编译器在报错后自身的内部断言崩溃，不是设计断言",
+          "其余 16 条报错多半是第一条引起的连锁报错"
+        ],
+        "suggestion": "先修第一条编译错误 dataset/dev/d07_mixed.log:11：“hdl/rtl/alu8.v:25: syntax error”。之后的报错多半是它引起的连锁报错，修完再重新编译。"
+      },
+      {
+        "test_id": "fifo_full",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "kind": "assertion",
+        "evidence": [
+          {
+            "file": "dataset/dev/d07_mixed.log",
+            "line": 35,
+            "quote": "FATAL: hdl/tb/tb_sync_fifo.v:26: fifo reports full after 3 writes (count=3, DEPTH=4)"
+          }
+        ],
+        "fingerprint": "test_failure:c65e3fd8",
+        "certainty": "confirmed",
+        "notes": [],
+        "suggestion": "testbench 检查失败，首条证据 dataset/dev/d07_mixed.log:35：“FATAL: hdl/tb/tb_sync_fifo.v:26: fifo reports full after 3 writes (count=3, DEPTH=4)”。对照期望值与实际值，查看相关信号在报告时刻附近的驱动和时序。"
+      },
+      {
+        "test_id": "handshake_stuck",
+        "result": "fail",
+        "category": "timeout",
+        "side": "design_or_test",
+        "kind": "watchdog",
+        "evidence": [
+          {
+            "file": "dataset/dev/d07_mixed.log",
+            "line": 42,
+            "quote": "ERROR: [2000000] TIMEOUT watchdog: ack not seen within 2000 ns after req"
+          },
+          {
+            "file": "dataset/dev/d07_mixed.log",
+            "line": 43,
+            "quote": "TEST FAILED: tb_handshake (timeout)"
+          }
+        ],
+        "fingerprint": "timeout:ee609678",
+        "certainty": "confirmed",
+        "notes": [],
+        "suggestion": "testbench 的 watchdog 触发 dataset/dev/d07_mixed.log:42：“ERROR: [2000000] TIMEOUT watchdog: ack not seen within 2000 ns after req”。DUT 没有在规定时间内响应，优先检查握手信号、复位和计数器是否推进。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "compile_error:849a9b12",
+        "category": "compile_error",
+        "tests": [
+          "alu_syntax"
+        ],
+        "example": {
+          "file": "dataset/dev/d07_mixed.log",
+          "line": 11,
+          "quote": "hdl/rtl/alu8.v:25: syntax error"
+        }
+      },
+      {
+        "fingerprint": "test_failure:c65e3fd8",
+        "category": "test_failure",
+        "tests": [
+          "fifo_full"
+        ],
+        "example": {
+          "file": "dataset/dev/d07_mixed.log",
+          "line": 35,
+          "quote": "FATAL: hdl/tb/tb_sync_fifo.v:26: fifo reports full after 3 writes (count=3, DEPTH=4)"
+        }
+      },
+      {
+        "fingerprint": "timeout:ee609678",
+        "category": "timeout",
+        "tests": [
+          "handshake_stuck"
+        ],
+        "example": {
+          "file": "dataset/dev/d07_mixed.log",
+          "line": 42,
+          "quote": "ERROR: [2000000] TIMEOUT watchdog: ack not seen within 2000 ns after req"
+        }
+      }
+    ],
+    "flags": [
+      "tool_internal_assertion"
+    ],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "d07_mixed",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "alu_basic",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "alu_syntax",
+        "gold": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "fifo_full",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "handshake_stuck",
+        "gold": {
+          "result": "fail",
+          "category": "timeout",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "timeout",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "alu_syntax",
+        "fifo_full",
+        "handshake_stuck"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "tool_internal_assertion"
+    ],
+    "flags_found": [
+      "tool_internal_assertion"
+    ],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

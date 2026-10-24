@@ -1,0 +1,274 @@
+{
+  "sample_id": "h21_truncated_mixed",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0002
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout/h21_truncated_mixed.log",
+    "sha256": "9ddbf77a32c4c4a10e2c54a105183e3038cf830194def14dce64244b3cd97e9f",
+    "lines": 33,
+    "log_status": "incomplete",
+    "tests": [
+      {
+        "test_id": "shift_smoke",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "undetermined",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout/h21_truncated_mixed.log",
+            "line": 7,
+            "quote": "tb_shiftreg: all 24 patterns OK -- PASS"
+          },
+          {
+            "file": "dataset/holdout/h21_truncated_mixed.log",
+            "line": 8,
+            "quote": "hdl/holdout/tb/tb_shiftreg.sv:56: $finish called at 2420000 (1ps)"
+          },
+          {
+            "file": "dataset/holdout/h21_truncated_mixed.log",
+            "line": 9,
+            "quote": "#RUN test=shift_smoke stage=run exit=0 elapsed_s=0.024 timed_out=false output_truncated=false"
+          }
+        ],
+        "fingerprint": "unknown:31705187",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过"
+        ],
+        "suggestion": "证据不足，无法判断 dataset/holdout/h21_truncated_mixed.log:7。需要完整的日志（含退出码和 testbench 结论行）或人工查看。"
+      },
+      {
+        "test_id": "shift_lvalue",
+        "result": "not_run",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout/h21_truncated_mixed.log",
+            "line": 11,
+            "quote": "hdl/holdout/rtl/shift_reg.v:23: error: 'q_r' is not a valid l-value for a procedural assignment."
+          }
+        ],
+        "fingerprint": "compile_error:5d52a3f1",
+        "certainty": "confirmed",
+        "notes": [
+          "其余 2 条报错多半是第一条引起的连锁报错"
+        ],
+        "suggestion": "先修第一条编译错误 dataset/holdout/h21_truncated_mixed.log:11：“hdl/holdout/rtl/shift_reg.v:23: error: 'q_r' is not a valid l-value for a procedural assignment.”。之后的报错多半是它引起的连锁报错，修完再重新编译。"
+      },
+      {
+        "test_id": "parity_modes",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "undetermined",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout/h21_truncated_mixed.log",
+            "line": 27,
+            "quote": "FAIL: tb_parity (384 of 768 vectors wrong)"
+          },
+          {
+            "file": "dataset/holdout/h21_truncated_mixed.log",
+            "line": 28,
+            "quote": "hdl/holdout/tb/tb_parity.sv:59: $finish called at 768000 (1ps)"
+          },
+          {
+            "file": "dataset/holdout/h21_truncated_mixed.log",
+            "line": 29,
+            "quote": "#RUN test=parity_modes stage=run exit=0 elapsed_s=0.029 timed_out=false output_truncated=false"
+          }
+        ],
+        "fingerprint": "unknown:7d63bbf6",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过"
+        ],
+        "suggestion": "证据不足，无法判断 dataset/holdout/h21_truncated_mixed.log:27。需要完整的日志（含退出码和 testbench 结论行）或人工查看。"
+      },
+      {
+        "test_id": "crc_stop",
+        "result": "unknown",
+        "category": "incomplete_log",
+        "side": "infrastructure",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout/h21_truncated_mixed.log",
+            "line": 33,
+            "quote": "[tb_crc8] 6 frames, stop_"
+          }
+        ],
+        "fingerprint": "incomplete_log:5e2ae020",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "运行阶段没有结束记录（日志被截断）"
+        ],
+        "suggestion": "日志不完整 dataset/holdout/h21_truncated_mixed.log:33，缺少结束记录，不能据此判断结果。请重新运行，或检查日志采集和存储是否中断。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:31705187",
+        "category": "unknown",
+        "tests": [
+          "shift_smoke"
+        ],
+        "example": {
+          "file": "dataset/holdout/h21_truncated_mixed.log",
+          "line": 7,
+          "quote": "tb_shiftreg: all 24 patterns OK -- PASS"
+        }
+      },
+      {
+        "fingerprint": "compile_error:5d52a3f1",
+        "category": "compile_error",
+        "tests": [
+          "shift_lvalue"
+        ],
+        "example": {
+          "file": "dataset/holdout/h21_truncated_mixed.log",
+          "line": 11,
+          "quote": "hdl/holdout/rtl/shift_reg.v:23: error: 'q_r' is not a valid l-value for a procedural assignment."
+        }
+      },
+      {
+        "fingerprint": "unknown:7d63bbf6",
+        "category": "unknown",
+        "tests": [
+          "parity_modes"
+        ],
+        "example": {
+          "file": "dataset/holdout/h21_truncated_mixed.log",
+          "line": 27,
+          "quote": "FAIL: tb_parity (384 of 768 vectors wrong)"
+        }
+      },
+      {
+        "fingerprint": "incomplete_log:5e2ae020",
+        "category": "incomplete_log",
+        "tests": [
+          "crc_stop"
+        ],
+        "example": {
+          "file": "dataset/holdout/h21_truncated_mixed.log",
+          "line": 33,
+          "quote": "[tb_crc8] 6 frames, stop_"
+        }
+      }
+    ],
+    "flags": [
+      "no_regression_end_record"
+    ],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "h21_truncated_mixed",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "incomplete",
+      "pred": "incomplete"
+    },
+    "tests": [
+      {
+        "test_id": "shift_smoke",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "shift_lvalue",
+        "gold": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "parity_modes",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "crc_stop",
+        "gold": {
+          "result": "unknown",
+          "category": "incomplete_log",
+          "side": "infrastructure"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "incomplete_log",
+          "side": "infrastructure"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "shift_lvalue"
+      ],
+      "fp": [],
+      "fn": [
+        "parity_modes"
+      ]
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 2,
+    "extra_citations_on_unmatched": 0
+  }
+}

@@ -70,12 +70,12 @@ def quality_table(found):
 
 
 def service_table(found):
-    rows = ["| 引擎 · 拆分 | 请求数 | 请求失败 | 输出不合规 | 未评分样本 | 总耗时 (s) | 平均每样本 (s) | prompt tokens | completion tokens |", "|---|---|---|---|---|---|---|---|---|"]
+    rows = ["| 引擎 · 拆分 | 调用次数 | 请求失败 | 输出不合规 | 未评分样本 | 总耗时 (s) | 平均每样本 (s) | prompt tokens | completion tokens |", "|---|---|---|---|---|---|---|---|---|"]
     for (engine, split), r in sorted(found.items(), key=lambda kv: (ENGINES.index(kv[0][0]), SPLITS.index(kv[0][1]))):
         m = r["metrics"]
         n = m["requests"] or 1
         tok = (m["prompt_tokens"], m["completion_tokens"]) if engine != "rules" else ("—", "—")
-        rows.append(f"| {engine} · {split} | {m['requests']} | {m['request_failed']} | {m['invalid_output']} | {len(m['unscored_samples'])} | {m['seconds_total']} | {m['seconds_total'] / n:.3f} | {tok[0]} | {tok[1]} |")
+        rows.append(f"| {engine} · {split} | {m['requests']} | {m['request_failed']} | {m['invalid_output']} | {len(m['unscored_samples'])} | {m['seconds_total']} | {m["seconds_total"] / n:.4f} | {tok[0]} | {tok[1]} |")
     return "\n".join(rows) + "\n"
 
 

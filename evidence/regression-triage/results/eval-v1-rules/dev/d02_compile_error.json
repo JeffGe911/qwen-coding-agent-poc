@@ -1,0 +1,101 @@
+{
+  "sample_id": "d02_compile_error",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0002
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/dev/d02_compile_error.log",
+    "sha256": "f9ec278d39a1655dce0c388d60c4c9be36f2390eff09f84d90e6f292e63224d7",
+    "lines": 24,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "alu_basic",
+        "result": "not_run",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/dev/d02_compile_error.log",
+            "line": 4,
+            "quote": "hdl/rtl/alu8.v:25: syntax error"
+          }
+        ],
+        "fingerprint": "compile_error:849a9b12",
+        "certainty": "confirmed",
+        "notes": [
+          "第 22 行是编译器在报错后自身的内部断言崩溃，不是设计断言",
+          "其余 16 条报错多半是第一条引起的连锁报错"
+        ],
+        "suggestion": "先修第一条编译错误 dataset/dev/d02_compile_error.log:4：“hdl/rtl/alu8.v:25: syntax error”。之后的报错多半是它引起的连锁报错，修完再重新编译。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "compile_error:849a9b12",
+        "category": "compile_error",
+        "tests": [
+          "alu_basic"
+        ],
+        "example": {
+          "file": "dataset/dev/d02_compile_error.log",
+          "line": 4,
+          "quote": "hdl/rtl/alu8.v:25: syntax error"
+        }
+      }
+    ],
+    "flags": [
+      "tool_internal_assertion"
+    ],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "d02_compile_error",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "alu_basic",
+        "gold": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "alu_basic"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "tool_internal_assertion"
+    ],
+    "flags_found": [
+      "tool_internal_assertion"
+    ],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "sample_id": "s02_truncated",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0002
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/dev/s02_truncated.log",
+    "sha256": "5600cb55c527c1a4d9a9d77c78ebb7d5dcc663936427aad61425e53d3f87c347",
+    "lines": 36,
+    "log_status": "incomplete",
+    "tests": [
+      {
+        "test_id": "alu_basic",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/dev/s02_truncated.log",
+            "line": 7,
+            "quote": "TEST PASSED: tb_alu8"
+          }
+        ],
+        "fingerprint": null,
+        "certainty": "confirmed",
+        "notes": [],
+        "suggestion": "通过 dataset/dev/s02_truncated.log:7：“TEST PASSED: tb_alu8”。"
+      },
+      {
+        "test_id": "alu_syntax",
+        "result": "not_run",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/dev/s02_truncated.log",
+            "line": 11,
+            "quote": "hdl/rtl/alu8.v:25: syntax error"
+          }
+        ],
+        "fingerprint": "compile_error:849a9b12",
+        "certainty": "confirmed",
+        "notes": [
+          "第 29 行是编译器在报错后自身的内部断言崩溃，不是设计断言",
+          "其余 16 条报错多半是第一条引起的连锁报错"
+        ],
+        "suggestion": "先修第一条编译错误 dataset/dev/s02_truncated.log:11：“hdl/rtl/alu8.v:25: syntax error”。之后的报错多半是它引起的连锁报错，修完再重新编译。"
+      },
+      {
+        "test_id": "fifo_full",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "kind": "assertion",
+        "evidence": [
+          {
+            "file": "dataset/dev/s02_truncated.log",
+            "line": 35,
+            "quote": "FATAL: hdl/tb/tb_sync_fifo.v:26: fifo reports full after 3 writes (count=3, DEPTH=4)"
+          }
+        ],
+        "fingerprint": "test_failure:c65e3fd8",
+        "certainty": "confirmed",
+        "notes": [
+          "运行阶段没有结束记录（日志被截断），但已出现的失败行足以下结论"
+        ],
+        "suggestion": "testbench 检查失败，首条证据 dataset/dev/s02_truncated.log:35：“FATAL: hdl/tb/tb_sync_fifo.v:26: fifo reports full after 3 writes (count=3, DEPTH=4)”。对照期望值与实际值，查看相关信号在报告时刻附近的驱动和时序。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "compile_error:849a9b12",
+        "category": "compile_error",
+        "tests": [
+          "alu_syntax"
+        ],
+        "example": {
+          "file": "dataset/dev/s02_truncated.log",
+          "line": 11,
+          "quote": "hdl/rtl/alu8.v:25: syntax error"
+        }
+      },
+      {
+        "fingerprint": "test_failure:c65e3fd8",
+        "category": "test_failure",
+        "tests": [
+          "fifo_full"
+        ],
+        "example": {
+          "file": "dataset/dev/s02_truncated.log",
+          "line": 35,
+          "quote": "FATAL: hdl/tb/tb_sync_fifo.v:26: fifo reports full after 3 writes (count=3, DEPTH=4)"
+        }
+      }
+    ],
+    "flags": [
+      "no_regression_end_record",
+      "tool_internal_assertion"
+    ],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "s02_truncated",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "incomplete",
+      "pred": "incomplete"
+    },
+    "tests": [
+      {
+        "test_id": "alu_basic",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "alu_syntax",
+        "gold": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "fifo_full",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "alu_syntax",
+        "fifo_full"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "tool_internal_assertion"
+    ],
+    "flags_found": [
+      "tool_internal_assertion"
+    ],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}
