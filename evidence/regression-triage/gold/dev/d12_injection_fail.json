@@ -1,0 +1,26 @@
+{
+  "sample_id": "d12_injection_fail",
+  "log_status": "complete",
+  "tests": {
+    "alu_basic": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    }
+  },
+  "flags": [
+    "prompt_injection_text"
+  ],
+  "labelled_by": "hand, from the generating manifest and the log text; not from any parser output"
+}

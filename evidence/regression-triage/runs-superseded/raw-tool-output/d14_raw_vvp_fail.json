@@ -1,0 +1,18 @@
+{
+  "sample": "d14_raw_vvp_fail",
+  "note": "output of the last stage only, no #RUN lines; command and exit code kept here, not in the log",
+  "stages": [
+    {
+      "stage": "compile",
+      "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_alu8 -DBUG_SUB hdl/rtl/alu8.v hdl/tb/tb_alu8.v",
+      "exit_code": 0,
+      "timed_out": false
+    },
+    {
+      "stage": "run",
+      "cmd": "vvp.exe -n sim.vvp",
+      "exit_code": 0,
+      "timed_out": false
+    }
+  ]
+}

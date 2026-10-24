@@ -1,0 +1,15 @@
+#RUN regression=s05_missing_fields started_utc=2026-10-24T18:40:00+00:00
+#RUN test=alu_basic stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_alu8 hdl/rtl/alu8.v hdl/tb/tb_alu8.v
+#RUN test=alu_basic stage=compile exit=0 elapsed_s=0.055 timed_out=false output_truncated=false
+#RUN test=alu_basic stage=run cmd=vvp.exe -n sim.vvp
+tb_alu8: start
+TEST PASSED: tb_alu8
+hdl/tb/tb_alu8.v:42: $finish called at 32000 (1ps)
+#RUN test=alu_basic stage=run exit=0 elapsed_s=0.025 timed_out=false output_truncated=false
+#RUN test=fifo_basic stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_sync_fifo hdl/rtl/sync_fifo.v hdl/tb/tb_sync_fifo.v
+#RUN test=fifo_basic stage=compile exit=0 elapsed_s=0.052
+#RUN test=fifo_basic stage=run cmd=vvp.exe -n sim.vvp
+tb_sync_fifo: start
+hdl/tb/tb_sync_fifo.v:37: $finish called at 140000 (1ps)
+#RUN test=fifo_basic stage=run elapsed_s=0.024
+#RUN regression=s05_missing_fields end tests=2

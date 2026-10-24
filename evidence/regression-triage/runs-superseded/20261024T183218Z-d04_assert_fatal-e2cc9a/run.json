@@ -1,0 +1,57 @@
+{
+  "run_id": "20261024T183218Z-d04_assert_fatal-e2cc9a",
+  "regression": "d04_assert_fatal",
+  "manifest": "hdl/regressions/dev/d04_assert_fatal.json",
+  "manifest_sha256": "a2d5da49abf30702721f95270512f75af28cf3acd64512acc76a2d1ad073e65b",
+  "started_utc": "2026-10-24T18:32:18+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "fifo_basic",
+      "defines": [
+        "BUG_FULL_FLAG"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/rtl/sync_fifo.v": "bf26219cde2efae83d052fa47f252d629c676b94879025b4e002939d3abcea67",
+        "hdl/tb/tb_sync_fifo.v": "07bf0315665c1a5adcfcb33a408465cc7932da4cae95a68d63d94a43387b258d"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_sync_fifo -DBUG_FULL_FLAG hdl/rtl/sync_fifo.v hdl/tb/tb_sync_fifo.v",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.079,
+          "output_truncated": false,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 1,
+          "timed_out": false,
+          "elapsed_s": 0.054,
+          "output_truncated": false,
+          "output_lines": 3
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-24T18:32:18+00:00"
+}

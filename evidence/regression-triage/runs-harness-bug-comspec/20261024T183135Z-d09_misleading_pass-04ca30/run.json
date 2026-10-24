@@ -1,0 +1,48 @@
+{
+  "run_id": "20261024T183135Z-d09_misleading_pass-04ca30",
+  "regression": "d09_misleading_pass",
+  "manifest": "hdl/regressions/dev/d09_misleading_pass.json",
+  "manifest_sha256": "6f3d8dac06c4f9d81698a885df750ae47da14c6c7dde5d0849cc15f0d4898c18",
+  "started_utc": "2026-10-24T18:31:35+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "alu_error_path",
+      "defines": [
+        "MISLEADING_TEXT"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/rtl/alu8.v": "35ded19d6a7151bd5b0265e83b4784132d878480bb28253a24f054db0db47d0e",
+        "hdl/tb/tb_alu8.v": "50846972c9f19d42e36f21d748970e4cf74de33c93fb3a11622881e773ab7d26"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_alu8 -DMISLEADING_TEXT hdl/rtl/alu8.v hdl/tb/tb_alu8.v",
+          "exit_code": 4294967295,
+          "timed_out": false,
+          "elapsed_s": 0.019,
+          "output_truncated": false,
+          "output_lines": 0
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-24T18:31:35+00:00"
+}

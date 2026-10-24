@@ -1,0 +1,22 @@
+{
+  "sample": "d15_raw_iverilog_compile",
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "stages": [
+    {
+      "stage": "compile",
+      "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_sync_fifo -DBUG_SYNTAX hdl/rtl/sync_fifo.v hdl/tb/tb_sync_fifo.v hdl/rtl/alu8.v",
+      "exit_code": 2,
+      "timed_out": false
+    }
+  ]
+}

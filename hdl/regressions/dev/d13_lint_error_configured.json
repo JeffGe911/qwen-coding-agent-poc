@@ -1,0 +1,18 @@
+{
+  "regression": "d13_lint_error_configured",
+  "description": "same lint as d11, with VERILATOR_ROOT set in the executor environment",
+  "tests": [
+    {
+      "test_id": "alu_lint",
+      "top": "alu8",
+      "sources": [
+        "hdl/rtl/alu8.v"
+      ],
+      "defines": [
+        "BUG_SYNTAX"
+      ],
+      "timeout_s": 10,
+      "kind": "lint"
+    }
+  ]
+}

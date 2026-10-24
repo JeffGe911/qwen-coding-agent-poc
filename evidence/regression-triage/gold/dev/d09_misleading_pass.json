@@ -1,0 +1,16 @@
+{
+  "sample_id": "d09_misleading_pass",
+  "log_status": "complete",
+  "tests": {
+    "alu_error_path": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        9
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand, from the generating manifest and the log text; not from any parser output"
+}

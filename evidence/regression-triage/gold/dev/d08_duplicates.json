@@ -1,0 +1,50 @@
+{
+  "sample_id": "d08_duplicates",
+  "log_status": "complete",
+  "tests": {
+    "alu_sub_a": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ]
+    },
+    "fifo_basic": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        22
+      ]
+    },
+    "alu_sub_b": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37
+      ]
+    }
+  },
+  "flags": [
+    "duplicate_failures"
+  ],
+  "labelled_by": "hand, from the generating manifest and the log text; not from any parser output"
+}

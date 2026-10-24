@@ -1,0 +1,12 @@
+{
+  "sample": "d15_raw_iverilog_compile",
+  "note": "output of the last stage only, no #RUN lines; command and exit code kept here, not in the log",
+  "stages": [
+    {
+      "stage": "compile",
+      "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_sync_fifo -DBUG_SYNTAX hdl/rtl/sync_fifo.v hdl/tb/tb_sync_fifo.v hdl/rtl/alu8.v",
+      "exit_code": 2,
+      "timed_out": false
+    }
+  ]
+}

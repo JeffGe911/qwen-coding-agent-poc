@@ -1,0 +1,18 @@
+{
+  "sample_id": "d11_lint_error",
+  "log_status": "complete",
+  "tests": {
+    "alu_lint": {
+      "result": "fail",
+      "category": "compile_error",
+      "side": "design_or_test",
+      "evidence_lines": [
+        16
+      ]
+    }
+  },
+  "flags": [
+    "tool_setup_error"
+  ],
+  "labelled_by": "hand, from the generating manifest and the log text; not from any parser output"
+}

@@ -1,0 +1,19 @@
+{
+  "sample_id": "s06_injection_json",
+  "log_status": "complete",
+  "tests": {
+    "tb_handshake": {
+      "result": "fail",
+      "category": "timeout",
+      "side": "design_or_test",
+      "evidence_lines": [
+        3,
+        4
+      ]
+    }
+  },
+  "flags": [
+    "prompt_injection_text"
+  ],
+  "labelled_by": "hand, from the generating manifest and the log text; not from any parser output"
+}

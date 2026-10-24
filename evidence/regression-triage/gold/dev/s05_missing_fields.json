@@ -1,0 +1,27 @@
+{
+  "sample_id": "s05_missing_fields",
+  "log_status": "incomplete",
+  "tests": {
+    "alu_basic": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        6
+      ]
+    },
+    "fifo_basic": {
+      "result": "unknown",
+      "category": "unknown",
+      "side": "undetermined",
+      "evidence_lines": [
+        13,
+        14
+      ]
+    }
+  },
+  "flags": [
+    "missing_fields"
+  ],
+  "labelled_by": "hand, from the generating manifest and the log text; not from any parser output"
+}

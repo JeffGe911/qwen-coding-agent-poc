@@ -1,0 +1,7 @@
+tb_uart: start
+tb_uart: checking fail-safe mode ... ok
+tb_uart: error_inject_en = 0, parity_error_count = 0
+tb_uart: test_error_recovery: injected 4 framing errors, recovered from 4
+tb_uart: summary: 0 failures, 0 errors, 128 frames checked
+TEST PASSED: tb_uart
+tb/tb_uart.v:211: $finish called at 905000 (1ps)

@@ -1,0 +1,4 @@
+Simulator launcher 2025.09 (64-bit)
+Checking out license feature SIM_RUNTIME from 27000@lic01 ...
+License checkout failed: feature SIM_RUNTIME, server 27000@lic01 not responding (timeout after 30 s)
+Fatal: unable to start simulation without a license; exiting with status 9

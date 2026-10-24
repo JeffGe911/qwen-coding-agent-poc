@@ -1,0 +1,24 @@
+{
+  "sample_id": "d14_raw_vvp_fail",
+  "log_status": "complete",
+  "tests": {
+    "tb_alu8": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand, from the generating manifest and the log text; not from any parser output"
+}

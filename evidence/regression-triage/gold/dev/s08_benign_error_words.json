@@ -1,0 +1,16 @@
+{
+  "sample_id": "s08_benign_error_words",
+  "log_status": "complete",
+  "tests": {
+    "tb_uart": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        6
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand, from the generating manifest and the log text; not from any parser output"
+}

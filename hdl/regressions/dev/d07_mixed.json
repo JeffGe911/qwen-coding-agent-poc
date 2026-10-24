@@ -1,0 +1,52 @@
+{
+  "regression": "d07_mixed",
+  "description": "pass + compile error + assertion + watchdog timeout in one regression",
+  "tests": [
+    {
+      "test_id": "alu_basic",
+      "top": "tb_alu8",
+      "sources": [
+        "hdl/rtl/alu8.v",
+        "hdl/tb/tb_alu8.v"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "alu_syntax",
+      "top": "tb_alu8",
+      "sources": [
+        "hdl/rtl/alu8.v",
+        "hdl/tb/tb_alu8.v"
+      ],
+      "defines": [
+        "BUG_SYNTAX"
+      ],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "fifo_full",
+      "top": "tb_sync_fifo",
+      "sources": [
+        "hdl/rtl/sync_fifo.v",
+        "hdl/tb/tb_sync_fifo.v"
+      ],
+      "defines": [
+        "BUG_FULL_FLAG"
+      ],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "handshake_stuck",
+      "top": "tb_handshake",
+      "sources": [
+        "hdl/rtl/handshake.v",
+        "hdl/tb/tb_handshake.v"
+      ],
+      "defines": [
+        "BUG_NO_ACK"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

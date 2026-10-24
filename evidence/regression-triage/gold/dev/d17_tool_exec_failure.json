@@ -1,0 +1,32 @@
+{
+  "sample_id": "d17_tool_exec_failure",
+  "log_status": "complete",
+  "tests": {
+    "alu_basic": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure",
+      "evidence_lines": [
+        4
+      ]
+    },
+    "fifo_basic": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure",
+      "evidence_lines": [
+        6
+      ]
+    },
+    "handshake_basic": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure",
+      "evidence_lines": [
+        8
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand, from the generating manifest and the log text; not from any parser output"
+}

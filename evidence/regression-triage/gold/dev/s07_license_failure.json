@@ -1,0 +1,17 @@
+{
+  "sample_id": "s07_license_failure",
+  "log_status": "complete",
+  "tests": {
+    "(log)": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure",
+      "evidence_lines": [
+        3,
+        4
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand, from the generating manifest and the log text; not from any parser output"
+}

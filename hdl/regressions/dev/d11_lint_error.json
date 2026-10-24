@@ -1,0 +1,18 @@
+{
+  "regression": "d11_lint_error",
+  "description": "Verilator lint of the ALU with the injected syntax error",
+  "tests": [
+    {
+      "test_id": "alu_lint",
+      "top": "alu8",
+      "sources": [
+        "hdl/rtl/alu8.v"
+      ],
+      "defines": [
+        "BUG_SYNTAX"
+      ],
+      "timeout_s": 10,
+      "kind": "lint"
+    }
+  ]
+}

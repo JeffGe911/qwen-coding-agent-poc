@@ -1,0 +1,5 @@
+[ci] job 4411 picked up by runner-07
+[ci] step 3/7 fetch sources ... ok
+[ci] step 4/7 generate filelist ... ok
+[ci] step 5/7 elaborate ... see artifacts/elab.out
+[ci] job 4411 finished with status=2

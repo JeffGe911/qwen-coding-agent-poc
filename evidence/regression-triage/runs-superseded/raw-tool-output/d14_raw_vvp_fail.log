@@ -1,0 +1,11 @@
+tb_alu8: start
+ERROR: [2000] tb_alu8 op=1 a=3 b=1 expected y=2 got y=4
+ERROR: [6000] tb_alu8 op=1 a=32 b=8 expected y=24 got y=40
+ERROR: [10000] tb_alu8 op=1 a=61 b=15 expected y=46 got y=76
+ERROR: [14000] tb_alu8 op=1 a=90 b=22 expected y=68 got y=112
+ERROR: [18000] tb_alu8 op=1 a=119 b=29 expected y=90 got y=148
+ERROR: [22000] tb_alu8 op=1 a=148 b=36 expected y=112 got y=184
+ERROR: [26000] tb_alu8 op=1 a=177 b=43 expected y=134 got y=220
+ERROR: [30000] tb_alu8 op=1 a=206 b=50 expected y=156 got y=0
+TEST FAILED: tb_alu8 errors=8
+hdl/tb/tb_alu8.v:42: $finish called at 32000 (1ps)

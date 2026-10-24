@@ -1,0 +1,48 @@
+{
+  "run_id": "20261024T183549Z-d13_lint_error_configured-37fa1b",
+  "regression": "d13_lint_error_configured",
+  "manifest": "D:/新建文件夹/qwen-coding-agent-poc/hdl/regressions/dev/d13_lint_error_configured.json",
+  "manifest_sha256": "b170866d43b6c05854d2b53a2d9087e437886f98b61ff448575bc104024cedaf",
+  "started_utc": "2026-10-24T18:35:49+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "alu_lint",
+      "defines": [
+        "BUG_SYNTAX"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/rtl/alu8.v": "35ded19d6a7151bd5b0265e83b4784132d878480bb28253a24f054db0db47d0e"
+      },
+      "stages": [
+        {
+          "stage": "lint",
+          "cmd": "verilator_bin.exe --lint-only -Wall --top-module alu8 -DBUG_SYNTAX hdl/rtl/alu8.v",
+          "exit_code": 1,
+          "timed_out": false,
+          "elapsed_s": 0.028,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 6
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-24T18:35:49+00:00"
+}

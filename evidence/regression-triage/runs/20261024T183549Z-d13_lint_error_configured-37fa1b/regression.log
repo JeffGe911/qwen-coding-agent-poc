@@ -1,0 +1,11 @@
+#RUN regression=d13_lint_error_configured run_id=20261024T183549Z-d13_lint_error_configured-37fa1b started_utc=2026-10-24T18:35:49+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=alu_lint stage=lint cmd=verilator_bin.exe --lint-only -Wall --top-module alu8 -DBUG_SYNTAX hdl/rtl/alu8.v
+%Error: hdl/rtl\alu8.v:25:5: syntax error, unexpected end, expecting ';'
+   25 |     end
+      |     ^~~
+        ... See the manual at https://verilator.org/verilator_doc.html?v=5.053 for more assistance.
+%Error: Cannot continue
+        ... This fatal error may be caused by the earlier error(s); resolve those first.
+#RUN test=alu_lint stage=lint exit=1 elapsed_s=0.028 timed_out=false output_truncated=false
+#RUN regression=d13_lint_error_configured end tests=1 finished_utc=2026-10-24T18:35:49+00:00

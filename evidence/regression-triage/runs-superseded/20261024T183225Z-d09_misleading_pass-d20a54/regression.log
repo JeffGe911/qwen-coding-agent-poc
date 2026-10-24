@@ -1,0 +1,12 @@
+#RUN regression=d09_misleading_pass run_id=20261024T183225Z-d09_misleading_pass-d20a54 started_utc=2026-10-24T18:32:25+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=alu_error_path stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_alu8 -DMISLEADING_TEXT hdl/rtl/alu8.v hdl/tb/tb_alu8.v
+#RUN test=alu_error_path stage=compile exit=0 elapsed_s=0.059 timed_out=false output_truncated=false
+#RUN test=alu_error_path stage=run cmd=vvp.exe -n sim.vvp
+tb_alu8: start
+tb_alu8: error-injection path under test; error flags are expected to toggle
+tb_alu8: error_count = 0 (0 errors expected)
+TEST PASSED: tb_alu8
+hdl/tb/tb_alu8.v:42: $finish called at 32000 (1ps)
+#RUN test=alu_error_path stage=run exit=0 elapsed_s=0.036 timed_out=false output_truncated=false
+#RUN regression=d09_misleading_pass end tests=1 finished_utc=2026-10-24T18:32:25+00:00

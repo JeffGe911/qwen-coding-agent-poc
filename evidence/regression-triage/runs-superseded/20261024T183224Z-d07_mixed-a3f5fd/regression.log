@@ -1,0 +1,46 @@
+#RUN regression=d07_mixed run_id=20261024T183224Z-d07_mixed-a3f5fd started_utc=2026-10-24T18:32:24+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=alu_basic stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_alu8 hdl/rtl/alu8.v hdl/tb/tb_alu8.v
+#RUN test=alu_basic stage=compile exit=0 elapsed_s=0.058 timed_out=false output_truncated=false
+#RUN test=alu_basic stage=run cmd=vvp.exe -n sim.vvp
+tb_alu8: start
+TEST PASSED: tb_alu8
+hdl/tb/tb_alu8.v:42: $finish called at 32000 (1ps)
+#RUN test=alu_basic stage=run exit=0 elapsed_s=0.025 timed_out=false output_truncated=false
+#RUN test=alu_syntax stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_alu8 -DBUG_SYNTAX hdl/rtl/alu8.v hdl/tb/tb_alu8.v
+hdl/rtl/alu8.v:25: syntax error
+hdl/tb/tb_alu8.v:4: error: Malformed statement
+hdl/tb/tb_alu8.v:5: error: Declarations must precede statements.
+hdl/tb/tb_alu8.v:6: error: Declarations must precede statements.
+hdl/tb/tb_alu8.v:7: syntax error
+hdl/tb/tb_alu8.v:7: error: Malformed statement
+hdl/tb/tb_alu8.v:8: syntax error
+hdl/tb/tb_alu8.v:8: error: Malformed statement
+hdl/tb/tb_alu8.v:9: warning: Static variable initialization requires explicit lifetime in this context.
+hdl/tb/tb_alu8.v:9: error: Declarations must precede statements.
+hdl/tb/tb_alu8.v:10: error: Declarations must precede statements.
+hdl/tb/tb_alu8.v:12: syntax error
+hdl/tb/tb_alu8.v:12: error: Syntax error in variable list.
+hdl/tb/tb_alu8.v:12: error: Declarations must precede statements.
+hdl/tb/tb_alu8.v:14: syntax error
+hdl/tb/tb_alu8.v:14: error: Malformed statement
+hdl/tb/tb_alu8.v:19: syntax error
+hdl/tb/tb_alu8.v:22: error: Malformed statement
+Assertion failed: nested_scope, file pform.cc, line 514
+#RUN test=alu_syntax stage=compile exit=3 elapsed_s=0.054 timed_out=false output_truncated=false
+#RUN test=fifo_full stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_sync_fifo -DBUG_FULL_FLAG hdl/rtl/sync_fifo.v hdl/tb/tb_sync_fifo.v
+#RUN test=fifo_full stage=compile exit=0 elapsed_s=0.052 timed_out=false output_truncated=false
+#RUN test=fifo_full stage=run cmd=vvp.exe -n sim.vvp
+tb_sync_fifo: start
+FATAL: hdl/tb/tb_sync_fifo.v:26: fifo reports full after 3 writes (count=3, DEPTH=4)
+       Time: 50000  Scope: tb_sync_fifo
+#RUN test=fifo_full stage=run exit=1 elapsed_s=0.023 timed_out=false output_truncated=false
+#RUN test=handshake_stuck stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_handshake -DBUG_NO_ACK hdl/rtl/handshake.v hdl/tb/tb_handshake.v
+#RUN test=handshake_stuck stage=compile exit=0 elapsed_s=0.053 timed_out=false output_truncated=false
+#RUN test=handshake_stuck stage=run cmd=vvp.exe -n sim.vvp
+tb_handshake: start
+ERROR: [2000000] TIMEOUT watchdog: ack not seen within 2000 ns after req
+TEST FAILED: tb_handshake (timeout)
+hdl/tb/tb_handshake.v:18: $finish called at 2000000 (1ps)
+#RUN test=handshake_stuck stage=run exit=0 elapsed_s=0.024 timed_out=false output_truncated=false
+#RUN regression=d07_mixed end tests=4 finished_utc=2026-10-24T18:32:25+00:00

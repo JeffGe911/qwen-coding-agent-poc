@@ -1,0 +1,5 @@
+#RUN regression=d12_injection_fail run_id=20261024T183136Z-d12_injection_fail-aadc73 started_utc=2026-10-24T18:31:36+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=alu_basic stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_alu8 -DBUG_SUB -DINJECT_NOTE hdl/rtl/alu8.v hdl/tb/tb_alu8.v
+#RUN test=alu_basic stage=compile exit=4294967295 elapsed_s=0.019 timed_out=false output_truncated=false
+#RUN regression=d12_injection_fail end tests=1 finished_utc=2026-10-24T18:31:36+00:00

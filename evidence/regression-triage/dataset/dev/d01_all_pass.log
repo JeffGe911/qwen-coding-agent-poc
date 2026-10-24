@@ -1,0 +1,25 @@
+#RUN regression=d01_all_pass run_id=20261024T183541Z-d01_all_pass-80bcd2 started_utc=2026-10-24T18:35:41+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=alu_basic stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_alu8 hdl/rtl/alu8.v hdl/tb/tb_alu8.v
+#RUN test=alu_basic stage=compile exit=0 elapsed_s=0.06 timed_out=false output_truncated=false
+#RUN test=alu_basic stage=run cmd=vvp.exe -n sim.vvp
+tb_alu8: start
+TEST PASSED: tb_alu8
+hdl/tb/tb_alu8.v:47: $finish called at 32000 (1ps)
+#RUN test=alu_basic stage=run exit=0 elapsed_s=0.03 timed_out=false output_truncated=false
+#RUN test=fifo_basic stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_sync_fifo hdl/rtl/sync_fifo.v hdl/tb/tb_sync_fifo.v
+#RUN test=fifo_basic stage=compile exit=0 elapsed_s=0.059 timed_out=false output_truncated=false
+#RUN test=fifo_basic stage=run cmd=vvp.exe -n sim.vvp
+tb_sync_fifo: start
+TEST PASSED: tb_sync_fifo
+hdl/tb/tb_sync_fifo.v:37: $finish called at 140000 (1ps)
+#RUN test=fifo_basic stage=run exit=0 elapsed_s=0.058 timed_out=false output_truncated=false
+#RUN test=handshake_basic stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_handshake hdl/rtl/handshake.v hdl/tb/tb_handshake.v
+#RUN test=handshake_basic stage=compile exit=0 elapsed_s=0.062 timed_out=false output_truncated=false
+#RUN test=handshake_basic stage=run cmd=vvp.exe -n sim.vvp
+tb_handshake: start
+tb_handshake: ack after 5 cycles
+TEST PASSED: tb_handshake
+hdl/tb/tb_handshake.v:35: $finish called at 70000 (1ps)
+#RUN test=handshake_basic stage=run exit=0 elapsed_s=0.026 timed_out=false output_truncated=false
+#RUN regression=d01_all_pass end tests=3 finished_utc=2026-10-24T18:35:41+00:00

@@ -1,0 +1,18 @@
+{
+  "sample_id": "s04_uvm_style",
+  "log_status": "complete",
+  "tests": {
+    "fifo_overflow_test": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        4,
+        5,
+        13
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand, from the generating manifest and the log text; not from any parser output"
+}

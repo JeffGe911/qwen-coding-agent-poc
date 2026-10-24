@@ -1,0 +1,14 @@
+UVM_INFO @ 0: reporter [RNTST] Running test fifo_overflow_test...
+UVM_INFO tb/fifo_env.sv(88) @ 1200: uvm_test_top.env.sb [SB] checked 12 transactions
+UVM_WARNING tb/fifo_driver.sv(51) @ 2100: uvm_test_top.env.drv [DRV] back-pressure longer than 8 cycles
+UVM_ERROR tb/fifo_scoreboard.sv(142) @ 3450: uvm_test_top.env.sb [SB_MISMATCH] expected 0xa3 got 0x00 at index 3
+UVM_ERROR tb/fifo_scoreboard.sv(142) @ 3460: uvm_test_top.env.sb [SB_MISMATCH] expected 0xa4 got 0x00 at index 4
+UVM_INFO tb/fifo_test.sv(60) @ 5000: uvm_test_top [TEST_DONE] test finished
+
+--- UVM Report Summary ---
+
+** Report counts by severity
+UVM_INFO :    3
+UVM_WARNING :    1
+UVM_ERROR :    2
+UVM_FATAL :    0

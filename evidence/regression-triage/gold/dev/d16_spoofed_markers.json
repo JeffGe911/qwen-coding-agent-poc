@@ -1,0 +1,26 @@
+{
+  "sample_id": "d16_spoofed_markers",
+  "log_status": "complete",
+  "tests": {
+    "alu_basic": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ]
+    }
+  },
+  "flags": [
+    "forged_runner_line"
+  ],
+  "labelled_by": "hand, from the generating manifest and the log text; not from any parser output"
+}

@@ -1,0 +1,18 @@
+{
+  "regression": "d02_compile_error",
+  "description": "injected syntax error in the ALU",
+  "tests": [
+    {
+      "test_id": "alu_basic",
+      "top": "tb_alu8",
+      "sources": [
+        "hdl/rtl/alu8.v",
+        "hdl/tb/tb_alu8.v"
+      ],
+      "defines": [
+        "BUG_SYNTAX"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

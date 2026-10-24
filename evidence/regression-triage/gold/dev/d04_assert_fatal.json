@@ -1,0 +1,16 @@
+{
+  "sample_id": "d04_assert_fatal",
+  "log_status": "complete",
+  "tests": {
+    "fifo_basic": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        7
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand, from the generating manifest and the log text; not from any parser output"
+}

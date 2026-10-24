@@ -1,0 +1,16 @@
+{
+  "sample_id": "d15_raw_iverilog_compile",
+  "log_status": "complete",
+  "tests": {
+    "(log)": {
+      "result": "not_run",
+      "category": "compile_error",
+      "side": "design_or_test",
+      "evidence_lines": [
+        1
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand, from the generating manifest and the log text; not from any parser output"
+}

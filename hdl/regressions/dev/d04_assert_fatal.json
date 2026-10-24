@@ -1,0 +1,18 @@
+{
+  "regression": "d04_assert_fatal",
+  "description": "FIFO full flag one entry early; immediate assertion calls $fatal",
+  "tests": [
+    {
+      "test_id": "fifo_basic",
+      "top": "tb_sync_fifo",
+      "sources": [
+        "hdl/rtl/sync_fifo.v",
+        "hdl/tb/tb_sync_fifo.v"
+      ],
+      "defines": [
+        "BUG_FULL_FLAG"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

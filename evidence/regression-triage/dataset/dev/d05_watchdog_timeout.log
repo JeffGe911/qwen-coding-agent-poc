@@ -1,0 +1,11 @@
+#RUN regression=d05_watchdog_timeout run_id=20261024T183542Z-d05_watchdog_timeout-aa5bcd started_utc=2026-10-24T18:35:42+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=handshake_basic stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_handshake -DBUG_NO_ACK hdl/rtl/handshake.v hdl/tb/tb_handshake.v
+#RUN test=handshake_basic stage=compile exit=0 elapsed_s=0.11 timed_out=false output_truncated=false
+#RUN test=handshake_basic stage=run cmd=vvp.exe -n sim.vvp
+tb_handshake: start
+ERROR: [2000000] TIMEOUT watchdog: ack not seen within 2000 ns after req
+TEST FAILED: tb_handshake (timeout)
+hdl/tb/tb_handshake.v:18: $finish called at 2000000 (1ps)
+#RUN test=handshake_basic stage=run exit=0 elapsed_s=0.027 timed_out=false output_truncated=false
+#RUN regression=d05_watchdog_timeout end tests=1 finished_utc=2026-10-24T18:35:42+00:00

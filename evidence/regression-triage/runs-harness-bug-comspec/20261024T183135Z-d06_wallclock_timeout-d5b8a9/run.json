@@ -1,0 +1,48 @@
+{
+  "run_id": "20261024T183135Z-d06_wallclock_timeout-d5b8a9",
+  "regression": "d06_wallclock_timeout",
+  "manifest": "hdl/regressions/dev/d06_wallclock_timeout.json",
+  "manifest_sha256": "6399ff58f272aebcbc91a633ec8917c49d1cc2467843801e86e768336fafe0e2",
+  "started_utc": "2026-10-24T18:31:35+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "handshake_basic",
+      "defines": [
+        "NO_FINISH"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/rtl/handshake.v": "a25715e2d576908407f0cacd2f940f1656e9291c7f289c72c6b7a7b2a1b75551",
+        "hdl/tb/tb_handshake.v": "62f9833edb2cd536146757a23d0dbaad2ce75267c0696b8be75ded97cc5254c2"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_handshake -DNO_FINISH hdl/rtl/handshake.v hdl/tb/tb_handshake.v",
+          "exit_code": 4294967295,
+          "timed_out": false,
+          "elapsed_s": 0.021,
+          "output_truncated": false,
+          "output_lines": 0
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-24T18:31:35+00:00"
+}

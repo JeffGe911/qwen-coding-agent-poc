@@ -1,0 +1,16 @@
+{
+  "sample_id": "d10_tool_missing",
+  "log_status": "complete",
+  "tests": {
+    "alu_basic": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure",
+      "evidence_lines": [
+        4
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand, from the generating manifest and the log text; not from any parser output"
+}

@@ -1,0 +1,16 @@
+{
+  "sample_id": "d06_wallclock_timeout",
+  "log_status": "complete",
+  "tests": {
+    "handshake_basic": {
+      "result": "fail",
+      "category": "timeout",
+      "side": "undetermined",
+      "evidence_lines": [
+        6
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand, from the generating manifest and the log text; not from any parser output"
+}

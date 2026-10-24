@@ -1,0 +1,32 @@
+{
+  "sample_id": "d01_all_pass",
+  "log_status": "complete",
+  "tests": {
+    "alu_basic": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        7
+      ]
+    },
+    "fifo_basic": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        14
+      ]
+    },
+    "handshake_basic": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        22
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand, from the generating manifest and the log text; not from any parser output"
+}

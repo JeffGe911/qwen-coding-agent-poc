@@ -1,0 +1,17 @@
+{
+  "regression": "d10_tool_missing",
+  "description": "simulator executable intentionally not available",
+  "tests": [
+    {
+      "test_id": "alu_basic",
+      "top": "tb_alu8",
+      "sources": [
+        "hdl/rtl/alu8.v",
+        "hdl/tb/tb_alu8.v"
+      ],
+      "defines": [],
+      "timeout_s": 10,
+      "simulate_missing_tool": true
+    }
+  ]
+}

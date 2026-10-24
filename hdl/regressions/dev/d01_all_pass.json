@@ -1,0 +1,36 @@
+{
+  "regression": "d01_all_pass",
+  "description": "three passing tests",
+  "tests": [
+    {
+      "test_id": "alu_basic",
+      "top": "tb_alu8",
+      "sources": [
+        "hdl/rtl/alu8.v",
+        "hdl/tb/tb_alu8.v"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "fifo_basic",
+      "top": "tb_sync_fifo",
+      "sources": [
+        "hdl/rtl/sync_fifo.v",
+        "hdl/tb/tb_sync_fifo.v"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "handshake_basic",
+      "top": "tb_handshake",
+      "sources": [
+        "hdl/rtl/handshake.v",
+        "hdl/tb/tb_handshake.v"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "sample": "d14_raw_vvp_fail",
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "stages": [
+    {
+      "stage": "compile",
+      "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_alu8 -DBUG_SUB hdl/rtl/alu8.v hdl/tb/tb_alu8.v",
+      "exit_code": 0,
+      "timed_out": false
+    },
+    {
+      "stage": "run",
+      "cmd": "vvp.exe -n sim.vvp",
+      "exit_code": 0,
+      "timed_out": false
+    }
+  ]
+}

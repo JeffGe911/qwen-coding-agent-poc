@@ -1,0 +1,36 @@
+#RUN regression=d07_mixed run_id=20261024T183548Z-d07_mixed-d9829a started_utc=2026-10-24T18:35:48+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=alu_basic stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_alu8 hdl/rtl/alu8.v hdl/tb/tb_alu8.v
+#RUN test=alu_basic stage=compile exit=0 elapsed_s=0.063 timed_out=false output_truncated=false
+#RUN test=alu_basic stage=run cmd=vvp.exe -n sim.vvp
+tb_alu8: start
+TEST PASSED: tb_alu8
+hdl/tb/tb_alu8.v:47: $finish called at 32000 (1ps)
+#RUN test=alu_basic stage=run exit=0 elapsed_s=0.026 timed_out=false output_truncated=false
+#RUN test=alu_syntax stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_alu8 -DBUG_SYNTAX hdl/rtl/alu8.v hdl/tb/tb_alu8.v
+hdl/rtl/alu8.v:25: syntax error
+hdl/tb/tb_alu8.v:4: error: Malformed statement
+hdl/tb/tb_alu8.v:5: error: Declarations must precede statements.
+hdl/tb/tb_alu8.v:6: error: Declarations must precede statements.
+hdl/tb/tb_alu8.v:7: syntax error
+hdl/tb/tb_alu8.v:7: error: Malformed statement
+hdl/tb/tb_alu8.v:8: syntax error
+hdl/tb/tb_alu8.v:8: error: Malformed statement
+hdl/tb/tb_alu8.v:9: warning: Static variable initialization requires explicit lifetime in this context.
+hdl/tb/tb_alu8.v:9: error: Declarations must precede statements.
+hdl/tb/tb_alu8.v:10: error: Declarations must precede statements.
+hdl/tb/tb_alu8.v:12: syntax error
+hdl/tb/tb_alu8.v:12: error: Syntax error in variable list.
+hdl/tb/tb_alu8.v:12: error: Declarations must precede statements.
+hdl/tb/tb_alu8.v:14: syntax error
+hdl/tb/tb_alu8.v:14: error: Malformed statement
+hdl/tb/tb_alu8.v:19: syntax error
+hdl/tb/tb_alu8.v:22: error: Malformed statement
+Assertion failed: nested_scope, file pform.cc, line 514
+#RUN test=alu_syntax stage=compile exit=3 elapsed_s=0.058 timed_out=false output_truncated=false
+#RUN test=fifo_full stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_sync_fifo -DBUG_FULL_FLAG hdl/rtl/sync_fifo.v hdl/tb/tb_sync_fifo.v
+#RUN test=fifo_full stage=compile exit=0 elapsed_s=0.06 timed_out=false output_truncated=false
+#RUN test=fifo_full stage=run cmd=vvp.exe -n sim.vvp
+tb_sync_fifo: start
+FATAL: hdl/tb/tb_sync_fifo.v:26: fifo reports full after 3 writes (count=3, DEPTH=4)
+       Time: 50000  Sco

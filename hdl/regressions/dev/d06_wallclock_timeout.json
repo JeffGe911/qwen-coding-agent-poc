@@ -1,0 +1,18 @@
+{
+  "regression": "d06_wallclock_timeout",
+  "description": "testbench without $finish; only the runner's 5 s limit stops it",
+  "tests": [
+    {
+      "test_id": "handshake_basic",
+      "top": "tb_handshake",
+      "sources": [
+        "hdl/rtl/handshake.v",
+        "hdl/tb/tb_handshake.v"
+      ],
+      "defines": [
+        "NO_FINISH"
+      ],
+      "timeout_s": 5
+    }
+  ]
+}

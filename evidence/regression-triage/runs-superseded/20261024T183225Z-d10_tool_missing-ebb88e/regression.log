@@ -1,0 +1,5 @@
+#RUN regression=d10_tool_missing run_id=20261024T183225Z-d10_tool_missing-ebb88e started_utc=2026-10-24T18:32:25+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=alu_basic stage=compile cmd=iverilog-not-installed.exe -g2012 -o sim.vvp -s tb_alu8 hdl/rtl/alu8.v hdl/tb/tb_alu8.v
+#RUN test=alu_basic stage=compile tool_error="FileNotFoundError: [WinError 2] 系统找不到指定的文件。" elapsed_s=0.001
+#RUN regression=d10_tool_missing end tests=1 finished_utc=2026-10-24T18:32:25+00:00

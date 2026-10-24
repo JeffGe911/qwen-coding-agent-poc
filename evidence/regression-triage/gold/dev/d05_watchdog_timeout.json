@@ -1,0 +1,17 @@
+{
+  "sample_id": "d05_watchdog_timeout",
+  "log_status": "complete",
+  "tests": {
+    "handshake_basic": {
+      "result": "fail",
+      "category": "timeout",
+      "side": "design_or_test",
+      "evidence_lines": [
+        7,
+        8
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand, from the generating manifest and the log text; not from any parser output"
+}

@@ -1,0 +1,18 @@
+{
+  "regression": "d03_selfcheck_fail_exit0",
+  "description": "SUB behaves like ADD; testbench reports mismatches but ends with $finish (exit 0)",
+  "tests": [
+    {
+      "test_id": "alu_basic",
+      "top": "tb_alu8",
+      "sources": [
+        "hdl/rtl/alu8.v",
+        "hdl/tb/tb_alu8.v"
+      ],
+      "defines": [
+        "BUG_SUB"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

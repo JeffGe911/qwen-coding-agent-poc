@@ -1,0 +1,34 @@
+{
+  "sample_id": "s02_truncated",
+  "log_status": "incomplete",
+  "tests": {
+    "alu_basic": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        7
+      ]
+    },
+    "alu_syntax": {
+      "result": "not_run",
+      "category": "compile_error",
+      "side": "design_or_test",
+      "evidence_lines": [
+        11
+      ]
+    },
+    "fifo_full": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        35
+      ]
+    }
+  },
+  "flags": [
+    "tool_internal_assertion"
+  ],
+  "labelled_by": "hand, from the generating manifest and the log text; not from any parser output"
+}

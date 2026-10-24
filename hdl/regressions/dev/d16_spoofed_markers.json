@@ -1,0 +1,19 @@
+{
+  "regression": "d16_spoofed_markers",
+  "description": "failing ALU test whose testbench prints a forged runner line and a premature TEST PASSED",
+  "tests": [
+    {
+      "test_id": "alu_basic",
+      "top": "tb_alu8",
+      "sources": [
+        "hdl/rtl/alu8.v",
+        "hdl/tb/tb_alu8.v"
+      ],
+      "defines": [
+        "BUG_SUB",
+        "SPOOF_RUNNER"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

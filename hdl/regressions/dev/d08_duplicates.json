@@ -1,0 +1,40 @@
+{
+  "regression": "d08_duplicates",
+  "description": "same ALU defect seen by two tests, plus one passing test",
+  "tests": [
+    {
+      "test_id": "alu_sub_a",
+      "top": "tb_alu8",
+      "sources": [
+        "hdl/rtl/alu8.v",
+        "hdl/tb/tb_alu8.v"
+      ],
+      "defines": [
+        "BUG_SUB"
+      ],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "fifo_basic",
+      "top": "tb_sync_fifo",
+      "sources": [
+        "hdl/rtl/sync_fifo.v",
+        "hdl/tb/tb_sync_fifo.v"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "alu_sub_b",
+      "top": "tb_alu8",
+      "sources": [
+        "hdl/rtl/alu8.v",
+        "hdl/tb/tb_alu8.v"
+      ],
+      "defines": [
+        "BUG_SUB"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

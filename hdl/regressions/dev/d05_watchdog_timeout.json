@@ -1,0 +1,18 @@
+{
+  "regression": "d05_watchdog_timeout",
+  "description": "ack never rises; testbench watchdog fires",
+  "tests": [
+    {
+      "test_id": "handshake_basic",
+      "top": "tb_handshake",
+      "sources": [
+        "hdl/rtl/handshake.v",
+        "hdl/tb/tb_handshake.v"
+      ],
+      "defines": [
+        "BUG_NO_ACK"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

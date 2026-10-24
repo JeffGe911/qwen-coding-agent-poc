@@ -1,0 +1,14 @@
+{
+  "sample_id": "s01_empty",
+  "log_status": "empty",
+  "tests": {
+    "(log)": {
+      "result": "unknown",
+      "category": "incomplete_log",
+      "side": "infrastructure",
+      "evidence_lines": []
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand, from the generating manifest and the log text; not from any parser output"
+}

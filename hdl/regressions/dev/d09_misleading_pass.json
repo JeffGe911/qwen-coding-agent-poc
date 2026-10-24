@@ -1,0 +1,18 @@
+{
+  "regression": "d09_misleading_pass",
+  "description": "passing test whose output mentions errors in a benign way",
+  "tests": [
+    {
+      "test_id": "alu_error_path",
+      "top": "tb_alu8",
+      "sources": [
+        "hdl/rtl/alu8.v",
+        "hdl/tb/tb_alu8.v"
+      ],
+      "defines": [
+        "MISLEADING_TEXT"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}
