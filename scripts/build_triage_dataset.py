@@ -132,26 +132,26 @@ def main():
                     break
         finally:
             shutil.rmtree(work, ignore_errors=True)
-        (raw_dir / f"{name}.log").write_text(r["output"], encoding="utf-8")
-        (raw_dir / f"{name}.json").write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        (raw_dir / f"{name}.log").write_text(r["output"], encoding="utf-8", newline="\n")
+        (raw_dir / f"{name}.json").write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
         shutil.copyfile(raw_dir / f"{name}.log", DEV / f"{name}.log")
         entries.append({"sample_id": name, "split": "dev", "kind": "real", "source": f"raw-tool-output/{name}.log",
                         "provenance": "real: raw output of the last stage, no runner annotations (command and exit code in the .json next to it)"})
     # Truncated copy of a real mixed regression: cut inside a line, after the FIFO assertion, before its stage end.
     mixed = (DEV / "d07_mixed.log").read_text(encoding="utf-8")
     cut = mixed.index("       Time: 50000  Scope") + len("       Time: 50000  Sco")
-    (DEV / "s02_truncated.log").write_text(mixed[:cut], encoding="utf-8")
+    (DEV / "s02_truncated.log").write_text(mixed[:cut], encoding="utf-8", newline="\n")
     entries.append({"sample_id": "s02_truncated", "split": "dev", "kind": "synthetic",
                     "provenance": "synthetic: real d07_mixed log cut in the middle of a line after the FIFO $fatal, before the stage end and the regression end"})
     for name, (why, text) in SYNTHETIC.items():
-        (DEV / f"{name}.log").write_text(text, encoding="utf-8")
+        (DEV / f"{name}.log").write_text(text, encoding="utf-8", newline="\n")
         entries.append({"sample_id": name, "split": "dev", "kind": "synthetic", "provenance": f"synthetic: {why}"})
     for e in entries:
         e["file"] = f"dataset/dev/{e['sample_id']}.log"
         e["sha256"] = sha(EV / e["file"])
         e["bytes"] = (EV / e["file"]).stat().st_size
     entries.sort(key=lambda e: e["sample_id"])
-    (EV / "dataset" / "dev-manifest.json").write_text(json.dumps({"split": "dev", "samples": entries}, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    (EV / "dataset" / "dev-manifest.json").write_text(json.dumps({"split": "dev", "samples": entries}, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
     print(f"{len(entries)} dev samples ({sum(e['kind'] == 'real' for e in entries)} real, {sum(e['kind'] == 'synthetic' for e in entries)} synthetic)")
 
 

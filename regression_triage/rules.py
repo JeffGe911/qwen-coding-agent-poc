@@ -69,11 +69,11 @@ def judge_output(test_id, log, nums, exit_code=None, exit_known=True, timed_out=
     passed = [n for n in nums if PASSED.match(log.line(n))]
     notes = []
     if passed and (errors or fatal or failed):
-        notes.append("contradictory verdict lines: TEST PASSED is printed but failure evidence follows; failure evidence wins")
+        notes.append("结论行互相矛盾：日志打印了 TEST PASSED，但同时有失败证据，以失败证据为准")
     if timed_out:
         ev = [cite(log, stage_end)] if stage_end else []
         return verdict(test_id, "timeout", "fail", ev, log, kind="wallclock", side="undetermined",
-                       notes=notes + ["killed by the runner's wall-clock limit; output written before the kill may be lost"])
+                       notes=notes + ["被 runner 的墙钟时限强制结束，结束前的输出可能已丢失"])
     watch = [n for n in errors if WATCHDOG.search(log.line(n))]
     if watch:
         return verdict(test_id, "timeout", "fail", [cite(log, n) for n in watch + failed[:1]], log, kind="watchdog", notes=notes)
@@ -82,16 +82,16 @@ def judge_output(test_id, log, nums, exit_code=None, exit_known=True, timed_out=
         kind = "assertion" if fatal or any(LOCATED.match(log.line(n)) for n in errors) else "self_check"
         lines = (fatal + errors)[:3] + failed[:1]
         return verdict(test_id, "test_failure", "fail", [cite(log, n) for n in sorted(set(lines))], log, kind=kind,
-                       notes=notes + ([f"{len(errors)} ERROR lines"] if len(errors) > 3 else []))
+                       notes=notes + ([f"共 {len(errors)} 条 ERROR 行"] if len(errors) > 3 else []))
     if exit_known and exit_code not in (0, None):
         return verdict(test_id, "unknown", "fail", [cite(log, stage_end)] if stage_end else [], log, certainty="insufficient_evidence",
-                       notes=[f"simulator exited {exit_code} without an error or verdict line"])
+                       notes=[f"仿真器以退出码 {exit_code} 结束，但没有错误行或结论行"])
     if passed:
         return verdict(test_id, "pass", "pass", [cite(log, passed[0])], log,
-                       notes=[] if exit_known else ["exit code not recorded; pass based on the testbench verdict line"])
+                       notes=[] if exit_known else ["日志中没有退出码；依据 testbench 的结论行判为通过"])
     ev = [cite(log, n) for n in nums[-2:]] + ([cite(log, stage_end)] if stage_end else [])
     return verdict(test_id, "unknown", "unknown", ev, log, certainty="insufficient_evidence",
-                   notes=["no TEST PASSED/FAILED line and no error line" + ("; exit code missing" if not exit_known else "; exit code 0 alone is not a pass")])
+                   notes=["没有 TEST PASSED/FAILED 结论行，也没有错误行" + ("；且缺少退出码" if not exit_known else "；仅凭退出码 0 不能判为通过")])
 
 
 def judge_compile(test_id, log, nums, exit_code, stage_end, lint=False):
@@ -101,21 +101,21 @@ def judge_compile(test_id, log, nums, exit_code, stage_end, lint=False):
     flags = (["tool_setup_error"] if setup else []) + (["tool_internal_assertion"] if internal else [])
     notes = []
     if internal:
-        notes.append(f"line {internal[0]}: the compiler itself crashed after the errors (internal assertion), not a design assertion")
+        notes.append(f"第 {internal[0]} 行是编译器在报错后自身的内部断言崩溃，不是设计断言")
     if setup:
-        notes.append("the tool could not find its own built-in files (installation/environment problem) - fix that as well")
+        notes.append("工具找不到自带的内置文件（安装或环境问题），也需要修复")
     if design:
         if len(design) > 1:
-            notes.append(f"{len(design) - 1} further errors are probably follow-on errors of the first one")
+            notes.append(f"其余 {len(design) - 1} 条报错多半是第一条引起的连锁报错")
         v = verdict(test_id, "compile_error", "fail" if lint else "not_run", [cite(log, design[0])], log, notes=notes)
     elif setup:
         v = verdict(test_id, "tool_error", "not_run", [cite(log, n) for n in setup[:2]], log, notes=notes)
     elif not nums:
         v = verdict(test_id, "tool_error", "not_run", [cite(log, stage_end)], log,
-                    notes=[f"compiler exited {exit_code} without printing anything - the tool did not run properly"])
+                    notes=[f"编译器以退出码 {exit_code} 结束且没有任何输出，工具没有正常运行"])
     else:
         v = verdict(test_id, "unknown", "not_run", [cite(log, n) for n in nums[:2]], log, certainty="insufficient_evidence",
-                    notes=[f"{'lint' if lint else 'compile'} exited {exit_code}; no recognisable error line"])
+                    notes=[f"{'lint' if lint else '编译'}以退出码 {exit_code} 结束，但没有可识别的错误行"])
     v["flags"] = flags
     return v
 
@@ -154,7 +154,7 @@ def judge_runner(log):
     tests, order, raw_flags, header, ended = parse_runner(log)
     results, missing = [], []
     if not header or "run_id" not in header[1]:
-        missing.append("regression header without run_id")
+        missing.append("回归头部缺少 run_id")
     for tid in order:
         stages = tests[tid]["stages"]
         comp = stages.get("compile") or stages.get("lint")
@@ -162,37 +162,37 @@ def judge_runner(log):
         lint = "lint" in stages
         tool_err = next((s for s in stages.values() if "tool_error" in s["kv"]), None)
         if tool_err:
-            results.append(verdict(tid, "tool_error", "not_run", [cite(log, tool_err["end"])], log, notes=["the simulator executable could not be started"]))
+            results.append(verdict(tid, "tool_error", "not_run", [cite(log, tool_err["end"])], log, notes=["仿真器程序无法启动"]))
             continue
         if not comp or comp["end"] is None:
             results.append(verdict(tid, "incomplete_log", "unknown", [cite(log, comp["start"])] if comp and comp["start"] else [], log,
-                                   certainty="insufficient_evidence", notes=["compile stage has no end record"]))
+                                   certainty="insufficient_evidence", notes=["编译阶段没有结束记录"]))
             continue
         if "exit" not in comp["kv"]:
-            missing.append(f"{tid}: compile end without exit code")
+            missing.append(f"{tid}：编译结束记录缺少退出码")
         cexit = int(comp["kv"].get("exit", "0"))
         if cexit != 0:
             results.append(judge_compile(tid, log, comp["out"], cexit, comp["end"], lint))
             continue
         if lint:
-            results.append(verdict(tid, "pass", "pass", [cite(log, comp["end"])], log, notes=["lint exited 0"]))
+            results.append(verdict(tid, "pass", "pass", [cite(log, comp["end"])], log, notes=["lint 退出码为 0"]))
             continue
         if not run or run["start"] is None:
             results.append(verdict(tid, "incomplete_log", "unknown", [cite(log, comp["end"])], log, certainty="insufficient_evidence",
-                                   notes=["compiled but no run stage recorded"]))
+                                   notes=["已编译，但没有运行阶段的记录"]))
             continue
         if run["end"] is None:
             v = judge_output(tid, log, run["out"], exit_known=False)
             if v["category"] in ("test_failure", "timeout"):
-                v["notes"].append("run stage has no end record (log cut off); the failure lines above are conclusive")
+                v["notes"].append("运行阶段没有结束记录（日志被截断），但已出现的失败行足以下结论")
                 results.append(v)
             else:
                 results.append(verdict(tid, "incomplete_log", "unknown", [cite(log, n) for n in run["out"][-1:]] or [cite(log, run["start"])], log,
-                                       certainty="insufficient_evidence", notes=["run stage has no end record (log cut off)"]))
+                                       certainty="insufficient_evidence", notes=["运行阶段没有结束记录（日志被截断）"]))
             continue
         exit_known = "exit" in run["kv"]
         if not exit_known:
-            missing.append(f"{tid}: run end without exit code")
+            missing.append(f"{tid}：运行结束记录缺少退出码")
         results.append(judge_output(tid, log, run["out"], int(run["kv"]["exit"]) if exit_known else None, exit_known,
                                     run["kv"].get("timed_out") == "true", run["end"]))
     flags = sorted({f for f, _ in raw_flags})
@@ -203,7 +203,7 @@ def judge_runner(log):
     status = "complete" if ended and not missing and all(r["category"] != "incomplete_log" for r in results) else "incomplete"
     if not ended:
         flags.append("no_regression_end_record")
-    notes = [f"missing: {m}" for m in missing]
+    notes = [f"缺少字段：{m}" for m in missing]
     return status, results, sorted(set(flags)), notes
 
 
@@ -215,7 +215,7 @@ def judge_raw(log):
     if any(COMPILE_ERR.match(t) or VL_ERR.match(t) or GIVE_UP.match(t) or VL_SETUP.match(t) for t in text):
         v = judge_compile("(log)", log, nums, None, None, lint=any(t.startswith("%Error") for t in text))
         flags += v.pop("flags", [])
-        return "complete", [v], sorted(set(flags)), ["raw compiler output: exit code not in the log"]
+        return "complete", [v], sorted(set(flags)), ["原始编译器输出：日志中没有退出码"]
     if any(UVM_ANY.match(t) for t in text):
         name = next((UVM_TEST.search(t).group("name") for t in text if UVM_TEST.search(t)), "(log)")
         msgs = [n for n in nums if UVM_MSG.match(log.line(n))]
@@ -225,21 +225,21 @@ def judge_raw(log):
         summary = any("UVM Report Summary" in t for t in text)
         if summary:
             return "complete", [verdict(name, "pass", "pass", [cite(log, n) for n in nums if UVM_COUNT.match(log.line(n))][:1], log,
-                                        notes=["UVM summary shows 0 errors and 0 fatals"])], flags, []
+                                        notes=["UVM 汇总显示 0 个 error、0 个 fatal"])], flags, []
         return "incomplete", [verdict(name, "incomplete_log", "unknown", [cite(log, nums[-1])], log, certainty="insufficient_evidence",
-                                      notes=["UVM log without a report summary"])], flags, []
+                                      notes=["UVM 日志缺少报告汇总"])], flags, []
     lic = [n for n in nums if LICENSE.search(log.line(n))]
     if lic:
-        return "complete", [verdict("(log)", "tool_error", "not_run", [cite(log, n) for n in lic[:2]], log, notes=["license/tool start-up failure"])], flags, []
+        return "complete", [verdict("(log)", "tool_error", "not_run", [cite(log, n) for n in lic[:2]], log, notes=["许可证或工具启动失败"])], flags, []
     markers = [n for n in nums if PASSED.match(log.line(n)) or FAILED.match(log.line(n)) or ERROR.match(log.line(n)) or FATAL.match(log.line(n))]
     if markers:
         name = next(((PASSED.match(log.line(n)) or FAILED.match(log.line(n))).group("name") for n in nums
                      if (PASSED.match(log.line(n)) or FAILED.match(log.line(n))) and (PASSED.match(log.line(n)) or FAILED.match(log.line(n))).group("name")), "(log)")
         v = judge_output(name, log, nums, exit_known=False)
-        return "complete", [v], flags, ["raw simulator output: exit code not in the log"]
+        return "complete", [v], flags, ["原始仿真器输出：日志中没有退出码"]
     hint = [n for n in nums if STATUS_HINT.search(log.line(n))]
     return "unknown_format", [verdict("(log)", "unknown", "unknown", [cite(log, n) for n in hint[:2]], log, certainty="insufficient_evidence",
-                                      notes=["no simulator, compiler or test-framework lines recognised"])], flags, []
+                                      notes=["没有识别出仿真器、编译器或测试框架的输出"])], flags, []
 
 
 SUGGEST = {
@@ -265,7 +265,7 @@ def suggestion(v):
 def triage(log):
     if log.empty:
         status, tests, flags, notes = "empty", [verdict("(log)", "incomplete_log", "unknown", [], log, certainty="insufficient_evidence",
-                                                        notes=["empty log file"])], [], []
+                                                        notes=["日志文件为空"])], [], []
     elif any(RUN.match(line) for line in log.lines):
         status, tests, flags, notes = judge_runner(log)
     else:

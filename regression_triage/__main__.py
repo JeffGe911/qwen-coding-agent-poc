@@ -29,7 +29,7 @@ def sha(path):
 def write(path, obj):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(obj, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    path.write_text(json.dumps(obj, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
 
 
 def model_settings(args):
@@ -59,7 +59,7 @@ def cmd_triage(args):
         write(out / f"{stem}.json", doc)
         if raw is not None:
             write(out / f"{stem}.model-response.json", raw)
-        (out / f"{stem}.md").write_text(report.render(doc), encoding="utf-8")
+        (out / f"{stem}.md").write_text(report.render(doc), encoding="utf-8", newline="\n")
         print(out / f"{stem}.md")
 
 
@@ -68,7 +68,7 @@ def cmd_review(args):
     doc = json.loads(path.read_text(encoding="utf-8"))
     report.add_review(doc, args.test, args.decision, args.reviewer, args.note)
     write(path, doc)
-    path.with_suffix(".md").write_text(report.render(doc), encoding="utf-8")
+    path.with_suffix(".md").write_text(report.render(doc), encoding="utf-8", newline="\n")
     print(path.with_suffix(".md"))
 
 

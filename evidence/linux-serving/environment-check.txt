@@ -1,0 +1,26 @@
+# collected 2026-10-24T18:51:13Z on the Windows laptop (read-only checks)
+## wsl.exe --status (UTF-16 output decoded)
+wsl.exe : 未安装适用于 Linux 的 Windows 子系统。可通过运行 “wsl.exe --install” 进行安装。
+At line:1 char:671
++ ...  [Text.Encoding]::Unicode; try { $o += (wsl.exe --status 2>&1 | Out-S ...
++                                             ~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (未安装适用于 Linux 的 ...-install” 进行安装。:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+有关详细信息，请访问 https://aka.ms/wslinstall
+## docker
+docker: not found in PATH
+## .wslconfig
+exists: False
+## hypervisor / virtualization
+HypervisorPresent : True
+## memory
+RAM total 31.4 GB, free 8.9 GB
+## nvidia-smi
+name, driver_version, compute_cap, memory.used [MiB], memory.total [MiB]
+NVIDIA GeForce RTX 5070 Ti Laptop GPU, 591.91, 12.0, 13 MiB, 12227 MiB
+## Windows build
+Caption     : Microsoft Windows 11 家庭版 中文版
+Version     : 10.0.26200
+BuildNumber : 26200

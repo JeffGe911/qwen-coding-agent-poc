@@ -60,6 +60,6 @@ def run_regression(manifest_path, out_root, run_id=None):
         record["tests"].append(entry)
     lines.append(f"#RUN regression={manifest['regression']} end tests={len(manifest['tests'])} finished_utc={now()}")
     record["finished_utc"] = now()
-    (out / "regression.log").write_text("\n".join(lines) + "\n", encoding="utf-8")
-    (out / "run.json").write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    (out / "regression.log").write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+    (out / "run.json").write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
     return out

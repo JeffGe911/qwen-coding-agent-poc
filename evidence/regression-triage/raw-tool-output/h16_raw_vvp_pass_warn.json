@@ -1,0 +1,55 @@
+{
+  "sample": "h16_raw_vvp_pass_warn",
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "test": {
+    "test_id": "cnt_narrow_load",
+    "top": "tb_updown",
+    "sources": [
+      "hdl/holdout/rtl/updown_counter.v",
+      "hdl/holdout/tb/tb_updown.sv"
+    ],
+    "defines": [
+      "WARN_NARROW_LOAD"
+    ],
+    "plusargs": [
+      "+SEED=17"
+    ],
+    "timeout_s": 10
+  },
+  "saved": "stage:run",
+  "line_endings": "tool output normalised from CRLF to LF before saving",
+  "stages": [
+    {
+      "stage": "compile",
+      "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_updown -DWARN_NARROW_LOAD hdl/holdout/rtl/updown_counter.v hdl/holdout/tb/tb_updown.sv",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_s": 0.054,
+      "output_truncated": false,
+      "output_lines": 2,
+      "output_had_crlf": true,
+      "tool_error": null
+    },
+    {
+      "stage": "run",
+      "cmd": "vvp.exe -n sim.vvp +SEED=17",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_s": 0.03,
+      "output_truncated": false,
+      "output_lines": 7,
+      "output_had_crlf": true,
+      "tool_error": null
+    }
+  ]
+}

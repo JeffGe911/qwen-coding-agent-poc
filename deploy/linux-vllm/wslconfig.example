@@ -1,0 +1,7 @@
+# Template for %UserProfile%\.wslconfig on the Windows laptop. NOT applied automatically.
+# Before using it: back up an existing .wslconfig (none existed on 2026-10-24), merge instead of overwriting,
+# then `wsl --shutdown` and verify inside WSL: `free -g` shows about 7-8 GiB total and 4 GiB swap, `nproc` the CPU cap.
+[wsl2]
+memory=8GB
+swap=4GB
+processors=8

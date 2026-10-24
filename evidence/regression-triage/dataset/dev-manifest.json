@@ -8,7 +8,7 @@
       "source": "runs/20261024T183541Z-d01_all_pass-80bcd2/regression.log",
       "provenance": "real: three passing tests",
       "file": "dataset/dev/d01_all_pass.log",
-      "sha256": "1c12024e7ed6df6597f9aa5e53dd6ab64fd58d72ba458b3ca6a2e0e36e2e81a2",
+      "sha256": "7e714c8dd5f28df53ce37528059c65a68081e56d7b23b94d19f68b484ed85713",
       "bytes": 1829
     },
     {
@@ -18,7 +18,7 @@
       "source": "runs/20261024T183541Z-d02_compile_error-9ad9e4/regression.log",
       "provenance": "real: injected syntax error in the ALU",
       "file": "dataset/dev/d02_compile_error.log",
-      "sha256": "7f6d2cca01fdadf29a4be215abed03ae0ab13849451467691e753db655883317",
+      "sha256": "f9ec278d39a1655dce0c388d60c4c9be36f2390eff09f84d90e6f292e63224d7",
       "bytes": 1607
     },
     {
@@ -28,7 +28,7 @@
       "source": "runs/20261024T183542Z-d03_selfcheck_fail_exit0-c3bace/regression.log",
       "provenance": "real: SUB behaves like ADD; testbench reports mismatches but ends with $finish (exit 0)",
       "file": "dataset/dev/d03_selfcheck_fail_exit0.log",
-      "sha256": "05e0c3959737caea08acc580b47631d6cf96a2966bb5b563875362a641074e25",
+      "sha256": "040cadbb4a425ea9f5883a993f9726797e95974521bf759730e7c4f30ec2b4f6",
       "bytes": 1368
     },
     {
@@ -38,7 +38,7 @@
       "source": "runs/20261024T183542Z-d04_assert_fatal-29ec3f/regression.log",
       "provenance": "real: FIFO full flag one entry early; immediate assertion calls $fatal",
       "file": "dataset/dev/d04_assert_fatal.log",
-      "sha256": "0c931ed050940336b00069e10fb71fd3f9bcb4bf17208055f8c64dc689f134e6",
+      "sha256": "8867548f522870b70bd4e147f8a060b4a9508bcf49fdc6eef3408c336a7e88ba",
       "bytes": 919
     },
     {
@@ -48,7 +48,7 @@
       "source": "runs/20261024T183542Z-d05_watchdog_timeout-aa5bcd/regression.log",
       "provenance": "real: ack never rises; testbench watchdog fires",
       "file": "dataset/dev/d05_watchdog_timeout.log",
-      "sha256": "2a32a6495541244c67bf3fe477a08862973cb353e2a8bd989329d9bcced67a90",
+      "sha256": "87cd9ec7de284205f133d84fa14b6e6d9cd369ab5e41904f34429173c1fcaff6",
       "bytes": 990
     },
     {
@@ -58,7 +58,7 @@
       "source": "runs/20261024T183542Z-d06_wallclock_timeout-0c74d7/regression.log",
       "provenance": "real: testbench without $finish; only the runner's 5 s limit stops it",
       "file": "dataset/dev/d06_wallclock_timeout.log",
-      "sha256": "17cad7befcbb49c3fe92df9554a10bf04bd612992b07f3e91eb379b418199c6f",
+      "sha256": "5a166398b49b76b8c74e98416d1cbcc757c6e79ed2a3956239845b7d837f9362",
       "bytes": 800
     },
     {
@@ -68,7 +68,7 @@
       "source": "runs/20261024T183548Z-d07_mixed-d9829a/regression.log",
       "provenance": "real: pass + compile error + assertion + watchdog timeout in one regression",
       "file": "dataset/dev/d07_mixed.log",
-      "sha256": "fc4219ae5394ebe89dda88a1faaaff127b1db72a6c1d5c267d92ad01d1e6277a",
+      "sha256": "1223e5d400b6ec0fac2cc5863a24c6996db7db42361032a479be20e89badb634",
       "bytes": 3166
     },
     {
@@ -78,7 +78,7 @@
       "source": "runs/20261024T183548Z-d08_duplicates-288194/regression.log",
       "provenance": "real: same ALU defect seen by two tests, plus one passing test",
       "file": "dataset/dev/d08_duplicates.log",
-      "sha256": "e6050b08f6b08807901b19e4c9ba67e8f458dc14ecb63e61d7e85d9eefa6f934",
+      "sha256": "9f08b9665dda6101eefe387d30229d9677950768841273bd38161e6f5cc73955",
       "bytes": 2785
     },
     {
@@ -88,7 +88,7 @@
       "source": "runs/20261024T183548Z-d09_misleading_pass-0421ae/regression.log",
       "provenance": "real: passing test whose output mentions errors in a benign way",
       "file": "dataset/dev/d09_misleading_pass.log",
-      "sha256": "c708628f1c912663027c73b81809ba39d2178ee50eeb9ff0049d1d63f6f2e47a",
+      "sha256": "43066857240d30fa0077269614074171e4dfd5af5b8781fa51f457e58c88f760",
       "bytes": 997
     },
     {
@@ -98,7 +98,7 @@
       "source": "runs/20261024T183549Z-d10_tool_missing-b830d4/regression.log",
       "provenance": "real: simulator executable intentionally not available",
       "file": "dataset/dev/d10_tool_missing.log",
-      "sha256": "6a4773b720774366ae08ccfeca69f4a5a1af9baf88da4d9f4a42e18fc628bfbe",
+      "sha256": "3a91bb473dd9bb529962b8b37749ff985ec9bf610d052510c48bf6e5127c6d77",
       "bytes": 636
     },
     {
@@ -108,7 +108,7 @@
       "source": "runs-superseded/20261024T183225Z-d11_lint_error-99a4d6/regression.log",
       "provenance": "real: Verilator lint before VERILATOR_ROOT was set in the executor environment (missing built-in files) plus the injected syntax error",
       "file": "dataset/dev/d11_lint_error.log",
-      "sha256": "be8bad6569567929b9fa34381df19705903639329990083d3de30d23390d93d8",
+      "sha256": "a24b1867e15ed3014d8dae1a4ffa0e7b14983b2ca27170c9d6fbf5ad0a1c47ab",
       "bytes": 1838
     },
     {
@@ -118,7 +118,7 @@
       "source": "runs/20261024T183549Z-d12_injection_fail-536e9d/regression.log",
       "provenance": "real: failing ALU test whose output contains a prompt-injection line",
       "file": "dataset/dev/d12_injection_fail.log",
-      "sha256": "1eb3763b5290b27a3590e8fdf6ccf2dd23001c3f299ec95b7cf1d166a89b7c76",
+      "sha256": "3303b18989575e2068e2ddb97cb3bbb27916e63e084d7bece6a64e68cfe5bf3a",
       "bytes": 1516
     },
     {
@@ -128,7 +128,7 @@
       "source": "runs/20261024T183549Z-d13_lint_error_configured-37fa1b/regression.log",
       "provenance": "real: same lint as d11, with VERILATOR_ROOT set in the executor environment",
       "file": "dataset/dev/d13_lint_error_configured.log",
-      "sha256": "048b716adf2335b17ff19047faf99379879480104649dd2c0627ae8fdf2cbc9f",
+      "sha256": "388a8e44159bcaac17ced33aaba284b8fbee2d7c0ff2f082869d94adf5439935",
       "bytes": 940
     },
     {
@@ -138,7 +138,7 @@
       "source": "raw-tool-output/d14_raw_vvp_fail.log",
       "provenance": "real: raw output of the last stage, no runner annotations (command and exit code in the .json next to it)",
       "file": "dataset/dev/d14_raw_vvp_fail.log",
-      "sha256": "bcf0a89fa822d70f49e94c9718f11f553c5cbe248d390e23589c39fa55069733",
+      "sha256": "c2108102ef99f76112f483c4ea25f8dbb207e08dabf647a69fa5c0418610a8bf",
       "bytes": 609
     },
     {
@@ -148,7 +148,7 @@
       "source": "raw-tool-output/d15_raw_iverilog_compile.log",
       "provenance": "real: raw output of the last stage, no runner annotations (command and exit code in the .json next to it)",
       "file": "dataset/dev/d15_raw_iverilog_compile.log",
-      "sha256": "fe0ee2ead4255836d5e329a97848238a99ed1c052147c3c04d5a7ead3385aad1",
+      "sha256": "596d085117e1311154e107ed4f67a54f4d82551d93e72e8c8c4fbf914f78a813",
       "bytes": 47
     },
     {
@@ -158,7 +158,7 @@
       "source": "runs/20261024T183549Z-d16_spoofed_markers-7520d0/regression.log",
       "provenance": "real: failing ALU test whose testbench prints a forged runner line and a premature TEST PASSED",
       "file": "dataset/dev/d16_spoofed_markers.log",
-      "sha256": "216164b324ec46d5b18428b561582539f7a9a967b1c242d4ef2a3eba06e4ef25",
+      "sha256": "f33c7b91c492a3afaa3795448771867bf82c72c621710afb39feee6c3150a026",
       "bytes": 1488
     },
     {
@@ -168,7 +168,7 @@
       "source": "runs-harness-bug-comspec/20261024T183134Z-d01_all_pass-4360c7/regression.log",
       "provenance": "real: executor environment lacked COMSPEC, iverilog returned 4294967295 with no output for every test",
       "file": "dataset/dev/d17_tool_exec_failure.log",
-      "sha256": "80f35195b8841767a245c8e7bc877531e66080128b78712f309566ece8587db2",
+      "sha256": "2249b7612f91a1952f53bf7399df2c3bed29ffb334d61f4c4dc549e12079fc59",
       "bytes": 1068
     },
     {
@@ -186,7 +186,7 @@
       "kind": "synthetic",
       "provenance": "synthetic: real d07_mixed log cut in the middle of a line after the FIFO $fatal, before the stage end and the regression end",
       "file": "dataset/dev/s02_truncated.log",
-      "sha256": "b14ee5991499a413f7561bd6ff74dcec934de43f985d8c8db2fe117d8d0e36ce",
+      "sha256": "5600cb55c527c1a4d9a9d77c78ebb7d5dcc663936427aad61425e53d3f87c347",
       "bytes": 2378
     },
     {
@@ -195,7 +195,7 @@
       "kind": "synthetic",
       "provenance": "synthetic: CI wrapper output with no simulator lines",
       "file": "dataset/dev/s03_unknown_format.log",
-      "sha256": "fe4703f72f31cfc84de30f0f6094d8206d3d3c514c14dd0fccd8d0abfed9cf7b",
+      "sha256": "0bb8420c05f89c5c01b370694a6756716422cfa7277fa3ff13c519b24d15592b",
       "bytes": 204
     },
     {
@@ -204,7 +204,7 @@
       "kind": "synthetic",
       "provenance": "synthetic: UVM-style report in the layout commercial simulators print; written by hand, not produced by any tool",
       "file": "dataset/dev/s04_uvm_style.log",
-      "sha256": "3bdd992ce1a84ea2fb4111f0bd327257d5e163e5895aabfbdf47dcd8cd824840",
+      "sha256": "ec677e191fbbf1dbdb50f19885367c3ac9edf7eeb29657949526a9ce72a57a13",
       "bytes": 698
     },
     {
@@ -213,7 +213,7 @@
       "kind": "synthetic",
       "provenance": "synthetic: runner-format log with fields removed: no run_id, a stage end without exit code, no verdict line",
       "file": "dataset/dev/s05_missing_fields.log",
-      "sha256": "da25cdebea5f354c633067179c0feec2d07479621fd054b38178b3264674359b",
+      "sha256": "655ade818b00e7b48f372d00729d610a9821867febf18b9d75ea48c2e477d451",
       "bytes": 939
     },
     {
@@ -222,7 +222,7 @@
       "kind": "synthetic",
       "provenance": "synthetic: raw simulator-style output carrying an injection that imitates the expected JSON answer",
       "file": "dataset/dev/s06_injection_json.log",
-      "sha256": "e6594274f7b53277f33356d6fa42868dccf7de20fe3584b0b62d433628fd4bca",
+      "sha256": "74859beb6a4c0a593cc8b1d5c2adeaba545698a3d66dde751df07b4427e05448",
       "bytes": 343
     },
     {
@@ -231,7 +231,7 @@
       "kind": "synthetic",
       "provenance": "synthetic: license-server failure in a generic commercial-tool style; written by hand",
       "file": "dataset/dev/s07_license_failure.log",
-      "sha256": "c9bf5acd338511f1eefdef674a7407ef6f7d401b71329517bd269ae29b14e11c",
+      "sha256": "32a07d9eeaea066ceb8b8bf9ee3ef0d8fc23d7b66fbccb22068d569ae15832f5",
       "bytes": 278
     },
     {
@@ -240,7 +240,7 @@
       "kind": "synthetic",
       "provenance": "synthetic: passing log full of benign 'error'/'fail' words",
       "file": "dataset/dev/s08_benign_error_words.log",
-      "sha256": "bb9f1f0434e0ee4b19c9984f611a54eed1deea23e919e5f4be4a54f8d5db2a44",
+      "sha256": "9c2ebd6f5c2cd62389b31d308997ce023f9f534a43fcafef232a930a1188a0e0",
       "bytes": 318
     }
   ]

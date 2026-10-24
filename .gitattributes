@@ -2,3 +2,6 @@
 # (qwen_agent/tasks/*/frozen.json and the per-run contract), so checkout must not rewrite line endings.
 * text=auto eol=lf
 *.png binary
+# Regression-triage evidence is stored byte for byte: the dataset manifest and the evaluation contract hash the exact
+# bytes, and the raw-tool-output samples keep the CRLF that the Windows simulator actually printed.
+evidence/regression-triage/** -text

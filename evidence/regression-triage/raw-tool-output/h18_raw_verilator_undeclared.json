@@ -1,0 +1,41 @@
+{
+  "sample": "h18_raw_verilator_undeclared",
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "test": {
+    "test_id": "crc_lint",
+    "top": "crc8",
+    "sources": [
+      "hdl/holdout/rtl/crc8.v"
+    ],
+    "defines": [
+      "BUG_UNDECL_LINT"
+    ],
+    "timeout_s": 10,
+    "kind": "lint"
+  },
+  "saved": "stage:lint",
+  "line_endings": "tool output normalised from CRLF to LF before saving",
+  "stages": [
+    {
+      "stage": "lint",
+      "cmd": "verilator_bin.exe --lint-only -Wall --top-module crc8 -DBUG_UNDECL_LINT hdl/holdout/rtl/crc8.v",
+      "exit_code": 1,
+      "timed_out": false,
+      "elapsed_s": 0.023,
+      "output_truncated": false,
+      "output_lines": 5,
+      "output_had_crlf": true,
+      "tool_error": null
+    }
+  ]
+}

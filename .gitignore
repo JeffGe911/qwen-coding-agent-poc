@@ -9,3 +9,5 @@ deploy/.env
 *.key
 *.pem
 
+deploy/linux-vllm/.env
+deploy/**/*.env.local

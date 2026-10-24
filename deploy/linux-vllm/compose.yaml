@@ -1,0 +1,52 @@
+# Single-host vLLM model API for the PoC (one GPU, Linux or WSL2 + Docker Engine + NVIDIA Container Toolkit).
+# STATUS: written and statically checked; NOT yet run on a Linux GPU host (see deploy/linux-vllm/RUNBOOK.md).
+# Separate from the Ollama service on 127.0.0.1:11437: different port, different project name, and the two are run
+# one at a time (time-shared GPU), never side by side.
+# Start:   docker compose --env-file deploy/linux-vllm/.env -f deploy/linux-vllm/compose.yaml up -d
+# Stop:    docker compose --env-file deploy/linux-vllm/.env -f deploy/linux-vllm/compose.yaml stop
+# Only `docker compose ... config --quiet` may be run: plain `config` prints the expanded API key.
+name: qwen-vllm-poc
+
+services:
+  vllm:
+    # Pinned by digest (Docker Hub vllm/vllm-openai v0.32.0, amd64 ~9.2 GB compressed). Change only via a new .env.
+    image: ${VLLM_IMAGE:-vllm/vllm-openai:v0.32.0@sha256:befccf0e7e4089aa23926bb6f887a85c0d46c2a99e6de5c5ffdf5cb7957c5b34}
+    pull_policy: never               # pulled once during preparation; nothing is downloaded at run time
+    restart: unless-stopped          # acts when the container exits; a hung but running container needs the health check + operator
+    command:
+      - --model=/models/qwen
+      - --served-model-name=${SERVED_MODEL_NAME:-qwen-local}
+      - --host=0.0.0.0               # inside the container; published on 127.0.0.1 only (ports below)
+      - --port=8000
+      - --max-model-len=${MAX_MODEL_LEN:-4096}
+      - --max-num-seqs=${MAX_NUM_SEQS:-4}
+      - --gpu-memory-utilization=${GPU_MEMORY_UTILIZATION:-0.70}
+      - --enforce-eager              # skips CUDA-graph capture: less memory and a shorter start on a laptop GPU
+      # Request/response logging stays off; do not add --enable-log-requests (prompts and code would reach the logs).
+    environment:
+      VLLM_API_KEY: ${VLLM_API_KEY:?set VLLM_API_KEY in deploy/linux-vllm/.env (never commit it)}   # protects /v1 only
+      HF_HUB_OFFLINE: "1"            # weights are local; no Hugging Face access at run time
+      TRANSFORMERS_OFFLINE: "1"
+      VLLM_NO_USAGE_STATS: "1"
+      DO_NOT_TRACK: "1"
+    volumes:
+      - ${MODEL_DIR:?set MODEL_DIR to the downloaded snapshot}:/models/qwen:ro
+    ports:
+      - "127.0.0.1:${HOST_PORT:-18000}:8000"   # loopback only; /metrics and /health are not covered by the API key
+    gpus:
+      - driver: nvidia
+        count: 1
+    shm_size: ${SHM_SIZE:-1gb}
+    mem_limit: ${MEM_LIMIT:-6g}      # host RAM for the container; stays below the WSL2 cap of 8 GB
+    memswap_limit: ${MEM_LIMIT:-6g}  # no extra swap for the container
+    pids_limit: 512
+    security_opt: ["no-new-privileges:true"]
+    healthcheck:
+      test: [CMD, python3, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=5)"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 600s             # model load; failures during this window do not count
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}

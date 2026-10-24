@@ -1,0 +1,41 @@
+{
+  "sample": "h17_raw_iverilog_multidriver",
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "test": {
+    "test_id": "parity_modes",
+    "top": "tb_parity",
+    "sources": [
+      "hdl/holdout/rtl/parity_gen.v",
+      "hdl/holdout/tb/tb_parity.sv"
+    ],
+    "defines": [
+      "BUG_MULTI_DRIVER"
+    ],
+    "timeout_s": 10
+  },
+  "saved": "stage:compile",
+  "line_endings": "tool output normalised from CRLF to LF before saving",
+  "stages": [
+    {
+      "stage": "compile",
+      "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_parity -DBUG_MULTI_DRIVER hdl/holdout/rtl/parity_gen.v hdl/holdout/tb/tb_parity.sv",
+      "exit_code": 1,
+      "timed_out": false,
+      "elapsed_s": 0.05,
+      "output_truncated": false,
+      "output_lines": 2,
+      "output_had_crlf": true,
+      "tool_error": null
+    }
+  ]
+}

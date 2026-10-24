@@ -1,7 +1,10 @@
 """Regression-log triage: executor limits, log reading, rule baseline on the frozen dev split, model-output validation.
 Fixtures and frozen logs only; no model is loaded. Tests that need the simulator are skipped when it is not installed."""
+import hashlib
 import json
 from pathlib import Path
+import shutil
+import subprocess
 import sys
 
 import pytest
@@ -62,6 +65,16 @@ def test_log_reading_is_scoped_and_bounded(tmp_path):
     big.write_bytes(b"x" * (logio.MAX_LOG_BYTES + 1))
     with pytest.raises(ValueError, match="limit"):
         logio.read_log("big.log", tmp_path)
+
+
+@pytest.mark.parametrize("split", [s for s in ("dev", "holdout") if (EV / "dataset" / f"{s}-manifest.json").exists()])
+def test_dataset_bytes_match_the_manifest_and_are_stored_verbatim(split):
+    manifest = json.loads((EV / "dataset" / f"{split}-manifest.json").read_text(encoding="utf-8"))
+    for s in manifest["samples"]:
+        assert hashlib.sha256((EV / s["file"]).read_bytes()).hexdigest() == s["sha256"], s["file"]
+    if shutil.which("git"):
+        attr = subprocess.run(["git", "check-attr", "text", "--", manifest["samples"][0]["file"]], cwd=EV, capture_output=True, text=True).stdout
+        assert attr.strip().endswith("text: unset"), attr  # a checkout must not rewrite line endings of hashed samples
 
 
 # ---------- rule baseline on the frozen dev split ----------

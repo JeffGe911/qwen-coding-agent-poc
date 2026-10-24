@@ -1,0 +1,52 @@
+{
+  "sample": "h19_vcd_waveform",
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "test": {
+    "test_id": "gray_exhaustive",
+    "top": "tb_gray",
+    "sources": [
+      "hdl/holdout/rtl/gray_conv.v",
+      "hdl/holdout/tb/tb_gray.sv"
+    ],
+    "defines": [
+      "DUMP_VCD"
+    ],
+    "timeout_s": 10
+  },
+  "saved": "file:tb_gray.vcd",
+  "line_endings": "tool output normalised from CRLF to LF before saving",
+  "stages": [
+    {
+      "stage": "compile",
+      "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_gray -DDUMP_VCD hdl/holdout/rtl/gray_conv.v hdl/holdout/tb/tb_gray.sv",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_s": 0.05,
+      "output_truncated": false,
+      "output_lines": 0,
+      "output_had_crlf": false,
+      "tool_error": null
+    },
+    {
+      "stage": "run",
+      "cmd": "vvp.exe -n sim.vvp",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_s": 0.027,
+      "output_truncated": false,
+      "output_lines": 4,
+      "output_had_crlf": true,
+      "tool_error": null
+    }
+  ]
+}
