@@ -1,0 +1,26 @@
+{
+  "basis": "Ollama resident size ~= weights + FP16 KV (7b check below); KV = 2 x layers x kv_heads x head_dim x 2 bytes x tokens",
+  "calibration_7b": {
+    "weights_bytes": 4683087561,
+    "kv_bytes_8192": 469762048,
+    "ollama_resident_bytes_8192x1": 5148633988,
+    "resident_minus_weights_minus_kv": -4215621
+  },
+  "qwen2.5-coder:14b": {
+    "weights_bytes": 8988110784,
+    "architecture_assumed": {
+      "layers": 48,
+      "kv_heads": 8,
+      "head_dim": 128,
+      "source": "Qwen2.5-14B config; re-checked from /api/show after the pull"
+    },
+    "kv_bytes_8192": 1610612736,
+    "estimated_resident_gib": 9.871
+  },
+  "budget": {
+    "nvidia_smi_total_mib": 12227,
+    "nvidia_smi_used_idle_mib": 0,
+    "ollama_available_gib": 10.8
+  },
+  "verdict_before_pull": "fits on paper (9.87 GiB needed vs 10.8 GiB Ollama-available); confirm with a load probe"
+}

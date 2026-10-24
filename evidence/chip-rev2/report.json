@@ -1,0 +1,701 @@
+{
+  "contract": {
+    "id": "chip_final_yield/rev2",
+    "sha256": "41b658cc2888a1e6db912f083bc6bb36da2e864628354ed9e46a34925147e880"
+  },
+  "arms": {
+    "control": {
+      "meta": {
+        "run": "evidence/chip-rev2/control/runs/20261024T054837Z-chip_final_yield-dc358f14",
+        "status": "model_error",
+        "stop_reason": null,
+        "model": "qwen2.5-coder:7b",
+        "generation": {
+          "format": "json_v1",
+          "transport": "ollama_native_chat",
+          "sampling": {
+            "temperature": 0,
+            "top_k": 40,
+            "top_p": 1.0,
+            "min_p": 0.0,
+            "typical_p": 1.0,
+            "repeat_penalty": 1.0,
+            "repeat_last_n": 64,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0
+          },
+          "max_tokens": 1600
+        },
+        "contract_revision": {
+          "id": "chip_final_yield/rev2",
+          "revision": 2,
+          "arm": "control",
+          "changes_vs_rev1": "none (rev-1 format, sampling and model through the revision-2 transport)",
+          "file": "qwen_agent/contracts/chip_final_yield/rev2.json",
+          "sha256": "41b658cc2888a1e6db912f083bc6bb36da2e864628354ed9e46a34925147e880"
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "agent_status": "model_error",
+          "agent_error": "ValueError: Output incomplete: finish_reason=length after 1600 completion tokens (output budget max_tokens=1600)",
+          "finish_reason": "length",
+          "prompt_tokens": 3314,
+          "completion_tokens": 1600,
+          "repetition": {
+            "detected": true,
+            "top": 41,
+            "distinct_ratio": 0.353,
+            "phrase": "It did not handle the case where the"
+          },
+          "tokens_per_s": 58.2,
+          "server": {
+            "task": 6393,
+            "prompt_tokens": 3314,
+            "sampler": {
+              "chain_end": "greedy",
+              "repeat_penalty": 1.0,
+              "top_p": 1.0,
+              "temperature": 0.0
+            },
+            "context_shift": 0,
+            "truncated": false
+          },
+          "format_ok": false,
+          "format_error": "Unterminated string starting at: line 3 column 20 (char 1645)"
+        },
+        {
+          "attempt": 2,
+          "agent_status": "model_error",
+          "agent_error": "ValueError: Output incomplete: finish_reason=length after 1600 completion tokens (output budget max_tokens=1600)",
+          "finish_reason": "length",
+          "prompt_tokens": 3359,
+          "completion_tokens": 1600,
+          "repetition": {
+            "detected": true,
+            "top": 26,
+            "distinct_ratio": 0.396,
+            "phrase": "It did not handle the case where the"
+          },
+          "tokens_per_s": 58.0,
+          "server": {
+            "task": 7995,
+            "prompt_tokens": 3359,
+            "sampler": {
+              "chain_end": "greedy",
+              "repeat_penalty": 1.0,
+              "top_p": 1.0,
+              "temperature": 0.0
+            },
+            "context_shift": 0,
+            "truncated": false
+          },
+          "format_ok": false,
+          "format_error": "Unterminated string starting at: line 3 column 18 (char 1954)"
+        },
+        {
+          "attempt": 3,
+          "agent_status": "model_error",
+          "agent_error": "ValueError: Output incomplete: finish_reason=length after 1600 completion tokens (output budget max_tokens=1600)",
+          "finish_reason": "length",
+          "prompt_tokens": 3404,
+          "completion_tokens": 1600,
+          "repetition": {
+            "detected": true,
+            "top": 37,
+            "distinct_ratio": 0.269,
+            "phrase": "and the input is not empty and the"
+          },
+          "tokens_per_s": 57.2,
+          "server": {
+            "task": 9596,
+            "prompt_tokens": 3404,
+            "sampler": {
+              "chain_end": "greedy",
+              "repeat_penalty": 1.0,
+              "top_p": 1.0,
+              "temperature": 0.0
+            },
+            "context_shift": 0,
+            "truncated": false
+          },
+          "format_ok": false,
+          "format_error": "Unterminated string starting at: line 3 column 20 (char 2028)"
+        }
+      ],
+      "changes": "none (rev-1 format, sampling and model through the revision-2 transport)"
+    },
+    "A": {
+      "meta": {
+        "run": "evidence/chip-rev2/A/runs/20261024T055010Z-chip_final_yield-bad4d535",
+        "status": "failed",
+        "stop_reason": "no_change",
+        "model": "qwen2.5-coder:7b",
+        "generation": {
+          "format": "fenced_v1",
+          "transport": "ollama_native_chat",
+          "sampling": {
+            "temperature": 0,
+            "top_k": 40,
+            "top_p": 1.0,
+            "min_p": 0.0,
+            "typical_p": 1.0,
+            "repeat_penalty": 1.0,
+            "repeat_last_n": 64,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0
+          },
+          "max_tokens": 1600
+        },
+        "contract_revision": {
+          "id": "chip_final_yield/rev2",
+          "revision": 2,
+          "arm": "A",
+          "changes_vs_rev1": "output format only: json_v1 -> fenced_v1",
+          "file": "qwen_agent/contracts/chip_final_yield/rev2.json",
+          "sha256": "41b658cc2888a1e6db912f083bc6bb36da2e864628354ed9e46a34925147e880"
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "agent_status": "failed",
+          "agent_error": null,
+          "finish_reason": "stop",
+          "prompt_tokens": 3323,
+          "completion_tokens": 505,
+          "repetition": {
+            "detected": false,
+            "top": 2,
+            "distinct_ratio": 0.984,
+            "phrase": "value float value lower float lower upper float"
+          },
+          "tokens_per_s": 58.6,
+          "server": {
+            "task": 11197,
+            "prompt_tokens": 3323,
+            "sampler": {
+              "chain_end": "greedy",
+              "repeat_penalty": 1.0,
+              "top_p": 1.0,
+              "temperature": 0.0
+            },
+            "context_shift": 0,
+            "truncated": false
+          },
+          "format_ok": true,
+          "format_facts": {
+            "format": "fenced_v1",
+            "text_before_block_chars": 0,
+            "explanation_sentences": 6,
+            "explanation_cap_respected": false,
+            "explanation_sentences_runtime": 12
+          },
+          "python_ok": true,
+          "policy_ok": true,
+          "pytest": {
+            "visible": {
+              "tests": 11,
+              "passed": 3
+            },
+            "holdout": {
+              "tests": 11,
+              "passed": 4
+            },
+            "total": "7/22",
+            "reviewer": "Jeff (approved in chat)",
+            "digest": "4b7fbdf71ce192ac5e16db8e783243b3f6059dc0cf78b92bda127cc586d79a8c"
+          }
+        },
+        {
+          "attempt": 2,
+          "agent_status": "no_change",
+          "agent_error": "Model returned the current solution.py unchanged; no execution or approval requested",
+          "finish_reason": "stop",
+          "prompt_tokens": 3514,
+          "completion_tokens": 492,
+          "repetition": {
+            "detected": false,
+            "top": 2,
+            "distinct_ratio": 0.983,
+            "phrase": "value float value lower float lower upper float"
+          },
+          "tokens_per_s": 56.7,
+          "server": {
+            "task": 0,
+            "prompt_tokens": 3514,
+            "sampler": {
+              "chain_end": "greedy",
+              "repeat_penalty": 1.0,
+              "top_p": 1.0,
+              "temperature": 0.0
+            },
+            "context_shift": 0,
+            "truncated": false
+          },
+          "format_ok": true,
+          "format_facts": {
+            "format": "fenced_v1",
+            "text_before_block_chars": 0,
+            "explanation_sentences": 3,
+            "explanation_cap_respected": true,
+            "explanation_sentences_runtime": 6
+          },
+          "python_ok": true,
+          "policy_ok": true
+        }
+      ],
+      "changes": "output format only: json_v1 -> fenced_v1"
+    },
+    "B": {
+      "meta": {
+        "run": "evidence/chip-rev2/B/runs/20261024T055029Z-chip_final_yield-8acefa5a",
+        "status": "failed",
+        "stop_reason": "proposal_budget_exhausted",
+        "model": "qwen2.5-coder:7b",
+        "generation": {
+          "format": "json_v1",
+          "transport": "ollama_native_chat",
+          "sampling": {
+            "temperature": 0.2,
+            "top_k": 40,
+            "top_p": 1.0,
+            "min_p": 0.0,
+            "typical_p": 1.0,
+            "repeat_penalty": 1.1,
+            "repeat_last_n": 64,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0,
+            "seed": 42
+          },
+          "max_tokens": 1600
+        },
+        "contract_revision": {
+          "id": "chip_final_yield/rev2",
+          "revision": 2,
+          "arm": "B",
+          "changes_vs_rev1": "sampling only: temperature 0 -> 0.2, repeat_penalty 1.0 -> 1.1, seed 42 (needed for a reproducible non-greedy run)",
+          "file": "qwen_agent/contracts/chip_final_yield/rev2.json",
+          "sha256": "41b658cc2888a1e6db912f083bc6bb36da2e864628354ed9e46a34925147e880"
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "agent_status": "policy_blocked",
+          "agent_error": "Forbidden syntax: Lambda",
+          "finish_reason": "stop",
+          "prompt_tokens": 3296,
+          "completion_tokens": 753,
+          "repetition": {
+            "detected": false,
+            "top": 2,
+            "distinct_ratio": 0.993,
+            "phrase": "value float value lower float lower upper float"
+          },
+          "tokens_per_s": 58.0,
+          "server": {
+            "task": 11706,
+            "prompt_tokens": 3296,
+            "sampler": {
+              "chain_end": "dist",
+              "repeat_penalty": 1.1,
+              "top_p": 1.0,
+              "temperature": 0.2
+            },
+            "context_shift": 0,
+            "truncated": false
+          },
+          "format_ok": true,
+          "format_facts": {
+            "format": "json_v1"
+          },
+          "python_ok": true,
+          "policy_ok": false,
+          "policy_error": "Forbidden syntax: Lambda"
+        },
+        {
+          "attempt": 2,
+          "agent_status": "policy_blocked",
+          "agent_error": "Invalid Python: unexpected character after line continuation character (<unknown>, line 40)",
+          "finish_reason": "stop",
+          "prompt_tokens": 3319,
+          "completion_tokens": 899,
+          "repetition": {
+            "detected": false,
+            "top": 2,
+            "distinct_ratio": 0.987,
+            "phrase": "ValueError for unknown units or conflicting rows within"
+          },
+          "tokens_per_s": 56.8,
+          "server": {
+            "task": 12461,
+            "prompt_tokens": 3319,
+            "sampler": {
+              "chain_end": "dist",
+              "repeat_penalty": 1.1,
+              "top_p": 1.0,
+              "temperature": 0.2
+            },
+            "context_shift": 0,
+            "truncated": false
+          },
+          "format_ok": true,
+          "format_facts": {
+            "format": "json_v1"
+          },
+          "python_ok": false,
+          "python_error": "unexpected character after line continuation character (line 40)",
+          "policy_ok": false,
+          "policy_error": "Invalid Python: unexpected character after line continuation character (<unknown>, line 40)"
+        },
+        {
+          "attempt": 3,
+          "agent_status": "failed",
+          "agent_error": null,
+          "finish_reason": "stop",
+          "prompt_tokens": 3354,
+          "completion_tokens": 700,
+          "repetition": {
+            "detected": false,
+            "top": 1,
+            "distinct_ratio": 1.0,
+            "phrase": "code def summarize_chip_yield rows required_items chips duplicates_ignored missing_values"
+          },
+          "tokens_per_s": 57.8,
+          "server": {
+            "task": 13361,
+            "prompt_tokens": 3354,
+            "sampler": {
+              "chain_end": "dist",
+              "repeat_penalty": 1.1,
+              "top_p": 1.0,
+              "temperature": 0.2
+            },
+            "context_shift": 0,
+            "truncated": false
+          },
+          "format_ok": true,
+          "format_facts": {
+            "format": "json_v1"
+          },
+          "python_ok": true,
+          "policy_ok": true,
+          "pytest": {
+            "visible": {
+              "tests": 11,
+              "passed": 1
+            },
+            "holdout": {
+              "tests": 11,
+              "passed": 0
+            },
+            "total": "1/22",
+            "reviewer": "Jeff (approved in chat)",
+            "digest": "4cc17f80ce5ebb2de3b4803eaefc0cfd97726e86f535aedb7a4d31070bd4a66a"
+          }
+        }
+      ],
+      "changes": "sampling only: temperature 0 -> 0.2, repeat_penalty 1.0 -> 1.1, seed 42 (needed for a reproducible non-greedy run)"
+    },
+    "C": {
+      "meta": {
+        "run": "evidence/chip-rev2/C/runs/20261024T064229Z-chip_final_yield-f35c49b9",
+        "status": "failed",
+        "stop_reason": "no_change",
+        "model": "qwen2.5-coder:14b",
+        "generation": {
+          "format": "json_v1",
+          "transport": "ollama_native_chat",
+          "sampling": {
+            "temperature": 0,
+            "top_k": 40,
+            "top_p": 1.0,
+            "min_p": 0.0,
+            "typical_p": 1.0,
+            "repeat_penalty": 1.0,
+            "repeat_last_n": 64,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0
+          },
+          "max_tokens": 1600
+        },
+        "contract_revision": {
+          "id": "chip_final_yield/rev2",
+          "revision": 2,
+          "arm": "C",
+          "changes_vs_rev1": "model only: qwen2.5-coder:7b -> qwen2.5-coder:14b",
+          "file": "qwen_agent/contracts/chip_final_yield/rev2.json",
+          "sha256": "41b658cc2888a1e6db912f083bc6bb36da2e864628354ed9e46a34925147e880"
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "agent_status": "failed",
+          "agent_error": null,
+          "finish_reason": "stop",
+          "prompt_tokens": 3314,
+          "completion_tokens": 990,
+          "repetition": {
+            "detected": false,
+            "top": 1,
+            "distinct_ratio": 1.0,
+            "phrase": "code def summarize_chip_yield rows required_items chips duplicates_ignored missing_values"
+          },
+          "tokens_per_s": 27.2,
+          "server": {
+            "task": 2,
+            "prompt_tokens": 3314,
+            "sampler": {
+              "chain_end": "greedy",
+              "repeat_penalty": 1.0,
+              "top_p": 1.0,
+              "temperature": 0.0
+            },
+            "context_shift": 0,
+            "truncated": false
+          },
+          "format_ok": true,
+          "format_facts": {
+            "format": "json_v1"
+          },
+          "python_ok": true,
+          "policy_ok": true,
+          "pytest": {
+            "visible": {
+              "tests": 11,
+              "passed": 2
+            },
+            "holdout": {
+              "tests": 11,
+              "passed": 1
+            },
+            "total": "3/22",
+            "reviewer": "Jeff (approved in chat)",
+            "digest": "5c2dc57b3dfd6823db8f53a93acaa2b7a942f9440360e65eef260bc72c6219b4"
+          }
+        },
+        {
+          "attempt": 2,
+          "agent_status": "no_change",
+          "agent_error": "Model returned the current solution.py unchanged; no execution or approval requested",
+          "finish_reason": "stop",
+          "prompt_tokens": 3889,
+          "completion_tokens": 754,
+          "repetition": {
+            "detected": false,
+            "top": 1,
+            "distinct_ratio": 1.0,
+            "phrase": "code def summarize_chip_yield rows required_items chips duplicates_ignored missing_values"
+          },
+          "tokens_per_s": 27.5,
+          "server": {
+            "task": 999,
+            "prompt_tokens": 3889,
+            "sampler": {
+              "chain_end": "greedy",
+              "repeat_penalty": 1.0,
+              "top_p": 1.0,
+              "temperature": 0.0
+            },
+            "context_shift": 0,
+            "truncated": false
+          },
+          "format_ok": true,
+          "format_facts": {
+            "format": "json_v1"
+          },
+          "python_ok": true,
+          "policy_ok": true
+        }
+      ],
+      "changes": "model only: qwen2.5-coder:7b -> qwen2.5-coder:14b"
+    }
+  },
+  "C_vram": {
+    "01-idle.json": {
+      "at_utc": "2026-10-24T05:51:27.419+00:00",
+      "model": "qwen2.5-coder:14b",
+      "gpu_idle": {
+        "memory_used_mib": 0.0,
+        "memory_total_mib": 12227.0,
+        "utilization_pct": 0.0,
+        "temperature_c": 57.0
+      },
+      "ollama_inference_compute": "time=2026-10-23T22:42:39.416-07:00 level=INFO source=types.go:32 msg=\"inference compute\" id=0 filter_id=0 library=CUDA compute=12.0 name=CUDA0 description=\"NVIDIA GeForce RTX 5070 Ti Laptop GPU\" libdirs=ollama,cuda_v13 driver=13.1 pci_id=0000:01:00.0 type=discrete total=\"11.9 GiB\" available=\"10.8 GiB\""
+    },
+    "02-registry-manifest-14b.json": {
+      "schemaVersion": 2,
+      "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+      "config": {
+        "mediaType": "application/vnd.docker.container.image.v1+json",
+        "digest": "sha256:0578f229f23ad620e123654fd0b4708405e7af3629ec1aecf3f553f54e06bc40",
+        "size": 488
+      },
+      "layers": [
+        {
+          "mediaType": "application/vnd.ollama.image.model",
+          "digest": "sha256:ac9bc7a69dab38da1c790838955f1293420b55ab555ef6b4615efa1c1507b1ed",
+          "size": 8988110784
+        },
+        {
+          "mediaType": "application/vnd.ollama.image.system",
+          "digest": "sha256:66b9ea09bd5b7099cbb4fc820f31b575c0366fa439b08245566692c6784e281e",
+          "size": 68
+        },
+        {
+          "mediaType": "application/vnd.ollama.image.template",
+          "digest": "sha256:1e65450c30670713aa47fe23e8b9662bdf4065e81cc8e3cbfaa98924fcc0d320",
+          "size": 1615
+        },
+        {
+          "mediaType": "application/vnd.ollama.image.license",
+          "digest": "sha256:832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+          "size": 11343
+        }
+      ]
+    },
+    "03-estimate.json": {
+      "basis": "Ollama resident size ~= weights + FP16 KV (7b check below); KV = 2 x layers x kv_heads x head_dim x 2 bytes x tokens",
+      "calibration_7b": {
+        "weights_bytes": 4683087561,
+        "kv_bytes_8192": 469762048,
+        "ollama_resident_bytes_8192x1": 5148633988,
+        "resident_minus_weights_minus_kv": -4215621
+      },
+      "qwen2.5-coder:14b": {
+        "weights_bytes": 8988110784,
+        "architecture_assumed": {
+          "layers": 48,
+          "kv_heads": 8,
+          "head_dim": 128,
+          "source": "Qwen2.5-14B config; re-checked from /api/show after the pull"
+        },
+        "kv_bytes_8192": 1610612736,
+        "estimated_resident_gib": 9.871
+      },
+      "budget": {
+        "nvidia_smi_total_mib": 12227,
+        "nvidia_smi_used_idle_mib": 0,
+        "ollama_available_gib": 10.8
+      },
+      "verdict_before_pull": "fits on paper (9.87 GiB needed vs 10.8 GiB Ollama-available); confirm with a load probe"
+    },
+    "05-show-14b.json": {
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen2",
+        "families": [
+          "qwen2"
+        ],
+        "parameter_size": "14.8B",
+        "quantization_level": "Q4_K_M"
+      },
+      "model_info": {
+        "general.parameter_count": 14770033664,
+        "qwen2.attention.head_count": 40,
+        "qwen2.attention.head_count_kv": 8,
+        "qwen2.block_count": 48,
+        "qwen2.context_length": 32768,
+        "qwen2.embedding_length": 5120
+      }
+    },
+    "06-decision.json": {
+      "decision": "fits fully on GPU at 8192 context -> arm C runs",
+      "evidence": {
+        "api_ps_size_bytes": 10290085231,
+        "api_ps_size_vram_bytes": 10290085231,
+        "gpu_fraction": 1.0,
+        "context_length": 8192,
+        "llama_server": "offloaded 49/49 layers; CUDA0 model 8148.38 MiB + KV 1536.00 MiB + compute 129.01 MiB = 9813 MiB projected vs 11026 MiB free (1212 MiB left, no changes needed)",
+        "cuda_host_model_buffer": "417.66 MiB on host for 14b (7b: same kind of host buffer, see 7b log) - token-embedding table placement, all 49 layers on GPU",
+        "nvidia_smi_after_load": "9996 MiB, 1949 MiB, 12227 MiB",
+        "estimate_before_pull_gib": 9.871,
+        "measured_resident_gib": 9.583
+      }
+    },
+    "06a-idle-before-probe.json": {
+      "at_utc": "2026-10-24T06:41:34.802+00:00",
+      "model": "qwen2.5-coder:14b",
+      "gpu_idle": {
+        "memory_used_mib": 0.0,
+        "memory_total_mib": 12227.0,
+        "utilization_pct": 0.0,
+        "temperature_c": 43.0
+      },
+      "ollama_inference_compute": "time=2026-10-23T22:42:39.416-07:00 level=INFO source=types.go:32 msg=\"inference compute\" id=0 filter_id=0 library=CUDA compute=12.0 name=CUDA0 description=\"NVIDIA GeForce RTX 5070 Ti Laptop GPU\" libdirs=ollama,cuda_v13 driver=13.1 pci_id=0000:01:00.0 type=discrete total=\"11.9 GiB\" available=\"10.8 GiB\""
+    },
+    "07-probe-api-ps.json": {
+      "models": [
+        {
+          "name": "qwen2.5-coder:14b",
+          "model": "qwen2.5-coder:14b",
+          "size": 10290085231,
+          "digest": "9ec8897f747e246e970bc5cfdda85d22f1123dc2e3d34978a010a75968716849",
+          "details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen2",
+            "families": [
+              "qwen2"
+            ],
+            "parameter_size": "14.8B",
+            "quantization_level": "Q4_K_M"
+          },
+          "expires_at": "2026-10-24T00:11:59.9379881-07:00",
+          "size_vram": 10290085231,
+          "context_length": 8192,
+          "runner": "llamacpp"
+        }
+      ]
+    }
+  },
+  "transport_equivalence": {
+    "at_utc": "2026-10-24T05:47:33.798+00:00",
+    "source_run": "evidence/context-validation/r2-7b-ctx8192-np1/runs/20261023T213445Z-chip_final_yield-c1329f74",
+    "usage": {
+      "recorded_rev1_v1": {
+        "prompt_tokens": 3413,
+        "prompt_tokens_details": {
+          "cached_tokens": 275
+        },
+        "completion_tokens": 1600,
+        "total_tokens": 5013
+      },
+      "replay_v1": {
+        "prompt_tokens": 3413,
+        "prompt_tokens_details": {
+          "cached_tokens": 2137
+        },
+        "completion_tokens": 1600,
+        "total_tokens": 5013
+      },
+      "replay_native_control": {
+        "prompt_tokens": 3413,
+        "completion_tokens": 1600
+      }
+    },
+    "finish_reason": {
+      "recorded_rev1_v1": "length",
+      "replay_v1": "length",
+      "replay_native_control": "length"
+    },
+    "identical_text": {
+      "replay_v1 vs recorded": false,
+      "native_control vs replay_v1": true,
+      "native_control vs recorded": false
+    },
+    "first_differing_char": {
+      "native_control vs replay_v1": null,
+      "replay_v1 vs recorded": 1260
+    },
+    "server_log": {
+      "file": "ollama-11437-20261024T054234Z.err.log",
+      "start_line": 573,
+      "end_line": 646
+    }
+  }
+}

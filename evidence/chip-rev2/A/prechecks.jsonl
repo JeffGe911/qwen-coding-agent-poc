@@ -1,0 +1,1 @@
+{"server": {"at_utc": "2026-10-24T05:50:10.219+00:00", "active": "r2-7b-ctx8192-np1", "pin_problems": [], "loaded": {"name": "qwen2.5-coder:7b", "size": 5148633988, "size_vram": 5148633988, "context_length": 8192}, "launch_record": "20261024T054234Z", "ok": true}, "model": "qwen2.5-coder:7b"}

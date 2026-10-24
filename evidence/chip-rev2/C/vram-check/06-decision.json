@@ -1,0 +1,14 @@
+{
+  "decision": "fits fully on GPU at 8192 context -> arm C runs",
+  "evidence": {
+    "api_ps_size_bytes": 10290085231,
+    "api_ps_size_vram_bytes": 10290085231,
+    "gpu_fraction": 1.0,
+    "context_length": 8192,
+    "llama_server": "offloaded 49/49 layers; CUDA0 model 8148.38 MiB + KV 1536.00 MiB + compute 129.01 MiB = 9813 MiB projected vs 11026 MiB free (1212 MiB left, no changes needed)",
+    "cuda_host_model_buffer": "417.66 MiB on host for 14b (7b: same kind of host buffer, see 7b log) - token-embedding table placement, all 49 layers on GPU",
+    "nvidia_smi_after_load": "9996 MiB, 1949 MiB, 12227 MiB",
+    "estimate_before_pull_gib": 9.871,
+    "measured_resident_gib": 9.583
+  }
+}

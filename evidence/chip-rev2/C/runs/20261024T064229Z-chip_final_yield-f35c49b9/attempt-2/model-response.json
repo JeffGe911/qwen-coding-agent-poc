@@ -1,0 +1,27 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "message": {
+        "content": "{\n  \"code\": \"def summarize_chip_yield(rows, required_items):\\n    chips = {}\\n    duplicates_ignored = 0\\n    missing_values = 0\\n    for row in rows:\\n        key = tuple(row.values())\\n        if key in chips:\\n            duplicates_ignored += 1\\n            continue\\n        chips[key] = True\\n        chip_id = row['chip_id']\\n        test_item = row['test_item']\\n        value = row['value']\\n        unit = row['unit']\\n        lower = float(row['lower'])\\n        upper = float(row['upper'])\\n        retest = int(row['retest'])\\n        if unit not in ('V', 'mV'):\\n            raise ValueError(f'Unknown unit: {unit}')\\n        if unit == 'mV':\\n            value = float(value) / 1000\\n        else:\\n            value = float(value)\\n        if value == '' or value < lower or value > upper:\\n            missing_values += 1\\n            continue\\n        if chip_id not in chips:\\n            chips[chip_id] = {}\\n        if test_item not in chips[chip_id]:\\n            chips[chip_id][test_item] = (retest, value)\\n        else:\\n            if chips[chip_id][test_item][0] == retest:\\n                if chips[chip_id][test_item][1] != value:\\n                    raise ValueError(f'Conflicting values for chip {chip_id}, test {test_item}, retest {retest}')\\n            elif chips[chip_id][test_item][0] < retest:\\n                chips[chip_id][test_item] = (retest, value)\\n    passed_chips = 0\\n    failed_chip_ids = []\\n    for chip_id, tests in chips.items():\\n        if chip_id == 'chip_id':\\n            continue\\n        if all(test in tests and lower <= tests[test][1] <= upper for test in required_items):\\n            passed_chips += 1\\n        else:\\n            failed_chip_ids.append(chip_id)\\n    failed_chip_ids.sort()\\n    total_chips = len(chips) - 1  # Subtract 1 to exclude the 'chip_id' key\\n    yield_value = passed_chips / total_chips if total_chips > 0 else 0.0\\n    return {\\n        'chips': total_chips,\\n        'passed_chips': passed_chips,\\n        'yield': round(yield_value, 4),\\n        'failed_chip_ids': failed_chip_ids,\\n        'duplicates_ignored': duplicates_ignored,\\n        'missing_values': missing_values\\n    }\",\n  \"explanation\": \"The provided solution.py file contains a function `summarize_chip_yield` that processes chip test data from a CSV file and calculates the final yield. The function handles various requirements such as ignoring duplicate rows, selecting the highest retest value for each chip and test item, converting millivolt values to volts, and checking for missing or out-of-range values. The function also ensures that required test items are present and within the specified limits for each chip. The solution includes error handling for unknown units and conflicting values. The function returns a dictionary with the total number of chips, passed chips, yield, failed chip IDs, ignored duplicates, and missing values. The solution is designed to be robust and handle various edge cases as specified in the requirements.\"\n}"
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 3889,
+    "completion_tokens": 754
+  },
+  "native": {
+    "model": "qwen2.5-coder:14b",
+    "created_at": "2026-10-24T06:44:58.1935481Z",
+    "done": true,
+    "done_reason": "stop",
+    "total_duration": 31859564900,
+    "load_duration": 5721800,
+    "prompt_eval_count": 3889,
+    "prompt_eval_cached_count": 746,
+    "prompt_eval_duration": 2919645000,
+    "eval_count": 754,
+    "eval_duration": 27456240000
+  }
+}

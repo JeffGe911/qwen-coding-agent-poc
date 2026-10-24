@@ -1,0 +1,11 @@
+{
+  "at_utc": "2026-10-24T05:51:27.419+00:00",
+  "model": "qwen2.5-coder:14b",
+  "gpu_idle": {
+    "memory_used_mib": 0.0,
+    "memory_total_mib": 12227.0,
+    "utilization_pct": 0.0,
+    "temperature_c": 57.0
+  },
+  "ollama_inference_compute": "time=2026-10-23T22:42:39.416-07:00 level=INFO source=types.go:32 msg=\"inference compute\" id=0 filter_id=0 library=CUDA compute=12.0 name=CUDA0 description=\"NVIDIA GeForce RTX 5070 Ti Laptop GPU\" libdirs=ollama,cuda_v13 driver=13.1 pci_id=0000:01:00.0 type=discrete total=\"11.9 GiB\" available=\"10.8 GiB\""
+}

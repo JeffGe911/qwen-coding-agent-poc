@@ -1,0 +1,54 @@
+def summarize_chip_yield(rows, required_items):
+    chips = {}
+    duplicates_ignored = 0
+    missing_values = 0
+
+    for row in rows:
+        chip_id = row["chip_id"]
+        test_item = row["test_item"]
+        value = row["value"]
+        unit = row["unit"]
+        lower = row["lower"]
+        upper = row["upper"]
+        retest = row["retest"]
+
+        if unit not in ["V", "mV"]:
+            raise ValueError(f"Invalid unit: {unit}")
+
+        if unit == "mV":
+            value = float(value) / 1000
+            lower = float(lower) / 1000
+            upper = float(upper) / 1000
+
+        if value == "":
+            missing_values += 1
+            continue
+
+        value = float(value)
+        lower = float(lower)
+        upper = float(upper)
+        retest = int(retest)
+
+        if (chip_id, test_item, retest) in chips:
+            duplicates_ignored += 1
+            continue
+
+        passed = lower <= value <= upper
+        chips[(chip_id, test_item, retest)] = passed
+
+    passed_chips = [chip_id for chip_id, test_item, retest in chips if chips[(chip_id, test_item, retest)]]
+    failed_chip_ids = [chip_id for chip_id, test_item, retest in chips if not chips[(chip_id, test_item, retest)]]
+
+    if not chips:
+        yield_value = 0.0
+    else:
+        yield_value = len(passed_chips) / len(chips)
+
+    return {
+        "chips": len(chips),
+        "passed_chips": len(passed_chips),
+        "yield": yield_value,
+        "failed_chip_ids": sorted(failed_chip_ids),
+        "duplicates_ignored": duplicates_ignored,
+        "missing_values": missing_values,
+    }

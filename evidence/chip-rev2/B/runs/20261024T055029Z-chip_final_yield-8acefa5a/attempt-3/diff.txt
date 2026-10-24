@@ -1,0 +1,84 @@
+--- before/solution.py
++++ after/solution.py
+@@ -1,13 +1,74 @@
+ def summarize_chip_yield(rows, required_items):
+     chips = {}
++    duplicates_ignored = 0
++    missing_values = 0
++
+     for row in rows:
+-        value = float(row["value"])
+-        passed = float(row["lower"]) <= value <= float(row["upper"])
+-        chips.setdefault(row["chip_id"], []).append(passed)
+-    passed_chips = [chip for chip, results in chips.items() if any(results)]
++        chip_id = row["chip_id"]
++        test_item = row["test_item"]
++        value = row["value"]
++        unit = row["unit"]
++        lower = row["lower"]
++        upper = row["upper"]
++        retest = int(row["retest"])
++
++        if chip_id not in chips:
++            chips[chip_id] = {}
++
++        if test_item not in chips[chip_id]:
++            chips[chip_id][test_item] = []
++
++        existing_rows = chips[chip_id][test_item]
++        for existing_row in existing_rows:
++            if all(existing_row[k] == row[k] for k in row):
++                duplicates_ignored += 1
++                break
++        else:
++            existing_rows.append(row)
++
++    passed_chips = 0
++    failed_chip_ids = set()
++
++    for chip_id, test_items in chips.items():
++        if all(item in test_items for item in required_items):
++            results = [row for test_item, rows in test_items.items() for row in rows]
++            final_results = {}
++
++            for row in results:
++                value = float(row["value"])
++                unit = row["unit"]
++                lower = float(row["lower"])
++                upper = float(row["upper"])
++                retest = int(row["retest"])
++
++                if unit == "mV":
++                    value /= 1000
++                    lower /= 1000
++                    upper /= 1000
++
++                if retest > final_results.get((chip_id, test_item), -1)[2]:
++                    final_results[(chip_id, test_item)] = (value, unit, retest)
++
++            passed = True
++            for chip_id, test_item in required_items:
++                if (chip_id, test_item) not in final_results or not lower <= final_results[(chip_id, test_item)][0] <= upper:
++                    passed = False
++                    break
++
++            if passed:
++                passed_chips += 1
++            else:
++                failed_chip_ids.add(chip_id)
++        else:
++            failed_chip_ids.add(chip_id)
++
++    yield_value = passed_chips / len(chips) if chips else 0.0
++
+     return {
+         "chips": len(chips),
+-        "passed_chips": len(passed_chips),
+-        "yield": len(passed_chips) / len(chips),
+-        "failed_chip_ids": [chip for chip in chips if chip not in passed_chips],
++        "passed_chips": passed_chips,
++        "yield": round(yield_value, 4),
++        "failed_chip_ids": sorted(failed_chip_ids),
++        "duplicates_ignored": duplicates_ignored,
++        "missing_values": missing_values,
+     }

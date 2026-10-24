@@ -16,12 +16,13 @@
 | 人工审批与修复后 pytest（report_pass_rate） | Jeff 在对话中批准第一份提案；21/21 通过，含 12 个从未发给模型的 holdout；示例数据实际输出 0.5 → 0.6667 | [演示页](evidence/report-pass-rate/view/demo.html) |
 | 芯片数据分析（合成数据）：质量检查、良率/记录通过率、失败项目、异常集中、分布与趋势、版本与运行对比、日志提取、每日汇总、异常清单 | 已实测；SQL 交叉核对一致；手工小样本 18/18 一致 | [报告](evidence/chip-analysis/report.html) |
 | 芯片数据闭环任务 `chip_final_yield`：需求 + 22 个测试冻结；修复前 4/22；7B 首次盲测提案 | 提案 1 经 Jeff 批准执行：8/22，修复失败；提案 2、3 是无法解析的 Python，执行前被拦截；三次预算用完，**未修复成功**。事后查服务日志：三次生成都在中途触发 context shift（每请求上下文 4096），原证据被部分污染；提案 1 的大部分 code 在 shift 之前生成 | [运行目录](evidence/chip-yield-agent/runs/)、[context-shift.json](evidence/chip-yield-agent/context-shift.json) |
-| 上下文溢出与输出截断的配置验证（r1 原配置 vs r2 上下文 8192 × 并行 1 vs r2b 再加输出预算 4096） | r2 / r2b 上没有再出现 context shift（最高 7662/8192）；chip_final_yield 4 份提案都因输出退化重复、达到输出预算而截断，**仍未修复**；report_pass_rate 在 r1、r2 上经批准后各 21/21。r2 只是候选，ACTIVE 仍为 r1 | [验证报告](evidence/context-validation/REPORT.md) |
+| 上下文溢出与输出截断的配置验证（r1 原配置 vs r2 上下文 8192 × 并行 1 vs r2b 再加输出预算 4096） | r2 / r2b 上没有再出现 context shift（最高 7662/8192）；chip_final_yield 4 份提案都因输出退化重复、达到输出预算而截断，**仍未修复**；report_pass_rate 在 r1、r2 上经批准后各 21/21。当时 r2 只是候选；2026-10-24 已按指示激活 r2（见下一行） | [验证报告](evidence/context-validation/REPORT.md) |
+| 激活 r2（2026-10-24）与 chip_final_yield 评测合同 rev 2（单变量对照：格式 / 采样 / 14b） | ACTIVE = r2；门禁原始结果未通过，只豁免已知的 chip 生成失败（记录在发布历史），健康检查与 report_pass_rate 21/21 通过。rev 2：A/B/C 每组都消除了重复退化（对照组 3/3 重复），但 chip 仍未修复（批准后 A 7/22、C 3/22、B 1/22） | [激活证据](evidence/release-r2-activation/)、[rev 2 报告](evidence/chip-rev2/REPORT.md) |
 | 本地 Qwen 解释分析结果 | 已实测；三版提示词均保留；人工复核发现错误，**不可直接采信** | [复核记录](evidence/chip-analysis/explanation_review.md) |
 | Docker 执行器 | **未验证**：本机没有 Docker/WSL；本次显式使用 restricted 模式 | — |
 | Linux + Docker + vLLM、两台服务器 | **未验证**：无服务器访问权限 | [deploy/](deploy/)、[scripts/env_check.sh](scripts/env_check.sh) |
 
-框架测试 98 个通过（[原始输出](evidence/framework-tests-20261023-round3.txt)；上一轮 87 个），那是代码自测，**不是模型修复成功率**。
+框架测试 104 个通过（[原始输出](evidence/framework-tests-20261024-rev2.txt)；之前 98 个、87 个），那是代码自测，**不是模型修复成功率**。
 
 ## 业务例子：测试报告通过率
 
@@ -59,6 +60,17 @@
   - chip_final_yield：r2（max_tokens 1600）和 r2b（4096）共 4 份提案，code 字符串都闭合了，但随后 explanation 一直重复，直到用完预算。JSON 不完整，没有可审批的代码，业务正确性无从验证。其中 r2b 提案 2 的 code 本身还有语法错误。本轮只有这一个任务、温度 0，在 1600 和 4096 两个预算下都退化，没有证据表明继续加预算能解决。改提示词或输出格式会改变评测合同（prompt_sha256）；采样参数（温度固定为 0，写在客户端里）目前不在合同和运行配置里，改之前应先把它记进去。
   - r2 只有 1 个并行槽位，同时到达的第二个请求要排队；本轮没有做并发测试。
 - **回归**：report_pass_rate 在 r1、r2 上各开一个新运行。Jeff 在对话中批准后（摘要 e844f457… / 8bb2baba…，展示的差异见 approval-record.md），pytest 均为 21/21（含 12 个 holdout）。
+
+## chip_final_yield 评测合同 rev 2（2026-10-24）
+
+合同文件 [qwen_agent/contracts/chip_final_yield/rev2.json](qwen_agent/contracts/chip_final_yield/rev2.json) 在任何一组运行前提交冻结。任务文件、公开测试、holdout 与策略和 rev 1 相同；r1 与它的证据没有改动。报告见 [evidence/chip-rev2/REPORT.md](evidence/chip-rev2/REPORT.md)，表中数字由 `scripts/build_chip_rev2_report.py` 从原始证据计算。
+
+- 先激活 r2：`python -m qwen_ops release activate --name r2-7b-ctx8192-np1 --accept-failing chip_final_yield --approved-by ... --reason ...`。只豁免这一个已知的任务失败（r1 上同样失败）；版本钉、服务健康和 report_pass_rate 不可豁免。激活后的健康检查和 validate 结果在 evidence/release-r2-activation/；report_pass_rate 经批准后 21/21（公开 9/9、holdout 12/12）。
+- `/v1/chat/completions` 会忽略 `repeat_penalty`，所以 rev 2 的各组（含对照组）都走原生 `/api/chat`，并显式写全采样参数。原生接口的默认值（temperature 0.8、top_p 0.9）与 rev 1 实际生效的值不同。同一请求经原生接口 + 对照组参数，输出与经 `/v1` 逐字相同。
+- 结果：对照组（rev 1 设置）3/3 重复退化并截断；A（围栏代码块 + 解释最多 3 句）、B（temperature 0.2、repeat_penalty 1.1）、C（qwen2.5-coder:14b，8192 上下文下 100% 在 GPU，驻留 9.6 GiB）都没有再出现重复。但批准后的 pytest 都没通过：A 7/22、C 3/22、B 1/22，原始有缺陷代码是 4/22。14b 的生成速度约为 7b 的一半。
+- 结论：重复退化是解码问题，改输出格式就能解决，不需要更大的模型；业务正确性在 7b 和 14b 上都没有达到。服务器选型的估算见报告结论。
+
+运行方式：`python -m qwen_ops.chip_rev2 run --arm A`（提案直到需要人工审批），`python -m qwen_ops.chip_rev2 decide --arm A --digest ... --reviewer ...`（人批准后），`python -m qwen_ops.chip_rev2 vram --model qwen2.5-coder:14b`（C 组前置检查）。
 
 ## 启动与复现（Windows PowerShell，在本目录执行）
 
