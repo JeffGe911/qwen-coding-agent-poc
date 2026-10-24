@@ -90,6 +90,8 @@ def cmd_eval(args):
     problems = check_contract(contract, args.split)
     if problems:
         raise SystemExit("refusing to run: " + "; ".join(problems) + ". Freeze a new contract version instead.")
+    if args.engine not in contract.get("engines", ["rules", "qwen"]):
+        raise SystemExit(f"contract {contract['version']} does not cover engine {args.engine}; freeze a contract version that does")
     if args.engine == "qwen":
         settings = contract["qwen"]
         if model.prompt_sha256() != settings["prompt_sha256"]:

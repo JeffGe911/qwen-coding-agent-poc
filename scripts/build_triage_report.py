@@ -155,10 +155,11 @@ def main():
     for (engine, split), r in sorted(found.items(), key=lambda kv: (ENGINES.index(kv[0][0]), SPLITS.index(kv[0][1]))):
         md += [f"## 5.{ENGINES.index(engine) * 2 + SPLITS.index(split) + 1} 逐样本：{engine} · {split}\n", sample_table(r["samples"], kinds),
                "错误明细：\n", misses(r["samples"])]
+    model_line = (f"- prompt 版本 `{q['prompt_version']}`，prompt+schema sha256 `{q['prompt_sha256'][:16]}…`；模型 `{q['model']}`，digest `{q['model_tag']['digest'][:16]}…`，"
+                  f"量化 {q['model_tag']['quantization']}，发布 `{q['release']}`，上下文 {q['context_tokens']}，max_tokens {q['max_tokens']}，temperature {q['sampling']['temperature']}\n"
+                  if q else "- 本合同只覆盖规则引擎，没有冻结模型设置；模型评测需要另一个合同版本。\n")
     md += ["## 6. 冻结内容与复现\n",
-           f"- 规则版本 `{contract['rules']['version']}`；prompt 版本 `{q['prompt_version']}`，prompt+schema sha256 `{q['prompt_sha256'][:16]}…`\n"
-           f"- 模型 `{q['model']}`，digest `{q['model_tag']['digest'][:16]}…`，量化 {q['model_tag']['quantization']}，发布 `{q['release']}`，"
-           f"上下文 {q['context_tokens']}，max_tokens {q['max_tokens']}，temperature {q['sampling']['temperature']}\n"
+           f"- 覆盖的引擎：{'、'.join(contract.get('engines', ENGINES))}；规则版本 `{contract['rules']['version']}`\n" + model_line +
            f"- 代码哈希：" + "，".join(f"`{Path(k).name}` {v[:12]}" for k, v in contract["code_sha256"].items()) + "\n",
            "```\n"
            f"python -m regression_triage eval --contract evidence/regression-triage/contract/{contract['version']}.json --split dev --engine rules\n"

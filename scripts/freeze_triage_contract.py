@@ -31,10 +31,14 @@ def main():
     p.add_argument("--note", default="")
     p.add_argument("--base-url", default="http://127.0.0.1:11437/v1")
     p.add_argument("--model", default="qwen2.5-coder:7b")
+    p.add_argument("--engines", choices=["rules", "rules,qwen"], default="rules,qwen",
+                   help="'rules' freezes without a model block (no server needed); the model then needs a later contract version")
     args = p.parse_args()
     out = EV / "contract" / f"{args.version}.json"
     if out.exists():
         raise SystemExit(f"{out} exists; contracts are immutable, use a new version")
+    if subprocess.run(["git", "status", "--porcelain", "--", *CODE], cwd=ROOT, capture_output=True, text=True).stdout.strip():
+        raise SystemExit("commit the triage code first: a contract must point at a commit that contains exactly the hashed code")
     dataset = {}
     for split in ("dev", "holdout"):
         manifest = json.loads((EV / "dataset" / f"{split}-manifest.json").read_text(encoding="utf-8"))
@@ -46,17 +50,19 @@ def main():
             rows.append({"sample_id": s["sample_id"], "kind": s["kind"], "file": s["file"], "sha256": s["sha256"], "gold": gold, "gold_sha256": sha(EV / gold)})
         dataset[split] = rows
     commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
-    dirty = subprocess.run(["git", "status", "--porcelain", "--", *CODE], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+    qwen = None
+    if "qwen" in args.engines:
+        qwen = {"base_url": args.base_url, "model": args.model, "model_tag": model.server_model_tag(args.base_url, args.model), "release": (ROOT / "deploy" / "releases" / "ACTIVE").read_text(encoding="utf-8").strip(),
+                "transport": "/v1/chat/completions with response_format json_schema", "sampling": {"temperature": 0, "note": "other sampling values are the server's /v1 defaults (top_p 1.0, repeat_penalty 1.0 per the r2 server log)"},
+                "context_tokens": 8192, "max_tokens": 1200, "margin_tokens": 300, "chars_per_token_estimate": 3.0,
+                "prompt_version": model.PROMPT_VERSION, "prompt_sha256": model.prompt_sha256()}
     contract = {
         "version": args.version, "frozen_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"), "note": args.note,
-        "git_commit": commit, "code_uncommitted_changes": bool(dirty),
+        "git_commit": commit, "code_uncommitted_changes": False, "engines": args.engines.split(","),
         "dataset": dataset, "dataset_counts": {k: {"samples": len(v), "real": sum(r["kind"] == "real" for r in v), "synthetic": sum(r["kind"] == "synthetic" for r in v)} for k, v in dataset.items()},
         "code_sha256": {rel: sha(ROOT / rel) for rel in CODE},
         "rules": {"version": rules.RULES_VERSION},
-        "qwen": {"base_url": args.base_url, "model": args.model, "model_tag": model.server_model_tag(args.base_url, args.model), "release": (ROOT / "deploy" / "releases" / "ACTIVE").read_text(encoding="utf-8").strip(),
-                 "transport": "/v1/chat/completions with response_format json_schema", "sampling": {"temperature": 0, "note": "other sampling values are the server's /v1 defaults (top_p 1.0, repeat_penalty 1.0 per the r2 server log)"},
-                 "context_tokens": 8192, "max_tokens": 1200, "margin_tokens": 300, "chars_per_token_estimate": 3.0,
-                 "prompt_version": model.PROMPT_VERSION, "prompt_sha256": model.prompt_sha256()},
+        "qwen": qwen,
         "split_policy": "dev may be used to develop rules and prompts. holdout is labelled independently and is run once per contract version and engine; "
                         "any rule or prompt change after looking at holdout results needs a new contract version and is not called blind.",
         "metrics": {"category_accuracy": "gold tests whose predicted category equals gold (missing tests count as wrong)",
