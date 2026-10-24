@@ -2,7 +2,7 @@
 
 单机可运行的小型 Coding Agent：**本地 Qwen API → pytest 失败基线 → 单文件修复提案 → 策略校验与差异 → 人工审批 → 受限执行 pytest → 审计记录**。同一个本地模型 API 还用于芯片测试数据分析和日常工程自动化（见“芯片数据分析”一节）。不做通用 Agent 平台。
 
-**结果首页：[evidence/index.html](evidence/index.html)**（所有数字由 `scripts/build_index.py` 从原始证据文件生成）
+**结果首页：[evidence/index.html](evidence/index.html)**（所有数字由 `scripts/build_index.py` 从原始证据文件生成）。给管理层的一页说明：[CEO_ONE_PAGER.md](CEO_ONE_PAGER.md)。本轮总结（四类状态）：[evidence/ROUND-20261024-linux-serving-triage.md](evidence/ROUND-20261024-linux-serving-triage.md)
 
 ## 当前状态（2026-10-23，单机）
 
@@ -19,10 +19,13 @@
 | 上下文溢出与输出截断的配置验证（r1 原配置 vs r2 上下文 8192 × 并行 1 vs r2b 再加输出预算 4096） | r2 / r2b 上没有再出现 context shift（最高 7662/8192）；chip_final_yield 4 份提案都因输出退化重复、达到输出预算而截断，**仍未修复**；report_pass_rate 在 r1、r2 上经批准后各 21/21。当时 r2 只是候选；2026-10-24 已按指示激活 r2（见下一行） | [验证报告](evidence/context-validation/REPORT.md) |
 | 激活 r2（2026-10-24）与 chip_final_yield 评测合同 rev 2（单变量对照：格式 / 采样 / 14b） | ACTIVE = r2；门禁原始结果未通过，只豁免已知的 chip 生成失败（记录在发布历史），健康检查与 report_pass_rate 21/21 通过。rev 2：A/B/C 每组都消除了重复退化（对照组 3/3 重复），但 chip 仍未修复（批准后 A 7/22、C 3/22、B 1/22） | [激活证据](evidence/release-r2-activation/)、[rev 2 报告](evidence/chip-rev2/REPORT.md) |
 | 本地 Qwen 解释分析结果 | 已实测；三版提示词均保留；人工复核发现错误，**不可直接采信** | [复核记录](evidence/chip-analysis/explanation_review.md) |
+| 仿真回归日志分诊：受限执行器真实运行 Icarus / Verilator，规则基线，评测合同 eval-v1 | 已实测。dev 37/37（规则照着它写，不算效果）；**独立 holdout 盲测类别 15/39**，错误中 22/24 是回答 unknown，没有 pass/fail 颠倒；需关注测试 precision 11/11、recall 11/24 | [分诊报告](evidence/regression-triage/REPORT.md) |
+| 本地 Qwen 分诊（固定 schema、引用校验、注入与截断检测、按 digest 钉模型） | **只有代码和单元测试**：评测时 11437 上的 Ollama 不在运行（原因未查明），未擅自重启 | 同上 |
 | Docker 执行器 | **未验证**：本机没有 Docker/WSL；本次显式使用 restricted 模式 | — |
-| Linux + Docker + vLLM、两台服务器 | **未验证**：无服务器访问权限 | [deploy/](deploy/)、[scripts/env_check.sh](scripts/env_check.sh) |
+| Linux + Docker + vLLM 单机部署（固定 digest 镜像、loopback、API key、资源限制、8 项验收脚本） | **阻塞**：本机没有 WSL/Docker，也没有 Linux GPU 机器。只有部署文件、静态检查和用替身命令做的脚本逻辑测试 | [STATUS](evidence/linux-serving/STATUS.md)、[RUNBOOK](deploy/linux-vllm/RUNBOOK.md) |
+| 两台服务器 | **未验证**：无服务器访问权限 | [scripts/env_check.sh](scripts/env_check.sh) |
 
-框架测试 104 个通过（[原始输出](evidence/framework-tests-20261024-rev2.txt)；之前 98 个、87 个），那是代码自测，**不是模型修复成功率**。
+测试 157 个通过（[原始输出](evidence/regression-triage/pytest-summary.txt)；之前 104、98、87 个）。这是代码自测，**不是模型修复成功率，也不是分诊准确率**。
 
 ## 业务例子：测试报告通过率
 
@@ -71,6 +74,38 @@
 - 结论：重复退化是解码问题，改输出格式就能解决，不需要更大的模型；业务正确性在 7b 和 14b 上都没有达到。服务器选型的估算见报告结论。
 
 运行方式：`python -m qwen_ops.chip_rev2 run --arm A`（提案直到需要人工审批），`python -m qwen_ops.chip_rev2 decide --arm A --digest ... --reviewer ...`（人批准后），`python -m qwen_ops.chip_rev2 vram --model qwen2.5-coder:14b`（C 组前置检查）。
+
+## 仿真回归日志分诊（2026-10-24）
+
+流程：读回归日志 → 抽出失败并附证据（文件、物理行号、原文）→ 指纹去重并分类（设计或测试问题 / 基础设施问题）→ 带出处的建议 → 工程师逐条确认 → 报告。建议只展示，不会执行。
+
+```powershell
+$env:QWEN_POC_EDA = "<oss-cad-suite 目录>"     # 默认 ..\..\work\tools\oss-cad-suite-20261024\oss-cad-suite
+& $py -m regression_triage demo --out evidence/regression-triage/demo          # 真实跑一个混合回归，规则分诊，生成待复核报告
+& $py -m regression_triage review evidence/regression-triage/demo/triage/regression.rules.json --test fifo_full --decision accept --reviewer <姓名> --note "..."
+& $py -m regression_triage eval --contract evidence/regression-triage/contract/eval-v1.json --split holdout --engine rules   # 已运行过，会拒绝覆盖
+```
+
+- **真实仿真，受限执行**：使用 OSS CAD Suite 2026-10-24 的 Icarus Verilog 14.0（devel）和 Verilator 5.053（devel）。本机没有 C++ 编译器，所以 Verilator 只做 lint。只允许三种固定命令（`iverilog`、`vvp`、`verilator --lint-only`），参数由校验过的清单字段拼出，源文件必须在 `hdl/` 下，并复制到临时目录中运行。Windows Job Object 限制每个进程 512 MB、最多 8 个进程；超时整棵进程树一起结束；输出上限 1 MB。设计和 testbench 都是本仓库自写的小模块，缺陷是故意注入的，不涉及任何公司 RTL。
+- **日志不可信的地方都当真处理**：runner 只记录事实（退出码、耗时、是否超时），不写结论。tool 输出里冒充 runner 的行会被转义（包括缩进的和带 BOM 的）。退出码 0 不等于通过，含 “error” 字样也不等于失败。墙钟超时的责任方记为“未定”，testbench watchdog 超时记为设计或测试问题。编译器自身的内部断言崩溃不算设计断言。日志里的提示注入只当作数据。
+- **评测**：dev 25 份（17 份真实运行、8 份手写 synthetic）。holdout 25 份（19 份真实、6 份 synthetic），由另一个代理在看不到规则、prompt、评分代码和 dev 金标准的情况下编写和标注。合同 [eval-v1](evidence/regression-triage/contract/eval-v1.json) 在运行前冻结了数据、金标准和代码的哈希。`eval` 发现任一哈希不符时拒绝运行，同一拆分也不允许重跑覆盖。数据文件按字节存储（`.gitattributes` 中设为 `-text`），在任何平台上克隆后哈希都一致。
+- **结果（rules-v1）**：dev 37/37；独立 holdout 类别 15/39（38.5%）。错误中 22/24 是回答“不知道”，没有把失败报成通过，也没有把通过报成失败。77 条引用全部有效。根因是规则只认识自己 testbench 的结论写法（`TEST PASSED`），holdout 用的是 `RESULT: PASS`、`MISMATCH`、`WATCHDOG:` 等。**结论词表是项目私有的**，规则引擎接入新项目前必须先配置。详见 [REPORT.md](evidence/regression-triage/REPORT.md)。
+- **本地 Qwen**：代码已完成（固定 JSON schema、unknown 选项、引用逐条核对物理行、日志注入当数据处理、输出截断和上下文超限显式报告、不安全建议标记、按 digest 而不是 tag 钉模型），但只有单元测试（FakeClient）。冻结合同时 11437 上的 Ollama 已不在运行，所以没有对真实模型评测。`triage-prompt-v1` 在 holdout 出现之前已提交，之后在 holdout 上跑仍然是盲测。
+
+## Linux + Docker + vLLM 单机部署（未验证）
+
+[deploy/linux-vllm/](deploy/linux-vllm/) 包含以下文件。**这些文件还没有在任何 Linux GPU 机器上运行过**，状态与开始实测的最小条件见 [STATUS.md](evidence/linux-serving/STATUS.md)：
+- compose：镜像 `vllm/vllm-openai:v0.32.0` 按 digest 固定，`pull_policy: never`；只发布到 127.0.0.1；API key 从 git 忽略的 `.env` 读取；运行时离线；内存、pids、shm 有限制；有健康检查和日志轮转；
+- 固定 revision 的权重下载脚本（记录 sha256）；
+- 8 项验收脚本：启动与真实请求、各端点有无 key 的返回码、生效配置、显存、并发 1/2/4、短/长/超限输入、停止与崩溃恢复、配置变更与回滚。脚本先做资源预检，key 不会写入任何证据文件；
+- 中文操作手册。
+
+按官方文档（2026-10-24）核对出的几点：
+- 文档只写了计算能力 ≥ 7.5，以及 B200/GB200 需要 CUDA ≥ 12.8；没有明确提到 RTX 50 系列（计算能力 12.0），本机这张卡能否运行必须实测；
+- Ollama 用的 GGUF 在 vLLM 中仍是 “highly experimental”，所以权重改用 safetensors（1.5B BF16 / 7B AWQ），与 Ollama 上的 Q4_K_M 不是同一份权重；
+- `--api-key` 不保护 `/health`、`/metrics`，所以只监听 loopback，对外要经过网关。
+
+详见 [docs-check.md](evidence/linux-serving/docs-check.md)。
 
 ## 启动与复现（Windows PowerShell，在本目录执行）
 

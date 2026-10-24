@@ -5,7 +5,7 @@
 已完成（只有代码和静态检查，没有做集成验证）：
 
 - `deploy/linux-vllm/`：compose（镜像按 digest 固定、只在 127.0.0.1 监听、API key、资源限制、健康检查、日志轮转、运行时离线）、env.example、wslconfig.example（8 GB / 4 GB swap）、download_model.sh（固定 revision）、acceptance.sh（8 项验证，含资源预检和 key 过滤）、RUNBOOK.md。
-- `tests/test_linux_vllm.py`：静态检查，加上两个脚本的 `bash -n` 语法检查。
+- `tests/test_linux_vllm.py`：静态检查，两个脚本的 `bash -n` 语法检查，以及用替身命令（假的 uname/free/nvidia-smi/docker/curl）驱动 acceptance.sh 的拒绝路径：没有明确确认或 key 不是十六进制时拒绝；可用内存不足或 GPU 已被占用时在预检阶段停下，不启动、不结束任何容器；工具把 key 打印出来时，证据文件里也只有 [REDACTED]。这些只是脚本逻辑测试，不是部署验证。
 - 官方文档与版本核对：见 docs-check.md。
 - 本机环境检查：见 environment-check.txt。WSL 未安装，没有 Docker；有 Hypervisor；GPU 为 RTX 5070 Ti Laptop，计算能力 12.0，驱动 591.91。
 

@@ -225,3 +225,24 @@ def test_review_needs_a_named_human_and_a_known_test():
         report.add_review(doc, "nope", "accept", "R")
     report.add_review(doc, "fifo_basic", "accept", "R", "flag fires at count 3")
     assert "全部已复核" in report.render(doc)
+
+
+# ---------- evaluation contract ----------
+
+@pytest.mark.skipif(not (EV / "contract" / "eval-v1.json").exists(), reason="no frozen contract")
+def test_eval_refuses_reruns_uncovered_engines_and_changed_inputs(tmp_path):
+    from regression_triage import __main__ as cli
+    contract = json.loads((EV / "contract" / "eval-v1.json").read_text(encoding="utf-8"))
+    contract["code_sha256"] = {rel: cli.sha(ROOT / rel) for rel in contract["code_sha256"]}  # independent of later code edits
+    path = tmp_path / "contract.json"
+    path.write_text(json.dumps(contract), encoding="utf-8")
+    with pytest.raises(SystemExit, match="already has results"):
+        cli.main(["eval", "--contract", str(path), "--split", "holdout", "--engine", "rules"])
+    with pytest.raises(SystemExit, match="does not cover engine qwen"):
+        cli.main(["eval", "--contract", str(path), "--split", "holdout", "--engine", "qwen"])
+    contract.update(version="tampered-by-test")
+    contract["dataset"]["dev"][0]["gold_sha256"] = "0" * 64
+    path.write_text(json.dumps(contract), encoding="utf-8")
+    with pytest.raises(SystemExit, match="refusing to run"):
+        cli.main(["eval", "--contract", str(path), "--split", "dev", "--engine", "rules"])
+    assert not (EV / "results" / "tampered-by-test-rules").exists()

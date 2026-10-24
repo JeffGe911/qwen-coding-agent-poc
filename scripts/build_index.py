@@ -105,6 +105,25 @@ def context_section():
             + "<p><small>r2 / r2b 只是候选，ACTIVE 仍为 r1；r2 只有 1 个并行槽位，并发能力未测。</small></p>")
 
 
+def triage_section():
+    """Regression-log triage: one row per contract, engine and split, from results/*/*/metrics.json."""
+    rows = []
+    fmt = lambda v: "—" if v is None else f"{v:.1%}"
+    for path in sorted((EV / "regression-triage" / "results").glob("*/*/metrics.json")):
+        m = load(path)
+        fc = m["flagged_counts"]
+        rows.append((m["contract"], m["engine"], m["split"], f"{m['samples']} / {m['gold_tests']}", fmt(m["category_accuracy"]),
+                     f"{fc['tp']}/{fc['tp'] + fc['fp']}", f"{fc['tp']}/{fc['tp'] + fc['fn']}", fmt(m["citation_valid_rate"]), fmt(m["unknown_rate"]),
+                     f"{m['request_failed']} / {m['invalid_output']}"))
+    if not rows:
+        return ""
+    return ('<h2>7. 仿真回归日志分诊（真实 Icarus / Verilator 运行）</h2><p>读日志 → 引用原文行的失败归类 → 工程师确认。dev 由规则作者编写，只用于开发；'
+            'holdout 由独立代理编写和标注，规则在它交付前已提交，只运行一次（盲测）。本地 Qwen 尚未评测（评测时 11437 上的服务不在运行）。'
+            '<a href="regression-triage/REPORT.md">完整报告</a></p>'
+            + table(["合同", "引擎", "拆分", "样本 / 金标准测试", "类别准确率", "需关注 precision", "需关注 recall", "引用有效率", "unknown 比例", "请求失败 / 输出不合规"], rows)
+            + "<p><small>holdout 上的错误几乎都是“不知道”，没有把失败报成通过；根因是 testbench 的结论写法因项目而异。</small></p>")
+
+
 def main():
     env_file = latest("env/windows-*.txt")
     env = env_file.read_text(encoding="utf-8-sig") if env_file else ""
@@ -208,11 +227,13 @@ def main():
 
 {chip_section()}
 {context_section()}
-<h2>7. 未验证 / 未完成</h2><ul>
+{triage_section()}
+<h2>8. 未验证 / 未完成</h2><ul>
 <li>本轮两个盲测运行的当前状态：{esc(round_status())}。待审批的提案在批准前不执行，其修复后结果未验证。</li>
 <li>芯片数据分析只用了合成数据；没有真实数据，指标口径（良率、重测、异常）都是列出的假设，未经业务确认；不支持 xlsx（需要 openpyxl，可先另存为 CSV）。</li>
 <li>Docker 执行器（无网络、只读、非 root、资源限额）：本机未安装 Docker 和 WSL，<b>未验证</b>；本次使用显式选择的 restricted 模式，它不是操作系统级沙箱。</li>
-<li>Linux + Docker + vLLM 部署（deploy/compose.vllm.yaml）与两台服务器：没有服务器访问权限，<b>未验证</b>；scripts/env_check.sh 尚未在任何 Linux 主机执行。</li>
+<li>Linux + Docker + vLLM 部署（deploy/linux-vllm/ 单机套件，deploy/compose.vllm.yaml 网关方案）与两台服务器：本机没有 WSL/Docker，也没有 Linux GPU 机器，<b>未验证</b>，只有静态检查和脚本逻辑测试；scripts/env_check.sh 尚未在任何 Linux 主机执行。见 <a href="linux-serving/STATUS.md">STATUS</a>。</li>
+<li>本地 Qwen 的日志分诊：只有单元测试，没有对真实模型评测。</li>
 <li>样本量很小（两个任务各一次盲测），不代表模型在真实仓库上的修复能力。</li></ul>
 </main></html>'''
     (EV / "index.html").write_text(doc, encoding="utf-8")
