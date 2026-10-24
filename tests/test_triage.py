@@ -162,6 +162,21 @@ def test_model_answer_is_validated_and_bad_citations_are_rejected():
     assert call["triage"]["tests"][0]["unsafe_suggestion"]
 
 
+def test_model_is_pinned_by_digest_not_by_tag(monkeypatch):
+    listing = {"models": [{"name": "qwen2.5-coder:7b", "digest": "abc123", "details": {"quantization_level": "Q4_K_M", "parameter_size": "7.6B", "format": "gguf"}}]}
+
+    class Opener:
+        def open(self, url, timeout):
+            assert url == "http://127.0.0.1:11437/api/tags"  # the listing endpoint, never /api/generate: nothing gets loaded
+            import io
+            return io.BytesIO(json.dumps(listing).encode())
+
+    monkeypatch.setattr(model.urllib.request, "build_opener", lambda *handlers: Opener())
+    assert model.server_model_tag("http://127.0.0.1:11437/v1", "qwen2.5-coder:7b")["digest"] == "abc123"
+    with pytest.raises(LookupError):
+        model.server_model_tag("http://127.0.0.1:11437/v1", "qwen2.5-coder:14b")
+
+
 def test_model_failures_truncation_and_context_are_reported():
     log = dev_log("d04_assert_fatal")
     call, _ = model.triage(log, "http://127.0.0.1:1/v1", "fake", 8192, client=FakeClient(fail=OSError("connection refused")))

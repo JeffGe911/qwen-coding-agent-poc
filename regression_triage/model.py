@@ -8,6 +8,7 @@ token budget, and prompts that would not fit the server context are reported as 
 import json
 import re
 import time
+import urllib.request
 
 from qwen_agent.client import Client
 from qwen_agent.policy import digest
@@ -53,6 +54,18 @@ UNSAFE = re.compile(r"rm\s+-rf|git\s+push\s+--force|del\s+/[sq]|format\s+c:|curl
 
 def prompt_sha256():
     return digest({"system": SYSTEM, "schema": SCHEMA, "version": PROMPT_VERSION})
+
+
+def server_model_tag(base_url, name):
+    """Digest and quantization of `name` from Ollama's /api/tags. Listing models does not load one. A tag such as
+    qwen2.5-coder:7b can be re-pulled to different weights, so evaluations pin the digest, not the name."""
+    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
+    with opener.open(base_url[: -len("/v1")] + "/api/tags", timeout=10) as r:
+        for m in json.loads(r.read()).get("models", []):
+            if m["name"] == name:
+                return {"name": name, "digest": m["digest"], "quantization": m["details"].get("quantization_level"),
+                        "parameter_size": m["details"].get("parameter_size"), "format": m["details"].get("format")}
+    raise LookupError(f"model {name} is not listed by {base_url}")
 
 
 def structure(log):

@@ -1,4 +1,5 @@
 """Static checks of the single-host vLLM deployment files. They do not start anything; the files are unverified on Linux."""
+import os
 from pathlib import Path
 import re
 import shutil
@@ -45,3 +46,67 @@ def test_acceptance_script_never_traces_and_redacts_the_key():
 @pytest.mark.parametrize("script", ["acceptance.sh", "download_model.sh"])
 def test_scripts_parse(script):
     assert subprocess.run(["bash", "-n", str(DEPLOY / script)], capture_output=True).returncode == 0
+
+
+# ---------- refusal paths of acceptance.sh, driven with stub commands ----------
+# These only exercise the script's own decisions (when to stop, what reaches the evidence folder) with fake
+# uname/free/nvidia-smi/docker on PATH. They are code tests, not a deployment check: nothing here talks to vLLM.
+
+KEY = "0123456789abcdef" * 4
+
+
+def bash_works():
+    exe = shutil.which("bash")
+    return bool(exe) and subprocess.run([exe, "-c", "set -o pipefail; echo ok"], capture_output=True, text=True).stdout.strip() == "ok"
+
+
+def acceptance(tmp_path, free_mb=8000, gpu_used=300, confirm="yes", key=KEY, leak_key=False):
+    bin_dir, evid = tmp_path / "bin", tmp_path / "evidence"
+    bin_dir.mkdir(parents=True)
+    calls = (tmp_path / "calls.log").as_posix()
+    stubs = {
+        "uname": "echo Linux",
+        "hostname": "echo stubhost",
+        "free": f'echo "     total used free shared buff/cache available"; echo "Mem: 31000 20000 1000 100 10000 {free_mb}"',
+        "nvidia-smi": f'case "$*" in *query-gpu*) echo {gpu_used};; *) echo "nvidia-smi stub";; esac',
+        # a tool that echoes the key (e.g. `compose config` without --quiet) must still not leak it into evidence
+        "docker": f'echo "docker $*" >> "{calls}"' + (f'; echo "environment: VLLM_API_KEY={key}"' if leak_key else ""),
+        "curl": f'echo "curl $*" >> "{calls}"; exit 7',
+    }
+    for name, body in stubs.items():
+        (bin_dir / name).write_text(f"#!/usr/bin/env bash\n{body}\n", encoding="utf-8", newline="\n")
+    env_file = tmp_path / "test.env"
+    env_file.write_text(f"VLLM_API_KEY={key}\nVLLM_IMAGE=vllm/vllm-openai:v0.32.0@sha256:{'0' * 64}\nHOST_PORT=18999\n", encoding="utf-8", newline="\n")
+    env = {**os.environ, "PATH": str(bin_dir) + os.pathsep + os.environ["PATH"], "ENV_FILE": env_file.as_posix(), "EVID_ROOT": evid.as_posix(),
+           "QWEN_VLLM_CONFIRM": confirm}
+    p = subprocess.run([shutil.which("bash"), str(DEPLOY / "acceptance.sh")], env=env, capture_output=True, text=True, timeout=60)
+    docker_calls = Path(calls).read_text(encoding="utf-8") if Path(calls).exists() else ""
+    files = {f.name: f.read_text(encoding="utf-8") for f in evid.rglob("*") if f.is_file()} if evid.exists() else {}
+    return p, docker_calls, files
+
+
+needs_bash = pytest.mark.skipif(not bash_works(), reason="no working bash")
+
+
+@needs_bash
+def test_acceptance_needs_explicit_confirmation_and_a_hex_key(tmp_path):
+    p, calls, _ = acceptance(tmp_path, confirm="")
+    assert p.returncode == 2 and "QWEN_VLLM_CONFIRM=yes" in p.stderr and calls == ""
+    p, calls, _ = acceptance(tmp_path / "k", key="REPLACE_WITH_64_HEX_CHARS")
+    assert p.returncode == 2 and "must be hex" in p.stderr and calls == ""
+
+
+@needs_bash
+@pytest.mark.parametrize("free_mb,gpu_used,failed", [(3000, 300, "available RAM"), (8000, 9000, "GPU memory already used")])
+def test_acceptance_stops_before_starting_when_resources_are_short(tmp_path, free_mb, gpu_used, failed):
+    p, calls, files = acceptance(tmp_path, free_mb=free_mb, gpu_used=gpu_used)
+    assert p.returncode == 1 and "not starting vLLM" in p.stderr
+    assert "config --quiet" in calls and " up " not in calls and " kill " not in calls  # report and stop, never start or free anything
+    assert any(line.startswith("FAIL") and failed in line for line in files["summary.tsv"].splitlines())
+
+
+@needs_bash
+def test_acceptance_redacts_the_key_from_every_evidence_file(tmp_path):
+    _, _, files = acceptance(tmp_path, free_mb=3000, leak_key=True)
+    assert files and not any(KEY in text for text in files.values())
+    assert any("[REDACTED]" in text for text in files.values())

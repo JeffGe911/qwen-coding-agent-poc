@@ -31,7 +31,7 @@ PORT=$(val HOST_PORT); PORT=${PORT:-18000}
 MODEL=$(val SERVED_MODEL_NAME); MODEL=${MODEL:-qwen-local}
 LEN=$(val MAX_MODEL_LEN); LEN=${LEN:-4096}
 BASE=http://127.0.0.1:$PORT
-EVID=evidence/linux-serving/$(hostname -s 2>/dev/null || hostname)-$(date -u +%Y%m%dT%H%M%SZ)
+EVID=${EVID_ROOT:-evidence/linux-serving}/$(hostname -s 2>/dev/null || hostname)-$(date -u +%Y%m%dT%H%M%SZ)
 mkdir -p "$EVID"
 TMP=$(mktemp -d); chmod 700 "$TMP"; trap 'rm -rf "$TMP"' EXIT
 (umask 077; printf 'Authorization: Bearer %s\n' "$KEY" > "$TMP/auth")

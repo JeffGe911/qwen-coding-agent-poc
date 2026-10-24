@@ -12,7 +12,6 @@ import json
 from pathlib import Path
 import subprocess
 import sys
-import urllib.request
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -24,17 +23,6 @@ CODE = ["regression_triage/rules.py", "regression_triage/model.py", "regression_
 
 def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
-
-
-def model_tag(base_url, name):
-    """Digest and quantization from Ollama's /api/tags (listing does not load the model)."""
-    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
-    with opener.open(base_url[: -len("/v1")] + "/api/tags", timeout=10) as r:
-        for m in json.loads(r.read()).get("models", []):
-            if m["name"] == name:
-                return {"name": name, "digest": m["digest"], "quantization": m["details"].get("quantization_level"),
-                        "parameter_size": m["details"].get("parameter_size"), "format": m["details"].get("format")}
-    raise SystemExit(f"model {name} not listed by the server")
 
 
 def main():
@@ -65,7 +53,7 @@ def main():
         "dataset": dataset, "dataset_counts": {k: {"samples": len(v), "real": sum(r["kind"] == "real" for r in v), "synthetic": sum(r["kind"] == "synthetic" for r in v)} for k, v in dataset.items()},
         "code_sha256": {rel: sha(ROOT / rel) for rel in CODE},
         "rules": {"version": rules.RULES_VERSION},
-        "qwen": {"base_url": args.base_url, "model": args.model, "model_tag": model_tag(args.base_url, args.model), "release": (ROOT / "deploy" / "releases" / "ACTIVE").read_text(encoding="utf-8").strip(),
+        "qwen": {"base_url": args.base_url, "model": args.model, "model_tag": model.server_model_tag(args.base_url, args.model), "release": (ROOT / "deploy" / "releases" / "ACTIVE").read_text(encoding="utf-8").strip(),
                  "transport": "/v1/chat/completions with response_format json_schema", "sampling": {"temperature": 0, "note": "other sampling values are the server's /v1 defaults (top_p 1.0, repeat_penalty 1.0 per the r2 server log)"},
                  "context_tokens": 8192, "max_tokens": 1200, "margin_tokens": 300, "chars_per_token_estimate": 3.0,
                  "prompt_version": model.PROMPT_VERSION, "prompt_sha256": model.prompt_sha256()},

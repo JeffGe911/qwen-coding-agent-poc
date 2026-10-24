@@ -94,6 +94,9 @@ def cmd_eval(args):
         settings = contract["qwen"]
         if model.prompt_sha256() != settings["prompt_sha256"]:
             raise SystemExit("prompt/schema differ from the contract; freeze a new contract version")
+        served = model.server_model_tag(settings["base_url"], settings["model"])
+        if served["digest"] != settings["model_tag"]["digest"]:
+            raise SystemExit(f"{settings['model']} on the server is {served['digest'][:12]}, the contract froze {settings['model_tag']['digest'][:12]}")
     else:
         settings = None
     out = EV / "results" / f"{contract['version']}-{args.engine}" / args.split
