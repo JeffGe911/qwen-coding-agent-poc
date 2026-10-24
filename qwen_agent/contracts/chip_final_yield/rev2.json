@@ -1,0 +1,138 @@
+{
+  "id": "chip_final_yield/rev2",
+  "task": "chip_final_yield",
+  "revision": 2,
+  "task_files_sha256": {
+    "solution.py": "b0576529219c4f238e51638a27581e156e41addec61d534962a37bbd650534bf",
+    "test_visible.py": "f8ccbb8f989512ce48244065fbe334256e9aaf2c3a8bf8f32638aff6b0d9bbed",
+    "test_holdout.py": "3d89345d0e627ac43295cc24a273253edb61e58198a1c36dfa62241dfd21dbce",
+    "task.json": "6b58ee3dc13e5950e84076be9d55ea92e7686dec26f2eecd726abcbdcde68aaa"
+  },
+  "opened_at_utc": "2026-10-24T05:26:24+00:00",
+  "purpose": "Find which single change stops the repetitive, budget-exhausting output seen on revision 1 once the context was large enough (r2, 8192 tokens per request).",
+  "revision_1_unchanged": {
+    "task_revision": 1,
+    "requirement_and_tests": "identical bytes; not copied, read from qwen_agent/tasks/chip_final_yield/",
+    "prompt_sha256_rev1_json_v1": "afa3f06258ad64042d2fc75ee4cb8096529c7ab42c860031e97f646e401e8764",
+    "policy_revision": 2,
+    "evidence": "evidence/chip-yield-agent/ and evidence/context-validation/ are not modified"
+  },
+  "server": {
+    "release": "r2-7b-ctx8192-np1",
+    "context_per_request": 8192,
+    "parallel": 1,
+    "checked_before_each_arm": "qwen_ops release verify + /api/ps context_length"
+  },
+  "transport_note": "Revision 1 used /v1/chat/completions, which ignores repeat_penalty. Every revision-2 arm, including the control, uses Ollama's native /api/chat with every sampling value set explicitly, so the transport is constant across arms. The control values equal what the revision-1 requests actually used per the server log (evidence/context-validation/server-logs/ollama-11437-20261023T213428Z.err.log: temp 0.000, top_k 40, top_p 1.000, min_p 0.000, typical_p 1.000, repeat_penalty 1.000, repeat_last_n 64, frequency/presence 0.000). Native defaults differ (temp 0.8, top_p 0.9) and are never relied on.",
+  "formats": {
+    "json_v1": {
+      "prompt_sha256": "afa3f06258ad64042d2fc75ee4cb8096529c7ab42c860031e97f646e401e8764",
+      "note": "revision-1 system prompt + JSON schema {code, explanation}"
+    },
+    "fenced_v1": {
+      "prompt_sha256": "7c17fafa634b3a0a9c79e83d2e5eadcc7737df2f7aa3a9fb09694a251389b575",
+      "note": "same rules as json_v1; reply = complete solution.py in exactly one ```python block, then at most 3 sentences; no JSON schema. Exactly one block is required (else model_error); the 3-sentence cap is recorded, not enforced."
+    }
+  },
+  "arms": {
+    "control": {
+      "changes_vs_rev1": "none (rev-1 format, sampling and model through the revision-2 transport)",
+      "model": "qwen2.5-coder:7b",
+      "generation": {
+        "format": "json_v1",
+        "transport": "ollama_native_chat",
+        "sampling": {
+          "temperature": 0,
+          "top_k": 40,
+          "top_p": 1.0,
+          "min_p": 0.0,
+          "typical_p": 1.0,
+          "repeat_penalty": 1.0,
+          "repeat_last_n": 64,
+          "frequency_penalty": 0.0,
+          "presence_penalty": 0.0
+        },
+        "max_tokens": 1600
+      }
+    },
+    "A": {
+      "changes_vs_rev1": "output format only: json_v1 -> fenced_v1",
+      "model": "qwen2.5-coder:7b",
+      "generation": {
+        "format": "fenced_v1",
+        "transport": "ollama_native_chat",
+        "sampling": {
+          "temperature": 0,
+          "top_k": 40,
+          "top_p": 1.0,
+          "min_p": 0.0,
+          "typical_p": 1.0,
+          "repeat_penalty": 1.0,
+          "repeat_last_n": 64,
+          "frequency_penalty": 0.0,
+          "presence_penalty": 0.0
+        },
+        "max_tokens": 1600
+      }
+    },
+    "B": {
+      "changes_vs_rev1": "sampling only: temperature 0 -> 0.2, repeat_penalty 1.0 -> 1.1, seed 42 (needed for a reproducible non-greedy run)",
+      "model": "qwen2.5-coder:7b",
+      "generation": {
+        "format": "json_v1",
+        "transport": "ollama_native_chat",
+        "sampling": {
+          "temperature": 0.2,
+          "top_k": 40,
+          "top_p": 1.0,
+          "min_p": 0.0,
+          "typical_p": 1.0,
+          "repeat_penalty": 1.1,
+          "repeat_last_n": 64,
+          "frequency_penalty": 0.0,
+          "presence_penalty": 0.0,
+          "seed": 42
+        },
+        "max_tokens": 1600
+      }
+    },
+    "C": {
+      "changes_vs_rev1": "model only: qwen2.5-coder:7b -> qwen2.5-coder:14b",
+      "model": "qwen2.5-coder:14b",
+      "generation": {
+        "format": "json_v1",
+        "transport": "ollama_native_chat",
+        "sampling": {
+          "temperature": 0,
+          "top_k": 40,
+          "top_p": 1.0,
+          "min_p": 0.0,
+          "typical_p": 1.0,
+          "repeat_penalty": 1.0,
+          "repeat_last_n": 64,
+          "frequency_penalty": 0.0,
+          "presence_penalty": 0.0
+        },
+        "max_tokens": 1600
+      },
+      "precondition": "run only if the 14b model is fully on GPU at 8192 context (/api/ps size_vram == size and offloaded N/N layers); otherwise stop and report VRAM numbers, never run with CPU offload"
+    }
+  },
+  "attempts": "Up to 3 proposals per arm in one run, same rules as revision 1: start = proposal 1; model_error -> `python -m qwen_agent retry` (feedback carries the error); policy_blocked -> automatic re-proposal; awaiting_approval -> human approval of the full diff, then pytest; a failed pytest re-proposes with visible-test feedback only. Holdout failures are never sent to the model.",
+  "recorded_per_attempt": [
+    "finish_reason",
+    "prompt_tokens",
+    "completion_tokens",
+    "context shift / truncation in the server-log window of the call",
+    "effective sampler values in the server log",
+    "repetition (rule below)",
+    "JSON or fence format check",
+    "Python parse",
+    "policy",
+    "visible tests and holdout tests (only after approval)"
+  ],
+  "repetition_rule": {
+    "definition": "repetition = some 8-word phrase occurs >= 5 times, non-overlapping, in the full output text (words = [A-Za-z_'][A-Za-z_'-]*, JSON-escaped newlines read as spaces)",
+    "calibration": "21 earlier outputs that finished with stop: max 2 occurrences, distinct-8-gram ratio >= 0.96; 5 revision-1 outputs cut at max_tokens: min 38 occurrences, ratio <= 0.39"
+  }
+}

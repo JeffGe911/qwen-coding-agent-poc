@@ -19,6 +19,24 @@ def active_release_defaults():
         return "http://127.0.0.1:11434/v1", "qwen2.5-coder:1.5b", None
 
 
+def load_contract_arm(path, arm, task_id):
+    """One arm of a versioned evaluation contract (qwen_agent/contracts/<task>/revN.json), checked against the frozen task files."""
+    import hashlib
+    raw = Path(path).read_bytes()
+    doc = json.loads(raw)
+    if doc["task"] != task_id:
+        raise ValueError(f"contract {doc['id']} is for task {doc['task']}, not {task_id}")
+    for name, expected in doc["task_files_sha256"].items():
+        if hashlib.sha256((TASKS / task_id / name).read_bytes()).hexdigest() != expected:
+            raise ValueError(f"task file {name} differs from contract {doc['id']}; refusing to run")
+    if arm not in doc["arms"]:
+        raise ValueError(f"contract {doc['id']} has no arm {arm!r}; arms: {sorted(doc['arms'])}")
+    spec = doc["arms"][arm]
+    revision = {"id": doc["id"], "revision": doc["revision"], "arm": arm, "changes_vs_rev1": spec["changes_vs_rev1"],
+                "file": Path(path).as_posix(), "sha256": hashlib.sha256(raw).hexdigest()}
+    return spec["model"], spec["generation"], doc["server"]["context_per_request"], revision
+
+
 def show(run, state):
     print(f"Run: {run}\nStatus: {state['status']}")
     if state.get("error"):
@@ -68,6 +86,8 @@ def main():
         p.add_argument("--context-tokens", type=int,
                        help="server context window per request; output reaching it is rejected (default: the active release's, when --base-url and --model are the release's)")
         p.add_argument("--max-tokens", type=int, help="output budget per proposal (default 1600); recorded in the run config")
+    propose.add_argument("--contract", type=Path, help="versioned evaluation contract, e.g. qwen_agent/contracts/chip_final_yield/rev2.json")
+    propose.add_argument("--arm", help="arm of --contract; its model, format and sampling replace --model/--max-tokens")
     demo.add_argument("--reviewer", required=True)
     review = commands.add_parser("show")
     review.add_argument("run", type=Path)
@@ -93,9 +113,15 @@ def main():
         elif args.command in {"start", "demo"}:
             selected = sorted(task_ids) if args.task == "all" else [args.task]
             failed = False
+            extra = {}
+            if getattr(args, "contract", None):
+                if not args.arm or args.max_tokens:
+                    raise ValueError("--contract needs --arm, and the arm fixes the output budget (no --max-tokens)")
+                args.model, extra["generation"], window, extra["contract_revision"] = load_contract_arm(args.contract, args.arm, args.task)
+                args.context_tokens = args.context_tokens or window
             for task_id in selected:
                 run, state = start(task_id, args.runs, args.base_url, args.model, args.sandbox, args.max_attempts, context_tokens=args.context_tokens,
-                                   max_tokens=args.max_tokens)
+                                   max_tokens=args.max_tokens, **extra)
                 if args.command == "demo":
                     state = interactive(run, state, args.reviewer)
                 else:

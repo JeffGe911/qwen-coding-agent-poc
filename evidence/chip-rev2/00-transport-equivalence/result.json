@@ -1,0 +1,45 @@
+{
+  "at_utc": "2026-10-24T05:47:33.798+00:00",
+  "source_run": "evidence/context-validation/r2-7b-ctx8192-np1/runs/20261023T213445Z-chip_final_yield-c1329f74",
+  "usage": {
+    "recorded_rev1_v1": {
+      "prompt_tokens": 3413,
+      "prompt_tokens_details": {
+        "cached_tokens": 275
+      },
+      "completion_tokens": 1600,
+      "total_tokens": 5013
+    },
+    "replay_v1": {
+      "prompt_tokens": 3413,
+      "prompt_tokens_details": {
+        "cached_tokens": 2137
+      },
+      "completion_tokens": 1600,
+      "total_tokens": 5013
+    },
+    "replay_native_control": {
+      "prompt_tokens": 3413,
+      "completion_tokens": 1600
+    }
+  },
+  "finish_reason": {
+    "recorded_rev1_v1": "length",
+    "replay_v1": "length",
+    "replay_native_control": "length"
+  },
+  "identical_text": {
+    "replay_v1 vs recorded": false,
+    "native_control vs replay_v1": true,
+    "native_control vs recorded": false
+  },
+  "first_differing_char": {
+    "native_control vs replay_v1": null,
+    "replay_v1 vs recorded": 1260
+  },
+  "server_log": {
+    "file": "ollama-11437-20261024T054234Z.err.log",
+    "start_line": 573,
+    "end_line": 646
+  }
+}

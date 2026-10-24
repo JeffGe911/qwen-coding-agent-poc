@@ -80,7 +80,18 @@ class Client:
             return None
         return next((m.get("context_length") for m in models if m.get("name") == self.model), None)
 
-    def propose(self, task, code, tests, feedback, max_tokens=DEFAULT_MAX_TOKENS):
+    def propose(self, task, code, tests, feedback, max_tokens=DEFAULT_MAX_TOKENS, profile=None):
+        if profile:  # contract revision 2+: explicit format/sampling through the native API
+            from .generation import FORMATS, native_body, normalize_native
+            user = json.dumps({"requirement": task["description"], "solution.py": code, "visible_tests": tests, "pytest_feedback": feedback}, ensure_ascii=False)
+            messages = [{"role": "system", "content": FORMATS[profile["format"]]["system"]}, {"role": "user", "content": user}]
+            request = urllib.request.Request(self.base_url[: -len("/v1")] + "/api/chat", data=json.dumps(native_body(self.model, profile, messages)).encode(),
+                                             headers={"Content-Type": "application/json"})
+            with self.opener.open(request, timeout=self.timeout) as response:
+                raw = response.read(262145)
+            if len(raw) > 262144:
+                raise ValueError("Model response exceeded 256 KiB")
+            return normalize_native(json.loads(raw))
         return self.request("/chat/completions", {
             "model": self.model, "temperature": 0, "max_tokens": max_tokens, "stream": False,
             "response_format": {"type": "json_schema", "json_schema": {"name": "patch", "strict": True, "schema": SCHEMA}},

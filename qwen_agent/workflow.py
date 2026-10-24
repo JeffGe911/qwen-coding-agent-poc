@@ -8,6 +8,7 @@ import time
 import uuid
 
 from .client import DEFAULT_MAX_TOKENS, Client, prompt_sha256
+from .generation import check_profile, format_sha256, parse
 from .policy import POLICY_REVISION, PolicyError, digest, validate
 from .runner import ROOT, execute
 
@@ -20,14 +21,15 @@ def sha256_file(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def contract(task_path):
+def contract(task_path, generation=None):
     """Everything that defines what the model saw and how code is judged.
 
     Stored in state["config"], so it is part of every approval digest: a reviewer
     approves code against this exact prompt, policy and frozen test snapshot.
+    With a generation profile (contract revision 2+) the prompt digest is that of its output format.
     """
     return {
-        "prompt_sha256": prompt_sha256(),
+        "prompt_sha256": format_sha256(generation["format"]) if generation else prompt_sha256(),
         "policy_revision": POLICY_REVISION,
         "policy_sha256": sha256_file(Path(__file__).resolve().parent / "policy.py"),
         "task_files_sha256": {name: sha256_file(task_path / name) for name in FILES + ("task.json",)},
@@ -122,6 +124,9 @@ def propose_once(run, state, client):
     try:
         # Runs created before max_tokens was recorded used the default; the argument is only passed when it differs.
         budget = {"max_tokens": state["config"]["max_tokens"]} if state["config"].get("max_tokens", DEFAULT_MAX_TOKENS) != DEFAULT_MAX_TOKENS else {}
+        generation = state["config"].get("generation")
+        if generation:
+            budget = {"profile": generation}
         response = client.propose(state["task"], files["solution.py"], files["test_visible.py"], state["feedback"], **budget)
         write_json(folder / "model-response.json", response)
         choice = response["choices"][0]
@@ -132,15 +137,15 @@ def propose_once(run, state, client):
                                 server_mismatch(client, state["config"].get("context_tokens"))) if p]
         if problems:
             raise ValueError("; ".join(problems))
-        proposal = json.loads(choice["message"]["content"])
-        if not isinstance(proposal, dict) or set(proposal) != {"code", "explanation"} or not all(isinstance(v, str) for v in proposal.values()):
-            raise ValueError("Expected exactly string fields code and explanation")
+        proposal, format_facts = parse(generation["format"] if generation else "json_v1", choice["message"]["content"])
         proposal["attempt"] = attempt
         proposal["digest"] = binding(state, proposal, files)
         write_json(folder / "proposal.json", proposal)
         diff = "".join(difflib.unified_diff(files["solution.py"].splitlines(True), proposal["code"].splitlines(True), fromfile="before/solution.py", tofile="after/solution.py"))
         (folder / "diff.txt").write_text(diff, encoding="utf-8")
         item = {"attempt": attempt, "digest": proposal["digest"], "proposed_at": now(), "generation_seconds": round(time.monotonic() - started, 3), "usage": response.get("usage"), "status": "awaiting_approval"}
+        if generation:
+            item["format_facts"] = format_facts
         code = proposal["code"].strip()
         repeat = next((n for n, (old, _) in earlier_proposals(run, state).items() if old == code), None)
         if code == files["solution.py"].strip():
@@ -207,14 +212,18 @@ def check_context(usage, context_tokens):
         raise ValueError(problem)
 
 
-def start(task_id, runs, base_url, model, sandbox="docker", max_attempts=3, client=None, context_tokens=None, max_tokens=None):
+def start(task_id, runs, base_url, model, sandbox="docker", max_attempts=3, client=None, context_tokens=None, max_tokens=None, generation=None,
+          contract_revision=None):
     if task_id not in {p.name for p in TASKS.iterdir() if p.is_dir()}:
         raise ValueError("Unknown bundled task")
     if not 1 <= max_attempts <= 3:
         raise ValueError("max-attempts must be 1..3")
     Client(base_url, model)  # Validate the endpoint before doing any work.
     task_path = TASKS / task_id
-    frozen = contract(task_path)
+    if generation:
+        check_profile(generation)
+        max_tokens = generation["max_tokens"]
+    frozen = contract(task_path, generation)
     run = Path(runs).resolve() / (datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + task_id + "-" + uuid.uuid4().hex[:8])
     workspace = run / "workspace"
     workspace.mkdir(parents=True)
@@ -224,6 +233,10 @@ def start(task_id, runs, base_url, model, sandbox="docker", max_attempts=3, clie
     if context_tokens:
         config["context_tokens"] = context_tokens  # server window per request; see context_problem
     config["max_tokens"] = max_tokens or DEFAULT_MAX_TOKENS  # output budget, recorded so it is part of the approval digest
+    if generation:
+        config["generation"] = generation  # format, transport and every sampling value, recorded before any model call
+    if contract_revision:
+        config["contract_revision"] = contract_revision
     state = {"run_id": run.name, "created_at": now(), "task": read_json(task_path / "task.json"), "config": config, "attempts": [], "status": "baseline"}
     write_json(run / "state.json", state)
     event(run, "created", task=task_id, sandbox=sandbox, model=model, contract=frozen)

@@ -1,0 +1,1 @@
+This folder is from a qwen_ops validate invocation that aborted on a tooling bug (relative --out-root path; fixed in qwen_ops/validate.py) before any agent call. Only the health check it ran first was written. The complete validation is in ../r2-active/.

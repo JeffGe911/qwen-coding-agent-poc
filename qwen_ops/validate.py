@@ -156,8 +156,9 @@ def finish_task(r, err, start, context, max_tokens):
     return r
 
 
-def run(label, context, parallel, max_queue=512, max_tokens=DEFAULT_MAX_TOKENS, tasks=TASKS, port=11437, note=""):
-    out = OUT / label
+def run(label, context, parallel, max_queue=512, max_tokens=DEFAULT_MAX_TOKENS, tasks=TASKS, port=11437, note="", out_root=None):
+    root = Path(out_root).resolve() if out_root else OUT
+    out = root / label
     out.mkdir(parents=True, exist_ok=True)
     svc = OllamaWindows(port, context, parallel, max_queue)
     doc = {"label": label, "at_utc": now(), "note": note,
@@ -188,7 +189,7 @@ def run(label, context, parallel, max_queue=512, max_tokens=DEFAULT_MAX_TOKENS, 
     doc["server_log"] = ollama_log.log_pair(rec)[0].name
     (out / "summary.json").write_text(json.dumps(doc, indent=2, ensure_ascii=False, default=str) + "\n", encoding="utf-8")
     # Keep the server logs with the evidence (the runtime prunes old logs); one shared copy per server launch.
-    logs = OUT / "server-logs"
+    logs = root / "server-logs"
     logs.mkdir(exist_ok=True)
     for path in ollama_log.log_pair(rec):
         if Path(path).exists():

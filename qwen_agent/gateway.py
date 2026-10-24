@@ -61,6 +61,11 @@ def create_server(upstream, token, port=11436):
                 try:
                     length = int(self.headers.get("Content-Length", "0"))
                     if self.headers.get("Transfer-Encoding") or not 0 < length <= 65536:
+                        # Read (a bounded part of) the body first: closing on an unread body makes Windows reset the
+                        # connection, and the client never sees the 413.
+                        if 0 < length <= 1 << 20:
+                            self.rfile.read(length)
+                        self.close_connection = True
                         return self.send(413, b'{"error":"body limit"}')
                     body = json.loads(self.rfile.read(length))
                     if not isinstance(body, dict) or body.get("stream") is True:

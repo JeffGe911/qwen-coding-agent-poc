@@ -147,17 +147,27 @@ def apply(manifest, evidence_dir=None):
     return service, {"restarted": True, **service.restart()}
 
 
-def activate(name, auto_rollback=True, evidence_dir=None, gate_fn=None):
+def accepted(result, accept):
+    """Gate outcome after a human accepted known per-task failures. Pins and service health are never waivable."""
+    if result["passed"] or not accept or "proposals" not in result.get("checks", {}):
+        return result["passed"]
+    checks = result["checks"]
+    return checks["health_status"] == "healthy" and all(ok for task, ok in checks["proposals"].items() if task not in accept["tasks"])
+
+
+def activate(name, auto_rollback=True, evidence_dir=None, gate_fn=None, accept=None):
+    """accept: {"tasks": [...], "approved_by": ..., "reason": ...} - known task failures a human accepted for this activation."""
     previous = active_name()
     manifest = load(name)
     service, action = apply(manifest, evidence_dir)
     pins = verify_pins(manifest, service)
     gate_fn = gate_fn or gate_mod.run
     result = gate_fn(service.base_url, manifest["model"]["name"], pid=service.pid()) if not pins else {"passed": False, "checks": {"pins": pins}}
+    ok = accepted(result, accept)
     event = history("activate", name=name, previous=previous, restarted=action["restarted"], pin_problems=pins, gate_passed=result["passed"],
-                    gate_checks=result["checks"])
-    outcome = {"name": name, "previous": previous, "action": action, "pins": pins, "gate": result, "event": event}
-    if result["passed"]:
+                    gate_checks=result["checks"], **({"accepted_failures": accept, "activated_with_accepted_failures": ok} if accept else {}))
+    outcome = {"name": name, "previous": previous, "action": action, "pins": pins, "gate": result, "event": event, "accepted": ok}
+    if ok:
         (RELEASES / "ACTIVE").write_text(name + "\n", encoding="utf-8")
         outcome["active"] = name
     elif auto_rollback and previous and previous != name:
@@ -193,7 +203,8 @@ def adopt(name, service, model, note=""):
 def previous_release(current=None):
     """The release that was in service before `current` (gated activations and the adopted starting point)."""
     current = current or active_name()
-    actives = [e["name"] for e in read_history() if (e["event"] == "activate" and e.get("gate_passed")) or e["event"] == "adopt"]
+    actives = [e["name"] for e in read_history()
+               if (e["event"] == "activate" and (e.get("gate_passed") or e.get("activated_with_accepted_failures"))) or e["event"] == "adopt"]
     for name in reversed(actives):
         if name != current:
             return name

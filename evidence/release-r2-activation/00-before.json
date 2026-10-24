@@ -1,0 +1,33 @@
+{
+  "active": "r1-7b-ctx4096",
+  "manifest": {
+    "name": "r1-7b-ctx4096",
+    "created_at_utc": "2026-10-23T21:07:51.432+00:00",
+    "note": "接手时正在运行的配置：Ollama 0.40.9，qwen2.5-coder:7b，每槽位上下文 4096，2 个并行槽位，原样登记，未经门禁",
+    "server": {
+      "kind": "ollama-windows",
+      "port": 11437,
+      "context": 4096,
+      "parallel": 2,
+      "max_queue": 512,
+      "version": "0.40.9",
+      "exe": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\runtime\\ollama\\ollama.exe",
+      "exe_sha256": "0957bdaa7b52e163cdc7feb1275653f27c6b32e8ba309e957bdbb83493e97a4b"
+    },
+    "model": {
+      "name": "qwen2.5-coder:7b",
+      "digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+      "quantization": "Q4_K_M",
+      "parameter_size": "7.6B",
+      "format": "gguf"
+    },
+    "agent": {
+      "base_url": "http://127.0.0.1:11437/v1",
+      "model": "qwen2.5-coder:7b",
+      "prompt_sha256": "afa3f06258ad64042d2fc75ee4cb8096529c7ab42c860031e97f646e401e8764",
+      "policy_revision": 2,
+      "policy_sha256": "98f066638f7285c342b9c36872d49967449c624d34e27d58e6c7adff497bb7db"
+    }
+  },
+  "previous": null
+}

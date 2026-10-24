@@ -1,0 +1,180 @@
+{
+  "name": "r2-7b-ctx8192-np1",
+  "previous": "r1-7b-ctx4096",
+  "action": {
+    "restarted": true,
+    "stop": {
+      "cmd": "powershell -NoProfile -ExecutionPolicy Bypass -File D:\\新建文件夹\\qwen-coding-agent-poc\\scripts\\stop_ollama.ps1 -Port 11437 -Runtime C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\runtime",
+      "exit_code": 0,
+      "seconds": 5.24,
+      "stdout": "Stopped pid 47484 on port 11437; children llama-server.exe:51360; port closed=True; leftover children=0; GPU memory used 5084 MiB -> 0 MiB\nSTOPPED=47484",
+      "stderr": ""
+    },
+    "start": {
+      "cmd": "powershell -NoProfile -ExecutionPolicy Bypass -File D:\\新建文件夹\\qwen-coding-agent-poc\\scripts\\start_ollama.ps1 -Port 11437 -Context 8192 -NumParallel 1 -MaxQueue 512 -Evidence D:\\新建文件夹\\qwen-coding-agent-poc\\evidence\\serving -Runtime C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\runtime",
+      "exit_code": 0,
+      "seconds": 11.32,
+      "stdout": "Ollama 0.40.9 API ready on 127.0.0.1:11437 in 4.92 s (pid 29636). Model loads on first request.\nRECORD=D:\\新建文件夹\\qwen-coding-agent-poc\\evidence\\serving\\ollama-launch-11437-20261024T054234Z.json",
+      "stderr": "",
+      "record": "D:\\新建文件夹\\qwen-coding-agent-poc\\evidence\\serving\\ollama-launch-11437-20261024T054234Z.json"
+    }
+  },
+  "pins": [],
+  "gate": {
+    "at_utc": "2026-10-24T05:43:10.152+00:00",
+    "base_url": "http://127.0.0.1:11437/v1",
+    "model": "qwen2.5-coder:7b",
+    "passed": false,
+    "checks": {
+      "health_status": "healthy",
+      "golden_all_ok": true,
+      "gpu_fraction": 1.0,
+      "context_tokens": 8192,
+      "proposals_ok": false,
+      "proposals": {
+        "report_pass_rate": true,
+        "chip_final_yield": false
+      }
+    },
+    "health": {
+      "at_utc": "2026-10-24T05:42:44.739+00:00",
+      "base_url": "http://127.0.0.1:11437/v1",
+      "model": "qwen2.5-coder:7b",
+      "checks": {
+        "process": {
+          "pid": 29636,
+          "ok": true
+        },
+        "port": {
+          "ok": true,
+          "seconds": 0.001
+        },
+        "api": {
+          "ok": true,
+          "seconds": 0.056,
+          "models": [
+            "qwen2.5-coder:7b",
+            "qwen2.5-coder:1.5b"
+          ]
+        },
+        "model": {
+          "ok": true,
+          "golden": [
+            {
+              "id": "arith",
+              "seconds": 3.075,
+              "answer": "391",
+              "usage": {
+                "prompt_tokens": 45,
+                "prompt_tokens_details": {
+                  "cached_tokens": 0
+                },
+                "completion_tokens": 4,
+                "total_tokens": 49
+              },
+              "ok": true
+            },
+            {
+              "id": "json_schema",
+              "seconds": 0.257,
+              "answer": "{\n  \"answer\": 144\n}",
+              "usage": {
+                "prompt_tokens": 43,
+                "prompt_tokens_details": {
+                  "cached_tokens": 24
+                },
+                "completion_tokens": 12,
+                "total_tokens": 55
+              },
+              "ok": true
+            }
+          ]
+        },
+        "residency": {
+          "ok": true,
+          "gpu_fraction": 1.0,
+          "size_bytes": 5148633988,
+          "size_vram_bytes": 5148633988,
+          "context_length": 8192
+        }
+      },
+      "status": "healthy"
+    },
+    "proposals": [
+      {
+        "task": "report_pass_rate",
+        "baseline": "8/21",
+        "context_tokens": 8192,
+        "seconds": 5.6,
+        "usage": {
+          "prompt_tokens": 1648,
+          "prompt_tokens_details": {
+            "cached_tokens": 4
+          },
+          "completion_tokens": 302,
+          "total_tokens": 1950
+        },
+        "finish_reason": "stop",
+        "context_ok": true,
+        "json_ok": true,
+        "code_sha256": "4833cb6613943ef495d224c2d016c6aa347265f566613a7f65eae7f7f960e10d",
+        "changed": true,
+        "policy_ok": true,
+        "ok": true
+      },
+      {
+        "task": "chip_final_yield",
+        "baseline": "4/22",
+        "context_tokens": 8192,
+        "seconds": 15.26,
+        "usage": {
+          "prompt_tokens": 2900,
+          "prompt_tokens_details": {
+            "cached_tokens": 275
+          },
+          "completion_tokens": 842,
+          "total_tokens": 3742
+        },
+        "finish_reason": "stop",
+        "context_ok": true,
+        "json_ok": true,
+        "code_sha256": "df67718e345c68f22d2f7e5bfe6074d5c8e2d957ad6c5408c36a8342b26f3951",
+        "changed": true,
+        "policy_ok": false,
+        "policy_error": "Invalid Python: unmatched ')' (<unknown>, line 57)",
+        "ok": false
+      }
+    ],
+    "note": "Gate does not execute model code; pytest on proposals needs human approval via the agent."
+  },
+  "event": {
+    "at_utc": "2026-10-24T05:43:10.152+00:00",
+    "event": "activate",
+    "name": "r2-7b-ctx8192-np1",
+    "previous": "r1-7b-ctx4096",
+    "restarted": true,
+    "pin_problems": [],
+    "gate_passed": false,
+    "gate_checks": {
+      "health_status": "healthy",
+      "golden_all_ok": true,
+      "gpu_fraction": 1.0,
+      "context_tokens": 8192,
+      "proposals_ok": false,
+      "proposals": {
+        "report_pass_rate": true,
+        "chip_final_yield": false
+      }
+    },
+    "accepted_failures": {
+      "tasks": [
+        "chip_final_yield"
+      ],
+      "approved_by": "Jeff (instruction in chat, 2026-10-24)",
+      "reason": "Promote r2 as asked. chip_final_yield fails generation on r1 and r2 alike (output repetition, evidence/context-validation/REPORT.md) and is investigated under contract chip_final_yield/rev2; health, pins and report_pass_rate must still pass."
+    },
+    "activated_with_accepted_failures": true
+  },
+  "accepted": true,
+  "active": "r2-7b-ctx8192-np1"
+}

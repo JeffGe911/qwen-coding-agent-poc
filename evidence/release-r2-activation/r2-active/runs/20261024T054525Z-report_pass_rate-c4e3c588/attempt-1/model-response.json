@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-990",
+  "object": "chat.completion",
+  "created": 1792820733,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"code\": \"def summarize_results(results):\\n    summary = {\\\"passed\\\": 0, \\\"failed\\\": 0, \\\"skipped\\\": 0}\\n    for result in results:\\n        status = result.get(\\\"status\\\")\\n        if status == \\\"passed\\\":\\n            summary[\\\"passed\\\"] += 1\\n        elif status == \\\"failed\\\":\\n            summary[\\\"failed\\\"] += 1\\n        elif status == \\\"skipped\\\":\\n            summary[\\\"skipped\\\"] += 1\\n        else:\\n            raise ValueError(f\\\"Unknown status: {status}\\\")\\n    total_executed = summary[\\\"passed\\\"] + summary[\\\"failed\\\"]\\n    pass_rate = summary[\\\"passed\\\"] / total_executed if total_executed else 0.0\\n    return {\\\"passed\\\": summary[\\\"passed\\\"], \\\"failed\\\": summary[\\\"failed\\\"], \\\"skipped\\\": summary[\\\"skipped\\\"], \\\"pass_rate\\\": round(pass_rate, 4)}\\n\",\n  \"explanation\": \"1. Initialize summary dictionary with keys 'passed', 'failed', 'skipped', and 'pass_rate'.\\n2. Iterate over each result in the input list.\\n3. Use `get` method to safely retrieve the 'status' key from each result. If 'status' is not present, raise a ValueError.\\n4. Increment the corresponding count in the summary dictionary based on the status.\\n5. Calculate the total number of executed cases (passed + failed).\\n6. Compute the pass rate, ensuring to handle the case where no cases were executed.\\n7. Round the pass rate to four decimal places.\\n8. Return the summary dictionary with the calculated values.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1844,
+    "prompt_tokens_details": {
+      "cached_tokens": 1250
+    },
+    "completion_tokens": 366,
+    "total_tokens": 2210
+  }
+}

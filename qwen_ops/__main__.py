@@ -67,18 +67,21 @@ def main(argv=None):
     r.add_argument("action", choices=["adopt", "snapshot", "activate", "rollback", "verify", "show"]); r.add_argument("--name"); r.add_argument("--note", default="")
     r.add_argument("--no-auto-rollback", action="store_true")
     r.add_argument("--max-tokens", type=int, help="agent output budget recorded in the manifest (default 1600)")
+    r.add_argument("--accept-failing", help="activate: comma-separated gate tasks whose known failure a human accepts (health and pins still required)")
+    r.add_argument("--approved-by"); r.add_argument("--reason")
     v = sub.add_parser("validate")
     v.add_argument("--label", required=True); v.add_argument("--context", type=int, required=True); v.add_argument("--parallel", type=int, required=True)
     v.add_argument("--max-queue", type=int, default=512); v.add_argument("--max-tokens", type=int, default=1600); v.add_argument("--port", type=int, default=11437)
     v.add_argument("--no-tasks", action="store_true", help="service layer only (e.g. to verify a restore)"); v.add_argument("--note", default="")
     v.add_argument("--tasks", default="report_pass_rate,chip_final_yield", help="frozen tasks to run, comma separated")
+    v.add_argument("--out-root", type=Path, help="evidence folder (default evidence/context-validation)")
     args = p.parse_args(argv)
 
     if args.cmd == "validate":
         from . import validate
         tasks = () if args.no_tasks else tuple(t for t in args.tasks.split(",") if t)
         doc = validate.run(args.label, args.context, args.parallel, args.max_queue, args.max_tokens, tasks,
-                           args.port, args.note)
+                           args.port, args.note, args.out_root)
         gen = {t: {"status": g.get("status"), "error": (g.get("error") or "")[:200], "digest": g.get("approval_digest")} for t, g in doc["generation"].items()}
         dump({"label": doc["label"], "service": {k: doc["service"][k] for k in ("status", "ok", "residency", "effective")}, "generation": gen})
         return 0 if doc["service"]["ok"] else 1
@@ -119,8 +122,13 @@ def main(argv=None):
         elif args.action == "adopt":
             res = release.adopt(args.name, svc, args.model, args.note)
         elif args.action == "activate":
-            res = release.activate(args.name, auto_rollback=not args.no_auto_rollback)
-            code = 0 if res.get("active") == args.name and res["gate"]["passed"] else 1
+            accept = None
+            if args.accept_failing:
+                if not (args.approved_by and args.reason):
+                    raise SystemExit("--accept-failing needs --approved-by and --reason")
+                accept = {"tasks": args.accept_failing.split(","), "approved_by": args.approved_by, "reason": args.reason}
+            res = release.activate(args.name, auto_rollback=not args.no_auto_rollback, accept=accept)
+            code = 0 if res.get("active") == args.name and res["accepted"] else 1
         elif args.action == "rollback":
             res = release.rollback()
             code = 0 if res["gate"]["passed"] else 1
