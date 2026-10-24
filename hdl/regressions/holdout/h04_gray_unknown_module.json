@@ -1,0 +1,18 @@
+{
+  "regression": "h04_gray_unknown_module",
+  "description": "testbench instantiates a module name that does not exist",
+  "tests": [
+    {
+      "test_id": "gray_exhaustive",
+      "top": "tb_gray",
+      "sources": [
+        "hdl/holdout/rtl/gray_conv.v",
+        "hdl/holdout/tb/tb_gray.sv"
+      ],
+      "defines": [
+        "BUG_MODNAME"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

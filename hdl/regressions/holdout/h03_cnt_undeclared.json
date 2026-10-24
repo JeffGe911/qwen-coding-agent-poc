@@ -1,0 +1,18 @@
+{
+  "regression": "h03_cnt_undeclared",
+  "description": "RTL uses an identifier that is never declared (elaboration error)",
+  "tests": [
+    {
+      "test_id": "cnt_basic",
+      "top": "tb_updown",
+      "sources": [
+        "hdl/holdout/rtl/updown_counter.v",
+        "hdl/holdout/tb/tb_updown.sv"
+      ],
+      "defines": [
+        "BUG_UNDECLARED"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

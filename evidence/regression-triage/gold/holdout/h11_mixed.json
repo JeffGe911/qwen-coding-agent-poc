@@ -1,0 +1,54 @@
+{
+  "sample_id": "h11_mixed",
+  "log_status": "complete",
+  "tests": {
+    "shift_smoke": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        7
+      ]
+    },
+    "shift_lvalue": {
+      "result": "not_run",
+      "category": "compile_error",
+      "side": "design_or_test",
+      "evidence_lines": [
+        11
+      ]
+    },
+    "parity_modes": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        23,
+        24,
+        25,
+        26,
+        27
+      ]
+    },
+    "crc_stop": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        34
+      ]
+    },
+    "arb_fairness": {
+      "result": "fail",
+      "category": "timeout",
+      "side": "design_or_test",
+      "evidence_lines": [
+        41,
+        42
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand-labelled from the holdout regression manifests / injected defines (hdl/regressions/holdout, hdl/holdout) and the text of the copied log, following GOLD-FORMAT.md; no parser, rule baseline or model output was consulted",
+  "notes": "Five tests, five outcomes. shift_lvalue: first error line 11 (lines 12-16 repeat it for other assignments). crc_stop: $fatal (FATAL:, line 34), exit 1. arb_fairness: watchdog lines 41-42 with exit 0."
+}

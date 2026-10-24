@@ -1,0 +1,163 @@
+{
+  "run_id": "20261024T185707Z-h12_cnt_duplicates-ecfdd2",
+  "regression": "h12_cnt_duplicates",
+  "manifest": "hdl/regressions/holdout/h12_cnt_duplicates.json",
+  "manifest_sha256": "ad2a2386b104e4e65baef2fdb0728d539be8801519d5857920897947f608f124",
+  "started_utc": "2026-10-24T18:57:07+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "cnt_rand_s11",
+      "defines": [
+        "BUG_DOWN_STEP"
+      ],
+      "plusargs": [
+        "+SEED=11"
+      ],
+      "sources_sha256": {
+        "hdl/holdout/rtl/updown_counter.v": "3bc2e6de0547f4bae8d7d784f543d9ad381f9e5062e37f5b52cb5572ae0d9cb6",
+        "hdl/holdout/tb/tb_updown.sv": "788ba2c14aba01bf12ff1aa7add0a5df431dd33c3fcb76c63a78110371146e92"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_updown -DBUG_DOWN_STEP hdl/holdout/rtl/updown_counter.v hdl/holdout/tb/tb_updown.sv",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.054,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp +SEED=11",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.029,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 8
+        }
+      ]
+    },
+    {
+      "test_id": "cnt_up_only",
+      "defines": [
+        "BUG_DOWN_STEP"
+      ],
+      "plusargs": [
+        "+SEED=5",
+        "+UP_ONLY"
+      ],
+      "sources_sha256": {
+        "hdl/holdout/rtl/updown_counter.v": "3bc2e6de0547f4bae8d7d784f543d9ad381f9e5062e37f5b52cb5572ae0d9cb6",
+        "hdl/holdout/tb/tb_updown.sv": "788ba2c14aba01bf12ff1aa7add0a5df431dd33c3fcb76c63a78110371146e92"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_updown -DBUG_DOWN_STEP hdl/holdout/rtl/updown_counter.v hdl/holdout/tb/tb_updown.sv",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.051,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp +SEED=5 +UP_ONLY",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.024,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 3
+        }
+      ]
+    },
+    {
+      "test_id": "cnt_rand_s29",
+      "defines": [
+        "BUG_DOWN_STEP"
+      ],
+      "plusargs": [
+        "+SEED=29"
+      ],
+      "sources_sha256": {
+        "hdl/holdout/rtl/updown_counter.v": "3bc2e6de0547f4bae8d7d784f543d9ad381f9e5062e37f5b52cb5572ae0d9cb6",
+        "hdl/holdout/tb/tb_updown.sv": "788ba2c14aba01bf12ff1aa7add0a5df431dd33c3fcb76c63a78110371146e92"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_updown -DBUG_DOWN_STEP hdl/holdout/rtl/updown_counter.v hdl/holdout/tb/tb_updown.sv",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.051,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp +SEED=29",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.024,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 8
+        }
+      ]
+    },
+    {
+      "test_id": "crc_smoke",
+      "defines": [],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout/rtl/crc8.v": "2ec61477d78c9ae9f0acf13a2b2d14576576d6c55d56465c7cb5df0fe1b1e6fb",
+        "hdl/holdout/tb/tb_crc8.sv": "617e185a42a86e7271c648eada2cdef75165f776e69c037e4485f0763903237f"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_crc8 hdl/holdout/rtl/crc8.v hdl/holdout/tb/tb_crc8.sv",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.053,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.027,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 3
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-24T18:57:08+00:00"
+}

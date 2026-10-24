@@ -1,0 +1,31 @@
+{
+  "regression": "h01_cnt_pass_warnings",
+  "description": "two passing tests; the counter test has a port-padding compile warning and two runtime $warning lines",
+  "tests": [
+    {
+      "test_id": "cnt_narrow_load",
+      "top": "tb_updown",
+      "sources": [
+        "hdl/holdout/rtl/updown_counter.v",
+        "hdl/holdout/tb/tb_updown.sv"
+      ],
+      "defines": [
+        "WARN_NARROW_LOAD"
+      ],
+      "plusargs": [
+        "+SEED=3"
+      ],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "gray_exhaustive",
+      "top": "tb_gray",
+      "sources": [
+        "hdl/holdout/rtl/gray_conv.v",
+        "hdl/holdout/tb/tb_gray.sv"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    }
+  ]
+}

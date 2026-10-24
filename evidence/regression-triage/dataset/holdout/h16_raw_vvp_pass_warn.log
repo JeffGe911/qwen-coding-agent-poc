@@ -1,0 +1,7 @@
+[tb_updown] seed=17 cycles=160 up_only=0
+WARNING: hdl/holdout/tb/tb_updown.sv:35: load value comes from a 4-bit register; d[7:4] stays zero in this run
+         Time: 0  Scope: tb_updown
+WARNING: hdl/holdout/tb/tb_updown.sv:62: coverage hole: no load value above 15 was exercised in 159 checks (d is only 4 bits wide)
+         Time: 1620000  Scope: tb_updown
+RESULT: PASS  tb_updown  checks=159 mismatches=0
+hdl/holdout/tb/tb_updown.sv:70: $finish called at 1620000 (1ps)

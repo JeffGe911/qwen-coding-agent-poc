@@ -1,0 +1,59 @@
+{
+  "run_id": "20261024T185708Z-h14_shift_no_verdict-a2845e",
+  "regression": "h14_shift_no_verdict",
+  "manifest": "hdl/regressions/holdout/h14_shift_no_verdict.json",
+  "manifest_sha256": "c5911124e6fe92e3fef0aa65fa61e9fbb3943d1e37df205c2d08c51c03809596",
+  "started_utc": "2026-10-24T18:57:08+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "shift_smoke",
+      "defines": [
+        "NO_VERDICT"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout/rtl/shift_reg.v": "6337fef2596f264968e26fa15e6fb878da7ad8b065b52140e45638b6c756c03b",
+        "hdl/holdout/tb/tb_shiftreg.sv": "d6cbfddfb6a6e0c8b9a32cec5b5b357967bbe6867f4e328188b6eecf110c8e00"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_shiftreg -DNO_VERDICT hdl/holdout/rtl/shift_reg.v hdl/holdout/tb/tb_shiftreg.sv",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.054,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.031,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 3
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-24T18:57:08+00:00"
+}

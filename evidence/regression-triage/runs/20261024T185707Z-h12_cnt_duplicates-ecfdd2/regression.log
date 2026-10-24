@@ -1,0 +1,41 @@
+#RUN regression=h12_cnt_duplicates run_id=20261024T185707Z-h12_cnt_duplicates-ecfdd2 started_utc=2026-10-24T18:57:07+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=cnt_rand_s11 stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_updown -DBUG_DOWN_STEP hdl/holdout/rtl/updown_counter.v hdl/holdout/tb/tb_updown.sv
+#RUN test=cnt_rand_s11 stage=compile exit=0 elapsed_s=0.054 timed_out=false output_truncated=false
+#RUN test=cnt_rand_s11 stage=run cmd=vvp.exe -n sim.vvp +SEED=11
+[tb_updown] seed=11 cycles=160 up_only=0
+[tb_updown] MISMATCH t=60000 q=151 expected=152 (en=1 up=0 load=0)
+[tb_updown] MISMATCH t=70000 q=149 expected=150 (en=1 up=0 load=0)
+[tb_updown] MISMATCH t=100000 q=147 expected=148 (en=1 up=0 load=0)
+[tb_updown] MISMATCH t=110000 q=145 expected=146 (en=1 up=0 load=0)
+[tb_updown] more mismatches follow; not printing them
+RESULT: FAIL  tb_updown  checks=159 mismatches=54
+hdl/holdout/tb/tb_updown.sv:70: $finish called at 1620000 (1ps)
+#RUN test=cnt_rand_s11 stage=run exit=0 elapsed_s=0.029 timed_out=false output_truncated=false
+#RUN test=cnt_up_only stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_updown -DBUG_DOWN_STEP hdl/holdout/rtl/updown_counter.v hdl/holdout/tb/tb_updown.sv
+#RUN test=cnt_up_only stage=compile exit=0 elapsed_s=0.051 timed_out=false output_truncated=false
+#RUN test=cnt_up_only stage=run cmd=vvp.exe -n sim.vvp +SEED=5 +UP_ONLY
+[tb_updown] seed=5 cycles=160 up_only=1
+RESULT: PASS  tb_updown  checks=159 mismatches=0
+hdl/holdout/tb/tb_updown.sv:70: $finish called at 1620000 (1ps)
+#RUN test=cnt_up_only stage=run exit=0 elapsed_s=0.024 timed_out=false output_truncated=false
+#RUN test=cnt_rand_s29 stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_updown -DBUG_DOWN_STEP hdl/holdout/rtl/updown_counter.v hdl/holdout/tb/tb_updown.sv
+#RUN test=cnt_rand_s29 stage=compile exit=0 elapsed_s=0.051 timed_out=false output_truncated=false
+#RUN test=cnt_rand_s29 stage=run cmd=vvp.exe -n sim.vvp +SEED=29
+[tb_updown] seed=29 cycles=160 up_only=0
+[tb_updown] MISMATCH t=70000 q=145 expected=146 (en=1 up=0 load=0)
+[tb_updown] MISMATCH t=100000 q=143 expected=144 (en=1 up=0 load=0)
+[tb_updown] MISMATCH t=140000 q=143 expected=144 (en=1 up=0 load=0)
+[tb_updown] MISMATCH t=160000 q=142 expected=143 (en=1 up=0 load=0)
+[tb_updown] more mismatches follow; not printing them
+RESULT: FAIL  tb_updown  checks=159 mismatches=57
+hdl/holdout/tb/tb_updown.sv:70: $finish called at 1620000 (1ps)
+#RUN test=cnt_rand_s29 stage=run exit=0 elapsed_s=0.024 timed_out=false output_truncated=false
+#RUN test=crc_smoke stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_crc8 hdl/holdout/rtl/crc8.v hdl/holdout/tb/tb_crc8.sv
+#RUN test=crc_smoke stage=compile exit=0 elapsed_s=0.053 timed_out=false output_truncated=false
+#RUN test=crc_smoke stage=run cmd=vvp.exe -n sim.vvp
+[tb_crc8] 6 frames, stop_on_error=0
+[tb_crc8] SUMMARY: 6 frames, 0 bad -> PASS
+hdl/holdout/tb/tb_crc8.sv:75: $finish called at 380000 (1ps)
+#RUN test=crc_smoke stage=run exit=0 elapsed_s=0.027 timed_out=false output_truncated=false
+#RUN regression=h12_cnt_duplicates end tests=4 finished_utc=2026-10-24T18:57:08+00:00

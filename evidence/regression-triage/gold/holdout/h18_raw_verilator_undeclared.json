@@ -1,0 +1,17 @@
+{
+  "sample_id": "h18_raw_verilator_undeclared",
+  "log_status": "complete",
+  "tests": {
+    "(log)": {
+      "result": "fail",
+      "category": "compile_error",
+      "side": "design_or_test",
+      "evidence_lines": [
+        1
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand-labelled from the holdout regression manifests / injected defines (hdl/regressions/holdout, hdl/holdout) and the text of the copied log, following GOLD-FORMAT.md; no parser, rule baseline or model output was consulted",
+  "notes": "Raw Verilator output, test_id '(log)'. The sidecar (raw-tool-output/h18_raw_verilator_undeclared.json) shows the command was --lint-only, and a failing lint is 'fail'. The log text alone does not say lint vs. a Verilator build; if scoring is from text only, not_run is a defensible alternative for result. Category and side are unambiguous."
+}

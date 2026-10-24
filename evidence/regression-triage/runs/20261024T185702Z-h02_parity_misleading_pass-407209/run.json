@@ -1,0 +1,59 @@
+{
+  "run_id": "20261024T185702Z-h02_parity_misleading_pass-407209",
+  "regression": "h02_parity_misleading_pass",
+  "manifest": "hdl/regressions/holdout/h02_parity_misleading_pass.json",
+  "manifest_sha256": "8a47b1883503ace6453f45b6a008c2111e7241f1fa654b1e7d086cc8fd566b7a",
+  "started_utc": "2026-10-24T18:57:02+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "parity_fault_inject",
+      "defines": [
+        "FAULT_LOG"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout/rtl/parity_gen.v": "6877fde57958d730cceeda29a63738c37f23dffa394309ffdc63d543022f06ba",
+        "hdl/holdout/tb/tb_parity.sv": "ba7a09afd4dd9cf72344d6d60c73c8efbb345e6d2ac39d117fd16e1620a3d5b9"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_parity -DFAULT_LOG hdl/holdout/rtl/parity_gen.v hdl/holdout/tb/tb_parity.sv",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.05,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.024,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 8
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-24T18:57:02+00:00"
+}

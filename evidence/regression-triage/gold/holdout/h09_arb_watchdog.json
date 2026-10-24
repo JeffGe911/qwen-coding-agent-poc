@@ -1,0 +1,18 @@
+{
+  "sample_id": "h09_arb_watchdog",
+  "log_status": "complete",
+  "tests": {
+    "arb_rotation": {
+      "result": "fail",
+      "category": "timeout",
+      "side": "design_or_test",
+      "evidence_lines": [
+        7,
+        8
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand-labelled from the holdout regression manifests / injected defines (hdl/regressions/holdout, hdl/holdout) and the text of the copied log, following GOLD-FORMAT.md; no parser, rule baseline or model output was consulted",
+  "notes": "Testbench watchdog fired (line 7) and the verdict names it (line 8); simulator exit 0. Watchdog timeout -> design_or_test."
+}

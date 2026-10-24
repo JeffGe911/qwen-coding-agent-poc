@@ -1,0 +1,18 @@
+{
+  "regression": "h09_arb_watchdog",
+  "description": "round-robin pointer stuck, requester 2 starves, testbench watchdog stops the run",
+  "tests": [
+    {
+      "test_id": "arb_rotation",
+      "top": "tb_rr_arbiter",
+      "sources": [
+        "hdl/holdout/rtl/rr_arbiter.v",
+        "hdl/holdout/tb/tb_rr_arbiter.sv"
+      ],
+      "defines": [
+        "BUG_RR_STUCK"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

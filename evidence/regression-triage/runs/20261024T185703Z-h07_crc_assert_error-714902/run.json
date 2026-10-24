@@ -1,0 +1,59 @@
+{
+  "run_id": "20261024T185703Z-h07_crc_assert_error-714902",
+  "regression": "h07_crc_assert_error",
+  "manifest": "hdl/regressions/holdout/h07_crc_assert_error.json",
+  "manifest_sha256": "b87f1b9c1aad00220703feea7508efba3dfbea80b04662fc0f7bce1a4b1c4ef3",
+  "started_utc": "2026-10-24T18:57:03+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "crc_frames",
+      "defines": [
+        "BUG_CRC_POLY"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout/rtl/crc8.v": "2ec61477d78c9ae9f0acf13a2b2d14576576d6c55d56465c7cb5df0fe1b1e6fb",
+        "hdl/holdout/tb/tb_crc8.sv": "617e185a42a86e7271c648eada2cdef75165f776e69c037e4485f0763903237f"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_crc8 -DBUG_CRC_POLY hdl/holdout/rtl/crc8.v hdl/holdout/tb/tb_crc8.sv",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.05,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.023,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 13
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-24T18:57:03+00:00"
+}

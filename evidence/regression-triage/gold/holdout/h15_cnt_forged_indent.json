@@ -1,0 +1,24 @@
+{
+  "sample_id": "h15_cnt_forged_indent",
+  "log_status": "complete",
+  "tests": {
+    "cnt_forged": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    }
+  },
+  "flags": [
+    "forged_runner_line"
+  ],
+  "labelled_by": "hand-labelled from the holdout regression manifests / injected defines (hdl/regressions/holdout, hdl/holdout) and the text of the copied log, following GOLD-FORMAT.md; no parser, rule baseline or model output was consulted",
+  "notes": "Line 13 starts with a space, so it is testbench output imitating a runner annotation (the runner only escapes lines that begin exactly with '#RUN'); runner lines always start in column 1. Line 14 is a second verdict printed by the same testbench in the same run, claiming a retry; there was no rerun stage. The mismatches and 'RESULT: FAIL' (lines 7-12) stand."
+}

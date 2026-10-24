@@ -1,0 +1,17 @@
+{
+  "sample_id": "h17_raw_iverilog_multidriver",
+  "log_status": "complete",
+  "tests": {
+    "(log)": {
+      "result": "not_run",
+      "category": "compile_error",
+      "side": "design_or_test",
+      "evidence_lines": [
+        1
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand-labelled from the holdout regression manifests / injected defines (hdl/regressions/holdout, hdl/holdout) and the text of the copied log, following GOLD-FORMAT.md; no parser, rule baseline or model output was consulted",
+  "notes": "Raw iverilog output with no verdict line, so test_id is '(log)'. An elaboration error of a simulation build means the simulation never ran: not_run."
+}

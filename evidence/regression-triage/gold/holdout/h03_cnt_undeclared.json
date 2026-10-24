@@ -1,0 +1,17 @@
+{
+  "sample_id": "h03_cnt_undeclared",
+  "log_status": "complete",
+  "tests": {
+    "cnt_basic": {
+      "result": "not_run",
+      "category": "compile_error",
+      "side": "design_or_test",
+      "evidence_lines": [
+        4
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand-labelled from the holdout regression manifests / injected defines (hdl/regressions/holdout, hdl/holdout) and the text of the copied log, following GOLD-FORMAT.md; no parser, rule baseline or model output was consulted",
+  "notes": "First error is line 4 (unbound identifier en_q); line 5 is the follow-on r-value error for the same expression."
+}

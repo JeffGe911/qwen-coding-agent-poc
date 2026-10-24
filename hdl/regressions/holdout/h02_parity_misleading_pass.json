@@ -1,0 +1,18 @@
+{
+  "regression": "h02_parity_misleading_pass",
+  "description": "passing parity test whose fault-injection narrative is full of benign error/failure words and an $info line",
+  "tests": [
+    {
+      "test_id": "parity_fault_inject",
+      "top": "tb_parity",
+      "sources": [
+        "hdl/holdout/rtl/parity_gen.v",
+        "hdl/holdout/tb/tb_parity.sv"
+      ],
+      "defines": [
+        "FAULT_LOG"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

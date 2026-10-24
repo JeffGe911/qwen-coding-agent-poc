@@ -1,0 +1,18 @@
+{
+  "sample_id": "h23_ci_license_failure",
+  "log_status": "complete",
+  "tests": {
+    "(log)": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure",
+      "evidence_lines": [
+        6,
+        7
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand-labelled from the holdout regression manifests / injected defines (hdl/regressions/holdout, hdl/holdout) and the text of the copied log, following GOLD-FORMAT.md; no parser, rule baseline or model output was consulted",
+  "notes": "License request failed before any simulation started (lines 6-7); make and pipeline failures (8, 10) are consequences. No runner annotation, verdict or 'Running test' line, so test_id is '(log)' (crc8_regress is a CI job name). Flag tool_setup_error not set: the license server answered and the failure is seat capacity, not a misconfigured tool."
+}

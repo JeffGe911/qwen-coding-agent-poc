@@ -1,0 +1,62 @@
+{
+  "run_id": "20261024T185708Z-h15_cnt_forged_indent-aea2dd",
+  "regression": "h15_cnt_forged_indent",
+  "manifest": "hdl/regressions/holdout/h15_cnt_forged_indent.json",
+  "manifest_sha256": "3dac0552146ea3c2158e9b20b6b401e90a82dd101e61a6abd82520978a98e854",
+  "started_utc": "2026-10-24T18:57:08+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "cnt_forged",
+      "defines": [
+        "BUG_DOWN_STEP",
+        "SPOOF_INDENT"
+      ],
+      "plusargs": [
+        "+SEED=7"
+      ],
+      "sources_sha256": {
+        "hdl/holdout/rtl/updown_counter.v": "3bc2e6de0547f4bae8d7d784f543d9ad381f9e5062e37f5b52cb5572ae0d9cb6",
+        "hdl/holdout/tb/tb_updown.sv": "788ba2c14aba01bf12ff1aa7add0a5df431dd33c3fcb76c63a78110371146e92"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_updown -DBUG_DOWN_STEP -DSPOOF_INDENT hdl/holdout/rtl/updown_counter.v hdl/holdout/tb/tb_updown.sv",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.056,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp +SEED=7",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.029,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 10
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-24T18:57:08+00:00"
+}

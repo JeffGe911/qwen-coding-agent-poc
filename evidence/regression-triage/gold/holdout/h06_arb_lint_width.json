@@ -1,0 +1,17 @@
+{
+  "sample_id": "h06_arb_lint_width",
+  "log_status": "complete",
+  "tests": {
+    "arb_lint": {
+      "result": "fail",
+      "category": "compile_error",
+      "side": "design_or_test",
+      "evidence_lines": [
+        4
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand-labelled from the holdout regression manifests / injected defines (hdl/regressions/holdout, hdl/holdout) and the text of the copied log, following GOLD-FORMAT.md; no parser, rule baseline or model output was consulted",
+  "notes": "Lint is the check itself, so its failure is 'fail'. The first reported problem is the WIDTHTRUNC warning at line 4; -Wall turns warnings into a failing exit ('%Error: Exiting due to 2 warning(s)', line 16, exit=1 at line 17). Line 10 is a second, independent warning; by the first-error convention only line 4 is listed."
+}

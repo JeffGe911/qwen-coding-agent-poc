@@ -1,0 +1,18 @@
+{
+  "regression": "h10_shift_wallclock",
+  "description": "testbench waits for a handshake nobody answers; clock keeps running; runner 3 s limit",
+  "tests": [
+    {
+      "test_id": "shift_drain",
+      "top": "tb_shiftreg",
+      "sources": [
+        "hdl/holdout/rtl/shift_reg.v",
+        "hdl/holdout/tb/tb_shiftreg.sv"
+      ],
+      "defines": [
+        "HANG"
+      ],
+      "timeout_s": 3
+    }
+  ]
+}

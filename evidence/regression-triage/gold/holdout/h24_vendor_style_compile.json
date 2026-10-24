@@ -1,0 +1,20 @@
+{
+  "sample_id": "h24_vendor_style_compile",
+  "log_status": "complete",
+  "tests": {
+    "(log)": {
+      "result": "not_run",
+      "category": "compile_error",
+      "side": "design_or_test",
+      "evidence_lines": [
+        8,
+        9,
+        10,
+        11
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand-labelled from the holdout regression manifests / injected defines (hdl/regressions/holdout, hdl/holdout) and the text of the copied log, following GOLD-FORMAT.md; no parser, rule baseline or model output was consulted",
+  "notes": "First error block is lines 8-11 (header, location, message); line 14 'Elaboration errors' is the follow-on error and line 17 the count. The design was being compiled for simulation (top tb_crc8), so the test did not run."
+}

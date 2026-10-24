@@ -1,0 +1,17 @@
+{
+  "sample_id": "h10_shift_wallclock",
+  "log_status": "complete",
+  "tests": {
+    "shift_drain": {
+      "result": "fail",
+      "category": "timeout",
+      "side": "undetermined",
+      "evidence_lines": [
+        8
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand-labelled from the holdout regression manifests / injected defines (hdl/regressions/holdout, hdl/holdout) and the text of the copied log, following GOLD-FORMAT.md; no parser, rule baseline or model output was consulted",
+  "notes": "The runner's wall-clock limit ended the run (timed_out=true, line 8); the testbench printed progress but no verdict. result is 'fail' because the test did not finish within its budget, which is a definite outcome and not a gap in the log; the cause (hang vs. too small a limit) is left undetermined, as the convention requires."
+}

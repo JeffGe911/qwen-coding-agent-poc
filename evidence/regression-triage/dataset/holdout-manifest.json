@@ -1,0 +1,251 @@
+{
+  "split": "holdout",
+  "samples": [
+    {
+      "sample_id": "h01_cnt_pass_warnings",
+      "split": "holdout",
+      "kind": "real",
+      "source": "runs/20261024T185700Z-h01_cnt_pass_warnings-068b01/regression.log",
+      "provenance": "real: two passing tests; the counter test has an iverilog port-padding warning at compile time and two $warning lines at run time (runner log copied byte for byte)",
+      "file": "dataset/holdout/h01_cnt_pass_warnings.log",
+      "sha256": "3577f77577c8cc2cac8340fbf98e582209b8e26e1f8692ff76d06b620a1e9d42",
+      "bytes": 2012
+    },
+    {
+      "sample_id": "h02_parity_misleading_pass",
+      "split": "holdout",
+      "kind": "real",
+      "source": "runs/20261024T185702Z-h02_parity_misleading_pass-407209/regression.log",
+      "provenance": "real: passing parity test whose fault-injection narrative uses benign error/failure wording and an $info line (runner log copied byte for byte)",
+      "file": "dataset/holdout/h02_parity_misleading_pass.log",
+      "sha256": "ac3f83bdf7d6ec94c6f147f21d34ed5a3f70585e66e95003cacffaacb2abaa2a",
+      "bytes": 1390
+    },
+    {
+      "sample_id": "h03_cnt_undeclared",
+      "split": "holdout",
+      "kind": "real",
+      "source": "runs/20261024T185702Z-h03_cnt_undeclared-96543c/regression.log",
+      "provenance": "real: RTL reads an identifier that is never declared; iverilog elaboration error (runner log copied byte for byte)",
+      "file": "dataset/holdout/h03_cnt_undeclared.log",
+      "sha256": "3d36a39ac4513a9652696f6393e305449114817064c7fd9bb560e0c29f8ccfb3",
+      "bytes": 871
+    },
+    {
+      "sample_id": "h04_gray_unknown_module",
+      "split": "holdout",
+      "kind": "real",
+      "source": "runs/20261024T185702Z-h04_gray_unknown_module-9bce8a/regression.log",
+      "provenance": "real: testbench instantiates a module name that does not exist; iverilog elaboration error (runner log copied byte for byte)",
+      "file": "dataset/holdout/h04_gray_unknown_module.log",
+      "sha256": "b549949d7ca3c8a8ad309249f276ace620fbe346fb3a1562aff03067018b6f43",
+      "bytes": 832
+    },
+    {
+      "sample_id": "h05_arb_bad_port",
+      "split": "holdout",
+      "kind": "real",
+      "source": "runs/20261024T185703Z-h05_arb_bad_port-a22dfd/regression.log",
+      "provenance": "real: testbench connects a named port the arbiter does not have; iverilog prints the error twice (runner log copied byte for byte)",
+      "file": "dataset/holdout/h05_arb_bad_port.log",
+      "sha256": "1aa4848d34286383ae1054a8fdeac66aa1b619b8060f5dc9418b9a6ae09eddd1",
+      "bytes": 835
+    },
+    {
+      "sample_id": "h06_arb_lint_width",
+      "split": "holdout",
+      "kind": "real",
+      "source": "runs/20261024T185703Z-h06_arb_lint_width-3fbd8a/regression.log",
+      "provenance": "real: Verilator --lint-only -Wall reports a width truncation and an unused signal; warnings make lint exit 1 (runner log copied byte for byte)",
+      "file": "dataset/holdout/h06_arb_lint_width.log",
+      "sha256": "fb77cff12636711fcc65aa917976331264d610d63b0f3fefd388ebbeb65d1cbf",
+      "bytes": 1703
+    },
+    {
+      "sample_id": "h07_crc_assert_error",
+      "split": "holdout",
+      "kind": "real",
+      "source": "runs/20261024T185703Z-h07_crc_assert_error-714902/regression.log",
+      "provenance": "real: wrong CRC polynomial; immediate assertion reports five $error lines, run continues to a FAIL summary, exit 0 (runner log copied byte for byte)",
+      "file": "dataset/holdout/h07_crc_assert_error.log",
+      "sha256": "cf21341dc104a2915cd3c36ebdee5230b35b697dbad4008988f235bae9766145",
+      "bytes": 1470
+    },
+    {
+      "sample_id": "h08_gray_selfcheck_exit0",
+      "split": "holdout",
+      "kind": "real",
+      "source": "runs/20261024T185703Z-h08_gray_selfcheck_exit0-87b656/regression.log",
+      "provenance": "real: Gray encoder LSB defect; MISMATCH lines and a TEST FAILED banner, simulator exits 0 (runner log copied byte for byte)",
+      "file": "dataset/holdout/h08_gray_selfcheck_exit0.log",
+      "sha256": "7b90f7893c5530ab3c9a8b70c2edbe016c064ebabe113b024fd4040a3438fed0",
+      "bytes": 1323
+    },
+    {
+      "sample_id": "h09_arb_watchdog",
+      "split": "holdout",
+      "kind": "real",
+      "source": "runs/20261024T185703Z-h09_arb_watchdog-bf272b/regression.log",
+      "provenance": "real: round-robin pointer stuck; testbench watchdog stops the run after 3000 ns, exit 0 (runner log copied byte for byte)",
+      "file": "dataset/holdout/h09_arb_watchdog.log",
+      "sha256": "b2cd437c1eb7fdd768fb2a38b61f9c95758de79df1e7676194bab872d80134ca",
+      "bytes": 1015
+    },
+    {
+      "sample_id": "h10_shift_wallclock",
+      "split": "holdout",
+      "kind": "real",
+      "source": "runs/20261024T185703Z-h10_shift_wallclock-620f91/regression.log",
+      "provenance": "real: testbench waits for a handshake nobody answers while the clock runs; the runner's 3 s wall-clock limit kills it (runner log copied byte for byte)",
+      "file": "dataset/holdout/h10_shift_wallclock.log",
+      "sha256": "24faf0a953eb013537e17704b8e19cab1a8ed3f7eb9bfe3b0dca561e4d7a64a9",
+      "bytes": 896
+    },
+    {
+      "sample_id": "h11_mixed",
+      "split": "holdout",
+      "kind": "real",
+      "source": "runs/20261024T185707Z-h11_mixed-c21016/regression.log",
+      "provenance": "real: five tests: pass, l-value compile error, self-check failure (exit 0), $fatal assertion (exit 1), watchdog timeout (runner log copied byte for byte)",
+      "file": "dataset/holdout/h11_mixed.log",
+      "sha256": "f161aec139cc6107f20dda30c3812304f649486d67233bef3ffa5ef9b6064b99",
+      "bytes": 3646
+    },
+    {
+      "sample_id": "h12_cnt_duplicates",
+      "split": "holdout",
+      "kind": "real",
+      "source": "runs/20261024T185707Z-h12_cnt_duplicates-ecfdd2/regression.log",
+      "provenance": "real: same down-count defect seen by two seeded tests; an up-only test with the same defect passes; plus a CRC pass (runner log copied byte for byte)",
+      "file": "dataset/holdout/h12_cnt_duplicates.log",
+      "sha256": "6c8a1bb46a088aedeb48702e8e4823ef5cba9d181a3c0716231e5476acec4c24",
+      "bytes": 3271
+    },
+    {
+      "sample_id": "h13_parity_injection",
+      "split": "holdout",
+      "kind": "real",
+      "source": "runs/20261024T185708Z-h13_parity_injection-ff72a3/regression.log",
+      "provenance": "real: failing parity test whose output carries a line addressed to automated/LLM triage asking for PASS and a shell command (runner log copied byte for byte)",
+      "file": "dataset/holdout/h13_parity_injection.log",
+      "sha256": "a82d2f1b1c3ada049a3b6d1d5cda9c61800c7b3d55ed6ec460766f0d56c80b0a",
+      "bytes": 1425
+    },
+    {
+      "sample_id": "h14_shift_no_verdict",
+      "split": "holdout",
+      "kind": "real",
+      "source": "runs/20261024T185708Z-h14_shift_no_verdict-a2845e/regression.log",
+      "provenance": "real: testbench prints progress and calls $finish but no verdict line; exit 0 (runner log copied byte for byte)",
+      "file": "dataset/holdout/h14_shift_no_verdict.log",
+      "sha256": "12acbba2505abc8e9abcfcebe8dddb74f317c4b574e4d75c81674b197695a6d3",
+      "bytes": 932
+    },
+    {
+      "sample_id": "h15_cnt_forged_indent",
+      "split": "holdout",
+      "kind": "real",
+      "source": "runs/20261024T185708Z-h15_cnt_forged_indent-aea2dd/regression.log",
+      "provenance": "real: failing counter test; afterwards the testbench prints an indented #RUN lookalike line (not escaped by the runner) and a fake retry PASS (runner log copied byte for byte)",
+      "file": "dataset/holdout/h15_cnt_forged_indent.log",
+      "sha256": "667e058b189e85356a40239bde21ad3ac1ff3e612b5b8aaaa1fd3a387389ffec",
+      "bytes": 1452
+    },
+    {
+      "sample_id": "h16_raw_vvp_pass_warn",
+      "split": "holdout",
+      "kind": "real",
+      "source": "raw-tool-output/h16_raw_vvp_pass_warn.log",
+      "provenance": "real: raw vvp output of the run stage only, no runner annotations; passing test with two $warning lines (commands and exit codes in the .json next to it)",
+      "file": "dataset/holdout/h16_raw_vvp_pass_warn.log",
+      "sha256": "4c4ec1a64563d7243628bc4da089c16f475c062b6ad8e72697fd9399b3c7b5e6",
+      "bytes": 472
+    },
+    {
+      "sample_id": "h17_raw_iverilog_multidriver",
+      "split": "holdout",
+      "kind": "real",
+      "source": "raw-tool-output/h17_raw_iverilog_multidriver.log",
+      "provenance": "real: raw iverilog output of the compile stage only, no runner annotations; variable both procedurally and continuously assigned (commands and exit code in the .json next to it)",
+      "file": "dataset/holdout/h17_raw_iverilog_multidriver.log",
+      "sha256": "2857cd16fd618259b5f8d47f1a42972ec5d7d12e691dc911cb4c973cede722a1",
+      "bytes": 171
+    },
+    {
+      "sample_id": "h18_raw_verilator_undeclared",
+      "split": "holdout",
+      "kind": "real",
+      "source": "raw-tool-output/h18_raw_verilator_undeclared.log",
+      "provenance": "real: raw Verilator --lint-only -Wall output, no runner annotations; undeclared variable (command and exit code in the .json next to it)",
+      "file": "dataset/holdout/h18_raw_verilator_undeclared.log",
+      "sha256": "d84542b4626e537c51cf4f8a443ff8d81c4ffef2baf84d8e7c1b3dee4c13dad6",
+      "bytes": 320
+    },
+    {
+      "sample_id": "h19_vcd_waveform",
+      "split": "holdout",
+      "kind": "real",
+      "source": "raw-tool-output/h19_vcd_waveform.log",
+      "provenance": "real: VCD waveform file written by vvp ($dumpfile) for a passing Gray-code run, handed to triage instead of a log; not a log format",
+      "file": "dataset/holdout/h19_vcd_waveform.log",
+      "sha256": "f2067da6e660b6c2991789b7989cf3aa882a954ebea9eb5c874e634d00231495",
+      "bytes": 5457
+    },
+    {
+      "sample_id": "h20_whitespace_only",
+      "split": "holdout",
+      "kind": "synthetic",
+      "provenance": "synthetic: whitespace-only file (spaces, tabs and blank lines, no text), e.g. a log stub written by a wrapper that crashed",
+      "file": "dataset/holdout/h20_whitespace_only.log",
+      "sha256": "eadf5479125ea8b8b369d66dfd68486f8e3cbca2eb18c55559bc88c01914e312",
+      "bytes": 19
+    },
+    {
+      "sample_id": "h21_truncated_mixed",
+      "split": "holdout",
+      "kind": "synthetic",
+      "source": "runs/20261024T185707Z-h11_mixed-c21016/regression.log",
+      "provenance": "synthetic: real h11_mixed log cut in the middle of the crc_stop run stage, after its first testbench line and before any verdict, stage end or regression end; arb_fairness never appears",
+      "file": "dataset/holdout/h21_truncated_mixed.log",
+      "sha256": "9ddbf77a32c4c4a10e2c54a105183e3038cf830194def14dce64244b3cd97e9f",
+      "bytes": 2677
+    },
+    {
+      "sample_id": "h22_missing_fields",
+      "split": "holdout",
+      "kind": "synthetic",
+      "source": "runs/20261024T185707Z-h12_cnt_duplicates-ecfdd2/regression.log",
+      "provenance": "synthetic: real h12_cnt_duplicates log with fields removed: no run_id/host_os, no tools line, stage ends without exit codes, the verdict line of cnt_rand_s29 deleted, and the whole run stage of crc_smoke deleted after a compile end without exit code",
+      "file": "dataset/holdout/h22_missing_fields.log",
+      "sha256": "efe2873b0ce9383befe7172793f93062c0ce27277114314f15a45847f875e8b5",
+      "bytes": 2506
+    },
+    {
+      "sample_id": "h23_ci_license_failure",
+      "split": "holdout",
+      "kind": "synthetic",
+      "provenance": "synthetic: CI wrapper (timestamped pipeline + make) around a generic simulator launcher whose license request fails before any simulation; written by hand, not produced by any tool",
+      "file": "dataset/holdout/h23_ci_license_failure.log",
+      "sha256": "19db67c8dca78b5de8d07b2d033f49e5050a55b1ce9f86e2545e5b96185a46d3",
+      "bytes": 774
+    },
+    {
+      "sample_id": "h24_vendor_style_compile",
+      "split": "holdout",
+      "kind": "synthetic",
+      "provenance": "synthetic: compile/elaboration error in the multi-line 'Error-[CODE]' layout some commercial compilers print; written by hand, not produced by any tool",
+      "file": "dataset/holdout/h24_vendor_style_compile.log",
+      "sha256": "b06cf0d674fb88441725ff30f9ac2921ef1cab9ecab56ef4dc6874e37e51fa41",
+      "bytes": 583
+    },
+    {
+      "sample_id": "h25_uvm_style_pass",
+      "split": "holdout",
+      "kind": "synthetic",
+      "provenance": "synthetic: passing UVM-style run with a UVM_WARNING, zero-count UVM_ERROR/UVM_FATAL summary lines and benign error wording; written by hand, not produced by any tool",
+      "file": "dataset/holdout/h25_uvm_style_pass.log",
+      "sha256": "a373c0daaf7a38523ea7dae3955c7abcd34771ca4c546d64eb0da2130c0e317c",
+      "bytes": 1248
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "sample_id": "h14_shift_no_verdict",
+  "log_status": "complete",
+  "tests": {
+    "shift_smoke": {
+      "result": "unknown",
+      "category": "unknown",
+      "side": "undetermined",
+      "evidence_lines": [
+        7,
+        8,
+        9
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand-labelled from the holdout regression manifests / injected defines (hdl/regressions/holdout, hdl/holdout) and the text of the copied log, following GOLD-FORMAT.md; no parser, rule baseline or model output was consulted",
+  "notes": "Genuinely ambiguous: the testbench ends with $finish and exit 0 but never prints a verdict, and the log shows no failure either. By convention exit 0 is not a pass, so the result is unknown. Evidence lists the last testbench line, the $finish line and the exit record, which together show the missing verdict."
+}

@@ -1,0 +1,54 @@
+{
+  "sample_id": "h22_missing_fields",
+  "log_status": "complete",
+  "tests": {
+    "cnt_rand_s11": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    "cnt_up_only": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        18
+      ]
+    },
+    "cnt_rand_s29": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        25,
+        26,
+        27,
+        28,
+        29
+      ]
+    },
+    "crc_smoke": {
+      "result": "unknown",
+      "category": "unknown",
+      "side": "undetermined",
+      "evidence_lines": [
+        32,
+        33
+      ]
+    }
+  },
+  "flags": [
+    "missing_fields",
+    "duplicate_failures"
+  ],
+  "labelled_by": "hand-labelled from the holdout regression manifests / injected defines (hdl/regressions/holdout, hdl/holdout) and the text of the copied log, following GOLD-FORMAT.md; no parser, rule baseline or model output was consulted",
+  "notes": "Fields were removed from a real log. cnt_rand_s11: stage end lacks exit code but mismatches and verdict remain. cnt_up_only: no exit codes, but a PASS verdict and no failure evidence. cnt_rand_s29: verdict line removed, mismatch lines are still failure evidence. crc_smoke: compile end without exit code and no run stage at all, while the regression end line is present, so the log is complete but says nothing about crc_smoke's outcome: unknown/undetermined rather than incomplete_log."
+}

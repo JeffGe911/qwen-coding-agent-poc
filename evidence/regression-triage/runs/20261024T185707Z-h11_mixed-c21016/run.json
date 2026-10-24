@@ -1,0 +1,181 @@
+{
+  "run_id": "20261024T185707Z-h11_mixed-c21016",
+  "regression": "h11_mixed",
+  "manifest": "hdl/regressions/holdout/h11_mixed.json",
+  "manifest_sha256": "279146f356c851aa775983996a38895ee576482afdc8e244fa86bcedffb718a5",
+  "started_utc": "2026-10-24T18:57:07+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "shift_smoke",
+      "defines": [],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout/rtl/shift_reg.v": "6337fef2596f264968e26fa15e6fb878da7ad8b065b52140e45638b6c756c03b",
+        "hdl/holdout/tb/tb_shiftreg.sv": "d6cbfddfb6a6e0c8b9a32cec5b5b357967bbe6867f4e328188b6eecf110c8e00"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_shiftreg hdl/holdout/rtl/shift_reg.v hdl/holdout/tb/tb_shiftreg.sv",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.087,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.024,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 3
+        }
+      ]
+    },
+    {
+      "test_id": "shift_lvalue",
+      "defines": [
+        "BUG_LVALUE"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout/rtl/shift_reg.v": "6337fef2596f264968e26fa15e6fb878da7ad8b065b52140e45638b6c756c03b",
+        "hdl/holdout/tb/tb_shiftreg.sv": "d6cbfddfb6a6e0c8b9a32cec5b5b357967bbe6867f4e328188b6eecf110c8e00"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_shiftreg -DBUG_LVALUE hdl/holdout/rtl/shift_reg.v hdl/holdout/tb/tb_shiftreg.sv",
+          "exit_code": 3,
+          "timed_out": false,
+          "elapsed_s": 0.056,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 7
+        }
+      ]
+    },
+    {
+      "test_id": "parity_modes",
+      "defines": [
+        "BUG_PARITY_ODD"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout/rtl/parity_gen.v": "6877fde57958d730cceeda29a63738c37f23dffa394309ffdc63d543022f06ba",
+        "hdl/holdout/tb/tb_parity.sv": "ba7a09afd4dd9cf72344d6d60c73c8efbb345e6d2ac39d117fd16e1620a3d5b9"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_parity -DBUG_PARITY_ODD hdl/holdout/rtl/parity_gen.v hdl/holdout/tb/tb_parity.sv",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.052,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.029,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 7
+        }
+      ]
+    },
+    {
+      "test_id": "crc_stop",
+      "defines": [
+        "BUG_CRC_POLY"
+      ],
+      "plusargs": [
+        "+STOP_ON_ERROR"
+      ],
+      "sources_sha256": {
+        "hdl/holdout/rtl/crc8.v": "2ec61477d78c9ae9f0acf13a2b2d14576576d6c55d56465c7cb5df0fe1b1e6fb",
+        "hdl/holdout/tb/tb_crc8.sv": "617e185a42a86e7271c648eada2cdef75165f776e69c037e4485f0763903237f"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_crc8 -DBUG_CRC_POLY hdl/holdout/rtl/crc8.v hdl/holdout/tb/tb_crc8.sv",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.052,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp +STOP_ON_ERROR",
+          "exit_code": 1,
+          "timed_out": false,
+          "elapsed_s": 0.027,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 3
+        }
+      ]
+    },
+    {
+      "test_id": "arb_fairness",
+      "defines": [
+        "BUG_RR_STUCK"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout/rtl/rr_arbiter.v": "4a268d0995d45a4196c38c38a9228f1352165669a26e8a482f323be6ebd52e27",
+        "hdl/holdout/tb/tb_rr_arbiter.sv": "06bb464e96f3af292346179bf65a71cfc3c074be1b566402975bdd2878497414"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_rr_arbiter -DBUG_RR_STUCK hdl/holdout/rtl/rr_arbiter.v hdl/holdout/tb/tb_rr_arbiter.sv",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.053,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.025,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 4
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-24T18:57:07+00:00"
+}

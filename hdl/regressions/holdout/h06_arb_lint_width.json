@@ -1,0 +1,18 @@
+{
+  "regression": "h06_arb_lint_width",
+  "description": "Verilator -Wall lint: width truncation plus unused signal; warnings make lint exit 1",
+  "tests": [
+    {
+      "test_id": "arb_lint",
+      "top": "rr_arbiter",
+      "sources": [
+        "hdl/holdout/rtl/rr_arbiter.v"
+      ],
+      "defines": [
+        "LINT_WIDTH"
+      ],
+      "timeout_s": 10,
+      "kind": "lint"
+    }
+  ]
+}

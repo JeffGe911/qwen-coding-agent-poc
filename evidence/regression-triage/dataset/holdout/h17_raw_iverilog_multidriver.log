@@ -1,0 +1,2 @@
+hdl/holdout/rtl/parity_gen.v:21: error: Cannot perform procedural assignment to variable 'perr_r' because it is also continuously assigned.
+1 error(s) during elaboration.

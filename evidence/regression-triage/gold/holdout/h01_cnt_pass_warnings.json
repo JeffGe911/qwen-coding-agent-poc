@@ -1,0 +1,25 @@
+{
+  "sample_id": "h01_cnt_pass_warnings",
+  "log_status": "complete",
+  "tests": {
+    "cnt_narrow_load": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        13
+      ]
+    },
+    "gray_exhaustive": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        20
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand-labelled from the holdout regression manifests / injected defines (hdl/regressions/holdout, hdl/holdout) and the text of the copied log, following GOLD-FORMAT.md; no parser, rule baseline or model output was consulted",
+  "notes": "Compile warnings (lines 4-5) and runtime $warning lines (9-12) are not failures; both tests print a verdict ('RESULT: PASS', '*** TEST PASSED ***') and show no failure evidence."
+}

@@ -1,0 +1,20 @@
+#RUN regression=h07_crc_assert_error run_id=20261024T185703Z-h07_crc_assert_error-714902 started_utc=2026-10-24T18:57:03+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=crc_frames stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_crc8 -DBUG_CRC_POLY hdl/holdout/rtl/crc8.v hdl/holdout/tb/tb_crc8.sv
+#RUN test=crc_frames stage=compile exit=0 elapsed_s=0.05 timed_out=false output_truncated=false
+#RUN test=crc_frames stage=run cmd=vvp.exe -n sim.vvp
+[tb_crc8] 6 frames, stop_on_error=0
+ERROR: hdl/holdout/tb/tb_crc8.sv:71: frame 1 (len 2): crc=d4, reference 72
+       Time: 90000  Scope: tb_crc8
+ERROR: hdl/holdout/tb/tb_crc8.sv:71: frame 2 (len 3): crc=78, reference 48
+       Time: 140000  Scope: tb_crc8
+ERROR: hdl/holdout/tb/tb_crc8.sv:71: frame 3 (len 4): crc=74, reference ca
+       Time: 200000  Scope: tb_crc8
+ERROR: hdl/holdout/tb/tb_crc8.sv:71: frame 4 (len 5): crc=34, reference f6
+       Time: 270000  Scope: tb_crc8
+ERROR: hdl/holdout/tb/tb_crc8.sv:71: frame 5 (len 9): crc=01, reference f4
+       Time: 380000  Scope: tb_crc8
+[tb_crc8] SUMMARY: 6 frames, 5 bad -> FAIL
+hdl/holdout/tb/tb_crc8.sv:75: $finish called at 380000 (1ps)
+#RUN test=crc_frames stage=run exit=0 elapsed_s=0.023 timed_out=false output_truncated=false
+#RUN regression=h07_crc_assert_error end tests=1 finished_utc=2026-10-24T18:57:03+00:00

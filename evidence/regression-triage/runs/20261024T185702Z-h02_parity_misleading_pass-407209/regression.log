@@ -1,0 +1,15 @@
+#RUN regression=h02_parity_misleading_pass run_id=20261024T185702Z-h02_parity_misleading_pass-407209 started_utc=2026-10-24T18:57:02+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=parity_fault_inject stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_parity -DFAULT_LOG hdl/holdout/rtl/parity_gen.v hdl/holdout/tb/tb_parity.sv
+#RUN test=parity_fault_inject stage=compile exit=0 elapsed_s=0.05 timed_out=false output_truncated=false
+#RUN test=parity_fault_inject stage=run cmd=vvp.exe -n sim.vvp
+tb_parity: start
+tb_parity: fault-injection phase: one data bit flipped per word; perr has to fire every time
+tb_parity: injected faults: 256, flagged by perr: 256, missed: 0
+tb_parity: error-detection coverage 100% -- every expected error was raised
+INFO: hdl/holdout/tb/tb_parity.sv:54: negative test: the perr=1 responses above are intentional failures of the received words, not testbench failures
+      Time: 768000  Scope: tb_parity
+PASS: tb_parity (768 vectors, 256 injected faults)
+hdl/holdout/tb/tb_parity.sv:59: $finish called at 768000 (1ps)
+#RUN test=parity_fault_inject stage=run exit=0 elapsed_s=0.024 timed_out=false output_truncated=false
+#RUN regression=h02_parity_misleading_pass end tests=1 finished_utc=2026-10-24T18:57:02+00:00

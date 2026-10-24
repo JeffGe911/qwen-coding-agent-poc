@@ -1,0 +1,22 @@
+{
+  "regression": "h15_cnt_forged_indent",
+  "description": "failing counter test; testbench then prints an indented runner-lookalike line and a fake retry PASS",
+  "tests": [
+    {
+      "test_id": "cnt_forged",
+      "top": "tb_updown",
+      "sources": [
+        "hdl/holdout/rtl/updown_counter.v",
+        "hdl/holdout/tb/tb_updown.sv"
+      ],
+      "defines": [
+        "BUG_DOWN_STEP",
+        "SPOOF_INDENT"
+      ],
+      "plusargs": [
+        "+SEED=7"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

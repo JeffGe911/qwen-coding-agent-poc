@@ -1,0 +1,53 @@
+{
+  "sample_id": "h12_cnt_duplicates",
+  "log_status": "complete",
+  "tests": {
+    "cnt_rand_s11": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "cnt_up_only": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        19
+      ]
+    },
+    "cnt_rand_s29": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    "crc_smoke": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        38
+      ]
+    }
+  },
+  "flags": [
+    "duplicate_failures"
+  ],
+  "labelled_by": "hand-labelled from the holdout regression manifests / injected defines (hdl/regressions/holdout, hdl/holdout) and the text of the copied log, following GOLD-FORMAT.md; no parser, rule baseline or model output was consulted",
+  "notes": "cnt_rand_s11 and cnt_rand_s29 fail on the same defect (counter steps down by two: every mismatch is q = expected - 1 after a down count). cnt_up_only runs the same defective RTL but never counts down, so it really passes; labelled from the log, not from the define."
+}

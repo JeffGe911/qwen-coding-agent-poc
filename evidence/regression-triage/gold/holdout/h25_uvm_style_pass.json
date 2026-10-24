@@ -1,0 +1,17 @@
+{
+  "sample_id": "h25_uvm_style_pass",
+  "log_status": "complete",
+  "tests": {
+    "arb_smoke_test": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        6
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand-labelled from the holdout regression manifests / injected defines (hdl/regressions/holdout, hdl/holdout) and the text of the copied log, following GOLD-FORMAT.md; no parser, rule baseline or model output was consulted",
+  "notes": "test_id from 'Running test arb_smoke_test'. One UVM_WARNING, zero UVM_ERROR/UVM_FATAL, catcher counts all zero; '16 injected protocol errors were flagged ... as expected' is benign wording. Verdict '** TEST PASSED **' at line 6."
+}

@@ -1,0 +1,67 @@
+{
+  "regression": "h11_mixed",
+  "description": "pass + l-value compile error + self-check failure + $fatal assertion + watchdog timeout",
+  "tests": [
+    {
+      "test_id": "shift_smoke",
+      "top": "tb_shiftreg",
+      "sources": [
+        "hdl/holdout/rtl/shift_reg.v",
+        "hdl/holdout/tb/tb_shiftreg.sv"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "shift_lvalue",
+      "top": "tb_shiftreg",
+      "sources": [
+        "hdl/holdout/rtl/shift_reg.v",
+        "hdl/holdout/tb/tb_shiftreg.sv"
+      ],
+      "defines": [
+        "BUG_LVALUE"
+      ],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "parity_modes",
+      "top": "tb_parity",
+      "sources": [
+        "hdl/holdout/rtl/parity_gen.v",
+        "hdl/holdout/tb/tb_parity.sv"
+      ],
+      "defines": [
+        "BUG_PARITY_ODD"
+      ],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "crc_stop",
+      "top": "tb_crc8",
+      "sources": [
+        "hdl/holdout/rtl/crc8.v",
+        "hdl/holdout/tb/tb_crc8.sv"
+      ],
+      "defines": [
+        "BUG_CRC_POLY"
+      ],
+      "plusargs": [
+        "+STOP_ON_ERROR"
+      ],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "arb_fairness",
+      "top": "tb_rr_arbiter",
+      "sources": [
+        "hdl/holdout/rtl/rr_arbiter.v",
+        "hdl/holdout/tb/tb_rr_arbiter.sv"
+      ],
+      "defines": [
+        "BUG_RR_STUCK"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

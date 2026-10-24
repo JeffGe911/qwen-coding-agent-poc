@@ -1,0 +1,18 @@
+Compiler version 2025.06-SP1; Runtime version 2025.06-SP1;  Oct 24 21:20 2026
+Parsing design file 'hdl/holdout/rtl/crc8.v'
+Parsing design file 'hdl/holdout/tb/tb_crc8.sv'
+Top Level Modules:
+       tb_crc8
+TimeScale is 1 ns / 1 ps
+
+Error-[IND] Identifier not declared
+hdl/holdout/rtl/crc8.v, 35
+  Identifier 'crc_next' has not been declared yet. If this error is not
+  expected, please check if you have set `default_nettype to none.
+
+
+Error-[ELABE] Elaboration errors
+  Elaboration of the design was aborted because of 1 earlier error(s).
+
+2 errors
+CPU time: .214 seconds to compile

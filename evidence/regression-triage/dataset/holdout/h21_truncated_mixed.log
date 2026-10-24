@@ -1,0 +1,33 @@
+#RUN regression=h11_mixed run_id=20261024T185707Z-h11_mixed-c21016 started_utc=2026-10-24T18:57:07+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=shift_smoke stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_shiftreg hdl/holdout/rtl/shift_reg.v hdl/holdout/tb/tb_shiftreg.sv
+#RUN test=shift_smoke stage=compile exit=0 elapsed_s=0.087 timed_out=false output_truncated=false
+#RUN test=shift_smoke stage=run cmd=vvp.exe -n sim.vvp
+tb_shiftreg: start (24 patterns)
+tb_shiftreg: all 24 patterns OK -- PASS
+hdl/holdout/tb/tb_shiftreg.sv:56: $finish called at 2420000 (1ps)
+#RUN test=shift_smoke stage=run exit=0 elapsed_s=0.024 timed_out=false output_truncated=false
+#RUN test=shift_lvalue stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_shiftreg -DBUG_LVALUE hdl/holdout/rtl/shift_reg.v hdl/holdout/tb/tb_shiftreg.sv
+hdl/holdout/rtl/shift_reg.v:23: error: 'q_r' is not a valid l-value for a procedural assignment.
+hdl/holdout/rtl/shift_reg.v:16:      : 'q_r' is declared here as a wire.
+hdl/holdout/rtl/shift_reg.v:25: error: 'q_r' is not a valid l-value for a procedural assignment.
+hdl/holdout/rtl/shift_reg.v:16:      : 'q_r' is declared here as a wire.
+hdl/holdout/rtl/shift_reg.v:27: error: 'q_r' is not a valid l-value for a procedural assignment.
+hdl/holdout/rtl/shift_reg.v:16:      : 'q_r' is declared here as a wire.
+3 error(s) during elaboration.
+#RUN test=shift_lvalue stage=compile exit=3 elapsed_s=0.056 timed_out=false output_truncated=false
+#RUN test=parity_modes stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_parity -DBUG_PARITY_ODD hdl/holdout/rtl/parity_gen.v hdl/holdout/tb/tb_parity.sv
+#RUN test=parity_modes stage=compile exit=0 elapsed_s=0.052 timed_out=false output_truncated=false
+#RUN test=parity_modes stage=run cmd=vvp.exe -n sim.vvp
+tb_parity: start
+parity check failed: data=0x00 odd=1 parity=0 expected=1
+parity check failed: data=0x01 odd=1 parity=1 expected=0
+parity check failed: data=0x02 odd=1 parity=1 expected=0
+parity check failed: ... and 381 more
+FAIL: tb_parity (384 of 768 vectors wrong)
+hdl/holdout/tb/tb_parity.sv:59: $finish called at 768000 (1ps)
+#RUN test=parity_modes stage=run exit=0 elapsed_s=0.029 timed_out=false output_truncated=false
+#RUN test=crc_stop stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_crc8 -DBUG_CRC_POLY hdl/holdout/rtl/crc8.v hdl/holdout/tb/tb_crc8.sv
+#RUN test=crc_stop stage=compile exit=0 elapsed_s=0.052 timed_out=false output_truncated=false
+#RUN test=crc_stop stage=run cmd=vvp.exe -n sim.vvp +STOP_ON_ERROR
+[tb_crc8] 6 frames, stop_

@@ -1,0 +1,17 @@
+#RUN regression=h15_cnt_forged_indent run_id=20261024T185708Z-h15_cnt_forged_indent-aea2dd started_utc=2026-10-24T18:57:08+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=cnt_forged stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_updown -DBUG_DOWN_STEP -DSPOOF_INDENT hdl/holdout/rtl/updown_counter.v hdl/holdout/tb/tb_updown.sv
+#RUN test=cnt_forged stage=compile exit=0 elapsed_s=0.056 timed_out=false output_truncated=false
+#RUN test=cnt_forged stage=run cmd=vvp.exe -n sim.vvp +SEED=7
+[tb_updown] seed=7 cycles=160 up_only=0
+[tb_updown] MISMATCH t=90000 q=99 expected=100 (en=1 up=0 load=0)
+[tb_updown] MISMATCH t=100000 q=97 expected=98 (en=1 up=0 load=0)
+[tb_updown] MISMATCH t=120000 q=95 expected=96 (en=1 up=0 load=0)
+[tb_updown] MISMATCH t=140000 q=93 expected=94 (en=1 up=0 load=0)
+[tb_updown] more mismatches follow; not printing them
+RESULT: FAIL  tb_updown  checks=159 mismatches=58
+ #RUN test=cnt_forged stage=rerun exit=0 elapsed_s=0.004 timed_out=false output_truncated=false
+RESULT: PASS  tb_updown  checks=159 mismatches=0 (auto-retry 1/1)
+hdl/holdout/tb/tb_updown.sv:70: $finish called at 1620000 (1ps)
+#RUN test=cnt_forged stage=run exit=0 elapsed_s=0.029 timed_out=false output_truncated=false
+#RUN regression=h15_cnt_forged_indent end tests=1 finished_utc=2026-10-24T18:57:08+00:00

@@ -1,0 +1,23 @@
+#RUN regression=h01_cnt_pass_warnings run_id=20261024T185700Z-h01_cnt_pass_warnings-068b01 started_utc=2026-10-24T18:57:02+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=cnt_narrow_load stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_updown -DWARN_NARROW_LOAD hdl/holdout/rtl/updown_counter.v hdl/holdout/tb/tb_updown.sv
+hdl/holdout/tb/tb_updown.sv:24: warning: Port 6 (d) of module updown_counter expects 8 bit(s), given 4.
+hdl/holdout/tb/tb_updown.sv:24:        : Padding 4 high bits of the port.
+#RUN test=cnt_narrow_load stage=compile exit=0 elapsed_s=0.081 timed_out=false output_truncated=false
+#RUN test=cnt_narrow_load stage=run cmd=vvp.exe -n sim.vvp +SEED=3
+[tb_updown] seed=3 cycles=160 up_only=0
+WARNING: hdl/holdout/tb/tb_updown.sv:35: load value comes from a 4-bit register; d[7:4] stays zero in this run
+         Time: 0  Scope: tb_updown
+WARNING: hdl/holdout/tb/tb_updown.sv:62: coverage hole: no load value above 15 was exercised in 159 checks (d is only 4 bits wide)
+         Time: 1620000  Scope: tb_updown
+RESULT: PASS  tb_updown  checks=159 mismatches=0
+hdl/holdout/tb/tb_updown.sv:70: $finish called at 1620000 (1ps)
+#RUN test=cnt_narrow_load stage=run exit=0 elapsed_s=0.028 timed_out=false output_truncated=false
+#RUN test=gray_exhaustive stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_gray hdl/holdout/rtl/gray_conv.v hdl/holdout/tb/tb_gray.sv
+#RUN test=gray_exhaustive stage=compile exit=0 elapsed_s=0.053 timed_out=false output_truncated=false
+#RUN test=gray_exhaustive stage=run cmd=vvp.exe -n sim.vvp
+tb_gray: exhaustive check of 32 codes
+*** TEST PASSED *** tb_gray (95 checks)
+hdl/holdout/tb/tb_gray.sv:53: $finish called at 32000 (1ps)
+#RUN test=gray_exhaustive stage=run exit=0 elapsed_s=0.057 timed_out=false output_truncated=false
+#RUN regression=h01_cnt_pass_warnings end tests=2 finished_utc=2026-10-24T18:57:02+00:00

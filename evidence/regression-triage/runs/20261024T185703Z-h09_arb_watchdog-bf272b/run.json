@@ -1,0 +1,59 @@
+{
+  "run_id": "20261024T185703Z-h09_arb_watchdog-bf272b",
+  "regression": "h09_arb_watchdog",
+  "manifest": "hdl/regressions/holdout/h09_arb_watchdog.json",
+  "manifest_sha256": "f56ef44ec6cea5d00b6538122aa3e9b5f5a09f4cd24ba6d51101b86aaae6f006",
+  "started_utc": "2026-10-24T18:57:03+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "arb_rotation",
+      "defines": [
+        "BUG_RR_STUCK"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout/rtl/rr_arbiter.v": "4a268d0995d45a4196c38c38a9228f1352165669a26e8a482f323be6ebd52e27",
+        "hdl/holdout/tb/tb_rr_arbiter.sv": "06bb464e96f3af292346179bf65a71cfc3c074be1b566402975bdd2878497414"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_rr_arbiter -DBUG_RR_STUCK hdl/holdout/rtl/rr_arbiter.v hdl/holdout/tb/tb_rr_arbiter.sv",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.053,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.03,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 4
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-24T18:57:03+00:00"
+}

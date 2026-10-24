@@ -1,0 +1,62 @@
+{
+  "regression": "h12_cnt_duplicates",
+  "description": "down-count defect seen by two seeded tests; an up-only test does not exercise it and passes; plus a CRC pass",
+  "tests": [
+    {
+      "test_id": "cnt_rand_s11",
+      "top": "tb_updown",
+      "sources": [
+        "hdl/holdout/rtl/updown_counter.v",
+        "hdl/holdout/tb/tb_updown.sv"
+      ],
+      "defines": [
+        "BUG_DOWN_STEP"
+      ],
+      "plusargs": [
+        "+SEED=11"
+      ],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "cnt_up_only",
+      "top": "tb_updown",
+      "sources": [
+        "hdl/holdout/rtl/updown_counter.v",
+        "hdl/holdout/tb/tb_updown.sv"
+      ],
+      "defines": [
+        "BUG_DOWN_STEP"
+      ],
+      "plusargs": [
+        "+SEED=5",
+        "+UP_ONLY"
+      ],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "cnt_rand_s29",
+      "top": "tb_updown",
+      "sources": [
+        "hdl/holdout/rtl/updown_counter.v",
+        "hdl/holdout/tb/tb_updown.sv"
+      ],
+      "defines": [
+        "BUG_DOWN_STEP"
+      ],
+      "plusargs": [
+        "+SEED=29"
+      ],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "crc_smoke",
+      "top": "tb_crc8",
+      "sources": [
+        "hdl/holdout/rtl/crc8.v",
+        "hdl/holdout/tb/tb_crc8.sv"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    }
+  ]
+}

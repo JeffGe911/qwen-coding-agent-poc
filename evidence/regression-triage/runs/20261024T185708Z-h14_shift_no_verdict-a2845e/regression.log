@@ -1,0 +1,10 @@
+#RUN regression=h14_shift_no_verdict run_id=20261024T185708Z-h14_shift_no_verdict-a2845e started_utc=2026-10-24T18:57:08+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=shift_smoke stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_shiftreg -DNO_VERDICT hdl/holdout/rtl/shift_reg.v hdl/holdout/tb/tb_shiftreg.sv
+#RUN test=shift_smoke stage=compile exit=0 elapsed_s=0.054 timed_out=false output_truncated=false
+#RUN test=shift_smoke stage=run cmd=vvp.exe -n sim.vvp
+tb_shiftreg: start (24 patterns)
+tb_shiftreg: 24 patterns shifted through
+hdl/holdout/tb/tb_shiftreg.sv:56: $finish called at 2420000 (1ps)
+#RUN test=shift_smoke stage=run exit=0 elapsed_s=0.031 timed_out=false output_truncated=false
+#RUN regression=h14_shift_no_verdict end tests=1 finished_utc=2026-10-24T18:57:08+00:00

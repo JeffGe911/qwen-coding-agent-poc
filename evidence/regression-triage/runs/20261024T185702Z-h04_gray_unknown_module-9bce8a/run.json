@@ -1,0 +1,49 @@
+{
+  "run_id": "20261024T185702Z-h04_gray_unknown_module-9bce8a",
+  "regression": "h04_gray_unknown_module",
+  "manifest": "hdl/regressions/holdout/h04_gray_unknown_module.json",
+  "manifest_sha256": "5211e680bcd36e884169e90287940627607cc531750ce7ee69cc9f9472b46f2c",
+  "started_utc": "2026-10-24T18:57:02+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "gray_exhaustive",
+      "defines": [
+        "BUG_MODNAME"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout/rtl/gray_conv.v": "59e8697b6bb90904f826d3786cfdcc40ceb219771b95fbf5cad969fbaa89ea85",
+        "hdl/holdout/tb/tb_gray.sv": "0e2f814a04234d58790edeb17177dd21bf87a6166afb73d38a69ef34c92fb464"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_gray -DBUG_MODNAME hdl/holdout/rtl/gray_conv.v hdl/holdout/tb/tb_gray.sv",
+          "exit_code": 2,
+          "timed_out": false,
+          "elapsed_s": 0.055,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 5
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-24T18:57:03+00:00"
+}

@@ -1,0 +1,8 @@
+#RUN regression=h03_cnt_undeclared run_id=20261024T185702Z-h03_cnt_undeclared-96543c started_utc=2026-10-24T18:57:02+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=cnt_basic stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_updown -DBUG_UNDECLARED hdl/holdout/rtl/updown_counter.v hdl/holdout/tb/tb_updown.sv
+hdl/holdout/rtl/updown_counter.v:34: error: Unable to bind wire/reg/memory `en_q' in `tb_updown.dut'
+hdl/holdout/rtl/updown_counter.v:34: error: Unable to elaborate r-value: (en_q)&((up)?(&(q)):(N(q)))
+2 error(s) during elaboration.
+#RUN test=cnt_basic stage=compile exit=2 elapsed_s=0.062 timed_out=false output_truncated=false
+#RUN regression=h03_cnt_undeclared end tests=1 finished_utc=2026-10-24T18:57:02+00:00

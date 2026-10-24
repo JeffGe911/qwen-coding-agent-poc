@@ -1,0 +1,24 @@
+{
+  "sample_id": "h08_gray_selfcheck_exit0",
+  "log_status": "complete",
+  "tests": {
+    "gray_exhaustive": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand-labelled from the holdout regression manifests / injected defines (hdl/regressions/holdout, hdl/holdout) and the text of the copied log, following GOLD-FORMAT.md; no parser, rule baseline or model output was consulted",
+  "notes": "Self-check mismatches and a '*** TEST FAILED ***' banner; exit 0 does not mean pass."
+}

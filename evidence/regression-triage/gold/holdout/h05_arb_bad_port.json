@@ -1,0 +1,17 @@
+{
+  "sample_id": "h05_arb_bad_port",
+  "log_status": "complete",
+  "tests": {
+    "arb_rotation": {
+      "result": "not_run",
+      "category": "compile_error",
+      "side": "design_or_test",
+      "evidence_lines": [
+        4
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand-labelled from the holdout regression manifests / injected defines (hdl/regressions/holdout, hdl/holdout) and the text of the copied log, following GOLD-FORMAT.md; no parser, rule baseline or model output was consulted",
+  "notes": "iverilog prints the same port error twice (lines 4 and 5); only the first counts. Not flagged duplicate_failures: that flag is reserved for one defect failing several tests, and here it is one compile error printed twice."
+}

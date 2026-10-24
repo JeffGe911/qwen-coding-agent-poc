@@ -1,0 +1,22 @@
+{
+  "sample_id": "h07_crc_assert_error",
+  "log_status": "complete",
+  "tests": {
+    "crc_frames": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        7,
+        9,
+        11,
+        13,
+        15,
+        17
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand-labelled from the holdout regression manifests / injected defines (hdl/regressions/holdout, hdl/holdout) and the text of the copied log, following GOLD-FORMAT.md; no parser, rule baseline or model output was consulted",
+  "notes": "Immediate assertions report through $error (ERROR: lines); the run continues to a FAIL summary and exits 0."
+}

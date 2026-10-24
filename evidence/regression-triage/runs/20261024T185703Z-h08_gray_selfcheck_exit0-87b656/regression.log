@@ -1,0 +1,17 @@
+#RUN regression=h08_gray_selfcheck_exit0 run_id=20261024T185703Z-h08_gray_selfcheck_exit0-87b656 started_utc=2026-10-24T18:57:03+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=gray_exhaustive stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_gray -DBUG_GRAY_LSB hdl/holdout/rtl/gray_conv.v hdl/holdout/tb/tb_gray.sv
+#RUN test=gray_exhaustive stage=compile exit=0 elapsed_s=0.061 timed_out=false output_truncated=false
+#RUN test=gray_exhaustive stage=run cmd=vvp.exe -n sim.vvp
+tb_gray: exhaustive check of 32 codes
+MISMATCH @3000: encode bin=00010 exp=00011 act=00010
+MISMATCH @3000: decode bin=00010 exp=00010 act=00011
+MISMATCH @3000: adjacent bin=00010 exp=00001 act=00010
+MISMATCH @4000: encode bin=00011 exp=00010 act=00011
+MISMATCH @4000: decode bin=00011 exp=00011 act=00010
+MISMATCH @5000: adjacent bin=00100 exp=00011 act=00110
+... 41 further mismatch(es) not shown
+*** TEST FAILED *** tb_gray: 47 of 95 checks wrong
+hdl/holdout/tb/tb_gray.sv:53: $finish called at 32000 (1ps)
+#RUN test=gray_exhaustive stage=run exit=0 elapsed_s=0.022 timed_out=false output_truncated=false
+#RUN regression=h08_gray_selfcheck_exit0 end tests=1 finished_utc=2026-10-24T18:57:03+00:00

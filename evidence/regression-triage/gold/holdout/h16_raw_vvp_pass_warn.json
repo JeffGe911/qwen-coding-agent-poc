@@ -1,0 +1,17 @@
+{
+  "sample_id": "h16_raw_vvp_pass_warn",
+  "log_status": "complete",
+  "tests": {
+    "tb_updown": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        6
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand-labelled from the holdout regression manifests / injected defines (hdl/regressions/holdout, hdl/holdout) and the text of the copied log, following GOLD-FORMAT.md; no parser, rule baseline or model output was consulted",
+  "notes": "Raw vvp output without runner annotations; test_id taken from the verdict line 'RESULT: PASS  tb_updown'. $warning lines (2-5) are not failures."
+}

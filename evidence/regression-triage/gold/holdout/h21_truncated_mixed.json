@@ -1,0 +1,46 @@
+{
+  "sample_id": "h21_truncated_mixed",
+  "log_status": "incomplete",
+  "tests": {
+    "shift_smoke": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        7
+      ]
+    },
+    "shift_lvalue": {
+      "result": "not_run",
+      "category": "compile_error",
+      "side": "design_or_test",
+      "evidence_lines": [
+        11
+      ]
+    },
+    "parity_modes": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        23,
+        24,
+        25,
+        26,
+        27
+      ]
+    },
+    "crc_stop": {
+      "result": "unknown",
+      "category": "incomplete_log",
+      "side": "infrastructure",
+      "evidence_lines": [
+        32,
+        33
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand-labelled from the holdout regression manifests / injected defines (hdl/regressions/holdout, hdl/holdout) and the text of the copied log, following GOLD-FORMAT.md; no parser, rule baseline or model output was consulted",
+  "notes": "The log stops mid-line inside crc_stop's run stage (line 33, no newline) before any failure line, verdict or stage end, so crc_stop is incomplete_log, not test_failure (contrast: the full run h11 shows a FATAL there). arb_fairness never appears in this file and is not labelled."
+}

@@ -1,0 +1,18 @@
+{
+  "regression": "h05_arb_bad_port",
+  "description": "testbench connects a named port the arbiter does not have",
+  "tests": [
+    {
+      "test_id": "arb_rotation",
+      "top": "tb_rr_arbiter",
+      "sources": [
+        "hdl/holdout/rtl/rr_arbiter.v",
+        "hdl/holdout/tb/tb_rr_arbiter.sv"
+      ],
+      "defines": [
+        "BUG_PORTNAME"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

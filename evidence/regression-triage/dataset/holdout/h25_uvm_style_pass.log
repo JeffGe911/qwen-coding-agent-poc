@@ -1,0 +1,33 @@
+UVM_INFO @ 0: reporter [RNTST] Running test arb_smoke_test...
+UVM_INFO ../tb/arb_env.sv(41) @ 0: uvm_test_top.env [CFG] 4 request agents, round-robin mode
+UVM_WARNING ../tb/arb_agent.sv(77) @ 1350: uvm_test_top.env.agt[2] [REQ_HOLD] request held for 9 cycles before grant
+UVM_INFO ../tb/arb_scoreboard.sv(120) @ 9000: uvm_test_top.env.sb [SB] 412 grants compared, 0 mismatches
+UVM_INFO ../tb/arb_test.sv(58) @ 9000: uvm_test_top [ERR_SEQ] error-response sequence done: 16 injected protocol errors were flagged by the DUT as expected
+UVM_INFO ../tb/arb_test.sv(64) @ 9000: uvm_test_top [RESULT] ** TEST PASSED **
+
+--- UVM Report catcher Summary ---
+
+
+Number of demoted UVM_FATAL reports  :    0
+Number of demoted UVM_ERROR reports  :    0
+Number of demoted UVM_WARNING reports:    0
+Number of caught UVM_FATAL reports   :    0
+Number of caught UVM_ERROR reports   :    0
+Number of caught UVM_WARNING reports :    0
+
+--- UVM Report Summary ---
+
+** Report counts by severity
+UVM_INFO :    5
+UVM_WARNING :    1
+UVM_ERROR :    0
+UVM_FATAL :    0
+** Report counts by id
+[CFG]     1
+[ERR_SEQ]     1
+[REQ_HOLD]     1
+[RESULT]     1
+[RNTST]     1
+[SB]     1
+$finish called from file "uvm_root.svh", line 527.
+$finish at simulation time                 9000

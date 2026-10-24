@@ -1,0 +1,8 @@
+#RUN regression=h05_arb_bad_port run_id=20261024T185703Z-h05_arb_bad_port-a22dfd started_utc=2026-10-24T18:57:03+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=arb_rotation stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_rr_arbiter -DBUG_PORTNAME hdl/holdout/rtl/rr_arbiter.v hdl/holdout/tb/tb_rr_arbiter.sv
+hdl/holdout/tb/tb_rr_arbiter.sv:13: error: port ``request'' is not a port of dut.
+hdl/holdout/tb/tb_rr_arbiter.sv:13: error: port ``request'' is not a port of dut.
+2 error(s) during elaboration.
+#RUN test=arb_rotation stage=compile exit=2 elapsed_s=0.052 timed_out=false output_truncated=false
+#RUN regression=h05_arb_bad_port end tests=1 finished_utc=2026-10-24T18:57:03+00:00

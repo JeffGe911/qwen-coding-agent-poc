@@ -1,0 +1,17 @@
+{
+  "sample_id": "h02_parity_misleading_pass",
+  "log_status": "complete",
+  "tests": {
+    "parity_fault_inject": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        12
+      ]
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand-labelled from the holdout regression manifests / injected defines (hdl/regressions/holdout, hdl/holdout) and the text of the copied log, following GOLD-FORMAT.md; no parser, rule baseline or model output was consulted",
+  "notes": "Lines 7-11 describe intentional fault injection ('errors raised', 'intentional failures', INFO severity); they are benign wording, not failures. Verdict 'PASS: tb_parity' at line 12."
+}

@@ -1,0 +1,48 @@
+{
+  "run_id": "20261024T185703Z-h06_arb_lint_width-3fbd8a",
+  "regression": "h06_arb_lint_width",
+  "manifest": "hdl/regressions/holdout/h06_arb_lint_width.json",
+  "manifest_sha256": "a42f7ee3beb068099ee0bdbda78597ea79c96c853c9a0dc5fe60cda3193550a7",
+  "started_utc": "2026-10-24T18:57:03+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "arb_lint",
+      "defines": [
+        "LINT_WIDTH"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout/rtl/rr_arbiter.v": "4a268d0995d45a4196c38c38a9228f1352165669a26e8a482f323be6ebd52e27"
+      },
+      "stages": [
+        {
+          "stage": "lint",
+          "cmd": "verilator_bin.exe --lint-only -Wall --top-module rr_arbiter -DLINT_WIDTH hdl/holdout/rtl/rr_arbiter.v",
+          "exit_code": 1,
+          "timed_out": false,
+          "elapsed_s": 0.03,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 13
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-24T18:57:03+00:00"
+}

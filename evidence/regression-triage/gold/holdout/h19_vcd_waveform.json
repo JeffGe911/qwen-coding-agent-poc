@@ -1,0 +1,15 @@
+{
+  "sample_id": "h19_vcd_waveform",
+  "log_status": "unknown_format",
+  "tests": {
+    "(log)": {
+      "result": "unknown",
+      "category": "unknown",
+      "side": "undetermined",
+      "evidence_lines": []
+    }
+  },
+  "flags": [],
+  "labelled_by": "hand-labelled from the holdout regression manifests / injected defines (hdl/regressions/holdout, hdl/holdout) and the text of the copied log, following GOLD-FORMAT.md; no parser, rule baseline or model output was consulted",
+  "notes": "The file is a VCD waveform dump (real vvp output), not a regression or simulator log: no runner lines, no messages, no verdict. Nothing in it states a test result, so evidence_lines is empty."
+}

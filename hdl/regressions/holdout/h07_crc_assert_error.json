@@ -1,0 +1,18 @@
+{
+  "regression": "h07_crc_assert_error",
+  "description": "wrong CRC polynomial; immediate assertion reports with $error, run continues and exits 0",
+  "tests": [
+    {
+      "test_id": "crc_frames",
+      "top": "tb_crc8",
+      "sources": [
+        "hdl/holdout/rtl/crc8.v",
+        "hdl/holdout/tb/tb_crc8.sv"
+      ],
+      "defines": [
+        "BUG_CRC_POLY"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

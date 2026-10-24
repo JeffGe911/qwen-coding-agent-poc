@@ -1,0 +1,10 @@
+2026-10-24T21:14:03Z [pipeline] stage=nightly-sim job=crc8_regress agent=build-lnx-14 attempt=1
+2026-10-24T21:14:03Z [pipeline] $ make -C sim run
+2026-10-24T21:14:04Z make: Entering directory '/work/sim'
+2026-10-24T21:14:04Z simctl -f files.f -licqueue 0
+2026-10-24T21:14:05Z simctl: requesting license feature 'sv_sim_runtime' (1 seat) from 5280@lic-a.corp.internal
+2026-10-24T21:14:35Z simctl: ERROR: license request failed: all 12 seats of 'sv_sim_runtime' are in use and queueing is disabled (-licqueue 0)
+2026-10-24T21:14:35Z simctl: no simulation was started
+2026-10-24T21:14:35Z make: *** [Makefile:41: run] Error 3
+2026-10-24T21:14:35Z make: Leaving directory '/work/sim'
+2026-10-24T21:14:35Z [pipeline] stage nightly-sim FAILED (exit 2) after 32 s; artifacts: none

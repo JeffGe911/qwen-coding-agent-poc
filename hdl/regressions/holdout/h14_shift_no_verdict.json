@@ -1,0 +1,18 @@
+{
+  "regression": "h14_shift_no_verdict",
+  "description": "testbench ends with $finish but prints no verdict line; exit 0",
+  "tests": [
+    {
+      "test_id": "shift_smoke",
+      "top": "tb_shiftreg",
+      "sources": [
+        "hdl/holdout/rtl/shift_reg.v",
+        "hdl/holdout/tb/tb_shiftreg.sv"
+      ],
+      "defines": [
+        "NO_VERDICT"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}
