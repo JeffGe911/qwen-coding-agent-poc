@@ -119,7 +119,7 @@ def triage_section():
         return ""
     return ('<h2>7. 仿真回归日志分诊（真实 Icarus / Verilator 运行）</h2><p>读日志 → 引用原文行的失败归类 → 工程师确认。dev 由规则作者编写，只用于开发；'
             'holdout 由独立代理编写和标注，规则在它交付前已提交，只运行一次（盲测）。本地 Qwen 尚未评测（评测时 11437 上的服务不在运行）。'
-            '<a href="regression-triage/REPORT.md">完整报告</a></p>'
+            '<a href="regression-triage/REPORT-eval-v1.md">完整报告</a></p>'
             + table(["合同", "引擎", "拆分", "样本 / 金标准测试", "类别准确率", "需关注 precision", "需关注 recall", "引用有效率", "unknown 比例", "请求失败 / 输出不合规"], rows)
             + "<p><small>holdout 上的错误几乎都是“不知道”，没有把失败报成通过；根因是 testbench 的结论写法因项目而异。</small></p>")
 

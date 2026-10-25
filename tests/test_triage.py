@@ -246,3 +246,17 @@ def test_eval_refuses_reruns_uncovered_engines_and_changed_inputs(tmp_path):
     with pytest.raises(SystemExit, match="refusing to run"):
         cli.main(["eval", "--contract", str(path), "--split", "dev", "--engine", "rules"])
     assert not (EV / "results" / "tampered-by-test-rules").exists()
+
+
+def test_model_session_refuses_to_load_or_aborts_on_low_memory():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("session", ROOT / "scripts" / "triage_model_session.py")
+    s = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(s)
+    roomy = {"available_mb": 9000, "commit_headroom_mb": 9000}
+    gpu = {"vram_free_mb": 11000}
+    assert s.problems(roomy, gpu) == [] and not s.must_abort(roomy)
+    tight = {"available_mb": 5300, "commit_headroom_mb": 3500}  # the laptop at 2026-10-25 03:54Z: enough RAM, not enough commit
+    assert [p for p in s.problems(tight, gpu) if p.startswith("commit headroom")] and not s.must_abort(tight)
+    assert s.problems(roomy, {"vram_free_mb": 5000})  # something else holds the GPU
+    assert s.must_abort({"available_mb": 1500, "commit_headroom_mb": 9000}) and s.must_abort({"available_mb": 9000, "commit_headroom_mb": 1000})

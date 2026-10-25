@@ -1,8 +1,8 @@
 """Build evidence/regression-triage/REPORT.md from a frozen contract and the raw eval results.
 
 Every number comes from results/<version>-<engine>/<split>/*.json; nothing is typed in by hand except the optional
-analysis in evidence/regression-triage/REPORT-notes.md, which is copied in verbatim. Code tests, triage quality and
-service performance are reported in separate sections. Re-running overwrites REPORT.md only.
+analysis in evidence/regression-triage/REPORT-notes-<version>.md, which is copied in verbatim. Code tests, triage quality
+and service performance are reported in separate sections. Writes REPORT-<version>.md; re-running overwrites only that file.
 Usage: python scripts/build_triage_report.py --contract evidence/regression-triage/contract/eval-v1.json
 """
 import argparse
@@ -75,8 +75,74 @@ def service_table(found):
         m = r["metrics"]
         n = m["requests"] or 1
         tok = (m["prompt_tokens"], m["completion_tokens"]) if engine != "rules" else ("—", "—")
-        rows.append(f"| {engine} · {split} | {m['requests']} | {m['request_failed']} | {m['invalid_output']} | {len(m['unscored_samples'])} | {m['seconds_total']} | {m["seconds_total"] / n:.4f} | {tok[0]} | {tok[1]} |")
+        rows.append(f"| {engine} · {split} | {m['requests']} | {m['request_failed']} | {m['invalid_output']} | {len(m['unscored_samples'])} | {m['seconds_total']} | {m['seconds_total'] / n:.4f} | {tok[0]} | {tok[1]} |")
     return "\n".join(rows) + "\n"
+
+
+def outcome(t):
+    if t["category_ok"]:
+        return "correct"
+    if t["pred"]["category"] is None:
+        return "missing"
+    return "abstain" if t["pred"]["category"] == "unknown" else "wrong"
+
+
+def safety(samples, split):
+    """What an engineer would be misled by. Tests of samples the engine could not answer count as missing."""
+    c = dict.fromkeys(("tests", "correct", "abstain", "wrong", "missing", "false_release", "false_alarm", "missed", "attention", "rejected_citations"), 0)
+    secs = []
+    for s in samples:
+        gold = load(EV / "gold" / split / f"{s['sample_id']}.json")["tests"]
+        rows = s["score"]["tests"] if s["score"] else [{"test_id": tid, "gold": g, "pred": {"category": None, "result": None}, "category_ok": False} for tid, g in gold.items()]
+        for t in rows:
+            g, p = t["gold"]["result"], t["pred"]["result"]
+            c["tests"] += 1
+            c[outcome(t)] += 1
+            c["false_release"] += g != "pass" and p == "pass"           # reported as passing although it did not pass
+            c["false_alarm"] += g == "pass" and p in ("fail", "not_run")
+            c["attention"] += g in ("fail", "not_run")
+            c["missed"] += g in ("fail", "not_run") and p not in ("fail", "not_run")
+        c["rejected_citations"] += sum(len(t.get("rejected_citations", [])) for t in ((s["triage"] or {}).get("tests") or []))
+        if s["call"].get("seconds") is not None:
+            secs.append(s["call"]["seconds"])
+    secs.sort()
+    c["seconds"] = {"median": secs[len(secs) // 2] if secs else None, "max": secs[-1] if secs else None, "total": round(sum(secs), 3)}
+    return c
+
+
+def comparison(found):
+    out = []
+    for split in SPLITS:
+        if not all((e, split) in found for e in ENGINES):
+            continue
+        sf = {e: safety(found[(e, split)]["samples"], split) for e in ENGINES}
+        cs = {e: counts(found[(e, split)]["samples"]) for e in ENGINES}
+        n = sf["rules"]["tests"]
+        row = lambda label, f: f"| {label} | " + " | ".join(f(e) for e in ENGINES) + " |"
+        out += [f"### {split}（{n} 个金标准测试）\n", "| | 规则 | Qwen |", "|---|---|---|",
+                row("类别正确", lambda e: frac(sf[e]["correct"], n)),
+                row("回答“不知道”（unknown）", lambda e: frac(sf[e]["abstain"], n)),
+                row("**确信但错误**（给了具体类别且与金标准不同）", lambda e: frac(sf[e]["wrong"], n)),
+                row("没有作答（漏掉测试或整份日志调用失败）", lambda e: frac(sf[e]["missing"], n)),
+                row("**误放行**（没通过却报成 pass）", lambda e: str(sf[e]["false_release"])),
+                row("误报（通过却报成 fail / not_run）", lambda e: str(sf[e]["false_alarm"])),
+                row("漏报（需关注测试没被报为 fail / not_run）", lambda e: f"{sf[e]['missed']}/{sf[e]['attention']}"),
+                row("引用相关率", lambda e: frac(cs[e]["relevant"], cs[e]["cites"])),
+                row("被校验拒绝的引用", lambda e: str(sf[e]["rejected_citations"])),
+                row("每样本耗时 中位数 / 最大（s）", lambda e: f"{sf[e]['seconds']['median']} / {sf[e]['seconds']['max']}"), ""]
+        both = {}
+        for e in ENGINES:
+            for s in found[(e, split)]["samples"]:
+                for t in (s["score"] or {"tests": []})["tests"]:
+                    both.setdefault((s["sample_id"], t["test_id"]), {})[e] = t["category_ok"]
+        keys = [k for k in both if len(both[k]) == 2] + [k for k in both if len(both[k]) < 2]
+        cell = lambda r, q: sum(1 for k in keys if bool(both[k].get("rules")) is r and bool(both[k].get("qwen")) is q)
+        out += ["逐个测试对照（类别是否正确）：\n", "| | Qwen 对 | Qwen 错 |", "|---|---|---|",
+                f"| 规则对 | {cell(True, True)} | {cell(True, False)} |", f"| 规则错 | {cell(False, True)} | {cell(False, False)} |", ""]
+        only_q = sorted(f"{k[0]}/{k[1]}" for k in keys if both[k].get("qwen") and not both[k].get("rules"))
+        only_r = sorted(f"{k[0]}/{k[1]}" for k in keys if both[k].get("rules") and not both[k].get("qwen"))
+        out += [f"只有 Qwen 对：{', '.join(only_q) or '无'}\n", f"只有规则对：{', '.join(only_r) or '无'}\n"]
+    return "\n".join(out) + "\n" if out else ""
 
 
 def sample_table(samples, kinds):
@@ -134,7 +200,7 @@ def main():
     md = [f"# 仿真回归日志分诊：评测报告（合同 {contract['version']}）\n",
           f"> 本文件由 `scripts/build_triage_report.py` 根据冻结合同和 `results/` 下的原始结果生成，不要手改。"
           f"合同冻结于 {contract['frozen_utc']}，代码提交 `{contract['git_commit'][:10]}`，冻结时代码有未提交改动：{'是' if contract['code_uncommitted_changes'] else '否'}。\n"]
-    notes = EV / "REPORT-notes.md"
+    notes = EV / f"REPORT-notes-{contract['version']}.md"
     if notes.exists():
         md += ["## 0. 结论与分析（人工撰写）\n", notes.read_text(encoding="utf-8").strip() + "\n"]
     md += ["## 1. 代码与单元测试\n", f"`pytest`：{pytest_line}\n",
@@ -143,6 +209,7 @@ def main():
            "dev 是开发规则和 prompt 时可以反复查看的拆分；holdout 由独立代理在看不到规则、prompt、评分代码和 dev 金标准的情况下编写和标注，"
            "每个合同版本、每个引擎只运行一次。看过 holdout 结果后再改规则或 prompt，就必须开新合同版本，且不能再称为盲测。\n",
            quality_table(found) if found else "尚无评测结果。\n",
+           *(["### 规则与 Qwen 的错误类型对比\n", comparison(found)] if comparison(found) else []),
            "## 3. 服务性能\n",
            "规则引擎在本机进程内运行，耗时只是参考。模型耗时是笔记本单卡、单并发下测得的，不能外推到服务器吞吐。\n",
            service_table(found) if found else "尚无评测结果。\n",
@@ -167,7 +234,7 @@ def main():
            f"python scripts/build_triage_report.py --contract evidence/regression-triage/contract/{contract['version']}.json\n"
            "```\n",
            "`eval` 会先核对数据、金标准和代码哈希，与合同不一致时拒绝运行；同一合同版本的同一拆分已有结果时也拒绝覆盖。\n"]
-    out = EV / "REPORT.md"
+    out = EV / f"REPORT-{contract['version']}.md"
     out.write_text("\n".join(md), encoding="utf-8", newline="\n")
     print(out)
 

@@ -10,7 +10,7 @@
 | 执行器限制 | 1 s 超时后经 Job Object 结束整个进程树；256 MB 内存上限触发 MemoryError；不存在的工具返回 tool_error；源路径、宏、plusarg、顶层名注入均被拒绝 | `tests/test_triage.py` |
 | 端到端演示 | `python -m regression_triage demo`：真实运行混合回归 → 规则分诊 → 中文报告，状态为“待工程师复核” | `evidence/regression-triage/demo/` |
 | 评测合同 | `eval-v1` 在运行前冻结了数据、金标准和代码的哈希。哈希不符、合同未覆盖的引擎、重复运行都会被拒绝（有测试） | `evidence/regression-triage/contract/eval-v1.json` |
-| 规则基线 · dev | 37/37。规则和 dev 金标准出自同一人，**不代表效果** | `evidence/regression-triage/REPORT.md` |
+| 规则基线 · dev | 37/37。规则和 dev 金标准出自同一人，**不代表效果** | `evidence/regression-triage/REPORT-eval-v1.md` |
 | pytest | 157 个通过，0 个跳过 | `evidence/regression-triage/pytest-summary.txt` |
 
 ## 已运行但结果不达标

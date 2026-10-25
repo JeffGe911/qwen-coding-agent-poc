@@ -40,4 +40,4 @@
 6. **运维归属**：谁负责升级、监控、值班。
 7. **验收方式**：拿一台样机跑 `deploy/linux-vllm/acceptance.sh`（8 项检查），通过后再批量采购。
 
-证据都在仓库里，可以逐项复核：[分诊报告](evidence/regression-triage/REPORT.md)、[芯片任务 rev 2](evidence/chip-rev2/REPORT.md)、[部署状态](evidence/linux-serving/STATUS.md)。
+证据都在仓库里，可以逐项复核：[分诊报告](evidence/regression-triage/REPORT-eval-v1.md)、[芯片任务 rev 2](evidence/chip-rev2/REPORT.md)、[部署状态](evidence/linux-serving/STATUS.md)。
