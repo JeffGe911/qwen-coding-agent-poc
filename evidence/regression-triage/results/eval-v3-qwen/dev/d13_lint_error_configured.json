@@ -1,0 +1,98 @@
+{
+  "sample_id": "d13_lint_error_configured",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v1",
+    "prompt_sha256": "2348650c08e8800720e052a0a293416dd3c4a25501de09a5a594f1b7d025236e",
+    "file": "dataset/dev/d13_lint_error_configured.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 4689,
+    "timeout_s": 180,
+    "seconds": 2.556,
+    "usage": {
+      "prompt_tokens": 962,
+      "prompt_tokens_details": {
+        "cached_tokens": 432
+      },
+      "completion_tokens": 205,
+      "total_tokens": 1167
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": [
+      "alu_lint: 1 citation(s) rejected (file/line/quote do not match the log)"
+    ]
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "alu_lint",
+        "result": "fail",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "evidence": [],
+        "suggestion": "Fix the syntax error in alu8.v at line 25. The unexpected 'end' keyword is causing the lint to fail.",
+        "rejected_citations": [
+          {
+            "file": "hdl/rtl/alu8.v",
+            "line": 25,
+            "quote": "25 |     end\n26 |       |     ^~~"
+          }
+        ],
+        "certainty": "insufficient_evidence"
+      }
+    ],
+    "notes": "The lint test failed due to a syntax error in the design file alu8.v. The error is on line 25, where an 'end' keyword is used without a corresponding 'begin' or other control structure. This needs to be corrected to pass the lint stage.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/dev/d13_lint_error_configured.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "d13_lint_error_configured",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "alu_lint",
+        "gold": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "alu_lint"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "sample_id": "d05_watchdog_timeout",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v1",
+    "prompt_sha256": "2348650c08e8800720e052a0a293416dd3c4a25501de09a5a594f1b7d025236e",
+    "file": "dataset/dev/d05_watchdog_timeout.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 4842,
+    "timeout_s": 180,
+    "seconds": 3.347,
+    "usage": {
+      "prompt_tokens": 1022,
+      "prompt_tokens_details": {
+        "cached_tokens": 432
+      },
+      "completion_tokens": 228,
+      "total_tokens": 1250
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": [
+      "handshake_basic: 1 citation(s) rejected (file/line/quote do not match the log)"
+    ]
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "handshake_basic",
+        "result": "fail",
+        "category": "timeout",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/dev/d05_watchdog_timeout.log",
+            "line": 7,
+            "quote": "ERROR: [2000000] TIMEOUT watchdog: ack not seen within 2000 ns after req"
+          }
+        ],
+        "suggestion": "Check the handshake protocol in tb_handshake.v at line 18. Ensure that the acknowledgment is being generated within the expected time frame.",
+        "rejected_citations": [
+          {
+            "file": "hdl/tb/tb_handshake.v",
+            "line": 18,
+            "quote": "$finish called at 2000000 (1ps)"
+          }
+        ]
+      }
+    ],
+    "notes": "The test failed due to a watchdog timeout, indicating that the acknowledgment was not received within the expected time frame.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/dev/d05_watchdog_timeout.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "d05_watchdog_timeout",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "handshake_basic",
+        "gold": {
+          "result": "fail",
+          "category": "timeout",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "timeout",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "handshake_basic"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

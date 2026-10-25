@@ -20,7 +20,7 @@
 | 激活 r2（2026-10-24）与 chip_final_yield 评测合同 rev 2（单变量对照：格式 / 采样 / 14b） | ACTIVE = r2；门禁原始结果未通过，只豁免已知的 chip 生成失败（记录在发布历史），健康检查与 report_pass_rate 21/21 通过。rev 2：A/B/C 每组都消除了重复退化（对照组 3/3 重复），但 chip 仍未修复（批准后 A 7/22、C 3/22、B 1/22） | [激活证据](evidence/release-r2-activation/)、[rev 2 报告](evidence/chip-rev2/REPORT.md) |
 | 本地 Qwen 解释分析结果 | 已实测；三版提示词均保留；人工复核发现错误，**不可直接采信** | [复核记录](evidence/chip-analysis/explanation_review.md) |
 | 仿真回归日志分诊：受限执行器真实运行 Icarus / Verilator，规则基线，评测合同 eval-v1 | 已实测。dev 37/37（规则照着它写，不算效果）；**独立 holdout 盲测类别 15/39**，错误中 22/24 是回答 unknown，没有 pass/fail 颠倒；需关注测试 precision 11/11、recall 11/24 | [分诊报告](evidence/regression-triage/REPORT-eval-v1.md) |
-| 本地 Qwen 分诊（固定 schema、引用校验、注入与截断检测、按 digest 钉模型，后端配置文件） | 2026-10-25 启动 r2 并通过清单核对和健康检查；eval-v2 dev 跑了 4 个样本，6/6 正确，随后**中止**：笔记本在电池供电、电源方案为“静音”，GPU 功耗上限 33 W，生成只有 7.4 tok/s。迁移前的基线**尚未完成** | [中止说明](evidence/migration/baseline-ollama-r2/NOTE-power-throttle.md) |
+| 本地 Qwen 分诊：固定 schema、引用校验、注入和截断检测、按 digest 钉住模型、后端配置文件；合同 eval-v3 | **已实测**（2026-10-25，交流电源，单并发）。独立 holdout 盲测：类别 **34/39**，规则 15/39；漏报 0/24，规则 13/24；但**误放行 1 次**（规则 0 次）：没有结论行也报了 pass；而且 89% 的引用对不上日志行，被校验拦截。50 个请求，0 个失败 | [分诊报告 eval-v3](evidence/regression-triage/REPORT-eval-v3.md)、[d07 对照](evidence/regression-triage/demo-model/d07_mixed.side-by-side.md) |
 | Docker 执行器 | **未验证**：本机没有 Docker/WSL；本次显式使用 restricted 模式 | — |
 | Linux + Docker + vLLM 单机部署与业务迁移（固定 digest 镜像、loopback、API key、资源限制、8 项验收、migrate.sh 端到端脚本、前后对比） | **阻塞**：本机没有 WSL/Docker，也没有 Linux GPU 机器。只有部署文件、静态检查、用替身命令做的脚本逻辑测试，以及后端切换的单元测试 | [能力盘点](evidence/migration/CAPABILITY-INVENTORY.md)、[STATUS](evidence/linux-serving/STATUS.md)、[RUNBOOK](deploy/linux-vllm/RUNBOOK.md) |
 | 两台服务器 | **未验证**：无服务器访问权限 | [scripts/env_check.sh](scripts/env_check.sh) |
@@ -90,7 +90,7 @@ $env:QWEN_POC_EDA = "<oss-cad-suite 目录>"     # 默认 ..\..\work\tools\oss-c
 - **日志不可信的地方都当真处理**：runner 只记录事实（退出码、耗时、是否超时），不写结论。tool 输出里冒充 runner 的行会被转义（包括缩进的和带 BOM 的）。退出码 0 不等于通过，含 “error” 字样也不等于失败。墙钟超时的责任方记为“未定”，testbench watchdog 超时记为设计或测试问题。编译器自身的内部断言崩溃不算设计断言。日志里的提示注入只当作数据。
 - **评测**：dev 25 份（17 份真实运行、8 份手写 synthetic）。holdout 25 份（19 份真实、6 份 synthetic），由另一个代理在看不到规则、prompt、评分代码和 dev 金标准的情况下编写和标注。合同 [eval-v1](evidence/regression-triage/contract/eval-v1.json) 在运行前冻结了数据、金标准和代码的哈希。`eval` 发现任一哈希不符时拒绝运行，同一拆分也不允许重跑覆盖。数据文件按字节存储（`.gitattributes` 中设为 `-text`），在任何平台上克隆后哈希都一致。
 - **结果（rules-v1）**：dev 37/37；独立 holdout 类别 15/39（38.5%）。错误中 22/24 是回答“不知道”，没有把失败报成通过，也没有把通过报成失败。77 条引用全部有效。根因是规则只认识自己 testbench 的结论写法（`TEST PASSED`），holdout 用的是 `RESULT: PASS`、`MISMATCH`、`WATCHDOG:` 等。**结论词表是项目私有的**，规则引擎接入新项目前必须先配置。详见 [REPORT-eval-v1.md](evidence/regression-triage/REPORT-eval-v1.md)。
-- **本地 Qwen**：代码已完成（固定 JSON schema、unknown 选项、引用逐条核对物理行、日志注入当数据处理、输出截断和上下文超限显式报告、不安全建议标记、按 digest 而不是 tag 钉模型），但只有单元测试（FakeClient）。冻结合同时 11437 上的 Ollama 已不在运行，所以没有对真实模型评测。`triage-prompt-v1` 在 holdout 出现之前已提交，之后在 holdout 上跑仍然是盲测。
+- **本地 Qwen（eval-v3，已实测）**：在同一个 holdout 上，类别 34/39，规则 15/39。需关注的测试全部报出（24/24）。但有两类问题：一是缺少结论行时会放行，dev 和 holdout 各 1 次，而 prompt 明确写了“退出码 0 不算通过”；二是引用的是日志里提到的源文件位置，不是日志行号，所以 89% 的引用被校验拦截。两个引擎的失败方式正好相反，都不能单独交给工程师用。建议的组合方式（尚未评测）见 [REPORT-eval-v3.md](evidence/regression-triage/REPORT-eval-v3.md)。
 
 ## 部署迁移：Windows Ollama → Linux Docker + vLLM（进行中）
 
@@ -98,7 +98,7 @@ $env:QWEN_POC_EDA = "<oss-cad-suite 目录>"     # 默认 ..\..\work\tools\oss-c
 
 - **后端切换**：两个后端的差别全部写在 [deploy/backends/](deploy/backends/) 下的配置文件里，包括接口、模型名、权重标识、鉴权、超时、上下文、输出预算、请求里发送的采样参数，以及服务端实际生效的参数。业务流程只有一套，没有回退。Ollama 配置生成的 50 个请求体与重构前逐字节一致（黄金哈希测试）。
 - **迁移时容易漏掉的一点**：vLLM 默认 `--generation-config auto`，会把模型自带的 repetition_penalty 1.1 用到所有没写这个参数的请求上，而 Ollama 的 `/v1` 实际是 1.0。所以 compose 加了 `--generation-config vllm`，请求里也显式写出采样参数（[文档核对](evidence/linux-serving/docs-check.md)）。
-- **迁移前基线**：r2 启动后通过了清单核对和健康检查。但笔记本在电池供电并被降频，dev 跑到第 4 个样本时中止，基线尚未完成（[说明](evidence/migration/baseline-ollama-r2/NOTE-power-throttle.md)）。
+- **迁移前基线**：eval-v2 那次在电池供电下降频，跑了 4 个样本就停了，不计入（[说明](evidence/migration/baseline-ollama-r2/NOTE-power-throttle.md)）。接上电源后，按 eval-v3 完成了 dev 和一次 holdout，0 个请求失败，生成速度中位数 87 tok/s。这就是迁移前的服务基线和业务基线（[启动与核对记录](evidence/migration/baseline-eval-v3/)）。
 - **迁移后**：`sudo QWEN_VLLM_CONFIRM=yes bash deploy/linux-vllm/migrate.sh dev`，复核后再执行 `... migrate.sh holdout`。前后对比由 `scripts/compare_migration.py` 生成。**这些都还没有在 Linux 上运行过。**
 
 

@@ -1,0 +1,94 @@
+{
+  "sample_id": "h05_arb_bad_port",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout/h05_arb_bad_port.log",
+    "sha256": "1aa4848d34286383ae1054a8fdeac66aa1b619b8060f5dc9418b9a6ae09eddd1",
+    "lines": 8,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "arb_rotation",
+        "result": "not_run",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout/h05_arb_bad_port.log",
+            "line": 4,
+            "quote": "hdl/holdout/tb/tb_rr_arbiter.sv:13: error: port ``request'' is not a port of dut."
+          }
+        ],
+        "fingerprint": "compile_error:bf2b2c42",
+        "certainty": "confirmed",
+        "notes": [
+          "其余 1 条报错多半是第一条引起的连锁报错"
+        ],
+        "suggestion": "先修第一条编译错误 dataset/holdout/h05_arb_bad_port.log:4：“hdl/holdout/tb/tb_rr_arbiter.sv:13: error: port ``request'' is not a port of dut.”。之后的报错多半是它引起的连锁报错，修完再重新编译。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "compile_error:bf2b2c42",
+        "category": "compile_error",
+        "tests": [
+          "arb_rotation"
+        ],
+        "example": {
+          "file": "dataset/holdout/h05_arb_bad_port.log",
+          "line": 4,
+          "quote": "hdl/holdout/tb/tb_rr_arbiter.sv:13: error: port ``request'' is not a port of dut."
+        }
+      }
+    ],
+    "flags": [],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "h05_arb_bad_port",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "arb_rotation",
+        "gold": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "arb_rotation"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

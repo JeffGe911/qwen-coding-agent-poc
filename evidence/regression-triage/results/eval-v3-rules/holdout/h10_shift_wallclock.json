@@ -1,0 +1,94 @@
+{
+  "sample_id": "h10_shift_wallclock",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0002
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout/h10_shift_wallclock.log",
+    "sha256": "24faf0a953eb013537e17704b8e19cab1a8ed3f7eb9bfe3b0dca561e4d7a64a9",
+    "lines": 9,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "shift_drain",
+        "result": "fail",
+        "category": "timeout",
+        "side": "undetermined",
+        "kind": "wallclock",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h10_shift_wallclock.log",
+            "line": 8,
+            "quote": "#RUN test=shift_drain stage=run exit=1 elapsed_s=3.018 timed_out=true output_truncated=false"
+          }
+        ],
+        "fingerprint": "timeout:f688af18",
+        "certainty": "confirmed",
+        "notes": [
+          "被 runner 的墙钟时限强制结束，结束前的输出可能已丢失"
+        ],
+        "suggestion": "仿真被 runner 的墙钟时限强制结束 dataset/holdout/h10_shift_wallclock.log:8，没有留下 testbench 输出。可能是 testbench 缺少 $finish/watchdog、DUT 死循环，或时限设置过小；先确认 testbench 会自行结束。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "timeout:f688af18",
+        "category": "timeout",
+        "tests": [
+          "shift_drain"
+        ],
+        "example": {
+          "file": "dataset/holdout/h10_shift_wallclock.log",
+          "line": 8,
+          "quote": "#RUN test=shift_drain stage=run exit=1 elapsed_s=3.018 timed_out=true output_truncated=false"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "h10_shift_wallclock",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "shift_drain",
+        "gold": {
+          "result": "fail",
+          "category": "timeout",
+          "side": "undetermined"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "timeout",
+          "side": "undetermined"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "shift_drain"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

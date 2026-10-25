@@ -1,0 +1,94 @@
+{
+  "sample_id": "h03_cnt_undeclared",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0002
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout/h03_cnt_undeclared.log",
+    "sha256": "3d36a39ac4513a9652696f6393e305449114817064c7fd9bb560e0c29f8ccfb3",
+    "lines": 8,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "cnt_basic",
+        "result": "not_run",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout/h03_cnt_undeclared.log",
+            "line": 4,
+            "quote": "hdl/holdout/rtl/updown_counter.v:34: error: Unable to bind wire/reg/memory `en_q' in `tb_updown.dut'"
+          }
+        ],
+        "fingerprint": "compile_error:308e0501",
+        "certainty": "confirmed",
+        "notes": [
+          "其余 1 条报错多半是第一条引起的连锁报错"
+        ],
+        "suggestion": "先修第一条编译错误 dataset/holdout/h03_cnt_undeclared.log:4：“hdl/holdout/rtl/updown_counter.v:34: error: Unable to bind wire/reg/memory `en_q' in `tb_updown.dut'”。之后的报错多半是它引起的连锁报错，修完再重新编译。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "compile_error:308e0501",
+        "category": "compile_error",
+        "tests": [
+          "cnt_basic"
+        ],
+        "example": {
+          "file": "dataset/holdout/h03_cnt_undeclared.log",
+          "line": 4,
+          "quote": "hdl/holdout/rtl/updown_counter.v:34: error: Unable to bind wire/reg/memory `en_q' in `tb_updown.dut'"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "h03_cnt_undeclared",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "cnt_basic",
+        "gold": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "cnt_basic"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-632",
+  "object": "chat.completion",
+  "created": 1792961786,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"parity_fault_inject\",\n      \"result\": \"pass\",\n      \"category\": \"pass\",\n      \"side\": \"none\",\n      \"evidence\": [\n        {\n          \"file\": \"hdl/holdout/tb/tb_parity.sv\",\n          \"line\": 12,\n          \"quote\": \"PASS: tb_parity (768 vectors, 256 injected faults)\"\n        }\n      ],\n      \"suggestion\": \"The test passed as indicated by the 'PASS' message in tb_parity.sv.\"\n    }\n  ],\n  \"notes\": \"The log is complete and the test passed as expected.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1181,
+    "prompt_tokens_details": {
+      "cached_tokens": 434
+    },
+    "completion_tokens": 155,
+    "total_tokens": 1336
+  }
+}

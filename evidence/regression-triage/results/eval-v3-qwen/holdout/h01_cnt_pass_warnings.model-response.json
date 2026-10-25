@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-232",
+  "object": "chat.completion",
+  "created": 1792961784,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"cnt_narrow_load\",\n      \"result\": \"pass\",\n      \"category\": \"pass\",\n      \"side\": \"none\",\n      \"evidence\": [\n        {\n          \"file\": \"hdl/holdout/tb/tb_updown.sv\",\n          \"line\": 70,\n          \"quote\": \"$finish called at 1620000 (1ps)\"\n        }\n      ],\n      \"suggestion\": \"The test passed as indicated by the '$finish called' message.\"\n    },\n    {\n      \"test_id\": \"gray_exhaustive\",\n      \"result\": \"pass\",\n      \"category\": \"pass\",\n      \"side\": \"none\",\n      \"evidence\": [\n        {\n          \"file\": \"hdl/holdout/tb/tb_gray.sv\",\n          \"line\": 53,\n          \"quote\": \"$finish called at 32000 (1ps)\"\n        },\n        {\n          \"file\": \"hdl/holdout/tb/tb_gray.sv\",\n          \"line\": 19,\n          \"quote\": \"tb_gray: exhaustive check of 32 codes\"\n        },\n        {\n          \"file\": \"hdl/holdout/tb/tb_gray.sv\",\n          \"line\": 20,\n          \"quote\": \"*** TEST PASSED *** tb_gray (95 checks)\"\n        }\n      ],\n      \"suggestion\": \"The test passed as indicated by the '$finish called' message and the 'TEST PASSED' message.\"\n    }\n  ],\n  \"notes\": \"Both tests completed successfully with no errors or warnings indicating failure.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1558,
+    "prompt_tokens_details": {
+      "cached_tokens": 429
+    },
+    "completion_tokens": 356,
+    "total_tokens": 1914
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "sample_id": "d11_lint_error",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v1",
+    "prompt_sha256": "2348650c08e8800720e052a0a293416dd3c4a25501de09a5a594f1b7d025236e",
+    "file": "dataset/dev/d11_lint_error.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 5717,
+    "timeout_s": 180,
+    "seconds": 3.379,
+    "usage": {
+      "prompt_tokens": 1292,
+      "prompt_tokens_details": {
+        "cached_tokens": 432
+      },
+      "completion_tokens": 272,
+      "total_tokens": 1564
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": [
+      "alu_lint: 1 citation(s) rejected (file/line/quote do not match the log)"
+    ]
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "alu_lint",
+        "result": "fail",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/dev/d11_lint_error.log",
+            "line": 4,
+            "quote": "%Error: Cannot find verilated_std_waiver.vlt containing built-in lint waivers: '/yosyshq/share/verilator\\include\\verilated_std_waiver.vlt'"
+          }
+        ],
+        "suggestion": "Fix the syntax error in alu8.v at line 25 and ensure the verilated_std_waiver.vlt file is correctly specified and accessible.",
+        "rejected_citations": [
+          {
+            "file": "hdl/rtl/alu8.v",
+            "line": 25,
+            "quote": "25 |     end\n26 |       |     ^~~"
+          }
+        ]
+      }
+    ],
+    "notes": "The lint-only test failed due to a syntax error in alu8.v and an issue with finding the verilated_std_waiver.vlt file. The syntax error is a design issue, while the missing file is an infrastructure issue.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/dev/d11_lint_error.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "d11_lint_error",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "alu_lint",
+        "gold": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "alu_lint"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "tool_setup_error"
+    ],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

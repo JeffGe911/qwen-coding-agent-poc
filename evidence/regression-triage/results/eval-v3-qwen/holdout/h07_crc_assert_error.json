@@ -1,0 +1,118 @@
+{
+  "sample_id": "h07_crc_assert_error",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v1",
+    "prompt_sha256": "2348650c08e8800720e052a0a293416dd3c4a25501de09a5a594f1b7d025236e",
+    "file": "dataset/holdout/h07_crc_assert_error.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 5395,
+    "timeout_s": 180,
+    "seconds": 5.769,
+    "usage": {
+      "prompt_tokens": 1322,
+      "prompt_tokens_details": {
+        "cached_tokens": 434
+      },
+      "completion_tokens": 488,
+      "total_tokens": 1810
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": [
+      "crc_frames: 5 citation(s) rejected (file/line/quote do not match the log)"
+    ]
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "crc_frames",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [],
+        "suggestion": "Review the CRC calculation in tb_crc8.sv at line 71. The calculated CRC values do not match the expected reference values.",
+        "rejected_citations": [
+          {
+            "file": "hdl/holdout/tb/tb_crc8.sv",
+            "line": 71,
+            "quote": "ERROR: hdl/holdout/tb/tb_crc8.sv:71: frame 1 (len 2): crc=d4, reference 72"
+          },
+          {
+            "file": "hdl/holdout/tb/tb_crc8.sv",
+            "line": 71,
+            "quote": "ERROR: hdl/holdout/tb/tb_crc8.sv:71: frame 2 (len 3): crc=78, reference 48"
+          },
+          {
+            "file": "hdl/holdout/tb/tb_crc8.sv",
+            "line": 71,
+            "quote": "ERROR: hdl/holdout/tb/tb_crc8.sv:71: frame 3 (len 4): crc=74, reference ca"
+          },
+          {
+            "file": "hdl/holdout/tb/tb_crc8.sv",
+            "line": 71,
+            "quote": "ERROR: hdl/holdout/tb/tb_crc8.sv:71: frame 4 (len 5): crc=34, reference f6"
+          },
+          {
+            "file": "hdl/holdout/tb/tb_crc8.sv",
+            "line": 71,
+            "quote": "ERROR: hdl/holdout/tb/tb_crc8.sv:71: frame 5 (len 9): crc=01, reference f4"
+          }
+        ],
+        "certainty": "insufficient_evidence"
+      }
+    ],
+    "notes": "The test passed compilation but failed at runtime due to mismatched CRC values. The first error is at line 71 of tb_crc8.sv.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout/h07_crc_assert_error.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "h07_crc_assert_error",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "crc_frames",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "crc_frames"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

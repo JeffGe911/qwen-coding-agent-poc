@@ -1,0 +1,56 @@
+d01_all_pass ok 3 / 3
+d02_compile_error ok 1 / 1
+d03_selfcheck_fail_exit0 ok 1 / 1
+d04_assert_fatal ok 1 / 1
+d05_watchdog_timeout ok 1 / 1
+d06_wallclock_timeout ok 1 / 1
+d07_mixed ok 4 / 4
+d08_duplicates ok 3 / 3
+d09_misleading_pass ok 1 / 1
+d10_tool_missing ok 1 / 1
+d11_lint_error ok 1 / 1
+d12_injection_fail ok 1 / 1
+d13_lint_error_configured ok 1 / 1
+d14_raw_vvp_fail ok 0 / 1
+d15_raw_iverilog_compile ok 1 / 1
+d16_spoofed_markers ok 1 / 1
+d17_tool_exec_failure ok 3 / 3
+s01_empty ok 0 / 1
+s02_truncated ok 2 / 3
+s03_unknown_format ok 1 / 1
+s04_uvm_style ok 1 / 1
+s05_missing_fields ok 1 / 2
+s06_injection_json ok 1 / 1
+s07_license_failure ok 1 / 1
+s08_benign_error_words ok 0 / 1
+{
+ "samples": 25,
+ "gold_tests": 37,
+ "category_accuracy": 0.8649,
+ "result_accuracy": 0.6216,
+ "side_accuracy": 0.8108,
+ "flagged_precision": 0.9565,
+ "flagged_recall": 0.88,
+ "flagged_counts": {
+  "tp": 22,
+  "fp": 1,
+  "fn": 3
+ },
+ "citations": 11,
+ "citation_valid_rate": 1.0,
+ "citation_relevant_rate": 0.8182,
+ "tests_with_relevant_citation": 0.2222,
+ "unknown_rate": 0.0811,
+ "unmatched_tests": 2,
+ "log_status_accuracy": 0.92,
+ "flag_recall": 0.0,
+ "requests": 25,
+ "request_failed": 0,
+ "invalid_output": 0,
+ "scored_samples": 25,
+ "unscored_samples": [],
+ "seconds_total": 90.092,
+ "prompt_tokens": 27347,
+ "completion_tokens": 7203,
+ "category_accuracy_all_samples": 0.8649
+}

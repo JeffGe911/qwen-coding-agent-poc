@@ -1,0 +1,98 @@
+{
+  "sample_id": "h04_gray_unknown_module",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v1",
+    "prompt_sha256": "2348650c08e8800720e052a0a293416dd3c4a25501de09a5a594f1b7d025236e",
+    "file": "dataset/holdout/h04_gray_unknown_module.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 4593,
+    "timeout_s": 180,
+    "seconds": 2.47,
+    "usage": {
+      "prompt_tokens": 928,
+      "prompt_tokens_details": {
+        "cached_tokens": 434
+      },
+      "completion_tokens": 188,
+      "total_tokens": 1116
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": [
+      "gray_exhaustive: 1 citation(s) rejected (file/line/quote do not match the log)"
+    ]
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "gray_exhaustive",
+        "result": "fail",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "evidence": [],
+        "suggestion": "Check the module type 'gray_encoder' in your testbench. Ensure it is defined and spelled correctly.",
+        "rejected_citations": [
+          {
+            "file": "hdl/holdout/tb/tb_gray.sv",
+            "line": 14,
+            "quote": "hdl/holdout/tb/tb_gray.sv:14: error: Unknown module type: gray_encoder"
+          }
+        ],
+        "certainty": "insufficient_evidence"
+      }
+    ],
+    "notes": "The compile error indicates that the module 'gray_encoder' is not recognized. This is likely a design issue that needs to be addressed in the RTL or testbench.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout/h04_gray_unknown_module.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "h04_gray_unknown_module",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "gray_exhaustive",
+        "gold": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": false,
+        "side_ok": true,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "gray_exhaustive"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

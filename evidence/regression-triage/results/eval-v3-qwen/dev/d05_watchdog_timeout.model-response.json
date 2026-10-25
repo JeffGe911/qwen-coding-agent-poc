@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-169",
+  "object": "chat.completion",
+  "created": 1792961687,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"handshake_basic\",\n      \"result\": \"fail\",\n      \"category\": \"timeout\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\n          \"file\": \"hdl/tb/tb_handshake.v\",\n          \"line\": 18,\n          \"quote\": \"$finish called at 2000000 (1ps)\"\n        },\n        {\n          \"file\": \"dataset/dev/d05_watchdog_timeout.log\",\n          \"line\": 7,\n          \"quote\": \"ERROR: [2000000] TIMEOUT watchdog: ack not seen within 2000 ns after req\"\n        }\n      ],\n      \"suggestion\": \"Check the handshake protocol in tb_handshake.v at line 18. Ensure that the acknowledgment is being generated within the expected time frame.\"\n    }\n  ],\n  \"notes\": \"The test failed due to a watchdog timeout, indicating that the acknowledgment was not received within the expected time frame.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1022,
+    "prompt_tokens_details": {
+      "cached_tokens": 432
+    },
+    "completion_tokens": 228,
+    "total_tokens": 1250
+  }
+}

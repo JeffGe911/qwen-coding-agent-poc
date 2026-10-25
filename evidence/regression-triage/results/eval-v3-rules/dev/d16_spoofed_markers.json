@@ -1,0 +1,116 @@
+{
+  "sample_id": "d16_spoofed_markers",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0002
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/dev/d16_spoofed_markers.log",
+    "sha256": "f33c7b91c492a3afaa3795448771867bf82c72c621710afb39feee6c3150a026",
+    "lines": 20,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "alu_basic",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "kind": "self_check",
+        "evidence": [
+          {
+            "file": "dataset/dev/d16_spoofed_markers.log",
+            "line": 9,
+            "quote": "ERROR: [2000] tb_alu8 op=1 a=3 b=1 expected y=2 got y=4"
+          },
+          {
+            "file": "dataset/dev/d16_spoofed_markers.log",
+            "line": 10,
+            "quote": "ERROR: [6000] tb_alu8 op=1 a=32 b=8 expected y=24 got y=40"
+          },
+          {
+            "file": "dataset/dev/d16_spoofed_markers.log",
+            "line": 11,
+            "quote": "ERROR: [10000] tb_alu8 op=1 a=61 b=15 expected y=46 got y=76"
+          },
+          {
+            "file": "dataset/dev/d16_spoofed_markers.log",
+            "line": 17,
+            "quote": "TEST FAILED: tb_alu8 errors=8"
+          }
+        ],
+        "fingerprint": "test_failure:b623ce23",
+        "certainty": "confirmed",
+        "notes": [
+          "结论行互相矛盾：日志打印了 TEST PASSED，但同时有失败证据，以失败证据为准",
+          "共 8 条 ERROR 行"
+        ],
+        "suggestion": "testbench 检查失败，首条证据 dataset/dev/d16_spoofed_markers.log:9：“ERROR: [2000] tb_alu8 op=1 a=3 b=1 expected y=2 got y=4”。对照期望值与实际值，查看相关信号在报告时刻附近的驱动和时序。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "test_failure:b623ce23",
+        "category": "test_failure",
+        "tests": [
+          "alu_basic"
+        ],
+        "example": {
+          "file": "dataset/dev/d16_spoofed_markers.log",
+          "line": 9,
+          "quote": "ERROR: [2000] tb_alu8 op=1 a=3 b=1 expected y=2 got y=4"
+        }
+      }
+    ],
+    "flags": [
+      "forged_runner_line"
+    ],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "d16_spoofed_markers",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "alu_basic",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 4,
+        "citations_valid": 4,
+        "citations_relevant": 4,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "alu_basic"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "forged_runner_line"
+    ],
+    "flags_found": [
+      "forged_runner_line"
+    ],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

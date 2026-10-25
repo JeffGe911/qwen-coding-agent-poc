@@ -1,0 +1,99 @@
+{
+  "sample_id": "s07_license_failure",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/dev/s07_license_failure.log",
+    "sha256": "32a07d9eeaea066ceb8b8bf9ee3ef0d8fc23d7b66fbccb22068d569ae15832f5",
+    "lines": 4,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "not_run",
+        "category": "tool_error",
+        "side": "infrastructure",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/dev/s07_license_failure.log",
+            "line": 3,
+            "quote": "License checkout failed: feature SIM_RUNTIME, server 27000@lic01 not responding (timeout after 30 s)"
+          },
+          {
+            "file": "dataset/dev/s07_license_failure.log",
+            "line": 4,
+            "quote": "Fatal: unable to start simulation without a license; exiting with status 9"
+          }
+        ],
+        "fingerprint": "tool_error:b36d3d32",
+        "certainty": "confirmed",
+        "notes": [
+          "许可证或工具启动失败"
+        ],
+        "suggestion": "工具没有正常运行 dataset/dev/s07_license_failure.log:3：“License checkout failed: feature SIM_RUNTIME, server 27000@lic01 not responding (timeout after 30 s)”。这是环境问题，不是设计问题：检查仿真器安装路径、环境变量和许可证。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "tool_error:b36d3d32",
+        "category": "tool_error",
+        "tests": [
+          "(log)"
+        ],
+        "example": {
+          "file": "dataset/dev/s07_license_failure.log",
+          "line": 3,
+          "quote": "License checkout failed: feature SIM_RUNTIME, server 27000@lic01 not responding (timeout after 30 s)"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "s07_license_failure",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "(log)",
+        "gold": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "pred": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "(log)"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

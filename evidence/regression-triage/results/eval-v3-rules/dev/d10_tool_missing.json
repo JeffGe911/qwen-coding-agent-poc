@@ -1,0 +1,94 @@
+{
+  "sample_id": "d10_tool_missing",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0004
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/dev/d10_tool_missing.log",
+    "sha256": "3a91bb473dd9bb529962b8b37749ff985ec9bf610d052510c48bf6e5127c6d77",
+    "lines": 5,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "alu_basic",
+        "result": "not_run",
+        "category": "tool_error",
+        "side": "infrastructure",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/dev/d10_tool_missing.log",
+            "line": 4,
+            "quote": "#RUN test=alu_basic stage=compile tool_error=\"FileNotFoundError: [WinError 2] 系统找不到指定的文件。\" elapsed_s=0.001"
+          }
+        ],
+        "fingerprint": "tool_error:33e287a7",
+        "certainty": "confirmed",
+        "notes": [
+          "仿真器程序无法启动"
+        ],
+        "suggestion": "工具没有正常运行 dataset/dev/d10_tool_missing.log:4：“#RUN test=alu_basic stage=compile tool_error=\"FileNotFoundError: [WinError 2] 系统找不到指定的文件。\" elapsed_s=0.001”。这是环境问题，不是设计问题：检查仿真器安装路径、环境变量和许可证。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "tool_error:33e287a7",
+        "category": "tool_error",
+        "tests": [
+          "alu_basic"
+        ],
+        "example": {
+          "file": "dataset/dev/d10_tool_missing.log",
+          "line": 4,
+          "quote": "#RUN test=alu_basic stage=compile tool_error=\"FileNotFoundError: [WinError 2] 系统找不到指定的文件。\" elapsed_s=0.001"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "d10_tool_missing",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "alu_basic",
+        "gold": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "pred": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "alu_basic"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "sample_id": "h20_whitespace_only",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v1",
+    "prompt_sha256": "2348650c08e8800720e052a0a293416dd3c4a25501de09a5a594f1b7d025236e",
+    "file": "dataset/holdout/h20_whitespace_only.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 3529,
+    "timeout_s": 180,
+    "seconds": 4.382,
+    "usage": {
+      "prompt_tokens": 522,
+      "prompt_tokens_details": {
+        "cached_tokens": 433
+      },
+      "completion_tokens": 364,
+      "total_tokens": 886
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": [
+      "(log): 6 citation(s) rejected (file/line/quote do not match the log)"
+    ]
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "none",
+        "evidence": [],
+        "suggestion": "The log file contains only whitespace and no test results. Please ensure that the test is being run and that the output is being captured correctly.",
+        "rejected_citations": [
+          {
+            "file": "dataset/holdout/h20_whitespace_only.log",
+            "line": 1,
+            "quote": "L1:   "
+          },
+          {
+            "file": "dataset/holdout/h20_whitespace_only.log",
+            "line": 2,
+            "quote": "L2: \t\n"
+          },
+          {
+            "file": "dataset/holdout/h20_whitespace_only.log",
+            "line": 3,
+            "quote": "L3:  \t  \n"
+          },
+          {
+            "file": "dataset/holdout/h20_whitespace_only.log",
+            "line": 4,
+            "quote": "L4: \n"
+          },
+          {
+            "file": "dataset/holdout/h20_whitespace_only.log",
+            "line": 5,
+            "quote": "L5:     \n"
+          },
+          {
+            "file": "dataset/holdout/h20_whitespace_only.log",
+            "line": 6,
+            "quote": "L6: \t\t"
+          }
+        ],
+        "certainty": "insufficient_evidence"
+      }
+    ],
+    "notes": "The log file is empty and does not contain any test results. The engineer should verify that the test is being run and that the output is being captured correctly.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout/h20_whitespace_only.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "h20_whitespace_only",
+    "log_status_ok": false,
+    "log_status": {
+      "gold": "empty",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "(log)",
+        "gold": {
+          "result": "unknown",
+          "category": "incomplete_log",
+          "side": "infrastructure"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "none"
+        },
+        "category_ok": false,
+        "result_ok": true,
+        "side_ok": false,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": null
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 1,
+    "extra_citations_on_unmatched": 0
+  }
+}

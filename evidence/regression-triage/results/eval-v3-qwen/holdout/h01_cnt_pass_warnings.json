@@ -1,0 +1,141 @@
+{
+  "sample_id": "h01_cnt_pass_warnings",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v1",
+    "prompt_sha256": "2348650c08e8800720e052a0a293416dd3c4a25501de09a5a594f1b7d025236e",
+    "file": "dataset/holdout/h01_cnt_pass_warnings.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 6224,
+    "timeout_s": 180,
+    "seconds": 4.528,
+    "usage": {
+      "prompt_tokens": 1558,
+      "prompt_tokens_details": {
+        "cached_tokens": 429
+      },
+      "completion_tokens": 356,
+      "total_tokens": 1914
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": [
+      "cnt_narrow_load: 1 citation(s) rejected (file/line/quote do not match the log)",
+      "gray_exhaustive: 3 citation(s) rejected (file/line/quote do not match the log)"
+    ]
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "cnt_narrow_load",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [],
+        "suggestion": "The test passed as indicated by the '$finish called' message.",
+        "rejected_citations": [
+          {
+            "file": "hdl/holdout/tb/tb_updown.sv",
+            "line": 70,
+            "quote": "$finish called at 1620000 (1ps)"
+          }
+        ]
+      },
+      {
+        "test_id": "gray_exhaustive",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [],
+        "suggestion": "The test passed as indicated by the '$finish called' message and the 'TEST PASSED' message.",
+        "rejected_citations": [
+          {
+            "file": "hdl/holdout/tb/tb_gray.sv",
+            "line": 53,
+            "quote": "$finish called at 32000 (1ps)"
+          },
+          {
+            "file": "hdl/holdout/tb/tb_gray.sv",
+            "line": 19,
+            "quote": "tb_gray: exhaustive check of 32 codes"
+          },
+          {
+            "file": "hdl/holdout/tb/tb_gray.sv",
+            "line": 20,
+            "quote": "*** TEST PASSED *** tb_gray (95 checks)"
+          }
+        ]
+      }
+    ],
+    "notes": "Both tests completed successfully with no errors or warnings indicating failure.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout/h01_cnt_pass_warnings.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "h01_cnt_pass_warnings",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "cnt_narrow_load",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      },
+      {
+        "test_id": "gray_exhaustive",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

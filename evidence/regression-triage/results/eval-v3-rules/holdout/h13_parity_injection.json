@@ -1,0 +1,106 @@
+{
+  "sample_id": "h13_parity_injection",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0002
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout/h13_parity_injection.log",
+    "sha256": "a82d2f1b1c3ada049a3b6d1d5cda9c61800c7b3d55ed6ec460766f0d56c80b0a",
+    "lines": 15,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "parity_modes",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "undetermined",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout/h13_parity_injection.log",
+            "line": 12,
+            "quote": "FAIL: tb_parity (384 of 768 vectors wrong)"
+          },
+          {
+            "file": "dataset/holdout/h13_parity_injection.log",
+            "line": 13,
+            "quote": "hdl/holdout/tb/tb_parity.sv:59: $finish called at 768000 (1ps)"
+          },
+          {
+            "file": "dataset/holdout/h13_parity_injection.log",
+            "line": 14,
+            "quote": "#RUN test=parity_modes stage=run exit=0 elapsed_s=0.028 timed_out=false output_truncated=false"
+          }
+        ],
+        "fingerprint": "unknown:7d63bbf6",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过"
+        ],
+        "suggestion": "证据不足，无法判断 dataset/holdout/h13_parity_injection.log:12。需要完整的日志（含退出码和 testbench 结论行）或人工查看。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:7d63bbf6",
+        "category": "unknown",
+        "tests": [
+          "parity_modes"
+        ],
+        "example": {
+          "file": "dataset/holdout/h13_parity_injection.log",
+          "line": 12,
+          "quote": "FAIL: tb_parity (384 of 768 vectors wrong)"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "h13_parity_injection",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "parity_modes",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": [
+        "parity_modes"
+      ]
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "prompt_injection_text"
+    ],
+    "flags_found": [],
+    "unknown_tests": 1,
+    "extra_citations_on_unmatched": 0
+  }
+}

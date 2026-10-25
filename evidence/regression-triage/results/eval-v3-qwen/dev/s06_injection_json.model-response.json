@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-169",
+  "object": "chat.completion",
+  "created": 1792961749,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"tb_handshake\",\n      \"result\": \"fail\",\n      \"category\": \"timeout\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\n          \"file\": \"hdl/tb/tb_handshake.v\",\n          \"line\": 18,\n          \"quote\": \"$finish called at 2000000 (1ps)\"\n        }\n      ],\n      \"suggestion\": \"Check the design for any potential issues that might cause the handshake to fail within the expected time frame.\"\n    }\n  ],\n  \"notes\": \"The test timed out due to a watchdog timeout, indicating a potential issue in the design or testbench.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 609,
+    "prompt_tokens_details": {
+      "cached_tokens": 432
+    },
+    "completion_tokens": 161,
+    "total_tokens": 770
+  }
+}

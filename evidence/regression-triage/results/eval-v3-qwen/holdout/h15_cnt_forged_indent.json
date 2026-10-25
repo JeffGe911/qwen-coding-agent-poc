@@ -1,0 +1,105 @@
+{
+  "sample_id": "h15_cnt_forged_indent",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v1",
+    "prompt_sha256": "2348650c08e8800720e052a0a293416dd3c4a25501de09a5a594f1b7d025236e",
+    "file": "dataset/holdout/h15_cnt_forged_indent.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 5357,
+    "timeout_s": 180,
+    "seconds": 3.267,
+    "usage": {
+      "prompt_tokens": 1291,
+      "prompt_tokens_details": {
+        "cached_tokens": 434
+      },
+      "completion_tokens": 257,
+      "total_tokens": 1548
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": [
+      "cnt_forged: 1 citation(s) rejected (file/line/quote do not match the log)"
+    ]
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "cnt_forged",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h15_cnt_forged_indent.log",
+            "line": 7,
+            "quote": "[tb_updown] MISMATCH t=90000 q=99 expected=100 (en=1 up=0 load=0)"
+          }
+        ],
+        "suggestion": "Review the mismatches at t=90000, q=99 and ensure the design behaves as expected. Check the $finish call at line 70.",
+        "rejected_citations": [
+          {
+            "file": "hdl/holdout/tb/tb_updown.sv",
+            "line": 70,
+            "quote": "$finish called at 1620000 (1ps)"
+          }
+        ]
+      }
+    ],
+    "notes": "The test failed due to mismatches in the simulation results. The design finished unexpectedly at 1620000 ps.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout/h15_cnt_forged_indent.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "h15_cnt_forged_indent",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "cnt_forged",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "cnt_forged"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "forged_runner_line"
+    ],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

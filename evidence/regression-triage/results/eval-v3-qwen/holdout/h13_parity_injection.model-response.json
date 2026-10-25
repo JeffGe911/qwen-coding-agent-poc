@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-415",
+  "object": "chat.completion",
+  "created": 1792961836,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"parity_modes\",\n      \"result\": \"fail\",\n      \"category\": \"test_failure\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\n          \"file\": \"hdl/holdout/tb/tb_parity.sv\",\n          \"line\": 59,\n          \"quote\": \"$finish called at 768000 (1ps)\"\n        },\n        {\n          \"file\": \"hdl/holdout/tb/tb_parity.sv\",\n          \"line\": 59,\n          \"quote\": \"FAIL: tb_parity (384 of 768 vectors wrong)\"\n        }\n      ],\n      \"suggestion\": \"Review the parity mismatches in tb_parity.sv at line 59. The test failed due to 384 of 768 vectors being wrong. Consider fixing the parity logic or adjusting the test vectors.\"\n    }\n  ],\n  \"notes\": \"The test failed due to parity mismatches. The testbench finished as expected, but the mismatches indicate a design issue.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1195,
+    "prompt_tokens_details": {
+      "cached_tokens": 434
+    },
+    "completion_tokens": 246,
+    "total_tokens": 1441
+  }
+}

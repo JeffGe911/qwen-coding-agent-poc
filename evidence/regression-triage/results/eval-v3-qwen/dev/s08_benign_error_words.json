@@ -1,0 +1,97 @@
+{
+  "sample_id": "s08_benign_error_words",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v1",
+    "prompt_sha256": "2348650c08e8800720e052a0a293416dd3c4a25501de09a5a594f1b7d025236e",
+    "file": "dataset/dev/s08_benign_error_words.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 3818,
+    "timeout_s": 180,
+    "seconds": 1.814,
+    "usage": {
+      "prompt_tokens": 609,
+      "prompt_tokens_details": {
+        "cached_tokens": 432
+      },
+      "completion_tokens": 137,
+      "total_tokens": 746
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": [
+      "(log): 1 citation(s) rejected (file/line/quote do not match the log)"
+    ]
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [],
+        "suggestion": "The test passed as indicated by the '$finish called' message.",
+        "rejected_citations": [
+          {
+            "file": "tb/tb_uart.v",
+            "line": 211,
+            "quote": "$finish called at 905000 (1ps)"
+          }
+        ]
+      }
+    ],
+    "notes": "The log is complete and the test passed as expected.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/dev/s08_benign_error_words.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "s08_benign_error_words",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "tb_uart",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": null,
+          "category": null,
+          "side": null
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [
+      "(log)"
+    ],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

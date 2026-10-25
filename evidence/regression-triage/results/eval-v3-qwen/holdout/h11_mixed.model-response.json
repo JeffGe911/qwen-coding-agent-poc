@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-838",
+  "object": "chat.completion",
+  "created": 1792961819,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"shift_smoke\",\n      \"result\": \"pass\",\n      \"category\": \"pass\",\n      \"side\": \"none\",\n      \"evidence\": [\n        {\n          \"file\": \"hdl/holdout/tb/tb_shiftreg.sv\",\n          \"line\": 56,\n          \"quote\": \"tb_shiftreg: all 24 patterns OK -- PASS\"\n        }\n      ],\n      \"suggestion\": \"No issues found in the test.\"\n    },\n    {\n      \"test_id\": \"shift_lvalue\",\n      \"result\": \"fail\",\n      \"category\": \"compile_error\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\n          \"file\": \"hdl/holdout/rtl/shift_reg.v\",\n          \"line\": 23,\n          \"quote\": \"hdl/holdout/rtl/shift_reg.v:23: error: 'q_r' is not a valid l-value for a procedural assignment.\"\n        }\n      ],\n      \"suggestion\": \"Fix the declaration of 'q_r' to be a reg or a variable.\"\n    },\n    {\n      \"test_id\": \"parity_modes\",\n      \"result\": \"fail\",\n      \"category\": \"test_failure\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\n          \"file\": \"hdl/holdout/tb/tb_parity.sv\",\n          \"line\": 59,\n          \"quote\": \"parity check failed: data=0x00 odd=1 parity=0 expected=1\"\n        }\n      ],\n      \"suggestion\": \"Review the parity check logic in the testbench.\"\n    },\n    {\n      \"test_id\": \"crc_stop\",\n      \"result\": \"fail\",\n      \"category\": \"test_failure\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\n          \"file\": \"hdl/holdout/tb/tb_crc8.sv\",\n          \"line\": 69,\n          \"quote\": \"hdl/holdout/tb/tb_crc8.sv:69: frame 1: crc=d4 but the reference says 72; stopping at the first CRC mismatch\"\n        }\n      ],\n      \"suggestion\": \"Check the CRC calculation in the design.\"\n    },\n    {\n      \"test_id\": \"arb_fairness\",\n      \"result\": \"fail\",\n      \"category\": \"timeout\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\n          \"file\": \"hdl/holdout/tb/tb_rr_arbiter.sv\",\n          \"line\": 38,\n          \"quote\": \"WATCHDOG: no progress for 3000 ns (still waiting for grant[2]); stopping simulation\"\n        }\n      ],\n      \"suggestion\": \"Optimize the arbiter logic to avoid watchdog timeouts.\"\n    }\n  ],\n  \"notes\": \"The log is complete and all tests have been evaluated.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 2447,
+    "prompt_tokens_details": {
+      "cached_tokens": 434
+    },
+    "completion_tokens": 641,
+    "total_tokens": 3088
+  }
+}

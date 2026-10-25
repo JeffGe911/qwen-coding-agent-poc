@@ -1,0 +1,100 @@
+{
+  "sample_id": "d09_misleading_pass",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v1",
+    "prompt_sha256": "2348650c08e8800720e052a0a293416dd3c4a25501de09a5a594f1b7d025236e",
+    "file": "dataset/dev/d09_misleading_pass.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 4853,
+    "timeout_s": 180,
+    "seconds": 2.512,
+    "usage": {
+      "prompt_tokens": 1043,
+      "prompt_tokens_details": {
+        "cached_tokens": 432
+      },
+      "completion_tokens": 184,
+      "total_tokens": 1227
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": [
+      "alu_error_path: 2 citation(s) rejected (file/line/quote do not match the log)"
+    ]
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "alu_error_path",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [],
+        "suggestion": "The test passed as expected. Ensure that the error injection path is correctly toggling error flags.",
+        "rejected_citations": [
+          {
+            "file": "hdl/tb/tb_alu8.v",
+            "line": 47,
+            "quote": "$finish called at 32000 (1ps)"
+          },
+          {
+            "file": "L9",
+            "line": 9,
+            "quote": "TEST PASSED: tb_alu8"
+          }
+        ]
+      }
+    ],
+    "notes": "The log is complete and the test passed with a TEST PASSED verdict.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/dev/d09_misleading_pass.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "d09_misleading_pass",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "alu_error_path",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

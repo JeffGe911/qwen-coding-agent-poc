@@ -1,0 +1,250 @@
+{
+  "sample_id": "h12_cnt_duplicates",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v1",
+    "prompt_sha256": "2348650c08e8800720e052a0a293416dd3c4a25501de09a5a594f1b7d025236e",
+    "file": "dataset/holdout/h12_cnt_duplicates.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 8110,
+    "timeout_s": 180,
+    "seconds": 13.375,
+    "usage": {
+      "prompt_tokens": 2386,
+      "prompt_tokens_details": {
+        "cached_tokens": 434
+      },
+      "completion_tokens": 1090,
+      "total_tokens": 3476
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": [
+      "cnt_rand_s11: 5 citation(s) rejected (file/line/quote do not match the log)",
+      "cnt_up_only: 1 citation(s) rejected (file/line/quote do not match the log)",
+      "cnt_rand_s29: 5 citation(s) rejected (file/line/quote do not match the log)",
+      "crc_smoke: 1 citation(s) rejected (file/line/quote do not match the log)"
+    ]
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "cnt_rand_s11",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [],
+        "suggestion": "Review the mismatches at t=60000, t=70000, t=100000, t=110000 in tb_updown.sv.",
+        "rejected_citations": [
+          {
+            "file": "hdl/holdout/tb/tb_updown.sv",
+            "line": 70,
+            "quote": "$finish called at 1620000 (1ps)"
+          },
+          {
+            "file": "hdl/holdout/tb/tb_updown.sv",
+            "line": 70,
+            "quote": "MISMATCH t=60000 q=151 expected=152 (en=1 up=0 load=0)"
+          },
+          {
+            "file": "hdl/holdout/tb/tb_updown.sv",
+            "line": 70,
+            "quote": "MISMATCH t=70000 q=149 expected=150 (en=1 up=0 load=0)"
+          },
+          {
+            "file": "hdl/holdout/tb/tb_updown.sv",
+            "line": 70,
+            "quote": "MISMATCH t=100000 q=147 expected=148 (en=1 up=0 load=0)"
+          },
+          {
+            "file": "hdl/holdout/tb/tb_updown.sv",
+            "line": 70,
+            "quote": "MISMATCH t=110000 q=145 expected=146 (en=1 up=0 load=0)"
+          }
+        ],
+        "certainty": "insufficient_evidence"
+      },
+      {
+        "test_id": "cnt_up_only",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [],
+        "suggestion": "No mismatches found in tb_updown.sv.",
+        "rejected_citations": [
+          {
+            "file": "hdl/holdout/tb/tb_updown.sv",
+            "line": 70,
+            "quote": "$finish called at 1620000 (1ps)"
+          }
+        ]
+      },
+      {
+        "test_id": "cnt_rand_s29",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [],
+        "suggestion": "Review the mismatches at t=70000, t=100000, t=140000, t=160000 in tb_updown.sv.",
+        "rejected_citations": [
+          {
+            "file": "hdl/holdout/tb/tb_updown.sv",
+            "line": 70,
+            "quote": "$finish called at 1620000 (1ps)"
+          },
+          {
+            "file": "hdl/holdout/tb/tb_updown.sv",
+            "line": 70,
+            "quote": "MISMATCH t=70000 q=145 expected=146 (en=1 up=0 load=0)"
+          },
+          {
+            "file": "hdl/holdout/tb/tb_updown.sv",
+            "line": 70,
+            "quote": "MISMATCH t=100000 q=143 expected=144 (en=1 up=0 load=0)"
+          },
+          {
+            "file": "hdl/holdout/tb/tb_updown.sv",
+            "line": 70,
+            "quote": "MISMATCH t=140000 q=143 expected=144 (en=1 up=0 load=0)"
+          },
+          {
+            "file": "hdl/holdout/tb/tb_updown.sv",
+            "line": 70,
+            "quote": "MISMATCH t=160000 q=142 expected=143 (en=1 up=0 load=0)"
+          }
+        ],
+        "certainty": "insufficient_evidence"
+      },
+      {
+        "test_id": "crc_smoke",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [],
+        "suggestion": "No mismatches found in tb_crc8.sv.",
+        "rejected_citations": [
+          {
+            "file": "hdl/holdout/tb/tb_crc8.sv",
+            "line": 75,
+            "quote": "$finish called at 380000 (1ps)"
+          }
+        ]
+      }
+    ],
+    "notes": "All tests completed successfully, but design mismatches were found in cnt_rand_s11 and cnt_rand_s29.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout/h12_cnt_duplicates.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "h12_cnt_duplicates",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "cnt_rand_s11",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      },
+      {
+        "test_id": "cnt_up_only",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      },
+      {
+        "test_id": "cnt_rand_s29",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      },
+      {
+        "test_id": "crc_smoke",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "cnt_rand_s11",
+        "cnt_rand_s29"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "duplicate_failures"
+    ],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

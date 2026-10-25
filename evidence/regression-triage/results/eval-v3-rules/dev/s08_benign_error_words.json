@@ -1,0 +1,81 @@
+{
+  "sample_id": "s08_benign_error_words",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/dev/s08_benign_error_words.log",
+    "sha256": "9c2ebd6f5c2cd62389b31d308997ce023f9f534a43fcafef232a930a1188a0e0",
+    "lines": 7,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "tb_uart",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/dev/s08_benign_error_words.log",
+            "line": 6,
+            "quote": "TEST PASSED: tb_uart"
+          }
+        ],
+        "fingerprint": null,
+        "certainty": "confirmed",
+        "notes": [
+          "日志中没有退出码；依据 testbench 的结论行判为通过"
+        ],
+        "suggestion": "通过 dataset/dev/s08_benign_error_words.log:6：“TEST PASSED: tb_uart”。"
+      }
+    ],
+    "groups": [],
+    "flags": [],
+    "notes": [
+      "原始仿真器输出：日志中没有退出码"
+    ]
+  },
+  "score": {
+    "sample_id": "s08_benign_error_words",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "tb_uart",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

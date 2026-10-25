@@ -1,0 +1,95 @@
+{
+  "sample_id": "h02_parity_misleading_pass",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v1",
+    "prompt_sha256": "2348650c08e8800720e052a0a293416dd3c4a25501de09a5a594f1b7d025236e",
+    "file": "dataset/holdout/h02_parity_misleading_pass.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 5295,
+    "timeout_s": 180,
+    "seconds": 2.179,
+    "usage": {
+      "prompt_tokens": 1181,
+      "prompt_tokens_details": {
+        "cached_tokens": 434
+      },
+      "completion_tokens": 155,
+      "total_tokens": 1336
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": [
+      "parity_fault_inject: 1 citation(s) rejected (file/line/quote do not match the log)"
+    ]
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "parity_fault_inject",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [],
+        "suggestion": "The test passed as indicated by the 'PASS' message in tb_parity.sv.",
+        "rejected_citations": [
+          {
+            "file": "hdl/holdout/tb/tb_parity.sv",
+            "line": 12,
+            "quote": "PASS: tb_parity (768 vectors, 256 injected faults)"
+          }
+        ]
+      }
+    ],
+    "notes": "The log is complete and the test passed as expected.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout/h02_parity_misleading_pass.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "h02_parity_misleading_pass",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "parity_fault_inject",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

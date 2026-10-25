@@ -1,0 +1,102 @@
+{
+  "sample_id": "d14_raw_vvp_fail",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v1",
+    "prompt_sha256": "2348650c08e8800720e052a0a293416dd3c4a25501de09a5a594f1b7d025236e",
+    "file": "dataset/dev/d14_raw_vvp_fail.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 4115,
+    "timeout_s": 180,
+    "seconds": 2.404,
+    "usage": {
+      "prompt_tokens": 849,
+      "prompt_tokens_details": {
+        "cached_tokens": 432
+      },
+      "completion_tokens": 189,
+      "total_tokens": 1038
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": [
+      "(log): 1 citation(s) rejected (file/line/quote do not match the log)"
+    ]
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [],
+        "suggestion": "Review the testbench at hdl/tb/tb_alu8.v:47 to ensure it is correctly simulating the ALU operations and handling errors.",
+        "rejected_citations": [
+          {
+            "file": "hdl/tb/tb_alu8.v",
+            "line": 47,
+            "quote": "$finish called at 32000 (1ps)"
+          }
+        ],
+        "certainty": "insufficient_evidence"
+      }
+    ],
+    "notes": "The test failed with multiple errors indicating incorrect results from the ALU operations. The testbench finished unexpectedly, which could be due to a design assertion or a bug in the testbench logic.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/dev/d14_raw_vvp_fail.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "d14_raw_vvp_fail",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "tb_alu8",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": null,
+          "category": null,
+          "side": null
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [
+        "(log)"
+      ],
+      "fn": [
+        "tb_alu8"
+      ]
+    },
+    "unmatched_tests": [
+      "(log)"
+    ],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

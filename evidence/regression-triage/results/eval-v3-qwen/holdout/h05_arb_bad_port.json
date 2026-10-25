@@ -1,0 +1,98 @@
+{
+  "sample_id": "h05_arb_bad_port",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v1",
+    "prompt_sha256": "2348650c08e8800720e052a0a293416dd3c4a25501de09a5a594f1b7d025236e",
+    "file": "dataset/holdout/h05_arb_bad_port.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 4572,
+    "timeout_s": 180,
+    "seconds": 2.732,
+    "usage": {
+      "prompt_tokens": 946,
+      "prompt_tokens_details": {
+        "cached_tokens": 434
+      },
+      "completion_tokens": 220,
+      "total_tokens": 1166
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": [
+      "arb_rotation: 1 citation(s) rejected (file/line/quote do not match the log)"
+    ]
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "arb_rotation",
+        "result": "fail",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "evidence": [],
+        "suggestion": "Check the port definition in tb_rr_arbiter.sv at line 13. Ensure that the port 'request' is correctly defined in the DUT (Design Under Test).",
+        "rejected_citations": [
+          {
+            "file": "hdl/holdout/tb/tb_rr_arbiter.sv",
+            "line": 13,
+            "quote": "hdl/holdout/tb/tb_rr_arbiter.sv:13: error: port ``request'' is not a port of dut."
+          }
+        ],
+        "certainty": "insufficient_evidence"
+      }
+    ],
+    "notes": "The compile error indicates that the port 'request' is not recognized as a port of the DUT. This is a design issue that needs to be addressed in the testbench or the DUT.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout/h05_arb_bad_port.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "h05_arb_bad_port",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "arb_rotation",
+        "gold": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": false,
+        "side_ok": true,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "arb_rotation"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

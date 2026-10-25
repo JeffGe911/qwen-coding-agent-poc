@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-586",
+  "object": "chat.completion",
+  "created": 1792961754,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"(log)\",\n      \"result\": \"pass\",\n      \"category\": \"pass\",\n      \"side\": \"none\",\n      \"evidence\": [\n        {\n          \"file\": \"tb/tb_uart.v\",\n          \"line\": 211,\n          \"quote\": \"$finish called at 905000 (1ps)\"\n        }\n      ],\n      \"suggestion\": \"The test passed as indicated by the '$finish called' message.\"\n    }\n  ],\n  \"notes\": \"The log is complete and the test passed as expected.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 609,
+    "prompt_tokens_details": {
+      "cached_tokens": 432
+    },
+    "completion_tokens": 137,
+    "total_tokens": 746
+  }
+}

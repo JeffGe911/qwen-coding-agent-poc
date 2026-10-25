@@ -1,0 +1,102 @@
+{
+  "sample_id": "h14_shift_no_verdict",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout/h14_shift_no_verdict.log",
+    "sha256": "12acbba2505abc8e9abcfcebe8dddb74f317c4b574e4d75c81674b197695a6d3",
+    "lines": 10,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "shift_smoke",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "undetermined",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout/h14_shift_no_verdict.log",
+            "line": 7,
+            "quote": "tb_shiftreg: 24 patterns shifted through"
+          },
+          {
+            "file": "dataset/holdout/h14_shift_no_verdict.log",
+            "line": 8,
+            "quote": "hdl/holdout/tb/tb_shiftreg.sv:56: $finish called at 2420000 (1ps)"
+          },
+          {
+            "file": "dataset/holdout/h14_shift_no_verdict.log",
+            "line": 9,
+            "quote": "#RUN test=shift_smoke stage=run exit=0 elapsed_s=0.031 timed_out=false output_truncated=false"
+          }
+        ],
+        "fingerprint": "unknown:d67a3d75",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过"
+        ],
+        "suggestion": "证据不足，无法判断 dataset/holdout/h14_shift_no_verdict.log:7。需要完整的日志（含退出码和 testbench 结论行）或人工查看。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:d67a3d75",
+        "category": "unknown",
+        "tests": [
+          "shift_smoke"
+        ],
+        "example": {
+          "file": "dataset/holdout/h14_shift_no_verdict.log",
+          "line": 7,
+          "quote": "tb_shiftreg: 24 patterns shifted through"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "h14_shift_no_verdict",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "shift_smoke",
+        "gold": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 3,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 1,
+    "extra_citations_on_unmatched": 0
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "sample_id": "s05_missing_fields",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v1",
+    "prompt_sha256": "2348650c08e8800720e052a0a293416dd3c4a25501de09a5a594f1b7d025236e",
+    "file": "dataset/dev/s05_missing_fields.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 4979,
+    "timeout_s": 180,
+    "seconds": 3.02,
+    "usage": {
+      "prompt_tokens": 1053,
+      "prompt_tokens_details": {
+        "cached_tokens": 432
+      },
+      "completion_tokens": 238,
+      "total_tokens": 1291
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": [
+      "alu_basic: 1 citation(s) rejected (file/line/quote do not match the log)",
+      "fifo_basic: 1 citation(s) rejected (file/line/quote do not match the log)"
+    ]
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "alu_basic",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [],
+        "suggestion": "No issues found in the alu_basic test.",
+        "rejected_citations": [
+          {
+            "file": "hdl/tb/tb_alu8.v",
+            "line": 42,
+            "quote": "$finish called at 32000 (1ps)"
+          }
+        ]
+      },
+      {
+        "test_id": "fifo_basic",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [],
+        "suggestion": "No issues found in the fifo_basic test.",
+        "rejected_citations": [
+          {
+            "file": "hdl/tb/tb_sync_fifo.v",
+            "line": 37,
+            "quote": "$finish called at 140000 (1ps)"
+          }
+        ]
+      }
+    ],
+    "notes": "All tests completed successfully with no errors or failures.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/dev/s05_missing_fields.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "s05_missing_fields",
+    "log_status_ok": false,
+    "log_status": {
+      "gold": "incomplete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "alu_basic",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      },
+      {
+        "test_id": "fifo_basic",
+        "gold": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "missing_fields"
+    ],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "sample_id": "h10_shift_wallclock",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v1",
+    "prompt_sha256": "2348650c08e8800720e052a0a293416dd3c4a25501de09a5a594f1b7d025236e",
+    "file": "dataset/holdout/h10_shift_wallclock.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 4741,
+    "timeout_s": 180,
+    "seconds": 2.441,
+    "usage": {
+      "prompt_tokens": 980,
+      "prompt_tokens_details": {
+        "cached_tokens": 433
+      },
+      "completion_tokens": 189,
+      "total_tokens": 1169
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": []
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "shift_drain",
+        "result": "fail",
+        "category": "timeout",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h10_shift_wallclock.log",
+            "line": 8,
+            "quote": "#RUN test=shift_drain stage=run exit=1 elapsed_s=3.018 timed_out=true output_truncated=false"
+          }
+        ],
+        "suggestion": "The test timed out after 3.018 seconds. Check the design or test for potential issues causing the drain operation to take longer than expected.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "The test did not pass due to a timeout. The design or test may need to be reviewed for performance issues.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout/h10_shift_wallclock.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "h10_shift_wallclock",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "shift_drain",
+        "gold": {
+          "result": "fail",
+          "category": "timeout",
+          "side": "undetermined"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "timeout",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": false,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "shift_drain"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

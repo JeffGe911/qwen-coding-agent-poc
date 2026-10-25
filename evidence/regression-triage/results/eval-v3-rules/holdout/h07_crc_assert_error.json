@@ -1,0 +1,104 @@
+{
+  "sample_id": "h07_crc_assert_error",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0002
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout/h07_crc_assert_error.log",
+    "sha256": "cf21341dc104a2915cd3c36ebdee5230b35b697dbad4008988f235bae9766145",
+    "lines": 20,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "crc_frames",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "kind": "assertion",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h07_crc_assert_error.log",
+            "line": 7,
+            "quote": "ERROR: hdl/holdout/tb/tb_crc8.sv:71: frame 1 (len 2): crc=d4, reference 72"
+          },
+          {
+            "file": "dataset/holdout/h07_crc_assert_error.log",
+            "line": 9,
+            "quote": "ERROR: hdl/holdout/tb/tb_crc8.sv:71: frame 2 (len 3): crc=78, reference 48"
+          },
+          {
+            "file": "dataset/holdout/h07_crc_assert_error.log",
+            "line": 11,
+            "quote": "ERROR: hdl/holdout/tb/tb_crc8.sv:71: frame 3 (len 4): crc=74, reference ca"
+          }
+        ],
+        "fingerprint": "test_failure:f167941e",
+        "certainty": "confirmed",
+        "notes": [
+          "共 5 条 ERROR 行"
+        ],
+        "suggestion": "testbench 检查失败，首条证据 dataset/holdout/h07_crc_assert_error.log:7：“ERROR: hdl/holdout/tb/tb_crc8.sv:71: frame 1 (len 2): crc=d4, reference 72”。对照期望值与实际值，查看相关信号在报告时刻附近的驱动和时序。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "test_failure:f167941e",
+        "category": "test_failure",
+        "tests": [
+          "crc_frames"
+        ],
+        "example": {
+          "file": "dataset/holdout/h07_crc_assert_error.log",
+          "line": 7,
+          "quote": "ERROR: hdl/holdout/tb/tb_crc8.sv:71: frame 1 (len 2): crc=d4, reference 72"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "h07_crc_assert_error",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "crc_frames",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 3,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "crc_frames"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

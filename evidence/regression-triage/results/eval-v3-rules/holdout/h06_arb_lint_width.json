@@ -1,0 +1,99 @@
+{
+  "sample_id": "h06_arb_lint_width",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0002
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout/h06_arb_lint_width.log",
+    "sha256": "fb77cff12636711fcc65aa917976331264d610d63b0f3fefd388ebbeb65d1cbf",
+    "lines": 18,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "arb_lint",
+        "result": "not_run",
+        "category": "unknown",
+        "side": "undetermined",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout/h06_arb_lint_width.log",
+            "line": 4,
+            "quote": "%Warning-WIDTHTRUNC: hdl/holdout/rtl\\rr_arbiter.v:33:26: Operator ASSIGNW expects 2 bits on the Assign RHS, but Assign RHS's ADD generates 3 bits."
+          },
+          {
+            "file": "dataset/holdout/h06_arb_lint_width.log",
+            "line": 5,
+            "quote": ": ... note: In instance 'rr_arbiter'"
+          }
+        ],
+        "fingerprint": "unknown:8066c29c",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "lint以退出码 1 结束，但没有可识别的错误行"
+        ],
+        "suggestion": "证据不足，无法判断 dataset/holdout/h06_arb_lint_width.log:4。需要完整的日志（含退出码和 testbench 结论行）或人工查看。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:8066c29c",
+        "category": "unknown",
+        "tests": [
+          "arb_lint"
+        ],
+        "example": {
+          "file": "dataset/holdout/h06_arb_lint_width.log",
+          "line": 4,
+          "quote": "%Warning-WIDTHTRUNC: hdl/holdout/rtl\\rr_arbiter.v:33:26: Operator ASSIGNW expects 2 bits on the Assign RHS, but Assign RHS's ADD generates 3 bits."
+        }
+      }
+    ],
+    "flags": [],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "h06_arb_lint_width",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "arb_lint",
+        "gold": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "not_run",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "arb_lint"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 1,
+    "extra_citations_on_unmatched": 0
+  }
+}

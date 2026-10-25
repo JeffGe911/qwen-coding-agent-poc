@@ -1,0 +1,97 @@
+{
+  "sample_id": "h16_raw_vvp_pass_warn",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v1",
+    "prompt_sha256": "2348650c08e8800720e052a0a293416dd3c4a25501de09a5a594f1b7d025236e",
+    "file": "dataset/holdout/h16_raw_vvp_pass_warn.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 3982,
+    "timeout_s": 180,
+    "seconds": 1.863,
+    "usage": {
+      "prompt_tokens": 696,
+      "prompt_tokens_details": {
+        "cached_tokens": 434
+      },
+      "completion_tokens": 140,
+      "total_tokens": 836
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": [
+      "(log): 1 citation(s) rejected (file/line/quote do not match the log)"
+    ]
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [],
+        "suggestion": "The test completed successfully with no mismatches.",
+        "rejected_citations": [
+          {
+            "file": "hdl/holdout/tb/tb_updown.sv",
+            "line": 70,
+            "quote": "$finish called at 1620000 (1ps)"
+          }
+        ]
+      }
+    ],
+    "notes": "The log shows a pass verdict and no failure evidence.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout/h16_raw_vvp_pass_warn.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "h16_raw_vvp_pass_warn",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "tb_updown",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": null,
+          "category": null,
+          "side": null
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [
+      "(log)"
+    ],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

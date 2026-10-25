@@ -1,0 +1,209 @@
+{
+  "sample_id": "h21_truncated_mixed",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v1",
+    "prompt_sha256": "2348650c08e8800720e052a0a293416dd3c4a25501de09a5a594f1b7d025236e",
+    "file": "dataset/holdout/h21_truncated_mixed.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 7317,
+    "timeout_s": 180,
+    "seconds": 6.896,
+    "usage": {
+      "prompt_tokens": 1938,
+      "prompt_tokens_details": {
+        "cached_tokens": 434
+      },
+      "completion_tokens": 564,
+      "total_tokens": 2502
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": [
+      "shift_smoke: 1 citation(s) rejected (file/line/quote do not match the log)",
+      "shift_lvalue: 1 citation(s) rejected (file/line/quote do not match the log)",
+      "parity_modes: 1 citation(s) rejected (file/line/quote do not match the log)",
+      "crc_stop: 1 citation(s) rejected (file/line/quote do not match the log)"
+    ]
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "shift_smoke",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [],
+        "suggestion": "No issues found in the shift_smoke test.",
+        "rejected_citations": [
+          {
+            "file": "hdl/holdout/tb/tb_shiftreg.sv",
+            "line": 56,
+            "quote": "tb_shiftreg: all 24 patterns OK -- PASS"
+          }
+        ]
+      },
+      {
+        "test_id": "shift_lvalue",
+        "result": "fail",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "evidence": [],
+        "suggestion": "Fix the declaration of 'q_r' in hdl/holdout/rtl/shift_reg.v to be a reg or a variable instead of a wire.",
+        "rejected_citations": [
+          {
+            "file": "hdl/holdout/rtl/shift_reg.v",
+            "line": 23,
+            "quote": "hdl/holdout/rtl/shift_reg.v:23: error: 'q_r' is not a valid l-value for a procedural assignment."
+          }
+        ],
+        "certainty": "insufficient_evidence"
+      },
+      {
+        "test_id": "parity_modes",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [],
+        "suggestion": "Review the parity check logic in hdl/holdout/tb/tb_parity.sv to ensure it correctly calculates the parity.",
+        "rejected_citations": [
+          {
+            "file": "hdl/holdout/tb/tb_parity.sv",
+            "line": 59,
+            "quote": "parity check failed: data=0x00 odd=1 parity=0 expected=1"
+          }
+        ],
+        "certainty": "insufficient_evidence"
+      },
+      {
+        "test_id": "crc_stop",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "undetermined",
+        "evidence": [],
+        "suggestion": "The log is incomplete, and the test did not finish. Check the runner's output for any errors or warnings.",
+        "rejected_citations": [
+          {
+            "file": "tb_crc8",
+            "line": 33,
+            "quote": "[tb_crc8] 6 frames, stop_"
+          }
+        ],
+        "certainty": "insufficient_evidence"
+      }
+    ],
+    "notes": "The crc_stop test did not finish, and the log is incomplete. The parity_modes test failed due to incorrect parity check logic. The shift_lvalue test failed due to a design error in the shift_reg.v file.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout/h21_truncated_mixed.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "h21_truncated_mixed",
+    "log_status_ok": false,
+    "log_status": {
+      "gold": "incomplete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "shift_smoke",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      },
+      {
+        "test_id": "shift_lvalue",
+        "gold": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": false,
+        "side_ok": true,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      },
+      {
+        "test_id": "parity_modes",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      },
+      {
+        "test_id": "crc_stop",
+        "gold": {
+          "result": "unknown",
+          "category": "incomplete_log",
+          "side": "infrastructure"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": false,
+        "result_ok": true,
+        "side_ok": false,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "parity_modes",
+        "shift_lvalue"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 1,
+    "extra_citations_on_unmatched": 0
+  }
+}

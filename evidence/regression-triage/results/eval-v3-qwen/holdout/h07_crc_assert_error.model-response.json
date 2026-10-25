@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-698",
+  "object": "chat.completion",
+  "created": 1792961803,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"crc_frames\",\n      \"result\": \"fail\",\n      \"category\": \"test_failure\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\n          \"file\": \"hdl/holdout/tb/tb_crc8.sv\",\n          \"line\": 71,\n          \"quote\": \"ERROR: hdl/holdout/tb/tb_crc8.sv:71: frame 1 (len 2): crc=d4, reference 72\"\n        },\n        {\n          \"file\": \"hdl/holdout/tb/tb_crc8.sv\",\n          \"line\": 71,\n          \"quote\": \"ERROR: hdl/holdout/tb/tb_crc8.sv:71: frame 2 (len 3): crc=78, reference 48\"\n        },\n        {\n          \"file\": \"hdl/holdout/tb/tb_crc8.sv\",\n          \"line\": 71,\n          \"quote\": \"ERROR: hdl/holdout/tb/tb_crc8.sv:71: frame 3 (len 4): crc=74, reference ca\"\n        },\n        {\n          \"file\": \"hdl/holdout/tb/tb_crc8.sv\",\n          \"line\": 71,\n          \"quote\": \"ERROR: hdl/holdout/tb/tb_crc8.sv:71: frame 4 (len 5): crc=34, reference f6\"\n        },\n        {\n          \"file\": \"hdl/holdout/tb/tb_crc8.sv\",\n          \"line\": 71,\n          \"quote\": \"ERROR: hdl/holdout/tb/tb_crc8.sv:71: frame 5 (len 9): crc=01, reference f4\"\n        }\n      ],\n      \"suggestion\": \"Review the CRC calculation in tb_crc8.sv at line 71. The calculated CRC values do not match the expected reference values.\"\n    }\n  ],\n  \"notes\": \"The test passed compilation but failed at runtime due to mismatched CRC values. The first error is at line 71 of tb_crc8.sv.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1322,
+    "prompt_tokens_details": {
+      "cached_tokens": 434
+    },
+    "completion_tokens": 488,
+    "total_tokens": 1810
+  }
+}

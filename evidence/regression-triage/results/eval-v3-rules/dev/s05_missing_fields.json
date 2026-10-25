@@ -1,0 +1,149 @@
+{
+  "sample_id": "s05_missing_fields",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0002
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/dev/s05_missing_fields.log",
+    "sha256": "655ade818b00e7b48f372d00729d610a9821867febf18b9d75ea48c2e477d451",
+    "lines": 15,
+    "log_status": "incomplete",
+    "tests": [
+      {
+        "test_id": "alu_basic",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/dev/s05_missing_fields.log",
+            "line": 6,
+            "quote": "TEST PASSED: tb_alu8"
+          }
+        ],
+        "fingerprint": null,
+        "certainty": "confirmed",
+        "notes": [],
+        "suggestion": "通过 dataset/dev/s05_missing_fields.log:6：“TEST PASSED: tb_alu8”。"
+      },
+      {
+        "test_id": "fifo_basic",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "undetermined",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/dev/s05_missing_fields.log",
+            "line": 12,
+            "quote": "tb_sync_fifo: start"
+          },
+          {
+            "file": "dataset/dev/s05_missing_fields.log",
+            "line": 13,
+            "quote": "hdl/tb/tb_sync_fifo.v:37: $finish called at 140000 (1ps)"
+          },
+          {
+            "file": "dataset/dev/s05_missing_fields.log",
+            "line": 14,
+            "quote": "#RUN test=fifo_basic stage=run elapsed_s=0.024"
+          }
+        ],
+        "fingerprint": "unknown:e4172d9e",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；且缺少退出码"
+        ],
+        "suggestion": "证据不足，无法判断 dataset/dev/s05_missing_fields.log:12。需要完整的日志（含退出码和 testbench 结论行）或人工查看。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:e4172d9e",
+        "category": "unknown",
+        "tests": [
+          "fifo_basic"
+        ],
+        "example": {
+          "file": "dataset/dev/s05_missing_fields.log",
+          "line": 12,
+          "quote": "tb_sync_fifo: start"
+        }
+      }
+    ],
+    "flags": [
+      "missing_fields"
+    ],
+    "notes": [
+      "缺少字段：回归头部缺少 run_id",
+      "缺少字段：fifo_basic：运行结束记录缺少退出码"
+    ]
+  },
+  "score": {
+    "sample_id": "s05_missing_fields",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "incomplete",
+      "pred": "incomplete"
+    },
+    "tests": [
+      {
+        "test_id": "alu_basic",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "fifo_basic",
+        "gold": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "missing_fields"
+    ],
+    "flags_found": [
+      "missing_fields"
+    ],
+    "unknown_tests": 1,
+    "extra_citations_on_unmatched": 0
+  }
+}

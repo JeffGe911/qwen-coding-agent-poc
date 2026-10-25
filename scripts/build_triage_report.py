@@ -40,7 +40,10 @@ def counts(samples):
     tests = [t for s in samples if s["score"] for t in s["score"]["tests"]]
     gold_total = sum(len(s["score"]["tests"]) for s in samples if s["score"])
     c = {k: sum(t[f"{k}_ok"] for t in tests) for k, _ in QUALITY}
-    c.update(tests=gold_total, cites=sum(t["citations"] for t in tests), valid=sum(t["citations_valid"] for t in tests),
+    # The model client drops citations that fail validation before scoring; count them back in, so a rate is over
+    # every citation the engine gave, not only the ones that survived (rules never have rejected citations).
+    rejected = sum(len(t.get("rejected_citations", [])) for s in samples for t in ((s.get("triage") or {}).get("tests") or []))
+    c.update(tests=gold_total, cites=sum(t["citations"] for t in tests) + rejected, rejected=rejected, valid=sum(t["citations_valid"] for t in tests),
              relevant=sum(t["citations_relevant"] for t in tests),
              need=sum(t["has_relevant_citation"] is not None for t in tests), has=sum(bool(t["has_relevant_citation"]) for t in tests))
     for k in ("tp", "fp", "fn"):

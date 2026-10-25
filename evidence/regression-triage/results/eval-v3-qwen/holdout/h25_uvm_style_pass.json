@@ -1,0 +1,93 @@
+{
+  "sample_id": "h25_uvm_style_pass",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v1",
+    "prompt_sha256": "2348650c08e8800720e052a0a293416dd3c4a25501de09a5a594f1b7d025236e",
+    "file": "dataset/holdout/h25_uvm_style_pass.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 4942,
+    "timeout_s": 180,
+    "seconds": 2.323,
+    "usage": {
+      "prompt_tokens": 1065,
+      "prompt_tokens_details": {
+        "cached_tokens": 434
+      },
+      "completion_tokens": 164,
+      "total_tokens": 1229
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": []
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "arb_smoke_test",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h25_uvm_style_pass.log",
+            "line": 6,
+            "quote": "UVM_INFO ../tb/arb_test.sv(64) @ 9000: uvm_test_top [RESULT] ** TEST PASSED **"
+          }
+        ],
+        "suggestion": "The test passed as indicated by the 'TEST PASSED' message.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "The log is complete and the test passed.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout/h25_uvm_style_pass.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "h25_uvm_style_pass",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "arb_smoke_test",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

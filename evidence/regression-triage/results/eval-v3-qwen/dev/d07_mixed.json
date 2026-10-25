@@ -1,0 +1,212 @@
+{
+  "sample_id": "d07_mixed",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v1",
+    "prompt_sha256": "2348650c08e8800720e052a0a293416dd3c4a25501de09a5a594f1b7d025236e",
+    "file": "dataset/dev/d07_mixed.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 7876,
+    "timeout_s": 180,
+    "seconds": 6.616,
+    "usage": {
+      "prompt_tokens": 2192,
+      "prompt_tokens_details": {
+        "cached_tokens": 2191
+      },
+      "completion_tokens": 569,
+      "total_tokens": 2761
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": [
+      "alu_basic: 1 citation(s) rejected (file/line/quote do not match the log)",
+      "alu_syntax: 1 citation(s) rejected (file/line/quote do not match the log)",
+      "fifo_full: 1 citation(s) rejected (file/line/quote do not match the log)",
+      "handshake_stuck: 1 citation(s) rejected (file/line/quote do not match the log)"
+    ]
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "alu_basic",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [],
+        "suggestion": "No issues found. Test passed.",
+        "rejected_citations": [
+          {
+            "file": "hdl/tb/tb_alu8.v",
+            "line": 47,
+            "quote": "tb_alu8: start\nTEST PASSED: tb_alu8\nhdl/tb/tb_alu8.v:47: $finish called at 32000 (1ps)"
+          }
+        ]
+      },
+      {
+        "test_id": "alu_syntax",
+        "result": "fail",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "evidence": [],
+        "suggestion": "Fix syntax errors in hdl/tb/tb_alu8.v starting at line 25.",
+        "rejected_citations": [
+          {
+            "file": "hdl/tb/tb_alu8.v",
+            "line": 25,
+            "quote": "hdl/rtl/alu8.v:25: syntax error"
+          }
+        ],
+        "certainty": "insufficient_evidence"
+      },
+      {
+        "test_id": "fifo_full",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [],
+        "suggestion": "Check the FIFO implementation in hdl/rtl/sync_fifo.v and hdl/tb/tb_sync_fifo.v.",
+        "rejected_citations": [
+          {
+            "file": "hdl/tb/tb_sync_fifo.v",
+            "line": 26,
+            "quote": "FATAL: hdl/tb/tb_sync_fifo.v:26: fifo reports full after 3 writes (count=3, DEPTH=4)"
+          }
+        ],
+        "certainty": "insufficient_evidence"
+      },
+      {
+        "test_id": "handshake_stuck",
+        "result": "fail",
+        "category": "timeout",
+        "side": "design_or_test",
+        "evidence": [],
+        "suggestion": "Increase the timeout value or check the handshake logic in hdl/rtl/handshake.v and hdl/tb/tb_handshake.v.",
+        "rejected_citations": [
+          {
+            "file": "hdl/tb/tb_handshake.v",
+            "line": 18,
+            "quote": "ERROR: [2000000] TIMEOUT watchdog: ack not seen within 2000 ns after req\nTEST FAILED: tb_handshake (timeout)"
+          }
+        ],
+        "certainty": "insufficient_evidence"
+      }
+    ],
+    "notes": "The log is complete and all tests have been evaluated.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/dev/d07_mixed.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "d07_mixed",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "alu_basic",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      },
+      {
+        "test_id": "alu_syntax",
+        "gold": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": false,
+        "side_ok": true,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      },
+      {
+        "test_id": "fifo_full",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      },
+      {
+        "test_id": "handshake_stuck",
+        "gold": {
+          "result": "fail",
+          "category": "timeout",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "timeout",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "alu_syntax",
+        "fifo_full",
+        "handshake_stuck"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "tool_internal_assertion"
+    ],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

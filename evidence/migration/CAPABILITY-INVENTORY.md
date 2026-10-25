@@ -16,6 +16,7 @@
 | 访问限制 | 客户端只接受 loopback，不走代理，不跟随重定向，响应上限 256 KiB；本地网关提供 Bearer 鉴权和 4 个端点的白名单；没有云端回退 | 单元测试，加上网关的实测记录 | qwen_agent/client.py、evidence/local-ops.json | 单用户 |
 | 业务：Coding Agent | 单文件修复提案，经人工审批后在受限执行器中跑 pytest | report_pass_rate：21/21（含 12 个 holdout）；chip_final_yield：**没有修好** | evidence/report-pass-rate/、evidence/chip-rev2/REPORT.md | 只是小任务 |
 | 业务：日志分诊（规则） | 用真实的 Icarus/Verilator 运行生成日志，规则基线按冻结合同评测 | dev 37/37；独立 holdout 15/39，没有误放行 | evidence/regression-triage/REPORT-eval-v1.md | 覆盖率低：结论写法因项目而异 |
+| 业务：日志分诊（本地 Qwen，迁移前基线） | Ollama r2，后端配置 ollama-r2，单并发，合同 eval-v3（与 eval-v1 数据相同，prompt 未改） | holdout 盲测类别 34/39；漏报 0/24；误放行 1；引用 7/63 通过校验；50 个请求 0 失败；中位数 3.0 s/样本 | evidence/regression-triage/REPORT-eval-v3.md、results/eval-v3-qwen/、model-runs/eval-v3/ | 缺少结论行时放行；引用对不上日志行；笔记本数据不能外推 |
 | 评测纪律 | 合同冻结数据、金标准和代码的哈希；holdout 由独立代理编写和标注；证据按字节存储；有请求体的黄金哈希 | `eval` 遇到哈希不符、合同未覆盖的引擎、重复运行时都会拒绝（有测试） | contract/、tests/ | — |
 
 ## 二、只有代码（有单元测试或静态检查，没在目标环境运行过）
@@ -40,6 +41,6 @@
 
 | 项目 | 原因 | 最小条件 |
 |---|---|---|
-| 迁移前的 Qwen 分诊基线（dev + holdout） | 2026-10-25 笔记本用电池供电、电源方案为“静音”，GPU 功耗上限 33 W，生成只有 7.4 tok/s，已接近请求超时。只跑了 4 个样本就停了，没算作基线 | Jeff 接上电源、换成平衡或高性能方案；然后复查时钟，冻结 eval-v3 后运行 |
+| ~~迁移前的 Qwen 分诊基线~~ | 2026-10-25 接上交流电源后已完成，见“已实测” | — |
 | Linux 上实际部署 Docker + vLLM，以及验证和迁移对比（第 3–5 步） | 本机没有 WSL 和 Docker；本轮不安装 WSL，不租云 GPU；没有 Linux GPU 机器 | 三选一：(1) 同意在本机安装 WSL2（8 GB / 4 GB swap，测试期间 Ollama 保持空闲；**结果只能标为 WSL2，不算独立服务器**）；(2) 一台 Linux GPU 机器的 SSH；(3) 批准云 GPU 的预算 |
 | 两台服务器 | 没有访问权限 | 硬件到位后按 CEO_ONE_PAGER.md 的清单做盘点 |

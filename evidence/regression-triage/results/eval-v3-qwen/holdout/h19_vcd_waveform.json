@@ -1,0 +1,96 @@
+{
+  "sample_id": "h19_vcd_waveform",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v1",
+    "prompt_sha256": "2348650c08e8800720e052a0a293416dd3c4a25501de09a5a594f1b7d025236e",
+    "file": "dataset/holdout/h19_vcd_waveform.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 12935,
+    "timeout_s": 180,
+    "seconds": 4.381,
+    "usage": {
+      "prompt_tokens": 7676,
+      "prompt_tokens_details": {
+        "cached_tokens": 434
+      },
+      "completion_tokens": 188,
+      "total_tokens": 7864
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": [
+      "(log): 1 citation(s) rejected (file/line/quote do not match the log)"
+    ]
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "none",
+        "evidence": [],
+        "suggestion": "The log is incomplete and lacks a clear verdict. Please ensure the log is fully captured and try running the test again.",
+        "rejected_citations": [
+          {
+            "file": "dataset/holdout/h19_vcd_waveform.log",
+            "line": 502,
+            "quote": "b1011111 (\nL502: b10000 '"
+          }
+        ],
+        "certainty": "insufficient_evidence"
+      }
+    ],
+    "notes": "The log is cut off before the test verdict, making it impossible to determine the result. The last line provided is incomplete, and no clear pass/fail message is present.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout/h19_vcd_waveform.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "h19_vcd_waveform",
+    "log_status_ok": false,
+    "log_status": {
+      "gold": "unknown_format",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "(log)",
+        "gold": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": false,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": null
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 1,
+    "extra_citations_on_unmatched": 0
+  }
+}

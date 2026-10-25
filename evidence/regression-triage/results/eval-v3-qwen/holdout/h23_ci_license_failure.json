@@ -1,0 +1,95 @@
+{
+  "sample_id": "h23_ci_license_failure",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v1",
+    "prompt_sha256": "2348650c08e8800720e052a0a293416dd3c4a25501de09a5a594f1b7d025236e",
+    "file": "dataset/holdout/h23_ci_license_failure.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 4305,
+    "timeout_s": 180,
+    "seconds": 2.246,
+    "usage": {
+      "prompt_tokens": 906,
+      "prompt_tokens_details": {
+        "cached_tokens": 434
+      },
+      "completion_tokens": 172,
+      "total_tokens": 1078
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": []
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "fail",
+        "category": "tool_error",
+        "side": "infrastructure",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h23_ci_license_failure.log",
+            "line": 6,
+            "quote": "simctl: ERROR: license request failed: all 12 seats of 'sv_sim_runtime' are in use and queueing is disabled (-licqueue 0)"
+          }
+        ],
+        "suggestion": "Check the license server for available seats and ensure queueing is enabled if necessary.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "The log indicates a license request failure, which is a tool error affecting the infrastructure.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout/h23_ci_license_failure.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "h23_ci_license_failure",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "(log)",
+        "gold": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "category_ok": true,
+        "result_ok": false,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "(log)"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

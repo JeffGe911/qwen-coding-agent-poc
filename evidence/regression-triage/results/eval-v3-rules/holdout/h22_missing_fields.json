@@ -1,0 +1,294 @@
+{
+  "sample_id": "h22_missing_fields",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0003
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout/h22_missing_fields.log",
+    "sha256": "efe2873b0ce9383befe7172793f93062c0ce27277114314f15a45847f875e8b5",
+    "lines": 34,
+    "log_status": "incomplete",
+    "tests": [
+      {
+        "test_id": "cnt_rand_s11",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "undetermined",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout/h22_missing_fields.log",
+            "line": 11,
+            "quote": "RESULT: FAIL  tb_updown  checks=159 mismatches=54"
+          },
+          {
+            "file": "dataset/holdout/h22_missing_fields.log",
+            "line": 12,
+            "quote": "hdl/holdout/tb/tb_updown.sv:70: $finish called at 1620000 (1ps)"
+          },
+          {
+            "file": "dataset/holdout/h22_missing_fields.log",
+            "line": 13,
+            "quote": "#RUN test=cnt_rand_s11 stage=run elapsed_s=0.029"
+          }
+        ],
+        "fingerprint": "unknown:5665ebeb",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；且缺少退出码"
+        ],
+        "suggestion": "证据不足，无法判断 dataset/holdout/h22_missing_fields.log:11。需要完整的日志（含退出码和 testbench 结论行）或人工查看。"
+      },
+      {
+        "test_id": "cnt_up_only",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "undetermined",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout/h22_missing_fields.log",
+            "line": 18,
+            "quote": "RESULT: PASS  tb_updown  checks=159 mismatches=0"
+          },
+          {
+            "file": "dataset/holdout/h22_missing_fields.log",
+            "line": 19,
+            "quote": "hdl/holdout/tb/tb_updown.sv:70: $finish called at 1620000 (1ps)"
+          },
+          {
+            "file": "dataset/holdout/h22_missing_fields.log",
+            "line": 20,
+            "quote": "#RUN test=cnt_up_only stage=run elapsed_s=0.024 timed_out=false"
+          }
+        ],
+        "fingerprint": "unknown:251f5a8d",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；且缺少退出码"
+        ],
+        "suggestion": "证据不足，无法判断 dataset/holdout/h22_missing_fields.log:18。需要完整的日志（含退出码和 testbench 结论行）或人工查看。"
+      },
+      {
+        "test_id": "cnt_rand_s29",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "undetermined",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout/h22_missing_fields.log",
+            "line": 29,
+            "quote": "[tb_updown] more mismatches follow; not printing them"
+          },
+          {
+            "file": "dataset/holdout/h22_missing_fields.log",
+            "line": 30,
+            "quote": "hdl/holdout/tb/tb_updown.sv:70: $finish called at 1620000 (1ps)"
+          },
+          {
+            "file": "dataset/holdout/h22_missing_fields.log",
+            "line": 31,
+            "quote": "#RUN test=cnt_rand_s29 stage=run exit=0 elapsed_s=0.024 timed_out=false output_truncated=false"
+          }
+        ],
+        "fingerprint": "unknown:7171934c",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过"
+        ],
+        "suggestion": "证据不足，无法判断 dataset/holdout/h22_missing_fields.log:29。需要完整的日志（含退出码和 testbench 结论行）或人工查看。"
+      },
+      {
+        "test_id": "crc_smoke",
+        "result": "unknown",
+        "category": "incomplete_log",
+        "side": "infrastructure",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout/h22_missing_fields.log",
+            "line": 33,
+            "quote": "#RUN test=crc_smoke stage=compile elapsed_s=0.053"
+          }
+        ],
+        "fingerprint": "incomplete_log:2ccdb32f",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "已编译，但没有运行阶段的记录"
+        ],
+        "suggestion": "日志不完整 dataset/holdout/h22_missing_fields.log:33，缺少结束记录，不能据此判断结果。请重新运行，或检查日志采集和存储是否中断。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:5665ebeb",
+        "category": "unknown",
+        "tests": [
+          "cnt_rand_s11"
+        ],
+        "example": {
+          "file": "dataset/holdout/h22_missing_fields.log",
+          "line": 11,
+          "quote": "RESULT: FAIL  tb_updown  checks=159 mismatches=54"
+        }
+      },
+      {
+        "fingerprint": "unknown:251f5a8d",
+        "category": "unknown",
+        "tests": [
+          "cnt_up_only"
+        ],
+        "example": {
+          "file": "dataset/holdout/h22_missing_fields.log",
+          "line": 18,
+          "quote": "RESULT: PASS  tb_updown  checks=159 mismatches=0"
+        }
+      },
+      {
+        "fingerprint": "unknown:7171934c",
+        "category": "unknown",
+        "tests": [
+          "cnt_rand_s29"
+        ],
+        "example": {
+          "file": "dataset/holdout/h22_missing_fields.log",
+          "line": 29,
+          "quote": "[tb_updown] more mismatches follow; not printing them"
+        }
+      },
+      {
+        "fingerprint": "incomplete_log:2ccdb32f",
+        "category": "incomplete_log",
+        "tests": [
+          "crc_smoke"
+        ],
+        "example": {
+          "file": "dataset/holdout/h22_missing_fields.log",
+          "line": 33,
+          "quote": "#RUN test=crc_smoke stage=compile elapsed_s=0.053"
+        }
+      }
+    ],
+    "flags": [
+      "missing_fields"
+    ],
+    "notes": [
+      "缺少字段：回归头部缺少 run_id",
+      "缺少字段：cnt_rand_s11：运行结束记录缺少退出码",
+      "缺少字段：cnt_up_only：编译结束记录缺少退出码",
+      "缺少字段：cnt_up_only：运行结束记录缺少退出码",
+      "缺少字段：crc_smoke：编译结束记录缺少退出码"
+    ]
+  },
+  "score": {
+    "sample_id": "h22_missing_fields",
+    "log_status_ok": false,
+    "log_status": {
+      "gold": "complete",
+      "pred": "incomplete"
+    },
+    "tests": [
+      {
+        "test_id": "cnt_rand_s11",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "cnt_up_only",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "cnt_rand_s29",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "crc_smoke",
+        "gold": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "incomplete_log",
+          "side": "infrastructure"
+        },
+        "category_ok": false,
+        "result_ok": true,
+        "side_ok": false,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": [
+        "cnt_rand_s11",
+        "cnt_rand_s29"
+      ]
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "missing_fields",
+      "duplicate_failures"
+    ],
+    "flags_found": [
+      "missing_fields"
+    ],
+    "unknown_tests": 3,
+    "extra_citations_on_unmatched": 0
+  }
+}

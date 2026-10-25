@@ -1,0 +1,93 @@
+{
+  "sample_id": "s03_unknown_format",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v1",
+    "prompt_sha256": "2348650c08e8800720e052a0a293416dd3c4a25501de09a5a594f1b7d025236e",
+    "file": "dataset/dev/s03_unknown_format.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 3690,
+    "timeout_s": 180,
+    "seconds": 2.149,
+    "usage": {
+      "prompt_tokens": 571,
+      "prompt_tokens_details": {
+        "cached_tokens": 432
+      },
+      "completion_tokens": 164,
+      "total_tokens": 735
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": []
+  },
+  "triage": {
+    "log_status": "unknown_format",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "none",
+        "evidence": [
+          {
+            "file": "dataset/dev/s03_unknown_format.log",
+            "line": 5,
+            "quote": "[ci] job 4411 finished with status=2"
+          }
+        ],
+        "suggestion": "The log format is unknown. Please check the log for any test results or errors.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "The log does not contain any test results or errors, and the format is not recognized. The job finished with a non-zero status, which indicates an error.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/dev/s03_unknown_format.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "s03_unknown_format",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "unknown_format",
+      "pred": "unknown_format"
+    },
+    "tests": [
+      {
+        "test_id": "(log)",
+        "gold": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": false,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 1,
+    "extra_citations_on_unmatched": 0
+  }
+}

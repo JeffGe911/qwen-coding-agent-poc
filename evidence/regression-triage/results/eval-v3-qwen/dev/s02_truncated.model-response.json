@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-568",
+  "object": "chat.completion",
+  "created": 1792961738,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"alu_basic\",\n      \"result\": \"pass\",\n      \"category\": \"pass\",\n      \"side\": \"none\",\n      \"evidence\": [\n        {\n          \"file\": \"hdl/tb/tb_alu8.v\",\n          \"line\": 47,\n          \"quote\": \"tb_alu8: start\\nL7: TEST PASSED: tb_alu8\\nL8: hdl/tb/tb_alu8.v:47: $finish called at 32000 (1ps)\"\n        }\n      ],\n      \"suggestion\": \"No issues found. Test passed.\"\n    },\n    {\n      \"test_id\": \"alu_syntax\",\n      \"result\": \"fail\",\n      \"category\": \"compile_error\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\n          \"file\": \"hdl/tb/tb_alu8.v\",\n          \"line\": 25,\n          \"quote\": \"hdl/rtl/alu8.v:25: syntax error\"\n        }\n      ],\n      \"suggestion\": \"Fix syntax errors in hdl/tb/tb_alu8.v starting at line 25.\"\n    },\n    {\n      \"test_id\": \"fifo_full\",\n      \"result\": \"unknown\",\n      \"category\": \"unknown\",\n      \"side\": \"undetermined\",\n      \"evidence\": [\n        {\n          \"file\": \"hdl/tb/tb_sync_fifo.v\",\n          \"line\": 26,\n          \"quote\": \"FATAL: hdl/tb/tb_sync_fifo.v:26: fifo reports full after 3 writes (count=3, DEPTH=4)\\n        Time: 50000  Sco\"\n        }\n      ],\n      \"suggestion\": \"The log is incomplete. The test did not complete. Check the log for more details.\"\n    }\n  ],\n  \"notes\": \"The fifo_full test did not complete, so the result is unknown.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1768,
+    "prompt_tokens_details": {
+      "cached_tokens": 432
+    },
+    "completion_tokens": 436,
+    "total_tokens": 2204
+  }
+}
