@@ -1,0 +1,30 @@
+{
+  "at_utc": "2026-10-25T21:33:59+00:00",
+  "step": "before freezing eval-v4 (r2 running, no model loaded)",
+  "memory": {
+    "total_mb": 32129,
+    "available_mb": 6190,
+    "commit_limit_mb": 44417,
+    "commit_headroom_mb": 6755
+  },
+  "gpu": {
+    "vram_used_mb": 5112,
+    "vram_total_mb": 12227,
+    "vram_free_mb": 7115,
+    "gpu_util_pct": 0,
+    "gpu_temp_c": 46
+  },
+  "gpu_power": "P8, 136.80 W",
+  "power": {
+    "ac_online": "True",
+    "plan": "电源方案 GUID: 64a64f24-65b9-4b56-befd-5ec1eaced9b3  (Silent)"
+  },
+  "thresholds": {
+    "min_available_mb": 4096,
+    "min_commit_headroom_mb": 4096,
+    "min_free_vram_mb": 6500,
+    "abort_available_mb": 2048,
+    "abort_commit_headroom_mb": 2048
+  },
+  "problems": []
+}
