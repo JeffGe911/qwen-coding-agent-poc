@@ -1,0 +1,33 @@
+{
+  "at_utc": "2026-10-25T20:52:05+00:00",
+  "step": "before starting r2 for eval-v3 (nothing listening on 11437, no model loaded)",
+  "memory": {
+    "total_mb": 32129,
+    "available_mb": 7404,
+    "commit_limit_mb": 44417,
+    "commit_headroom_mb": 15085
+  },
+  "gpu": {
+    "vram_used_mb": 0,
+    "vram_total_mb": 12227,
+    "vram_free_mb": 12227,
+    "gpu_util_pct": 0,
+    "gpu_temp_c": 44
+  },
+  "gpu_power": "P0, 140.00 W, 3090 MHz",
+  "power": {
+    "ac_online": "True",
+    "battery_pct": "82",
+    "plan": "Silent"
+  },
+  "thresholds": {
+    "min_available_mb": 4096,
+    "min_commit_headroom_mb": 4096,
+    "min_free_vram_mb": 6500,
+    "abort_available_mb": 2048,
+    "abort_commit_headroom_mb": 2048,
+    "ac_power": "required",
+    "min_generation_tok_s_on_demo": 30
+  },
+  "problems": []
+}

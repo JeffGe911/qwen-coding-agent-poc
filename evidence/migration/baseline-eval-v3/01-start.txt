@@ -1,0 +1,2 @@
+﻿Ollama 0.40.9 API ready on 127.0.0.1:11437 in 14.22 s (pid 36120). Model loads on first request.
+RECORD=D:\新建文件夹\qwen-coding-agent-poc\scripts\..\evidence\serving\ollama-launch-11437-20261025T205219Z.json
