@@ -1,0 +1,206 @@
+{
+ "sample_id": "d06_wallclock_timeout",
+ "prompt_version": "triage-prompt-v2",
+ "call": {
+  "engine": "qwen:qwen2.5-coder:7b",
+  "backend": "ollama-r2",
+  "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+  "prompt_version": "triage-prompt-v2",
+  "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+  "file": "dataset/dev/d06_wallclock_timeout.log",
+  "input_truncated": false,
+  "omitted_line_ranges": [],
+  "request_chars": 4854,
+  "timeout_s": 180,
+  "seconds": 1.965,
+  "usage": {
+   "prompt_tokens": 1009,
+   "prompt_tokens_details": {
+    "cached_tokens": 506
+   },
+   "completion_tokens": 142,
+   "total_tokens": 1151
+  },
+  "finish_reason": "stop",
+  "server_context": 8192,
+  "server_context_source": "ollama /api/ps context_length",
+  "status": "ok",
+  "problems": []
+ },
+ "scores": {
+  "rules": {
+   "sample_id": "d06_wallclock_timeout",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "handshake_basic",
+     "gold": {
+      "result": "fail",
+      "category": "timeout",
+      "side": "undetermined"
+     },
+     "pred": {
+      "result": "fail",
+      "category": "timeout",
+      "side": "undetermined"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [
+     "handshake_basic"
+    ],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  },
+  "qwen": {
+   "sample_id": "d06_wallclock_timeout",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "handshake_basic",
+     "gold": {
+      "result": "fail",
+      "category": "timeout",
+      "side": "undetermined"
+     },
+     "pred": {
+      "result": "fail",
+      "category": "timeout",
+      "side": "design_or_test"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": false,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [
+     "handshake_basic"
+    ],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  },
+  "hybrid": {
+   "sample_id": "d06_wallclock_timeout",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "handshake_basic",
+     "gold": {
+      "result": "fail",
+      "category": "timeout",
+      "side": "undetermined"
+     },
+     "pred": {
+      "result": "fail",
+      "category": "timeout",
+      "side": "undetermined"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [
+     "handshake_basic"
+    ],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  }
+ },
+ "hybrid": {
+  "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+  "file": "dataset/dev/d06_wallclock_timeout.log",
+  "sha256": "5a166398b49b76b8c74e98416d1cbcc757c6e79ed2a3956239845b7d837f9362",
+  "lines": 7,
+  "log_status": "complete",
+  "tests": [
+   {
+    "test_id": "handshake_basic",
+    "result": "fail",
+    "category": "timeout",
+    "side": "undetermined",
+    "kind": "wallclock",
+    "evidence": [
+     {
+      "file": "dataset/dev/d06_wallclock_timeout.log",
+      "line": 6,
+      "quote": "#RUN test=handshake_basic stage=run exit=1 elapsed_s=5.02 timed_out=true output_truncated=false"
+     }
+    ],
+    "fingerprint": "timeout:0859f56d",
+    "certainty": "confirmed",
+    "notes": [
+     "被 runner 的墙钟时限强制结束，结束前的输出可能已丢失"
+    ],
+    "suggestion": "仿真被 runner 的墙钟时限强制结束 dataset/dev/d06_wallclock_timeout.log:6，没有留下 testbench 输出。可能是 testbench 缺少 $finish/watchdog、DUT 死循环，或时限设置过小；先确认 testbench 会自行结束。",
+    "source": "rules"
+   }
+  ],
+  "groups": [
+   {
+    "fingerprint": "timeout:0859f56d",
+    "category": "timeout",
+    "tests": [
+     "handshake_basic"
+    ],
+    "example": {
+     "file": "dataset/dev/d06_wallclock_timeout.log",
+     "line": 6,
+     "quote": "#RUN test=handshake_basic stage=run exit=1 elapsed_s=5.02 timed_out=true output_truncated=false"
+    }
+   }
+  ],
+  "flags": [],
+  "notes": [],
+  "hybrid_version": "hybrid-v1",
+  "model_needed": false
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "name": "prompt-v2-try1",
+ "prompt_version": "triage-prompt-v2",
+ "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+ "hybrid": "hybrid-v1",
+ "scoring": "scoring-v2",
+ "backend": "ollama-r2",
+ "totals": {
+  "rules": {
+   "tests": 37,
+   "correct": 37,
+   "false_release": 0,
+   "cites": 62,
+   "valid": 62
+  },
+  "qwen": {
+   "tests": 37,
+   "correct": 34,
+   "false_release": 1,
+   "cites": 102,
+   "valid": 100
+  },
+  "hybrid": {
+   "tests": 37,
+   "correct": 37,
+   "false_release": 0,
+   "cites": 62,
+   "valid": 62
+  }
+ }
+}

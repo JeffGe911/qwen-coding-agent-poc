@@ -11,8 +11,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 EV = ROOT / "evidence" / "regression-triage"
-ENGINES = ("rules", "qwen")
-SPLITS = ("dev", "holdout")
+ENGINES = ("rules", "qwen", "hybrid")
+SPLITS = ("dev", "holdout", "holdout2")
 QUALITY = [("category", "类别准确率"), ("result", "结果准确率（pass/fail/not_run/unknown）"), ("side", "责任方准确率（设计或测试 / 基础设施）")]
 
 
@@ -113,16 +113,22 @@ def safety(samples, split):
     return c
 
 
+NAMES = {"rules": "规则", "qwen": "Qwen", "hybrid": "组合（规则 + 守卫后的 Qwen）"}
+
+
 def comparison(found):
+    """Per split, every engine that has results there (at least two), plus a per-test agreement matrix of each
+    model-based engine against the rules."""
     out = []
     for split in SPLITS:
-        if not all((e, split) in found for e in ENGINES):
+        engines = [e for e in ENGINES if (e, split) in found]
+        if len(engines) < 2 or "rules" not in engines:
             continue
-        sf = {e: safety(found[(e, split)]["samples"], split) for e in ENGINES}
-        cs = {e: counts(found[(e, split)]["samples"]) for e in ENGINES}
+        sf = {e: safety(found[(e, split)]["samples"], split) for e in engines}
+        cs = {e: counts(found[(e, split)]["samples"]) for e in engines}
         n = sf["rules"]["tests"]
-        row = lambda label, f: f"| {label} | " + " | ".join(f(e) for e in ENGINES) + " |"
-        out += [f"### {split}（{n} 个金标准测试）\n", "| | 规则 | Qwen |", "|---|---|---|",
+        row = lambda label, f: f"| {label} | " + " | ".join(f(e) for e in engines) + " |"
+        out += [f"### {split}（{n} 个金标准测试）\n", "| | " + " | ".join(NAMES[e] for e in engines) + " |", "|---|" + "---|" * len(engines),
                 row("类别正确", lambda e: frac(sf[e]["correct"], n)),
                 row("回答“不知道”（unknown）", lambda e: frac(sf[e]["abstain"], n)),
                 row("**确信但错误**（给了具体类别且与金标准不同）", lambda e: frac(sf[e]["wrong"], n)),
@@ -130,21 +136,23 @@ def comparison(found):
                 row("**误放行**（没通过却报成 pass）", lambda e: str(sf[e]["false_release"])),
                 row("误报（通过却报成 fail / not_run）", lambda e: str(sf[e]["false_alarm"])),
                 row("漏报（需关注测试没被报为 fail / not_run）", lambda e: f"{sf[e]['missed']}/{sf[e]['attention']}"),
-                row("引用相关率", lambda e: frac(cs[e]["relevant"], cs[e]["cites"])),
-                row("被校验拒绝的引用", lambda e: str(sf[e]["rejected_citations"])),
+                row("引用相关率（占给出的全部引用）", lambda e: frac(cs[e]["relevant"], cs[e]["cites"])),
+                row("被校验拒绝的引用", lambda e: str(cs[e]["rejected"])),
                 row("每样本耗时 中位数 / 最大（s）", lambda e: f"{sf[e]['seconds']['median']} / {sf[e]['seconds']['max']}"), ""]
-        both = {}
-        for e in ENGINES:
+        ok = {}
+        for e in engines:
             for s in found[(e, split)]["samples"]:
                 for t in (s["score"] or {"tests": []})["tests"]:
-                    both.setdefault((s["sample_id"], t["test_id"]), {})[e] = t["category_ok"]
-        keys = [k for k in both if len(both[k]) == 2] + [k for k in both if len(both[k]) < 2]
-        cell = lambda r, q: sum(1 for k in keys if bool(both[k].get("rules")) is r and bool(both[k].get("qwen")) is q)
-        out += ["逐个测试对照（类别是否正确）：\n", "| | Qwen 对 | Qwen 错 |", "|---|---|---|",
-                f"| 规则对 | {cell(True, True)} | {cell(True, False)} |", f"| 规则错 | {cell(False, True)} | {cell(False, False)} |", ""]
-        only_q = sorted(f"{k[0]}/{k[1]}" for k in keys if both[k].get("qwen") and not both[k].get("rules"))
-        only_r = sorted(f"{k[0]}/{k[1]}" for k in keys if both[k].get("rules") and not both[k].get("qwen"))
-        out += [f"只有 Qwen 对：{', '.join(only_q) or '无'}\n", f"只有规则对：{', '.join(only_r) or '无'}\n"]
+                    ok.setdefault((s["sample_id"], t["test_id"]), {})[e] = t["category_ok"]
+        for e in engines:
+            if e == "rules":
+                continue
+            cell = lambda r, q: sum(1 for k in ok if bool(ok[k].get("rules")) is r and bool(ok[k].get(e)) is q)
+            only_e = sorted(f"{k[0]}/{k[1]}" for k in ok if ok[k].get(e) and not ok[k].get("rules"))
+            only_r = sorted(f"{k[0]}/{k[1]}" for k in ok if ok[k].get("rules") and not ok[k].get(e))
+            out += [f"逐个测试对照，规则 vs {NAMES[e]}（类别是否正确）：\n", f"| | {NAMES[e]} 对 | {NAMES[e]} 错 |", "|---|---|---|",
+                    f"| 规则对 | {cell(True, True)} | {cell(True, False)} |", f"| 规则错 | {cell(False, True)} | {cell(False, False)} |", "",
+                    f"只有{NAMES[e]}对：{', '.join(only_e) or '无'}\n", f"只有规则对：{', '.join(only_r) or '无'}\n"]
     return "\n".join(out) + "\n" if out else ""
 
 
@@ -212,7 +220,7 @@ def main():
            "dev 是开发规则和 prompt 时可以反复查看的拆分；holdout 由独立代理在看不到规则、prompt、评分代码和 dev 金标准的情况下编写和标注，"
            "每个合同版本、每个引擎只运行一次。看过 holdout 结果后再改规则或 prompt，就必须开新合同版本，且不能再称为盲测。\n",
            quality_table(found) if found else "尚无评测结果。\n",
-           *(["### 规则与 Qwen 的错误类型对比\n", comparison(found)] if comparison(found) else []),
+           *(["### 各引擎的错误类型对比\n", comparison(found)] if comparison(found) else []),
            "## 3. 服务性能\n",
            "规则引擎在本机进程内运行，耗时只是参考。模型耗时是笔记本单卡、单并发下测得的，不能外推到服务器吞吐。\n",
            service_table(found) if found else "尚无评测结果。\n",

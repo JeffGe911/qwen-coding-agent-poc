@@ -1,0 +1,25 @@
+{
+ "id": "chatcmpl-3",
+ "object": "chat.completion",
+ "created": 1792963049,
+ "model": "qwen2.5-coder:7b",
+ "system_fingerprint": "fp_ollama",
+ "choices": [
+  {
+   "index": 0,
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"alu_basic\",\n      \"result\": \"fail\",\n      \"category\": \"tool_error\",\n      \"side\": \"infrastructure\",\n      \"evidence\": [\n        {\n          \"log_line\": 4,\n          \"quote\": \"exit=4294967295\"\n        }\n      ],\n      \"suggestion\": \"Check the Icarus Verilog installation and ensure it is correctly configured.\"\n    },\n    {\n      \"test_id\": \"fifo_basic\",\n      \"result\": \"fail\",\n      \"category\": \"tool_error\",\n      \"side\": \"infrastructure\",\n      \"evidence\": [\n        {\n          \"log_line\": 6,\n          \"quote\": \"exit=4294967295\"\n        }\n      ],\n      \"suggestion\": \"Verify the Verilator installation and check for any missing dependencies.\"\n    },\n    {\n      \"test_id\": \"handshake_basic\",\n      \"result\": \"fail\",\n      \"category\": \"tool_error\",\n      \"side\": \"infrastructure\",\n      \"evidence\": [\n        {\n          \"log_line\": 8,\n          \"quote\": \"exit=4294967295\"\n        }\n      ],\n      \"suggestion\": \"Ensure that the toolchain is up-to-date and that there are no license issues.\"\n    }\n  ],\n  \"notes\": \"All tests failed due to a tool error, indicating a problem with the toolchain infrastructure.\"\n}"
+   },
+   "finish_reason": "stop"
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1228,
+  "prompt_tokens_details": {
+   "cached_tokens": 506
+  },
+  "completion_tokens": 327,
+  "total_tokens": 1555
+ }
+}

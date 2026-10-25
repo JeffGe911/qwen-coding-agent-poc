@@ -151,7 +151,7 @@ class FakeClient:
 
 def answer(log, **test):
     t = {"test_id": "fifo_basic", "result": "fail", "category": "test_failure", "side": "design_or_test",
-         "evidence": [{"file": log.name, "line": 7, "quote": "FATAL: hdl/tb/tb_sync_fifo.v:26: fifo reports full after 3 writes"}], "suggestion": "check the full flag"}
+         "evidence": [{"log_line": 7, "quote": "FATAL: hdl/tb/tb_sync_fifo.v:26: fifo reports full after 3 writes"}], "suggestion": "check the full flag"}
     t.update(test)
     return json.dumps({"log_status": "complete", "tests": [t], "notes": ""})
 
@@ -159,11 +159,17 @@ def answer(log, **test):
 def test_model_answer_is_validated_and_bad_citations_are_rejected():
     log = dev_log("d04_assert_fatal")
     call, _ = model.triage(log, TEST_PROFILE, client=FakeClient(answer(log)))
-    assert call["status"] == "ok" and call["triage"]["tests"][0]["evidence"] and not call["problems"]
-    bad = answer(log, evidence=[{"file": log.name, "line": 3, "quote": "fifo reports full"}, {"file": "x.log", "line": 7, "quote": "fifo reports full after"}])
+    t = call["triage"]["tests"][0]
+    assert call["status"] == "ok" and t["evidence"] == [{"file": log.name, "line": 7, "quote": "FATAL: hdl/tb/tb_sync_fifo.v:26: fifo reports full after 3 writes"}]
+    assert not call["problems"]  # converted back to the business citation format {file, line, quote}
+    # wrong line; a line number taken from inside the text (tb_sync_fifo.v:26), the eval-v3 failure; two lines joined
+    bad = answer(log, evidence=[{"log_line": 3, "quote": "fifo reports full"}, {"log_line": 26, "quote": "fifo reports full after 3 writes"},
+                                {"log_line": 7, "quote": "FATAL: hdl/tb/tb_sync_fifo.v:26: fifo reports full after 3 writes\nTime: 30000"}])
     call, _ = model.triage(log, TEST_PROFILE, client=FakeClient(bad))
     t = call["triage"]["tests"][0]
-    assert not t["evidence"] and len(t["rejected_citations"]) == 2 and t["certainty"] == "insufficient_evidence"
+    assert not t["evidence"] and len(t["rejected_citations"]) == 3 and t["certainty"] == "insufficient_evidence"
+    copied = answer(log, evidence=[{"log_line": 7, "quote": "L7: FATAL: hdl/tb/tb_sync_fifo.v:26: fifo reports full"}])  # display prefix copied along
+    assert model.triage(log, TEST_PROFILE, client=FakeClient(copied))[0]["triage"]["tests"][0]["evidence"]
     call, _ = model.triage(log, TEST_PROFILE, client=FakeClient(answer(log, test_id="made_up_test", category="flaky")))
     assert call["status"] == "invalid_output" and "not allowed" in call["problems"][0]
     call, _ = model.triage(log, TEST_PROFILE, client=FakeClient(answer(log, test_id="made_up_test")))
@@ -174,16 +180,23 @@ def test_model_answer_is_validated_and_bad_citations_are_rejected():
 
 # ---------- backend profiles ----------
 
-def test_ollama_profile_reproduces_the_eval_v2_request_bodies():
-    """Moving the settings into a profile must not change what the baseline sent (hashes frozen before the refactor)."""
+def test_ollama_profile_reproduces_the_eval_v2_and_v3_request_bodies():
+    """Moving the settings into a profile must not change what the baseline sent (hashes frozen before the refactor), and
+    prompt v1 stays reproducible next to v2: its hash is the one eval-v3 froze, and v2 differs only in the citation format."""
     import hashlib as h
     golden = json.loads((ROOT / "tests" / "fixtures" / "triage_request_bodies_eval_v2.json").read_text(encoding="utf-8"))["bodies"]
+    assert model.prompt_sha256("triage-prompt-v1") == json.loads((EV / "contract" / "eval-v3.json").read_text(encoding="utf-8"))["qwen"]["prompt_sha256"]
     profile = backend.load(BACKENDS / "ollama-r2.json")
-    budget = int((profile["context_tokens"] - profile["max_tokens"] - profile["margin_tokens"]) * profile["chars_per_token_estimate"]) - len(model.SYSTEM) - 2000
+    v1_system, v1_schema = model.PROMPTS["triage-prompt-v1"]
+    budget = int((profile["context_tokens"] - profile["max_tokens"] - profile["margin_tokens"]) * profile["chars_per_token_estimate"]) - len(v1_system) - 2000
     for split in ("dev", "holdout"):
         for s in json.loads((EV / "dataset" / f"{split}-manifest.json").read_text(encoding="utf-8"))["samples"]:
-            body, _ = model.request_body(logio.read_log(s["file"], EV), profile["model"], profile["max_tokens"], budget, profile["request_sampling"])
+            log = logio.read_log(s["file"], EV)
+            body, _ = model.request_body(log, profile["model"], profile["max_tokens"], budget, profile["request_sampling"], "triage-prompt-v1")
             assert h.sha256(json.dumps(body, sort_keys=True, ensure_ascii=False).encode()).hexdigest() == golden[s["sample_id"]], s["sample_id"]
+            v2, _ = model.request_body(log, profile["model"], profile["max_tokens"], budget, profile["request_sampling"], "triage-prompt-v2")
+            v2["messages"][0]["content"], v2["response_format"]["json_schema"]["schema"] = v1_system, v1_schema
+            assert v2 == body  # with the same input budget, the only differences are the system prompt and the citation schema
     assert len(golden) == 50
 
 
@@ -335,3 +348,66 @@ def test_migration_comparison_reports_both_sides_and_refuses_different_datasets(
     assert r.returncode == 0 and text.count("不同：0") == 2 and "类别正确 | 37/37" in text  # same results on both sides: no differences
     r = subprocess.run([sys.executable, str(script), "--before", "eval-v1", "--after", "eval-v2", "--engine", "qwen", "--out", str(out)], capture_output=True, text=True)
     assert r.returncode == 0 and "缺少结果" in out.read_text(encoding="utf-8")  # a missing side is reported, never filled in
+
+
+# ---------- hybrid: rules first, guarded model answers where the rules say unknown ----------
+
+def runner_log(tmp_path, body_lines, run_exit="0", stage="run"):
+    lines = ["#RUN regression=t run_id=x started_utc=2026-10-25T00:00:00+00:00 host_os=Windows",
+             "#RUN test=t1 stage=compile cmd=iverilog.exe -o sim.vvp tb.v",
+             "#RUN test=t1 stage=compile exit=0 elapsed_s=0.05 timed_out=false output_truncated=false",
+             f"#RUN test=t1 stage={stage} cmd=vvp.exe -n sim.vvp", *body_lines,
+             f"#RUN test=t1 stage={stage} exit={run_exit} elapsed_s=0.05 timed_out=false output_truncated=false",
+             "#RUN regression=t end tests=1 finished_utc=2026-10-25T00:00:01+00:00"]
+    (tmp_path / "t.log").write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+    return logio.read_log("t.log", tmp_path)
+
+
+def model_test(log, line, result="pass", category="pass", side="none"):
+    return {"engine": "qwen:fake", "log_status": "complete", "notes": "",
+            "tests": [{"test_id": "t1", "result": result, "category": category, "side": side, "suggestion": "",
+                       "evidence": [{"file": log.name, "line": line, "quote": log.line(line)}]}]}
+
+
+def test_guard_blocks_a_pass_without_a_verdict_line_or_against_the_runner_record(tmp_path):
+    from regression_triage import hybrid
+    log = runner_log(tmp_path, ["tb: start", "tb.v:40: $finish called at 100 (1ps)"])  # eval-v3 h14: exit 0, $finish, no verdict
+    t = hybrid.guard(model_test(log, 6), log)["tests"][0]
+    assert (t["result"], t["category"]) == ("unknown", "unknown") and "结论行" in t["guard"]
+    log = runner_log(tmp_path, ["tb: start", "all 64 checks passed"])
+    assert hybrid.guard(model_test(log, 6), log)["tests"][0]["result"] == "pass"  # a verdict line is cited: kept
+    log = runner_log(tmp_path, ["tb: start", "all 64 checks passed"], run_exit="1")
+    assert hybrid.guard(model_test(log, 6), log)["tests"][0]["result"] == "unknown"  # the runner recorded exit 1
+    log = runner_log(tmp_path, ["tb: start", "all 64 checks passed"])
+    assert hybrid.guard(model_test(log, 5), log)["tests"][0]["result"] == "unknown"  # cites only the start banner
+
+
+def test_results_are_normalized_and_rules_keep_every_definite_verdict(tmp_path):
+    from regression_triage import hybrid
+    log = runner_log(tmp_path, ["tb.v:3: syntax error"], run_exit="3", stage="compile2")
+    stages = {"t1": [{"stage": "compile", "exit": "3"}]}
+    assert hybrid.normalize_result({"test_id": "t1", "result": "fail", "category": "compile_error"}, stages)["result"] == "not_run"
+    assert hybrid.normalize_result({"test_id": "t1", "result": "fail", "category": "compile_error"}, {"t1": [{"stage": "lint", "exit": "1"}]})["result"] == "fail"
+    # rules certain (d04: $fatal) -> the rules verdict stays even if the model disagrees
+    d04 = dev_log("d04_assert_fatal")
+    combined = hybrid.combine(rules.triage(d04), {"engine": "qwen:fake", "log_status": "complete", "notes": "", "tests": [
+        {"test_id": "fifo_basic", "result": "pass", "category": "pass", "side": "none", "suggestion": "", "evidence": []}]}, d04)
+    assert combined["tests"][0]["category"] == "test_failure" and combined["tests"][0]["source"] == "rules"
+    # rules unknown -> a guarded model verdict fills in, marked as needing review
+    log = runner_log(tmp_path, ["tb: start", "all 64 checks passed"])
+    assert rules.triage(log)["tests"][0]["category"] == "unknown"
+    c = hybrid.combine(rules.triage(log), model_test(log, 6), log)
+    assert c["tests"][0]["category"] == "pass" and c["tests"][0]["source"] == "model" and c["model_needed"]
+    log = runner_log(tmp_path, ["tb: start", "tb.v:40: $finish called at 100 (1ps)"])
+    c = hybrid.combine(rules.triage(log), model_test(log, 6), log)
+    assert c["tests"][0]["category"] == "unknown" and c["tests"][0]["source"] == "rules"  # the guard removed the model's pass
+
+
+def test_a_single_log_prediction_is_scored_against_the_single_gold_test():
+    log = dev_log("d14_raw_vvp_fail")
+    gold = json.loads((EV / "gold" / "dev" / "d14_raw_vvp_fail.json").read_text(encoding="utf-8"))
+    pred = {"log_status": "complete", "tests": [{"test_id": "(log)", "result": "fail", "category": "test_failure", "side": "design_or_test", "evidence": []}]}
+    s = evaluate.score_sample(pred, gold, log)
+    assert s["tests"][0]["category_ok"] and not s["unmatched_tests"]
+    two = {**gold, "tests": {**gold["tests"], "tb_other": gold["tests"][next(iter(gold["tests"]))]}}
+    assert evaluate.score_sample(pred, two, log)["unmatched_tests"] == ["(log)"]  # ambiguous with two gold tests: no guessing

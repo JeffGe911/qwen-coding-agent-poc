@@ -1,0 +1,214 @@
+{
+ "sample_id": "s04_uvm_style",
+ "prompt_version": "triage-prompt-v2",
+ "call": {
+  "engine": "qwen:qwen2.5-coder:7b",
+  "backend": "ollama-r2",
+  "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+  "prompt_version": "triage-prompt-v2",
+  "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+  "file": "dataset/dev/s04_uvm_style.log",
+  "input_truncated": false,
+  "omitted_line_ranges": [],
+  "request_chars": 4456,
+  "timeout_s": 180,
+  "seconds": 3.28,
+  "usage": {
+   "prompt_tokens": 876,
+   "prompt_tokens_details": {
+    "cached_tokens": 506
+   },
+   "completion_tokens": 270,
+   "total_tokens": 1146
+  },
+  "finish_reason": "stop",
+  "server_context": 8192,
+  "server_context_source": "ollama /api/ps context_length",
+  "status": "ok",
+  "problems": []
+ },
+ "scores": {
+  "rules": {
+   "sample_id": "s04_uvm_style",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "fifo_overflow_test",
+     "gold": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test"
+     },
+     "pred": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 3,
+     "citations_valid": 3,
+     "citations_relevant": 3,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [
+     "fifo_overflow_test"
+    ],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  },
+  "qwen": {
+   "sample_id": "s04_uvm_style",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "fifo_overflow_test",
+     "gold": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test"
+     },
+     "pred": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 2,
+     "citations_valid": 2,
+     "citations_relevant": 2,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [
+     "fifo_overflow_test"
+    ],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  },
+  "hybrid": {
+   "sample_id": "s04_uvm_style",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "fifo_overflow_test",
+     "gold": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test"
+     },
+     "pred": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 3,
+     "citations_valid": 3,
+     "citations_relevant": 3,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [
+     "fifo_overflow_test"
+    ],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  }
+ },
+ "hybrid": {
+  "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+  "file": "dataset/dev/s04_uvm_style.log",
+  "sha256": "ec677e191fbbf1dbdb50f19885367c3ac9edf7eeb29657949526a9ce72a57a13",
+  "lines": 14,
+  "log_status": "complete",
+  "tests": [
+   {
+    "test_id": "fifo_overflow_test",
+    "result": "fail",
+    "category": "test_failure",
+    "side": "design_or_test",
+    "kind": "uvm_report",
+    "evidence": [
+     {
+      "file": "dataset/dev/s04_uvm_style.log",
+      "line": 4,
+      "quote": "UVM_ERROR tb/fifo_scoreboard.sv(142) @ 3450: uvm_test_top.env.sb [SB_MISMATCH] expected 0xa3 got 0x00 at index 3"
+     },
+     {
+      "file": "dataset/dev/s04_uvm_style.log",
+      "line": 5,
+      "quote": "UVM_ERROR tb/fifo_scoreboard.sv(142) @ 3460: uvm_test_top.env.sb [SB_MISMATCH] expected 0xa4 got 0x00 at index 4"
+     },
+     {
+      "file": "dataset/dev/s04_uvm_style.log",
+      "line": 13,
+      "quote": "UVM_ERROR :    2"
+     }
+    ],
+    "fingerprint": "test_failure:ba06f791",
+    "certainty": "confirmed",
+    "notes": [],
+    "suggestion": "testbench 检查失败，首条证据 dataset/dev/s04_uvm_style.log:4：“UVM_ERROR tb/fifo_scoreboard.sv(142) @ 3450: uvm_test_top.env.sb [SB_MISMATCH] expected 0xa3 got 0x00 at index 3”。对照期望值与实际值，查看相关信号在报告时刻附近的驱动和时序。",
+    "source": "rules"
+   }
+  ],
+  "groups": [
+   {
+    "fingerprint": "test_failure:ba06f791",
+    "category": "test_failure",
+    "tests": [
+     "fifo_overflow_test"
+    ],
+    "example": {
+     "file": "dataset/dev/s04_uvm_style.log",
+     "line": 4,
+     "quote": "UVM_ERROR tb/fifo_scoreboard.sv(142) @ 3450: uvm_test_top.env.sb [SB_MISMATCH] expected 0xa3 got 0x00 at index 3"
+    }
+   }
+  ],
+  "flags": [],
+  "notes": [],
+  "hybrid_version": "hybrid-v1",
+  "model_needed": false
+ }
+}

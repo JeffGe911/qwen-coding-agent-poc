@@ -1,0 +1,211 @@
+{
+ "sample_id": "s07_license_failure",
+ "prompt_version": "triage-prompt-v2",
+ "call": {
+  "engine": "qwen:qwen2.5-coder:7b",
+  "backend": "ollama-r2",
+  "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+  "prompt_version": "triage-prompt-v2",
+  "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+  "file": "dataset/dev/s07_license_failure.log",
+  "input_truncated": false,
+  "omitted_line_ranges": [],
+  "request_chars": 3986,
+  "timeout_s": 180,
+  "seconds": 2.282,
+  "usage": {
+   "prompt_tokens": 648,
+   "prompt_tokens_details": {
+    "cached_tokens": 506
+   },
+   "completion_tokens": 194,
+   "total_tokens": 842
+  },
+  "finish_reason": "stop",
+  "server_context": 8192,
+  "server_context_source": "ollama /api/ps context_length",
+  "status": "ok",
+  "problems": []
+ },
+ "scores": {
+  "rules": {
+   "sample_id": "s07_license_failure",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "(log)",
+     "gold": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "pred": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 2,
+     "citations_valid": 2,
+     "citations_relevant": 2,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [
+     "(log)"
+    ],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  },
+  "qwen": {
+   "sample_id": "s07_license_failure",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "(log)",
+     "gold": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "pred": {
+      "result": "fail",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "category_ok": true,
+     "result_ok": false,
+     "side_ok": true,
+     "citations": 2,
+     "citations_valid": 2,
+     "citations_relevant": 2,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [
+     "(log)"
+    ],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  },
+  "hybrid": {
+   "sample_id": "s07_license_failure",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "(log)",
+     "gold": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "pred": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 2,
+     "citations_valid": 2,
+     "citations_relevant": 2,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [
+     "(log)"
+    ],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  }
+ },
+ "hybrid": {
+  "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+  "file": "dataset/dev/s07_license_failure.log",
+  "sha256": "32a07d9eeaea066ceb8b8bf9ee3ef0d8fc23d7b66fbccb22068d569ae15832f5",
+  "lines": 4,
+  "log_status": "complete",
+  "tests": [
+   {
+    "test_id": "(log)",
+    "result": "not_run",
+    "category": "tool_error",
+    "side": "infrastructure",
+    "kind": null,
+    "evidence": [
+     {
+      "file": "dataset/dev/s07_license_failure.log",
+      "line": 3,
+      "quote": "License checkout failed: feature SIM_RUNTIME, server 27000@lic01 not responding (timeout after 30 s)"
+     },
+     {
+      "file": "dataset/dev/s07_license_failure.log",
+      "line": 4,
+      "quote": "Fatal: unable to start simulation without a license; exiting with status 9"
+     }
+    ],
+    "fingerprint": "tool_error:b36d3d32",
+    "certainty": "confirmed",
+    "notes": [
+     "许可证或工具启动失败"
+    ],
+    "suggestion": "工具没有正常运行 dataset/dev/s07_license_failure.log:3：“License checkout failed: feature SIM_RUNTIME, server 27000@lic01 not responding (timeout after 30 s)”。这是环境问题，不是设计问题：检查仿真器安装路径、环境变量和许可证。",
+    "source": "rules"
+   }
+  ],
+  "groups": [
+   {
+    "fingerprint": "tool_error:b36d3d32",
+    "category": "tool_error",
+    "tests": [
+     "(log)"
+    ],
+    "example": {
+     "file": "dataset/dev/s07_license_failure.log",
+     "line": 3,
+     "quote": "License checkout failed: feature SIM_RUNTIME, server 27000@lic01 not responding (timeout after 30 s)"
+    }
+   }
+  ],
+  "flags": [],
+  "notes": [],
+  "hybrid_version": "hybrid-v1",
+  "model_needed": false
+ }
+}

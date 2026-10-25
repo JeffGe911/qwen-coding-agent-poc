@@ -1,0 +1,189 @@
+{
+ "sample_id": "s08_benign_error_words",
+ "prompt_version": "triage-prompt-v2",
+ "call": {
+  "engine": "qwen:qwen2.5-coder:7b",
+  "backend": "ollama-r2",
+  "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+  "prompt_version": "triage-prompt-v2",
+  "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+  "file": "dataset/dev/s08_benign_error_words.log",
+  "input_truncated": false,
+  "omitted_line_ranges": [],
+  "request_chars": 4044,
+  "timeout_s": 180,
+  "seconds": 1.644,
+  "usage": {
+   "prompt_tokens": 683,
+   "prompt_tokens_details": {
+    "cached_tokens": 506
+   },
+   "completion_tokens": 118,
+   "total_tokens": 801
+  },
+  "finish_reason": "stop",
+  "server_context": 8192,
+  "server_context_source": "ollama /api/ps context_length",
+  "status": "ok",
+  "problems": []
+ },
+ "scores": {
+  "rules": {
+   "sample_id": "s08_benign_error_words",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "tb_uart",
+     "gold": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none"
+     },
+     "pred": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  },
+  "qwen": {
+   "sample_id": "s08_benign_error_words",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "tb_uart",
+     "gold": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none"
+     },
+     "pred": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  },
+  "hybrid": {
+   "sample_id": "s08_benign_error_words",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "tb_uart",
+     "gold": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none"
+     },
+     "pred": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  }
+ },
+ "hybrid": {
+  "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+  "file": "dataset/dev/s08_benign_error_words.log",
+  "sha256": "9c2ebd6f5c2cd62389b31d308997ce023f9f534a43fcafef232a930a1188a0e0",
+  "lines": 7,
+  "log_status": "complete",
+  "tests": [
+   {
+    "test_id": "tb_uart",
+    "result": "pass",
+    "category": "pass",
+    "side": "none",
+    "kind": null,
+    "evidence": [
+     {
+      "file": "dataset/dev/s08_benign_error_words.log",
+      "line": 6,
+      "quote": "TEST PASSED: tb_uart"
+     }
+    ],
+    "fingerprint": null,
+    "certainty": "confirmed",
+    "notes": [
+     "日志中没有退出码；依据 testbench 的结论行判为通过"
+    ],
+    "suggestion": "通过 dataset/dev/s08_benign_error_words.log:6：“TEST PASSED: tb_uart”。",
+    "source": "rules"
+   }
+  ],
+  "groups": [],
+  "flags": [],
+  "notes": [
+   "原始仿真器输出：日志中没有退出码"
+  ],
+  "hybrid_version": "hybrid-v1",
+  "model_needed": false
+ }
+}

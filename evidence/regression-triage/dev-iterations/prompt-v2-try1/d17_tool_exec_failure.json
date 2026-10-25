@@ -1,0 +1,398 @@
+{
+ "sample_id": "d17_tool_exec_failure",
+ "prompt_version": "triage-prompt-v2",
+ "call": {
+  "engine": "qwen:qwen2.5-coder:7b",
+  "backend": "ollama-r2",
+  "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+  "prompt_version": "triage-prompt-v2",
+  "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+  "file": "dataset/dev/d17_tool_exec_failure.log",
+  "input_truncated": false,
+  "omitted_line_ranges": [],
+  "request_chars": 5358,
+  "timeout_s": 180,
+  "seconds": 3.982,
+  "usage": {
+   "prompt_tokens": 1228,
+   "prompt_tokens_details": {
+    "cached_tokens": 506
+   },
+   "completion_tokens": 327,
+   "total_tokens": 1555
+  },
+  "finish_reason": "stop",
+  "server_context": 8192,
+  "server_context_source": "ollama /api/ps context_length",
+  "status": "ok",
+  "problems": []
+ },
+ "scores": {
+  "rules": {
+   "sample_id": "d17_tool_exec_failure",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "alu_basic",
+     "gold": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "pred": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    },
+    {
+     "test_id": "fifo_basic",
+     "gold": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "pred": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    },
+    {
+     "test_id": "handshake_basic",
+     "gold": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "pred": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [
+     "alu_basic",
+     "fifo_basic",
+     "handshake_basic"
+    ],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  },
+  "qwen": {
+   "sample_id": "d17_tool_exec_failure",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "alu_basic",
+     "gold": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "pred": {
+      "result": "fail",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "category_ok": true,
+     "result_ok": false,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    },
+    {
+     "test_id": "fifo_basic",
+     "gold": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "pred": {
+      "result": "fail",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "category_ok": true,
+     "result_ok": false,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    },
+    {
+     "test_id": "handshake_basic",
+     "gold": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "pred": {
+      "result": "fail",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "category_ok": true,
+     "result_ok": false,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [
+     "alu_basic",
+     "fifo_basic",
+     "handshake_basic"
+    ],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  },
+  "hybrid": {
+   "sample_id": "d17_tool_exec_failure",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "alu_basic",
+     "gold": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "pred": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    },
+    {
+     "test_id": "fifo_basic",
+     "gold": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "pred": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    },
+    {
+     "test_id": "handshake_basic",
+     "gold": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "pred": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [
+     "alu_basic",
+     "fifo_basic",
+     "handshake_basic"
+    ],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  }
+ },
+ "hybrid": {
+  "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+  "file": "dataset/dev/d17_tool_exec_failure.log",
+  "sha256": "2249b7612f91a1952f53bf7399df2c3bed29ffb334d61f4c4dc549e12079fc59",
+  "lines": 9,
+  "log_status": "complete",
+  "tests": [
+   {
+    "test_id": "alu_basic",
+    "result": "not_run",
+    "category": "tool_error",
+    "side": "infrastructure",
+    "kind": null,
+    "evidence": [
+     {
+      "file": "dataset/dev/d17_tool_exec_failure.log",
+      "line": 4,
+      "quote": "#RUN test=alu_basic stage=compile exit=4294967295 elapsed_s=0.055 timed_out=false output_truncated=false"
+     }
+    ],
+    "fingerprint": "tool_error:d028e022",
+    "certainty": "confirmed",
+    "notes": [
+     "编译器以退出码 4294967295 结束且没有任何输出，工具没有正常运行"
+    ],
+    "suggestion": "工具没有正常运行 dataset/dev/d17_tool_exec_failure.log:4：“#RUN test=alu_basic stage=compile exit=4294967295 elapsed_s=0.055 timed_out=false output_truncated=false”。这是环境问题，不是设计问题：检查仿真器安装路径、环境变量和许可证。",
+    "source": "rules"
+   },
+   {
+    "test_id": "fifo_basic",
+    "result": "not_run",
+    "category": "tool_error",
+    "side": "infrastructure",
+    "kind": null,
+    "evidence": [
+     {
+      "file": "dataset/dev/d17_tool_exec_failure.log",
+      "line": 6,
+      "quote": "#RUN test=fifo_basic stage=compile exit=4294967295 elapsed_s=0.019 timed_out=false output_truncated=false"
+     }
+    ],
+    "fingerprint": "tool_error:7596b587",
+    "certainty": "confirmed",
+    "notes": [
+     "编译器以退出码 4294967295 结束且没有任何输出，工具没有正常运行"
+    ],
+    "suggestion": "工具没有正常运行 dataset/dev/d17_tool_exec_failure.log:6：“#RUN test=fifo_basic stage=compile exit=4294967295 elapsed_s=0.019 timed_out=false output_truncated=false”。这是环境问题，不是设计问题：检查仿真器安装路径、环境变量和许可证。",
+    "source": "rules"
+   },
+   {
+    "test_id": "handshake_basic",
+    "result": "not_run",
+    "category": "tool_error",
+    "side": "infrastructure",
+    "kind": null,
+    "evidence": [
+     {
+      "file": "dataset/dev/d17_tool_exec_failure.log",
+      "line": 8,
+      "quote": "#RUN test=handshake_basic stage=compile exit=4294967295 elapsed_s=0.017 timed_out=false output_truncated=false"
+     }
+    ],
+    "fingerprint": "tool_error:e8e5a705",
+    "certainty": "confirmed",
+    "notes": [
+     "编译器以退出码 4294967295 结束且没有任何输出，工具没有正常运行"
+    ],
+    "suggestion": "工具没有正常运行 dataset/dev/d17_tool_exec_failure.log:8：“#RUN test=handshake_basic stage=compile exit=4294967295 elapsed_s=0.017 timed_out=false output_truncated=false”。这是环境问题，不是设计问题：检查仿真器安装路径、环境变量和许可证。",
+    "source": "rules"
+   }
+  ],
+  "groups": [
+   {
+    "fingerprint": "tool_error:d028e022",
+    "category": "tool_error",
+    "tests": [
+     "alu_basic"
+    ],
+    "example": {
+     "file": "dataset/dev/d17_tool_exec_failure.log",
+     "line": 4,
+     "quote": "#RUN test=alu_basic stage=compile exit=4294967295 elapsed_s=0.055 timed_out=false output_truncated=false"
+    }
+   },
+   {
+    "fingerprint": "tool_error:7596b587",
+    "category": "tool_error",
+    "tests": [
+     "fifo_basic"
+    ],
+    "example": {
+     "file": "dataset/dev/d17_tool_exec_failure.log",
+     "line": 6,
+     "quote": "#RUN test=fifo_basic stage=compile exit=4294967295 elapsed_s=0.019 timed_out=false output_truncated=false"
+    }
+   },
+   {
+    "fingerprint": "tool_error:e8e5a705",
+    "category": "tool_error",
+    "tests": [
+     "handshake_basic"
+    ],
+    "example": {
+     "file": "dataset/dev/d17_tool_exec_failure.log",
+     "line": 8,
+     "quote": "#RUN test=handshake_basic stage=compile exit=4294967295 elapsed_s=0.017 timed_out=false output_truncated=false"
+    }
+   }
+  ],
+  "flags": [],
+  "notes": [],
+  "hybrid_version": "hybrid-v1",
+  "model_needed": false
+ }
+}

@@ -15,13 +15,13 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from regression_triage import backend, model, rules
+from regression_triage import backend, evaluate, hybrid, model, rules
 
 EV = ROOT / "evidence" / "regression-triage"
 # Everything on the request and scoring path, including the shared client: eval-v1/v2 hashed only the first five, so a
 # change in qwen_agent/client.py (timeout, auth, URL checks) would have gone unnoticed.
 CODE = ["regression_triage/rules.py", "regression_triage/model.py", "regression_triage/evaluate.py", "regression_triage/logio.py", "regression_triage/__main__.py",
-        "regression_triage/backend.py", "qwen_agent/client.py", "qwen_agent/workflow.py", "qwen_agent/policy.py"]
+        "regression_triage/backend.py", "regression_triage/hybrid.py", "qwen_agent/client.py", "qwen_agent/workflow.py", "qwen_agent/policy.py"]
 
 
 def sha(path):
@@ -33,7 +33,7 @@ def main():
     p.add_argument("version")
     p.add_argument("--note", default="")
     p.add_argument("--backend", default=str(ROOT / "deploy" / "backends" / "ollama-r2.json"), help="backend profile for the model engine")
-    p.add_argument("--engines", choices=["rules", "rules,qwen"], default="rules,qwen",
+    p.add_argument("--engines", choices=["rules", "rules,qwen", "rules,qwen,hybrid"], default="rules,qwen",
                    help="'rules' freezes without a model block (no server needed); the model then needs a later contract version")
     args = p.parse_args()
     out = EV / "contract" / f"{args.version}.json"
@@ -42,7 +42,9 @@ def main():
     if subprocess.run(["git", "status", "--porcelain", "--", *CODE], cwd=ROOT, capture_output=True, text=True).stdout.strip():
         raise SystemExit("commit the triage code first: a contract must point at a commit that contains exactly the hashed code")
     dataset = {}
-    for split in ("dev", "holdout"):
+    for split in ("dev", "holdout", "holdout2"):
+        if not (EV / "dataset" / f"{split}-manifest.json").exists():
+            continue
         manifest = json.loads((EV / "dataset" / f"{split}-manifest.json").read_text(encoding="utf-8"))
         rows = []
         for s in manifest["samples"]:
@@ -68,7 +70,8 @@ def main():
         "git_commit": commit, "code_uncommitted_changes": False, "engines": args.engines.split(","),
         "dataset": dataset, "dataset_counts": {k: {"samples": len(v), "real": sum(r["kind"] == "real" for r in v), "synthetic": sum(r["kind"] == "synthetic" for r in v)} for k, v in dataset.items()},
         "code_sha256": {rel: sha(ROOT / rel) for rel in CODE},
-        "rules": {"version": rules.RULES_VERSION},
+        "rules": {"version": rules.RULES_VERSION}, "scoring": evaluate.SCORING_VERSION,
+        "hybrid": {"version": hybrid.HYBRID_VERSION} if "hybrid" in args.engines else None,
         "qwen": qwen,
         "split_policy": "dev may be used to develop rules and prompts. holdout is labelled independently and is run once per contract version and engine; "
                         "any rule or prompt change after looking at holdout results needs a new contract version and is not called blind.",

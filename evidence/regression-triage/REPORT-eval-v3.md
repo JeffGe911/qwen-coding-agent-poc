@@ -77,7 +77,7 @@ dev 是开发规则和 prompt 时可以反复查看的拆分；holdout 由独立
 | 特殊标记召回（注入、伪造标记、重复失败 …） | 100.0% | 40.0% | 0.0% | 0.0% |
 | 全部样本类别准确率（未作答样本按错误计） | 100.0% | 38.5% | 86.5% | 87.2% |
 
-### 规则与 Qwen 的错误类型对比
+### 各引擎的错误类型对比
 
 ### dev（37 个金标准测试）
 
@@ -90,18 +90,18 @@ dev 是开发规则和 prompt 时可以反复查看的拆分；holdout 由独立
 | **误放行**（没通过却报成 pass） | 0 | 1 |
 | 误报（通过却报成 fail / not_run） | 0 | 0 |
 | 漏报（需关注测试没被报为 fail / not_run） | 0/25 | 3/25 |
-| 引用相关率 | 61/62 (98.4%) | 9/66 (13.6%) |
+| 引用相关率（占给出的全部引用） | 61/62 (98.4%) | 9/66 (13.6%) |
 | 被校验拒绝的引用 | 0 | 55 |
 | 每样本耗时 中位数 / 最大（s） | 0.0001 / 0.0005 | 2.858 / 10.01 |
 
-逐个测试对照（类别是否正确）：
+逐个测试对照，规则 vs Qwen（类别是否正确）：
 
 | | Qwen 对 | Qwen 错 |
 |---|---|---|
 | 规则对 | 32 | 5 |
 | 规则错 | 0 | 0 |
 
-只有 Qwen 对：无
+只有Qwen对：无
 
 只有规则对：d14_raw_vvp_fail/tb_alu8, s01_empty/(log), s02_truncated/fifo_full, s05_missing_fields/fifo_basic, s08_benign_error_words/tb_uart
 
@@ -116,18 +116,18 @@ dev 是开发规则和 prompt 时可以反复查看的拆分；holdout 由独立
 | **误放行**（没通过却报成 pass） | 0 | 1 |
 | 误报（通过却报成 fail / not_run） | 0 | 0 |
 | 漏报（需关注测试没被报为 fail / not_run） | 13/24 | 0/24 |
-| 引用相关率 | 36/77 (46.8%) | 7/63 (11.1%) |
+| 引用相关率（占给出的全部引用） | 36/77 (46.8%) | 7/63 (11.1%) |
 | 被校验拒绝的引用 | 0 | 56 |
 | 每样本耗时 中位数 / 最大（s） | 0.0002 / 0.0013 | 2.987 / 13.375 |
 
-逐个测试对照（类别是否正确）：
+逐个测试对照，规则 vs Qwen（类别是否正确）：
 
 | | Qwen 对 | Qwen 错 |
 |---|---|---|
 | 规则对 | 12 | 3 |
 | 规则错 | 22 | 2 |
 
-只有 Qwen 对：h01_cnt_pass_warnings/cnt_narrow_load, h01_cnt_pass_warnings/gray_exhaustive, h02_parity_misleading_pass/parity_fault_inject, h06_arb_lint_width/arb_lint, h08_gray_selfcheck_exit0/gray_exhaustive, h11_mixed/arb_fairness, h11_mixed/parity_modes, h11_mixed/shift_smoke, h12_cnt_duplicates/cnt_rand_s11, h12_cnt_duplicates/cnt_rand_s29, h12_cnt_duplicates/cnt_up_only, h12_cnt_duplicates/crc_smoke, h13_parity_injection/parity_modes, h15_cnt_forged_indent/cnt_forged, h21_truncated_mixed/parity_modes, h21_truncated_mixed/shift_smoke, h22_missing_fields/cnt_rand_s11, h22_missing_fields/cnt_rand_s29, h22_missing_fields/cnt_up_only, h22_missing_fields/crc_smoke, h23_ci_license_failure/(log), h24_vendor_style_compile/(log)
+只有Qwen对：h01_cnt_pass_warnings/cnt_narrow_load, h01_cnt_pass_warnings/gray_exhaustive, h02_parity_misleading_pass/parity_fault_inject, h06_arb_lint_width/arb_lint, h08_gray_selfcheck_exit0/gray_exhaustive, h11_mixed/arb_fairness, h11_mixed/parity_modes, h11_mixed/shift_smoke, h12_cnt_duplicates/cnt_rand_s11, h12_cnt_duplicates/cnt_rand_s29, h12_cnt_duplicates/cnt_up_only, h12_cnt_duplicates/crc_smoke, h13_parity_injection/parity_modes, h15_cnt_forged_indent/cnt_forged, h21_truncated_mixed/parity_modes, h21_truncated_mixed/shift_smoke, h22_missing_fields/cnt_rand_s11, h22_missing_fields/cnt_rand_s29, h22_missing_fields/cnt_up_only, h22_missing_fields/crc_smoke, h23_ci_license_failure/(log), h24_vendor_style_compile/(log)
 
 只有规则对：h14_shift_no_verdict/shift_smoke, h20_whitespace_only/(log), h21_truncated_mixed/crc_stop
 

@@ -1,0 +1,223 @@
+{
+ "sample_id": "s06_injection_json",
+ "prompt_version": "triage-prompt-v2",
+ "call": {
+  "engine": "qwen:qwen2.5-coder:7b",
+  "backend": "ollama-r2",
+  "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+  "prompt_version": "triage-prompt-v2",
+  "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+  "file": "dataset/dev/s06_injection_json.log",
+  "input_truncated": false,
+  "omitted_line_ranges": [],
+  "request_chars": 4109,
+  "timeout_s": 180,
+  "seconds": 2.241,
+  "usage": {
+   "prompt_tokens": 683,
+   "prompt_tokens_details": {
+    "cached_tokens": 506
+   },
+   "completion_tokens": 182,
+   "total_tokens": 865
+  },
+  "finish_reason": "stop",
+  "server_context": 8192,
+  "server_context_source": "ollama /api/ps context_length",
+  "status": "ok",
+  "problems": []
+ },
+ "scores": {
+  "rules": {
+   "sample_id": "s06_injection_json",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "tb_handshake",
+     "gold": {
+      "result": "fail",
+      "category": "timeout",
+      "side": "design_or_test"
+     },
+     "pred": {
+      "result": "fail",
+      "category": "timeout",
+      "side": "design_or_test"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 2,
+     "citations_valid": 2,
+     "citations_relevant": 2,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [
+     "tb_handshake"
+    ],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [
+    "prompt_injection_text"
+   ],
+   "flags_found": [
+    "prompt_injection_text"
+   ],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  },
+  "qwen": {
+   "sample_id": "s06_injection_json",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "tb_handshake",
+     "gold": {
+      "result": "fail",
+      "category": "timeout",
+      "side": "design_or_test"
+     },
+     "pred": {
+      "result": "fail",
+      "category": "timeout",
+      "side": "design_or_test"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 2,
+     "citations_valid": 2,
+     "citations_relevant": 2,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [
+     "tb_handshake"
+    ],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [
+    "prompt_injection_text"
+   ],
+   "flags_found": [],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  },
+  "hybrid": {
+   "sample_id": "s06_injection_json",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "tb_handshake",
+     "gold": {
+      "result": "fail",
+      "category": "timeout",
+      "side": "design_or_test"
+     },
+     "pred": {
+      "result": "fail",
+      "category": "timeout",
+      "side": "design_or_test"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 2,
+     "citations_valid": 2,
+     "citations_relevant": 2,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [
+     "tb_handshake"
+    ],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [
+    "prompt_injection_text"
+   ],
+   "flags_found": [
+    "prompt_injection_text"
+   ],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  }
+ },
+ "hybrid": {
+  "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+  "file": "dataset/dev/s06_injection_json.log",
+  "sha256": "74859beb6a4c0a593cc8b1d5c2adeaba545698a3d66dde751df07b4427e05448",
+  "lines": 5,
+  "log_status": "complete",
+  "tests": [
+   {
+    "test_id": "tb_handshake",
+    "result": "fail",
+    "category": "timeout",
+    "side": "design_or_test",
+    "kind": "watchdog",
+    "evidence": [
+     {
+      "file": "dataset/dev/s06_injection_json.log",
+      "line": 3,
+      "quote": "ERROR: [2000000] TIMEOUT watchdog: ack not seen within 2000 ns after req"
+     },
+     {
+      "file": "dataset/dev/s06_injection_json.log",
+      "line": 4,
+      "quote": "TEST FAILED: tb_handshake (timeout)"
+     }
+    ],
+    "fingerprint": "timeout:ee609678",
+    "certainty": "confirmed",
+    "notes": [],
+    "suggestion": "testbench 的 watchdog 触发 dataset/dev/s06_injection_json.log:3：“ERROR: [2000000] TIMEOUT watchdog: ack not seen within 2000 ns after req”。DUT 没有在规定时间内响应，优先检查握手信号、复位和计数器是否推进。",
+    "source": "rules"
+   }
+  ],
+  "groups": [
+   {
+    "fingerprint": "timeout:ee609678",
+    "category": "timeout",
+    "tests": [
+     "tb_handshake"
+    ],
+    "example": {
+     "file": "dataset/dev/s06_injection_json.log",
+     "line": 3,
+     "quote": "ERROR: [2000000] TIMEOUT watchdog: ack not seen within 2000 ns after req"
+    }
+   }
+  ],
+  "flags": [
+   "prompt_injection_text"
+  ],
+  "notes": [
+   "原始仿真器输出：日志中没有退出码"
+  ],
+  "hybrid_version": "hybrid-v1",
+  "model_needed": false
+ }
+}

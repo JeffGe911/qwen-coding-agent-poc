@@ -1,0 +1,183 @@
+{
+ "sample_id": "s01_empty",
+ "prompt_version": "triage-prompt-v2",
+ "call": {
+  "engine": "qwen:qwen2.5-coder:7b",
+  "backend": "ollama-r2",
+  "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+  "prompt_version": "triage-prompt-v2",
+  "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+  "file": "dataset/dev/s01_empty.log",
+  "input_truncated": false,
+  "omitted_line_ranges": [],
+  "request_chars": 3681,
+  "timeout_s": 180,
+  "seconds": 1.741,
+  "usage": {
+   "prompt_tokens": 555,
+   "prompt_tokens_details": {
+    "cached_tokens": 504
+   },
+   "completion_tokens": 116,
+   "total_tokens": 671
+  },
+  "finish_reason": "stop",
+  "server_context": 8192,
+  "server_context_source": "ollama /api/ps context_length",
+  "status": "ok",
+  "problems": [
+   "(log): 1 citation(s) rejected (file/line/quote do not match the log)"
+  ]
+ },
+ "scores": {
+  "rules": {
+   "sample_id": "s01_empty",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "empty",
+    "pred": "empty"
+   },
+   "tests": [
+    {
+     "test_id": "(log)",
+     "gold": {
+      "result": "unknown",
+      "category": "incomplete_log",
+      "side": "infrastructure"
+     },
+     "pred": {
+      "result": "unknown",
+      "category": "incomplete_log",
+      "side": "infrastructure"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 0,
+     "citations_valid": 0,
+     "citations_relevant": 0,
+     "has_relevant_citation": null
+    }
+   ],
+   "flagged": {
+    "tp": [],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  },
+  "qwen": {
+   "sample_id": "s01_empty",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "empty",
+    "pred": "empty"
+   },
+   "tests": [
+    {
+     "test_id": "(log)",
+     "gold": {
+      "result": "unknown",
+      "category": "incomplete_log",
+      "side": "infrastructure"
+     },
+     "pred": {
+      "result": "unknown",
+      "category": "unknown",
+      "side": "none"
+     },
+     "category_ok": false,
+     "result_ok": true,
+     "side_ok": false,
+     "citations": 0,
+     "citations_valid": 0,
+     "citations_relevant": 0,
+     "has_relevant_citation": null
+    }
+   ],
+   "flagged": {
+    "tp": [],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 1,
+   "extra_citations_on_unmatched": 0
+  },
+  "hybrid": {
+   "sample_id": "s01_empty",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "empty",
+    "pred": "empty"
+   },
+   "tests": [
+    {
+     "test_id": "(log)",
+     "gold": {
+      "result": "unknown",
+      "category": "incomplete_log",
+      "side": "infrastructure"
+     },
+     "pred": {
+      "result": "unknown",
+      "category": "incomplete_log",
+      "side": "infrastructure"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 0,
+     "citations_valid": 0,
+     "citations_relevant": 0,
+     "has_relevant_citation": null
+    }
+   ],
+   "flagged": {
+    "tp": [],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  }
+ },
+ "hybrid": {
+  "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+  "file": "dataset/dev/s01_empty.log",
+  "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "lines": 0,
+  "log_status": "empty",
+  "tests": [
+   {
+    "test_id": "(log)",
+    "result": "unknown",
+    "category": "incomplete_log",
+    "side": "infrastructure",
+    "kind": null,
+    "evidence": [],
+    "fingerprint": null,
+    "certainty": "insufficient_evidence",
+    "notes": [
+     "日志文件为空"
+    ],
+    "suggestion": "日志不完整 （日志中没有可引用的行），缺少结束记录，不能据此判断结果。请重新运行，或检查日志采集和存储是否中断。",
+    "source": "rules"
+   }
+  ],
+  "groups": [],
+  "flags": [],
+  "notes": [],
+  "hybrid_version": "hybrid-v1",
+  "model_needed": false
+ }
+}

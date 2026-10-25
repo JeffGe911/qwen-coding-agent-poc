@@ -1,0 +1,218 @@
+{
+ "sample_id": "d11_lint_error",
+ "prompt_version": "triage-prompt-v2",
+ "call": {
+  "engine": "qwen:qwen2.5-coder:7b",
+  "backend": "ollama-r2",
+  "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+  "prompt_version": "triage-prompt-v2",
+  "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+  "file": "dataset/dev/d11_lint_error.log",
+  "input_truncated": false,
+  "omitted_line_ranges": [],
+  "request_chars": 5943,
+  "timeout_s": 180,
+  "seconds": 3.043,
+  "usage": {
+   "prompt_tokens": 1366,
+   "prompt_tokens_details": {
+    "cached_tokens": 506
+   },
+   "completion_tokens": 242,
+   "total_tokens": 1608
+  },
+  "finish_reason": "stop",
+  "server_context": 8192,
+  "server_context_source": "ollama /api/ps context_length",
+  "status": "ok",
+  "problems": []
+ },
+ "scores": {
+  "rules": {
+   "sample_id": "d11_lint_error",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "alu_lint",
+     "gold": {
+      "result": "fail",
+      "category": "compile_error",
+      "side": "design_or_test"
+     },
+     "pred": {
+      "result": "fail",
+      "category": "compile_error",
+      "side": "design_or_test"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [
+     "alu_lint"
+    ],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [
+    "tool_setup_error"
+   ],
+   "flags_found": [
+    "tool_setup_error"
+   ],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  },
+  "qwen": {
+   "sample_id": "d11_lint_error",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "alu_lint",
+     "gold": {
+      "result": "fail",
+      "category": "compile_error",
+      "side": "design_or_test"
+     },
+     "pred": {
+      "result": "fail",
+      "category": "compile_error",
+      "side": "design_or_test"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 2,
+     "citations_valid": 2,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [
+     "alu_lint"
+    ],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [
+    "tool_setup_error"
+   ],
+   "flags_found": [],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  },
+  "hybrid": {
+   "sample_id": "d11_lint_error",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "alu_lint",
+     "gold": {
+      "result": "fail",
+      "category": "compile_error",
+      "side": "design_or_test"
+     },
+     "pred": {
+      "result": "fail",
+      "category": "compile_error",
+      "side": "design_or_test"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [
+     "alu_lint"
+    ],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [
+    "tool_setup_error"
+   ],
+   "flags_found": [
+    "tool_setup_error"
+   ],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  }
+ },
+ "hybrid": {
+  "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+  "file": "dataset/dev/d11_lint_error.log",
+  "sha256": "a24b1867e15ed3014d8dae1a4ffa0e7b14983b2ca27170c9d6fbf5ad0a1c47ab",
+  "lines": 22,
+  "log_status": "complete",
+  "tests": [
+   {
+    "test_id": "alu_lint",
+    "result": "fail",
+    "category": "compile_error",
+    "side": "design_or_test",
+    "kind": null,
+    "evidence": [
+     {
+      "file": "dataset/dev/d11_lint_error.log",
+      "line": 16,
+      "quote": "%Error: hdl/rtl\\alu8.v:25:5: syntax error, unexpected end, expecting ';'"
+     }
+    ],
+    "fingerprint": "compile_error:f0b7a166",
+    "certainty": "confirmed",
+    "notes": [
+     "工具找不到自带的内置文件（安装或环境问题），也需要修复"
+    ],
+    "suggestion": "先修第一条编译错误 dataset/dev/d11_lint_error.log:16：“%Error: hdl/rtl\\alu8.v:25:5: syntax error, unexpected end, expecting ';'”。之后的报错多半是它引起的连锁报错，修完再重新编译。",
+    "source": "rules"
+   }
+  ],
+  "groups": [
+   {
+    "fingerprint": "compile_error:f0b7a166",
+    "category": "compile_error",
+    "tests": [
+     "alu_lint"
+    ],
+    "example": {
+     "file": "dataset/dev/d11_lint_error.log",
+     "line": 16,
+     "quote": "%Error: hdl/rtl\\alu8.v:25:5: syntax error, unexpected end, expecting ';'"
+    }
+   }
+  ],
+  "flags": [
+   "tool_setup_error"
+  ],
+  "notes": [],
+  "hybrid_version": "hybrid-v1",
+  "model_needed": false
+ }
+}

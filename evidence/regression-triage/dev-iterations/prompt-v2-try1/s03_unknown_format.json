@@ -1,0 +1,200 @@
+{
+ "sample_id": "s03_unknown_format",
+ "prompt_version": "triage-prompt-v2",
+ "call": {
+  "engine": "qwen:qwen2.5-coder:7b",
+  "backend": "ollama-r2",
+  "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+  "prompt_version": "triage-prompt-v2",
+  "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+  "file": "dataset/dev/s03_unknown_format.log",
+  "input_truncated": false,
+  "omitted_line_ranges": [],
+  "request_chars": 3916,
+  "timeout_s": 180,
+  "seconds": 2.433,
+  "usage": {
+   "prompt_tokens": 645,
+   "prompt_tokens_details": {
+    "cached_tokens": 506
+   },
+   "completion_tokens": 177,
+   "total_tokens": 822
+  },
+  "finish_reason": "stop",
+  "server_context": 8192,
+  "server_context_source": "ollama /api/ps context_length",
+  "status": "ok",
+  "problems": []
+ },
+ "scores": {
+  "rules": {
+   "sample_id": "s03_unknown_format",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "unknown_format",
+    "pred": "unknown_format"
+   },
+   "tests": [
+    {
+     "test_id": "(log)",
+     "gold": {
+      "result": "unknown",
+      "category": "unknown",
+      "side": "undetermined"
+     },
+     "pred": {
+      "result": "unknown",
+      "category": "unknown",
+      "side": "undetermined"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 1,
+   "extra_citations_on_unmatched": 0
+  },
+  "qwen": {
+   "sample_id": "s03_unknown_format",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "unknown_format",
+    "pred": "unknown_format"
+   },
+   "tests": [
+    {
+     "test_id": "(log)",
+     "gold": {
+      "result": "unknown",
+      "category": "unknown",
+      "side": "undetermined"
+     },
+     "pred": {
+      "result": "unknown",
+      "category": "unknown",
+      "side": "none"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": false,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 1,
+   "extra_citations_on_unmatched": 0
+  },
+  "hybrid": {
+   "sample_id": "s03_unknown_format",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "unknown_format",
+    "pred": "unknown_format"
+   },
+   "tests": [
+    {
+     "test_id": "(log)",
+     "gold": {
+      "result": "unknown",
+      "category": "unknown",
+      "side": "undetermined"
+     },
+     "pred": {
+      "result": "unknown",
+      "category": "unknown",
+      "side": "undetermined"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 1,
+   "extra_citations_on_unmatched": 0
+  }
+ },
+ "hybrid": {
+  "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+  "file": "dataset/dev/s03_unknown_format.log",
+  "sha256": "0bb8420c05f89c5c01b370694a6756716422cfa7277fa3ff13c519b24d15592b",
+  "lines": 5,
+  "log_status": "unknown_format",
+  "tests": [
+   {
+    "test_id": "(log)",
+    "result": "unknown",
+    "category": "unknown",
+    "side": "undetermined",
+    "kind": null,
+    "evidence": [
+     {
+      "file": "dataset/dev/s03_unknown_format.log",
+      "line": 5,
+      "quote": "[ci] job 4411 finished with status=2"
+     }
+    ],
+    "fingerprint": "unknown:aedfa22d",
+    "certainty": "insufficient_evidence",
+    "notes": [
+     "没有识别出仿真器、编译器或测试框架的输出"
+    ],
+    "suggestion": "证据不足，无法判断 dataset/dev/s03_unknown_format.log:5。需要完整的日志（含退出码和 testbench 结论行）或人工查看。",
+    "source": "rules"
+   }
+  ],
+  "groups": [
+   {
+    "fingerprint": "unknown:aedfa22d",
+    "category": "unknown",
+    "tests": [
+     "(log)"
+    ],
+    "example": {
+     "file": "dataset/dev/s03_unknown_format.log",
+     "line": 5,
+     "quote": "[ci] job 4411 finished with status=2"
+    }
+   }
+  ],
+  "flags": [],
+  "notes": [],
+  "hybrid_version": "hybrid-v1",
+  "model_needed": true
+ }
+}

@@ -22,8 +22,15 @@ def citation_ok(c, log):
     return bool(c.get("file") == log.name and line is not None and len(quote) >= 6 and quote in norm(line))
 
 
+SCORING_VERSION = "scoring-v2"  # v2: a single "(log)" prediction counts for the single gold test of a log without runner lines
+
+
 def score_sample(pred, gold, log):
     gtests, ptests = gold["tests"], {t["test_id"]: t for t in pred.get("tests", [])}
+    # The prompt tells the model to call the test of raw tool output "(log)"; GOLD-FORMAT names it after the testbench in
+    # the verdict line. With one test on each side there is nothing to disambiguate (eval-v3 lost 3 correct answers to this).
+    if len(gtests) == 1 and list(ptests) == ["(log)"] and "(log)" not in gtests:
+        ptests = {next(iter(gtests)): {**ptests["(log)"], "test_id": next(iter(gtests))}}
     rows = []
     for tid, g in gtests.items():
         p = ptests.get(tid)

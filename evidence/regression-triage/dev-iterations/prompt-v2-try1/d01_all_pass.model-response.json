@@ -1,0 +1,25 @@
+{
+ "id": "chatcmpl-986",
+ "object": "chat.completion",
+ "created": 1792962977,
+ "model": "qwen2.5-coder:7b",
+ "system_fingerprint": "fp_ollama",
+ "choices": [
+  {
+   "index": 0,
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"alu_basic\",\n      \"result\": \"pass\",\n      \"category\": \"pass\",\n      \"side\": \"none\",\n      \"evidence\": [\n        {\"log_line\": 7, \"quote\": \"TEST PASSED: tb_alu8\"}\n      ],\n      \"suggestion\": \"No issues found. Test passed.\"\n    },\n    {\n      \"test_id\": \"fifo_basic\",\n      \"result\": \"pass\",\n      \"category\": \"pass\",\n      \"side\": \"none\",\n      \"evidence\": [\n        {\"log_line\": 14, \"quote\": \"TEST PASSED: tb_sync_fifo\"}\n      ],\n      \"suggestion\": \"No issues found. Test passed.\"\n    },\n    {\n      \"test_id\": \"handshake_basic\",\n      \"result\": \"pass\",\n      \"category\": \"pass\",\n      \"side\": \"none\",\n      \"evidence\": [\n        {\"log_line\": 22, \"quote\": \"TEST PASSED: tb_handshake\"}\n      ],\n      \"suggestion\": \"No issues found. Test passed.\"\n    }\n  ],\n  \"notes\": \"All tests completed successfully with no errors or failures.\"\n}"
+   },
+   "finish_reason": "stop"
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1627,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "completion_tokens": 262,
+  "total_tokens": 1889
+ }
+}

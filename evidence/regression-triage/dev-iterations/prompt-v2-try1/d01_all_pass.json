@@ -1,0 +1,343 @@
+{
+ "sample_id": "d01_all_pass",
+ "prompt_version": "triage-prompt-v2",
+ "call": {
+  "engine": "qwen:qwen2.5-coder:7b",
+  "backend": "ollama-r2",
+  "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+  "prompt_version": "triage-prompt-v2",
+  "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+  "file": "dataset/dev/d01_all_pass.log",
+  "input_truncated": false,
+  "omitted_line_ranges": [],
+  "request_chars": 6491,
+  "timeout_s": 180,
+  "seconds": 8.7,
+  "usage": {
+   "prompt_tokens": 1627,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens": 262,
+   "total_tokens": 1889
+  },
+  "finish_reason": "stop",
+  "server_context": 8192,
+  "server_context_source": "ollama /api/ps context_length",
+  "status": "ok",
+  "problems": []
+ },
+ "scores": {
+  "rules": {
+   "sample_id": "d01_all_pass",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "alu_basic",
+     "gold": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none"
+     },
+     "pred": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    },
+    {
+     "test_id": "fifo_basic",
+     "gold": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none"
+     },
+     "pred": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    },
+    {
+     "test_id": "handshake_basic",
+     "gold": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none"
+     },
+     "pred": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  },
+  "qwen": {
+   "sample_id": "d01_all_pass",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "alu_basic",
+     "gold": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none"
+     },
+     "pred": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    },
+    {
+     "test_id": "fifo_basic",
+     "gold": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none"
+     },
+     "pred": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    },
+    {
+     "test_id": "handshake_basic",
+     "gold": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none"
+     },
+     "pred": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  },
+  "hybrid": {
+   "sample_id": "d01_all_pass",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "alu_basic",
+     "gold": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none"
+     },
+     "pred": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    },
+    {
+     "test_id": "fifo_basic",
+     "gold": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none"
+     },
+     "pred": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    },
+    {
+     "test_id": "handshake_basic",
+     "gold": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none"
+     },
+     "pred": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  }
+ },
+ "hybrid": {
+  "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+  "file": "dataset/dev/d01_all_pass.log",
+  "sha256": "7e714c8dd5f28df53ce37528059c65a68081e56d7b23b94d19f68b484ed85713",
+  "lines": 25,
+  "log_status": "complete",
+  "tests": [
+   {
+    "test_id": "alu_basic",
+    "result": "pass",
+    "category": "pass",
+    "side": "none",
+    "kind": null,
+    "evidence": [
+     {
+      "file": "dataset/dev/d01_all_pass.log",
+      "line": 7,
+      "quote": "TEST PASSED: tb_alu8"
+     }
+    ],
+    "fingerprint": null,
+    "certainty": "confirmed",
+    "notes": [],
+    "suggestion": "通过 dataset/dev/d01_all_pass.log:7：“TEST PASSED: tb_alu8”。",
+    "source": "rules"
+   },
+   {
+    "test_id": "fifo_basic",
+    "result": "pass",
+    "category": "pass",
+    "side": "none",
+    "kind": null,
+    "evidence": [
+     {
+      "file": "dataset/dev/d01_all_pass.log",
+      "line": 14,
+      "quote": "TEST PASSED: tb_sync_fifo"
+     }
+    ],
+    "fingerprint": null,
+    "certainty": "confirmed",
+    "notes": [],
+    "suggestion": "通过 dataset/dev/d01_all_pass.log:14：“TEST PASSED: tb_sync_fifo”。",
+    "source": "rules"
+   },
+   {
+    "test_id": "handshake_basic",
+    "result": "pass",
+    "category": "pass",
+    "side": "none",
+    "kind": null,
+    "evidence": [
+     {
+      "file": "dataset/dev/d01_all_pass.log",
+      "line": 22,
+      "quote": "TEST PASSED: tb_handshake"
+     }
+    ],
+    "fingerprint": null,
+    "certainty": "confirmed",
+    "notes": [],
+    "suggestion": "通过 dataset/dev/d01_all_pass.log:22：“TEST PASSED: tb_handshake”。",
+    "source": "rules"
+   }
+  ],
+  "groups": [],
+  "flags": [],
+  "notes": [],
+  "hybrid_version": "hybrid-v1",
+  "model_needed": false
+ }
+}

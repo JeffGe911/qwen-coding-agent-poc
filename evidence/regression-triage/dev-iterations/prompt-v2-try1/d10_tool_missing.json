@@ -1,0 +1,206 @@
+{
+ "sample_id": "d10_tool_missing",
+ "prompt_version": "triage-prompt-v2",
+ "call": {
+  "engine": "qwen:qwen2.5-coder:7b",
+  "backend": "ollama-r2",
+  "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+  "prompt_version": "triage-prompt-v2",
+  "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+  "file": "dataset/dev/d10_tool_missing.log",
+  "input_truncated": false,
+  "omitted_line_ranges": [],
+  "request_chars": 4575,
+  "timeout_s": 180,
+  "seconds": 2.925,
+  "usage": {
+   "prompt_tokens": 934,
+   "prompt_tokens_details": {
+    "cached_tokens": 505
+   },
+   "completion_tokens": 236,
+   "total_tokens": 1170
+  },
+  "finish_reason": "stop",
+  "server_context": 8192,
+  "server_context_source": "ollama /api/ps context_length",
+  "status": "ok",
+  "problems": []
+ },
+ "scores": {
+  "rules": {
+   "sample_id": "d10_tool_missing",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "alu_basic",
+     "gold": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "pred": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [
+     "alu_basic"
+    ],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  },
+  "qwen": {
+   "sample_id": "d10_tool_missing",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "alu_basic",
+     "gold": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "pred": {
+      "result": "fail",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "category_ok": true,
+     "result_ok": false,
+     "side_ok": true,
+     "citations": 2,
+     "citations_valid": 2,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [
+     "alu_basic"
+    ],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  },
+  "hybrid": {
+   "sample_id": "d10_tool_missing",
+   "log_status_ok": true,
+   "log_status": {
+    "gold": "complete",
+    "pred": "complete"
+   },
+   "tests": [
+    {
+     "test_id": "alu_basic",
+     "gold": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "pred": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure"
+     },
+     "category_ok": true,
+     "result_ok": true,
+     "side_ok": true,
+     "citations": 1,
+     "citations_valid": 1,
+     "citations_relevant": 1,
+     "has_relevant_citation": true
+    }
+   ],
+   "flagged": {
+    "tp": [
+     "alu_basic"
+    ],
+    "fp": [],
+    "fn": []
+   },
+   "unmatched_tests": [],
+   "flags_expected": [],
+   "flags_found": [],
+   "unknown_tests": 0,
+   "extra_citations_on_unmatched": 0
+  }
+ },
+ "hybrid": {
+  "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+  "file": "dataset/dev/d10_tool_missing.log",
+  "sha256": "3a91bb473dd9bb529962b8b37749ff985ec9bf610d052510c48bf6e5127c6d77",
+  "lines": 5,
+  "log_status": "complete",
+  "tests": [
+   {
+    "test_id": "alu_basic",
+    "result": "not_run",
+    "category": "tool_error",
+    "side": "infrastructure",
+    "kind": null,
+    "evidence": [
+     {
+      "file": "dataset/dev/d10_tool_missing.log",
+      "line": 4,
+      "quote": "#RUN test=alu_basic stage=compile tool_error=\"FileNotFoundError: [WinError 2] 系统找不到指定的文件。\" elapsed_s=0.001"
+     }
+    ],
+    "fingerprint": "tool_error:33e287a7",
+    "certainty": "confirmed",
+    "notes": [
+     "仿真器程序无法启动"
+    ],
+    "suggestion": "工具没有正常运行 dataset/dev/d10_tool_missing.log:4：“#RUN test=alu_basic stage=compile tool_error=\"FileNotFoundError: [WinError 2] 系统找不到指定的文件。\" elapsed_s=0.001”。这是环境问题，不是设计问题：检查仿真器安装路径、环境变量和许可证。",
+    "source": "rules"
+   }
+  ],
+  "groups": [
+   {
+    "fingerprint": "tool_error:33e287a7",
+    "category": "tool_error",
+    "tests": [
+     "alu_basic"
+    ],
+    "example": {
+     "file": "dataset/dev/d10_tool_missing.log",
+     "line": 4,
+     "quote": "#RUN test=alu_basic stage=compile tool_error=\"FileNotFoundError: [WinError 2] 系统找不到指定的文件。\" elapsed_s=0.001"
+    }
+   }
+  ],
+  "flags": [],
+  "notes": [],
+  "hybrid_version": "hybrid-v1",
+  "model_needed": false
+ }
+}

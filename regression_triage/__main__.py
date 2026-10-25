@@ -15,7 +15,7 @@ from pathlib import Path
 import sys
 import time
 
-from . import backend, evaluate, logio, model, regress, report, rules
+from . import backend, evaluate, hybrid, logio, model, regress, report, rules
 
 ROOT = Path(__file__).resolve().parents[1]
 EV = ROOT / "evidence" / "regression-triage"
@@ -45,16 +45,29 @@ def run_engine(engine, log, settings):
     return {k: v for k, v in call.items() if k != "triage"}, call.get("triage"), raw
 
 
+def run_hybrid(log, model_call, model_triage):
+    """Rules plus an already recorded model answer for the same log: the model is not called a second time."""
+    t0 = time.monotonic()
+    result = hybrid.combine(rules.triage(log), model_triage, log)
+    return {"status": "ok", "seconds": round(time.monotonic() - t0, 4), "model_status": model_call.get("status"), "model_seconds": model_call.get("seconds"),
+            "model_needed": result["model_needed"], "model_tests_used": sum(t["source"] == "model" for t in result["tests"])}, result, None
+
+
 def cmd_triage(args):
     root = Path(args.root).resolve()
     log = logio.read_log(args.log, root)
     out = Path(args.out)
-    for engine in (["rules", "qwen"] if args.engine == "both" else [args.engine]):
-        call, result, raw = run_engine(engine, log, model_settings(args))
+    done = {}
+    for engine in (["rules", "qwen", "hybrid"] if args.engine == "both" else [args.engine]):
+        if engine == "hybrid":
+            call, result, raw = run_hybrid(log, done["qwen"][0], done["qwen"][1])
+        else:
+            call, result, raw = run_engine(engine, log, model_settings(args))
+            done[engine] = (call, result)
         if result is None:
             result = {"engine": engine, "file": log.name, "log_status": "unknown_format", "tests": [], "flags": [], "notes": [f"model call {call['status']}: {call.get('problems') or call.get('error')}"]}
         doc = {"created_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"), "log": {"name": log.name, "sha256": log.sha256, "root": str(root)},
-               "triage": result, "model_call": call if engine != "rules" else None, "reviews": []}
+               "triage": result, "model_call": call if engine == "qwen" else None, "hybrid_call": call if engine == "hybrid" else None, "reviews": []}
         stem = Path(log.name).stem + f".{engine}"
         write(out / f"{stem}.json", doc)
         if raw is not None:
@@ -104,11 +117,18 @@ def cmd_eval(args):
     out = EV / "results" / f"{contract['version']}-{args.engine}" / args.split
     if out.exists() and any(out.iterdir()):
         raise SystemExit(f"{out} already has results; a split is evaluated once per contract version")
+    stored = EV / "results" / f"{contract['version']}-qwen" / args.split
+    if args.engine == "hybrid" and not (stored / "metrics.json").exists():
+        raise SystemExit(f"hybrid reuses the model answers of this contract; run --engine qwen on {args.split} first")
     scores = []
     for s in contract["dataset"][args.split]:
         log = logio.read_log(s["file"], EV)
         gold = json.loads((EV / s["gold"]).read_text(encoding="utf-8"))
-        call, result, raw = run_engine(args.engine, log, settings)
+        if args.engine == "hybrid":
+            rec = json.loads((stored / f"{s['sample_id']}.json").read_text(encoding="utf-8"))
+            call, result, raw = run_hybrid(log, rec["call"], rec["triage"])
+        else:
+            call, result, raw = run_engine(args.engine, log, settings)
         score = evaluate.score_sample(result, gold, log) if result is not None else None
         write(out / f"{s['sample_id']}.json", {"sample_id": s["sample_id"], "call": call, "triage": result, "score": score})
         if raw is not None:
@@ -148,11 +168,11 @@ def main(argv=None):
     sub = p.add_subparsers(dest="cmd", required=True)
     r = sub.add_parser("run"); r.add_argument("--manifest", required=True); r.add_argument("--out", required=True)
     t = sub.add_parser("triage"); t.add_argument("log"); t.add_argument("--root", required=True, help="folder the log must be inside of")
-    t.add_argument("--out", required=True); t.add_argument("--engine", choices=["rules", "qwen", "both"], default="rules")
+    t.add_argument("--out", required=True); t.add_argument("--engine", choices=["rules", "qwen", "both"], default="rules", help="both: rules, qwen and their hybrid")
     v = sub.add_parser("review"); v.add_argument("triage"); v.add_argument("--test", required=True); v.add_argument("--decision", required=True)
     v.add_argument("--reviewer", required=True); v.add_argument("--note", default="")
-    e = sub.add_parser("eval"); e.add_argument("--contract", required=True); e.add_argument("--split", choices=["dev", "holdout"], required=True)
-    e.add_argument("--engine", choices=["rules", "qwen"], required=True)
+    e = sub.add_parser("eval"); e.add_argument("--contract", required=True); e.add_argument("--split", choices=["dev", "holdout", "holdout2"], required=True)
+    e.add_argument("--engine", choices=["rules", "qwen", "hybrid"], required=True)
     d = sub.add_parser("demo"); d.add_argument("--out", required=True); d.add_argument("--with-model", action="store_true")
     for sp in (t, d):
         sp.add_argument("--backend", default=str(ROOT / "deploy" / "backends" / "ollama-r2.json"),
