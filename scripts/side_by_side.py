@@ -28,6 +28,10 @@ def cell(t):
         extra.append(f"另有 {len(t['rejected_citations'])} 条引用与日志不符，已拦截")
     if t.get("unmatched"):
         extra.append("日志里没有这个测试名")
+    if t.get("source"):
+        extra.append("来源：" + ("规则" if t["source"] == "rules" else "模型（规则无法判断，需复核）"))
+    if t.get("guard"):
+        extra.append(t["guard"])
     return f"{LABEL.get(t['category'], t['category'])} / {t['result']} / {SIDE.get(t['side'], t['side'])}<br>引用行：{lines}" + (f"<br>{'；'.join(extra)}" if extra else "")
 
 
@@ -37,11 +41,12 @@ def main():
     p.add_argument("--log", required=True)
     p.add_argument("--rules", required=True)
     p.add_argument("--qwen")
+    p.add_argument("--hybrid")
     p.add_argument("--gold")
     p.add_argument("--out", required=True)
     args = p.parse_args()
     log = logio.read_log(args.log, Path(args.root))
-    docs = {"规则": load(args.rules), "Qwen": load(args.qwen)}
+    docs = {"规则": load(args.rules), "Qwen": load(args.qwen), **({"组合": load(args.hybrid)} if args.hybrid else {})}
     gold = load(args.gold)
     engines = {k: (d["triage"] if d else None) for k, d in docs.items()}
     cited = {e["line"] for t in (engines.values()) if t for x in t["tests"] for e in x.get("evidence", [])}
@@ -61,12 +66,12 @@ def main():
     show = range(1, len(log.lines) + 1) if len(log.lines) <= 120 else sorted({n for c in cited for n in (c - 1, c, c + 1) if 1 <= n <= len(log.lines)})
     md += [f"{'▶' if n in cited else ' '} {n:4d} | {log.line(n)}" for n in show] + ["```", ""]
     tests = list(dict.fromkeys([*(gold["tests"] if gold else {}), *(x["test_id"] for t in engines.values() if t for x in t["tests"])]))
-    md += ["## 每个测试的判断", "", "| 测试 | 人工标注（金标准） | 规则 | Qwen |", "|---|---|---|---|"]
+    md += ["## 每个测试的判断", "", "| 测试 | 人工标注（金标准） | " + " | ".join(docs) + " |", "|---|---|" + "---|" * len(docs)]
     for tid in tests:
         g = gold["tests"].get(tid) if gold else None
         gcell = f"{LABEL.get(g['category'], g['category'])} / {g['result']} / {SIDE.get(g['side'], g['side'])}<br>证据行：{', '.join(map(str, g['evidence_lines'])) or '无'}" if g else "—"
         row = [cell(next((x for x in t["tests"] if x["test_id"] == tid), None)) if t else "未运行" for t in engines.values()]
-        md.append(f"| `{tid}` | {gcell} | {row[0]} | {row[1]} |")
+        md.append(f"| `{tid}` | {gcell} | " + " | ".join(row) + " |")
     md += ["", "## 建议（只展示）", ""]
     for name, t in engines.items():
         if not t:
