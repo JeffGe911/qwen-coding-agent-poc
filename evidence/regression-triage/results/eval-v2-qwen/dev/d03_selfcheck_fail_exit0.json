@@ -1,0 +1,98 @@
+{
+  "sample_id": "d03_selfcheck_fail_exit0",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "prompt_version": "triage-prompt-v1",
+    "prompt_sha256": "2348650c08e8800720e052a0a293416dd3c4a25501de09a5a594f1b7d025236e",
+    "file": "dataset/dev/d03_selfcheck_fail_exit0.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 5260,
+    "seconds": 38.737,
+    "usage": {
+      "prompt_tokens": 1312,
+      "prompt_tokens_details": {
+        "cached_tokens": 432
+      },
+      "completion_tokens": 280,
+      "total_tokens": 1592
+    },
+    "finish_reason": "stop",
+    "status": "ok",
+    "problems": [
+      "alu_basic: 1 citation(s) rejected (file/line/quote do not match the log)"
+    ]
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "alu_basic",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/dev/d03_selfcheck_fail_exit0.log",
+            "line": 7,
+            "quote": "ERROR: [2000] tb_alu8 op=1 a=3 b=1 expected y=2 got y=4"
+          }
+        ],
+        "suggestion": "Review the testbench at hdl/tb/tb_alu8.v:47 and ensure that the expected values match the actual outputs. The first error indicates a mismatch at op=1, a=3, b=1.",
+        "rejected_citations": [
+          {
+            "file": "hdl/tb/tb_alu8.v",
+            "line": 47,
+            "quote": "$finish called at 32000 (1ps)"
+          }
+        ]
+      }
+    ],
+    "notes": "The test failed due to multiple mismatches between expected and actual outputs in the testbench. The first error is at op=1, a=3, b=1, where the expected output is 2 but the actual output is 4.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/dev/d03_selfcheck_fail_exit0.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "d03_selfcheck_fail_exit0",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "alu_basic",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "alu_basic"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

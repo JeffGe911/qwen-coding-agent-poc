@@ -24,6 +24,7 @@ def test_listening_scope_key_and_offline_runtime():
     assert ports and all(p.startswith("127.0.0.1:") for p in ports)
     assert "VLLM_API_KEY: ${VLLM_API_KEY:?" in COMPOSE and not re.search(r"VLLM_API_KEY:\s*[0-9a-f]{16,}", COMPOSE)
     assert 'HF_HUB_OFFLINE: "1"' in COMPOSE and 'VLLM_NO_USAGE_STATS: "1"' in COMPOSE
+    assert "- --generation-config=vllm" in COMPOSE  # otherwise the model's repetition_penalty 1.1 is applied silently
     assert "--enable-log-requests" not in COMPOSE.replace("do not add --enable-log-requests", "")
     assert "REPLACE_WITH" in (DEPLOY / "env.example").read_text(encoding="utf-8")
 

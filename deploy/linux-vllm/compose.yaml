@@ -22,6 +22,10 @@ services:
       - --max-num-seqs=${MAX_NUM_SEQS:-4}
       - --gpu-memory-utilization=${GPU_MEMORY_UTILIZATION:-0.70}
       - --enforce-eager              # skips CUDA-graph capture: less memory and a shorter start on a laptop GPU
+      # Without this, vLLM applies the model's generation_config.json to every parameter a request omits. For
+      # Qwen2.5-Coder-7B-Instruct that includes repetition_penalty 1.1, which Ollama's /v1 does not apply
+      # (evidence/linux-serving/docs-check.md). The app also sends every sampling parameter explicitly.
+      - --generation-config=vllm
       # Request/response logging stays off; do not add --enable-log-requests (prompts and code would reach the logs).
     environment:
       VLLM_API_KEY: ${VLLM_API_KEY:?set VLLM_API_KEY in deploy/linux-vllm/.env (never commit it)}   # protects /v1 only

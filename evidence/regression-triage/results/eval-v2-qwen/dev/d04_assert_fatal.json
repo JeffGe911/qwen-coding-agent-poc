@@ -1,0 +1,93 @@
+{
+  "sample_id": "d04_assert_fatal",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "prompt_version": "triage-prompt-v1",
+    "prompt_sha256": "2348650c08e8800720e052a0a293416dd3c4a25501de09a5a594f1b7d025236e",
+    "file": "dataset/dev/d04_assert_fatal.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 4755,
+    "seconds": 27.121,
+    "usage": {
+      "prompt_tokens": 994,
+      "prompt_tokens_details": {
+        "cached_tokens": 432
+      },
+      "completion_tokens": 198,
+      "total_tokens": 1192
+    },
+    "finish_reason": "stop",
+    "status": "ok",
+    "problems": [
+      "fifo_basic: 1 citation(s) rejected (file/line/quote do not match the log)"
+    ]
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "fifo_basic",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [],
+        "suggestion": "Review the FIFO implementation in hdl/rtl/sync_fifo.v to ensure it correctly handles the write operations and does not report full prematurely.",
+        "rejected_citations": [
+          {
+            "file": "hdl/tb/tb_sync_fifo.v",
+            "line": 26,
+            "quote": "FATAL: hdl/tb/tb_sync_fifo.v:26: fifo reports full after 3 writes (count=3, DEPTH=4)"
+          }
+        ],
+        "certainty": "insufficient_evidence"
+      }
+    ],
+    "notes": "The test failed due to a design assertion in the testbench. The FIFO reports full after 3 writes, which is incorrect given the depth of 4.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/dev/d04_assert_fatal.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "d04_assert_fatal",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "fifo_basic",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "fifo_basic"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

@@ -1,0 +1,4 @@
+d01_all_pass ok 3 / 3
+d02_compile_error ok 1 / 1
+d03_selfcheck_fail_exit0 ok 1 / 1
+d04_assert_fatal ok 1 / 1

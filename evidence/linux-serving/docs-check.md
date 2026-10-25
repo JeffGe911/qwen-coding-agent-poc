@@ -22,3 +22,19 @@
 - Qwen/Qwen2.5-Coder-1.5B-Instruct：revision `2e1fd397…`，BF16，3.1 GB。
 - Qwen/Qwen2.5-Coder-7B-Instruct-AWQ：revision `8e8ed243…`，AWQ 4-bit GEMM，group_size 128，5.6 GB。
 - Qwen/Qwen2.5-Coder-7B-Instruct：BF16，15.2 GB，放不进本机 12 GB 显存。
+
+## 迁移时的采样差异（2026-10-25 核对）
+
+| 问题 | 文档原文 / 结论 | 来源 |
+|---|---|---|
+| `--generation-config` 默认值 | “Defaults to "auto", the generation config will be loaded from model path. If set to "vllm", no generation config is loaded, vLLM defaults will be used.” | docs.vllm.ai/en/v0.32.0/cli/serve/ |
+| 请求没给的采样参数怎么办 | “By default, the server applies `generation_config.json` from the Hugging Face model repository if it exists.” 关闭方式：`--generation-config vllm` | docs.vllm.ai/en/v0.32.0/serving/online_serving/openai_compatible_server/ |
+| Qwen2.5-Coder-7B-Instruct 的 generation_config.json | temperature 0.7、top_p 0.8、top_k 20、**repetition_penalty 1.1**，没有 max_new_tokens | huggingface.co/Qwen/Qwen2.5-Coder-7B-Instruct/blob/main/generation_config.json |
+| vLLM 自身默认值 | temperature 1.0、top_p 1.0、top_k 0、repetition_penalty 1.0、max_tokens 16 | docs.vllm.ai/en/latest/api/vllm/sampling_params/ |
+| `response_format` json_schema | 支持；默认后端 `auto`（xgrammar / guidance）。文档未提 `strict` 字段 | docs.vllm.ai/en/latest/features/structured_outputs/ |
+| 额外采样参数 | Chat API 接受 `top_k`、`repetition_penalty`；`seed` 在 Chat 部分**未写明** | openai_compatible_server 页面 |
+| `/v1/models` 是否给出 `max_model_len` | **未写明**，部署后实测 | — |
+| prompt 加 max_tokens 超过 max_model_len 时 | **未写明**（返回 400、截断还是缩减），部署后实测 | — |
+| `usage` 字段与 `finish_reason=length` | **未写明**，部署后实测 | — |
+
+**结论**：只发 `temperature: 0` 的请求在 vLLM 上仍会带上 repetition_penalty 1.1（来自模型自带的配置），而 Ollama 的 `/v1` 实际是 1.0（r2 服务日志）。迁移时同时做两件事：compose 启动参数加 `--generation-config vllm`；请求里显式写出 temperature、top_p、top_k、repetition_penalty。这样两个后端的解码设置是一致的，差别只剩权重和量化。

@@ -1,0 +1,25 @@
+{
+  "at_utc": "2026-10-25T05:17:00+00:00",
+  "step": "before starting the r2 server (no model loaded, nothing listening on 11437)",
+  "memory": {
+    "total_mb": 32129,
+    "available_mb": 9093,
+    "commit_limit_mb": 44417,
+    "commit_headroom_mb": 11860
+  },
+  "gpu": {
+    "vram_used_mb": 0,
+    "vram_total_mb": 12227,
+    "vram_free_mb": 12227,
+    "gpu_util_pct": 0,
+    "gpu_temp_c": 44
+  },
+  "thresholds": {
+    "min_available_mb": 4096,
+    "min_commit_headroom_mb": 4096,
+    "min_free_vram_mb": 6500,
+    "abort_available_mb": 2048,
+    "abort_commit_headroom_mb": 2048
+  },
+  "problems": []
+}

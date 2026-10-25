@@ -1,0 +1,7 @@
+# nvidia-smi and power state, 2026-10-25T05:23:48Z (model unloaded; the during-run readings are in NOTE-power-throttle.md)
+pstate, clocks.current.sm [MHz], clocks.max.sm [MHz], clocks.current.memory [MHz], power.draw [W], enforced.power.limit [W], clocks_event_reasons.active, clocks_event_reasons.sw_power_cap
+P0, 397 MHz, 3090 MHz, 14001 MHz, 19.47 W, 33.00 W, 0x0000000000000004, Active
+AC power online: False
+BatteryStatus            : 1
+EstimatedChargeRemaining : 95
+电源方案 GUID: 64a64f24-65b9-4b56-befd-5ec1eaced9b3  (Silent)
