@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-297",
+  "object": "chat.completion",
+  "created": 1792964082,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"handshake_basic\",\n      \"result\": \"fail\",\n      \"category\": \"timeout\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\n          \"log_line\": 7,\n          \"quote\": \"ERROR: [2000000] TIMEOUT watchdog: ack not seen within 2000 ns after req\"\n        },\n        {\n          \"log_line\": 8,\n          \"quote\": \"TEST FAILED: tb_handshake (timeout)\"\n        }\n      ],\n      \"suggestion\": \"Increase the watchdog timeout in the testbench or check the design for potential issues causing the timeout.\"\n    }\n  ],\n  \"notes\": \"The test failed due to a watchdog timeout, indicating a potential issue in the design or testbench.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1096,
+    "prompt_tokens_details": {
+      "cached_tokens": 1095
+    },
+    "completion_tokens": 183,
+    "total_tokens": 1279
+  }
+}

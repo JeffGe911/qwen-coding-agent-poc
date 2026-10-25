@@ -1,0 +1,105 @@
+{
+  "sample_id": "g02_debounce",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0005,
+    "model_status": "ok",
+    "model_seconds": 4.471,
+    "model_needed": true,
+    "model_tests_used": 1
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/holdout2/g02_debounce.log",
+    "sha256": "ca92c4a367d18a036f7a6fd7cec7410354d1911011521820446e1000883701dc",
+    "lines": 16,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "debounce_glitch",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g02_debounce.log",
+            "line": 7,
+            "quote": "mismatch at 290 ns: clean expected 0, observed 1 (cycle 29)"
+          },
+          {
+            "file": "dataset/holdout2/g02_debounce.log",
+            "line": 13,
+            "quote": "SIM RESULT: NOT OK (10 mismatching cycles)"
+          }
+        ],
+        "suggestion": "Review the design and testbench at hdl/holdout2/rtl/debounce.v and hdl/holdout2/tb/tb_debounce.v, focusing on the behavior at cycles 29-32.",
+        "rejected_citations": [],
+        "source": "model",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过",
+          "规则无法判断，采用模型的判断，需工程师复核"
+        ]
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:82a05bff",
+        "category": "unknown",
+        "tests": [
+          "debounce_glitch"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g02_debounce.log",
+          "line": 13,
+          "quote": "SIM RESULT: NOT OK (10 mismatching cycles)"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": true
+  },
+  "score": {
+    "sample_id": "g02_debounce",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "debounce_glitch",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "debounce_glitch"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

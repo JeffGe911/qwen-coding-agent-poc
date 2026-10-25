@@ -1,0 +1,138 @@
+{
+  "sample_id": "g08_pwm_regfile",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v2",
+    "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+    "file": "dataset/holdout2/g08_pwm_regfile.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 6880,
+    "timeout_s": 180,
+    "seconds": 6.139,
+    "usage": {
+      "prompt_tokens": 1827,
+      "prompt_tokens_details": {
+        "cached_tokens": 509
+      },
+      "completion_tokens": 302,
+      "total_tokens": 2129
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": []
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "pwm_duty_chatty",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g08_pwm_regfile.log",
+            "line": 20,
+            "quote": "== PASS =="
+          },
+          {
+            "file": "dataset/holdout2/g08_pwm_regfile.log",
+            "line": 21,
+            "quote": "hdl/holdout2/tb/tb_pwm_gen.v:80: $finish called at 46096000 (1ps)"
+          }
+        ],
+        "suggestion": "The test passed as indicated by the '== PASS ==' message and the simulation finishing normally.",
+        "rejected_citations": []
+      },
+      {
+        "test_id": "regfile_err_resp",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g08_pwm_regfile.log",
+            "line": 32,
+            "quote": "[rf] RESULT: PASS"
+          },
+          {
+            "file": "dataset/holdout2/g08_pwm_regfile.log",
+            "line": 33,
+            "quote": "hdl/holdout2/tb/tb_regfile.v:106: $finish called at 341000 (1ps)"
+          }
+        ],
+        "suggestion": "The test passed as indicated by the '[rf] RESULT: PASS' message and the simulation finishing normally.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "Both tests completed successfully with no errors or warnings.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout2/g08_pwm_regfile.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "g08_pwm_regfile",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "pwm_duty_chatty",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "regfile_err_resp",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

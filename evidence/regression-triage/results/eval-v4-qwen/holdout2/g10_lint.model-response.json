@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-471",
+  "object": "chat.completion",
+  "created": 1792964419,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"debounce_lint\",\n      \"result\": \"pass\",\n      \"category\": \"pass\",\n      \"side\": \"none\",\n      \"evidence\": [\n        {\n          \"log_line\": 7,\n          \"quote\": \"#RUN test=debounce_lint stage=lint exit=0 elapsed_s=0.046 timed_out=false output_truncated=false\"\n        }\n      ],\n      \"suggestion\": \"The lint test for debounce passed successfully.\"\n    },\n    {\n      \"test_id\": \"pwm_lint\",\n      \"result\": \"fail\",\n      \"category\": \"test_failure\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\n          \"log_line\": 15,\n          \"quote\": \"%Error: Exiting due to 1 warning(s)\"\n        }\n      ],\n      \"suggestion\": \"The lint test for pwm_gen failed due to a width truncation warning. Consider using '/* verilator lint_off WIDTHTRUNC */' and lint_on around the source to disable this message.\"\n    }\n  ],\n  \"notes\": \"The log is complete and contains evidence for both tests.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1389,
+    "prompt_tokens_details": {
+      "cached_tokens": 508
+    },
+    "completion_tokens": 259,
+    "total_tokens": 1648
+  }
+}

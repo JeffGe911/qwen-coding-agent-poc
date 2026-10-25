@@ -1,0 +1,112 @@
+{
+  "sample_id": "g31_build",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0002,
+    "model_status": "ok",
+    "model_seconds": 4.005,
+    "model_needed": true,
+    "model_tests_used": 1
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/holdout2/g31_build.log",
+    "sha256": "7b57c81d3076c9a8bcc09ba70278a349acca60f039db80e5e55bfde95ac3ba59",
+    "lines": 9,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "uart_tx_bytes",
+        "result": "not_run",
+        "category": "tool_error",
+        "side": "infrastructure",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g31_build.log",
+            "line": 4,
+            "quote": "Assertion failed: net->pin_count() == 1, file ../../elab_net.cc, line 1287"
+          },
+          {
+            "file": "dataset/holdout2/g31_build.log",
+            "line": 6,
+            "quote": "This application has requested the Runtime to terminate it in an unusual way."
+          }
+        ],
+        "suggestion": "Check the Icarus Verilog installation and ensure all dependencies are correctly set up. The assertion failure suggests a problem with the tool itself.",
+        "rejected_citations": [],
+        "normalized": "仿真测试没有运行起来，结果按约定记为 not_run",
+        "source": "model",
+        "notes": [
+          "编译以退出码 3 结束，但没有可识别的错误行",
+          "规则无法判断，采用模型的判断，需工程师复核"
+        ]
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:55783e97",
+        "category": "unknown",
+        "tests": [
+          "uart_tx_bytes"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g31_build.log",
+          "line": 4,
+          "quote": "Assertion failed: net->pin_count() == 1, file ../../elab_net.cc, line 1287"
+        }
+      }
+    ],
+    "flags": [
+      "tool_internal_assertion"
+    ],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": true
+  },
+  "score": {
+    "sample_id": "g31_build",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "uart_tx_bytes",
+        "gold": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "pred": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "uart_tx_bytes"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "tool_internal_assertion"
+    ],
+    "flags_found": [
+      "tool_internal_assertion"
+    ],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

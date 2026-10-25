@@ -1,0 +1,395 @@
+{
+  "sample_id": "g13_nightly",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0009,
+    "model_status": "invalid_output",
+    "model_seconds": 23.514,
+    "model_needed": true,
+    "model_tests_used": 0
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + no model answer)",
+    "file": "dataset/holdout2/g13_nightly.log",
+    "sha256": "d7551f3937b75a0d89bf51abc8e701abe2c83cb8aa1d931072f5e5e5e23dd56e",
+    "lines": 55,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "uart_tx_bytes",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "undetermined",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g13_nightly.log",
+            "line": 9,
+            "quote": "UART TB RESULT: FAIL (tb_uart_tx, watchdog)"
+          },
+          {
+            "file": "dataset/holdout2/g13_nightly.log",
+            "line": 10,
+            "quote": "hdl/holdout2/tb/tb_uart_tx.v:31: $finish called at 4045000 (1ps)"
+          },
+          {
+            "file": "dataset/holdout2/g13_nightly.log",
+            "line": 11,
+            "quote": "#RUN test=uart_tx_bytes stage=run exit=0 elapsed_s=0.031 timed_out=false output_truncated=false"
+          }
+        ],
+        "fingerprint": "unknown:6e28cf7b",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过"
+        ],
+        "suggestion": "证据不足，无法判断 dataset/holdout2/g13_nightly.log:9。需要完整的日志（含退出码和 testbench 结论行）或人工查看。",
+        "source": "rules"
+      },
+      {
+        "test_id": "lfsr_seq",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "undetermined",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g13_nightly.log",
+            "line": 16,
+            "quote": "*** tb_lfsr16: SUCCESS (1000 steps, 0 scoreboard mismatches) ***"
+          },
+          {
+            "file": "dataset/holdout2/g13_nightly.log",
+            "line": 17,
+            "quote": "hdl/holdout2/tb/tb_lfsr16.sv:38: $finish called at 10030000 (1ps)"
+          },
+          {
+            "file": "dataset/holdout2/g13_nightly.log",
+            "line": 18,
+            "quote": "#RUN test=lfsr_seq stage=run exit=0 elapsed_s=0.032 timed_out=false output_truncated=false"
+          }
+        ],
+        "fingerprint": "unknown:8a217ea2",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过"
+        ],
+        "suggestion": "证据不足，无法判断 dataset/holdout2/g13_nightly.log:16。需要完整的日志（含退出码和 testbench 结论行）或人工查看。",
+        "source": "rules"
+      },
+      {
+        "test_id": "pwm_duty",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "undetermined",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g13_nightly.log",
+            "line": 32,
+            "quote": "== FAIL =="
+          },
+          {
+            "file": "dataset/holdout2/g13_nightly.log",
+            "line": 33,
+            "quote": "hdl/holdout2/tb/tb_pwm_gen.v:80: $finish called at 46096000 (1ps)"
+          },
+          {
+            "file": "dataset/holdout2/g13_nightly.log",
+            "line": 34,
+            "quote": "#RUN test=pwm_duty stage=run exit=0 elapsed_s=0.042 timed_out=false output_truncated=false"
+          }
+        ],
+        "fingerprint": "unknown:d990384b",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过"
+        ],
+        "suggestion": "证据不足，无法判断 dataset/holdout2/g13_nightly.log:32。需要完整的日志（含退出码和 testbench 结论行）或人工查看。",
+        "source": "rules"
+      },
+      {
+        "test_id": "regfile_lint",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g13_nightly.log",
+            "line": 39,
+            "quote": "#RUN test=regfile_lint stage=lint exit=0 elapsed_s=0.043 timed_out=false output_truncated=false"
+          }
+        ],
+        "fingerprint": null,
+        "certainty": "confirmed",
+        "notes": [
+          "lint 退出码为 0"
+        ],
+        "suggestion": "通过 dataset/holdout2/g13_nightly.log:39：“#RUN test=regfile_lint stage=lint exit=0 elapsed_s=0.043 timed_out=false output_truncated=false”。",
+        "source": "rules"
+      },
+      {
+        "test_id": "lfsr_taps_v2",
+        "result": "not_run",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g13_nightly.log",
+            "line": 41,
+            "quote": "hdl/holdout2/rtl/lfsr16.v:14: error: Unable to bind parameter `TAPS_V2' in `tb_lfsr16.dut'"
+          }
+        ],
+        "fingerprint": "compile_error:1f0397cf",
+        "certainty": "confirmed",
+        "notes": [],
+        "suggestion": "先修第一条编译错误 dataset/holdout2/g13_nightly.log:41：“hdl/holdout2/rtl/lfsr16.v:14: error: Unable to bind parameter `TAPS_V2' in `tb_lfsr16.dut'”。之后的报错多半是它引起的连锁报错，修完再重新编译。",
+        "source": "rules"
+      },
+      {
+        "test_id": "spi_loopback",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "undetermined",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g13_nightly.log",
+            "line": 52,
+            "quote": "spi_tb: RESULT PASSED (4/4 transfers)"
+          },
+          {
+            "file": "dataset/holdout2/g13_nightly.log",
+            "line": 53,
+            "quote": "hdl/holdout2/tb/tb_spi_shift.v:75: $finish called at 706000 (1ps)"
+          },
+          {
+            "file": "dataset/holdout2/g13_nightly.log",
+            "line": 54,
+            "quote": "#RUN test=spi_loopback stage=run exit=0 elapsed_s=0.04 timed_out=false output_truncated=false"
+          }
+        ],
+        "fingerprint": "unknown:7bb5db06",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过"
+        ],
+        "suggestion": "证据不足，无法判断 dataset/holdout2/g13_nightly.log:52。需要完整的日志（含退出码和 testbench 结论行）或人工查看。",
+        "source": "rules"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:6e28cf7b",
+        "category": "unknown",
+        "tests": [
+          "uart_tx_bytes"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g13_nightly.log",
+          "line": 9,
+          "quote": "UART TB RESULT: FAIL (tb_uart_tx, watchdog)"
+        }
+      },
+      {
+        "fingerprint": "unknown:8a217ea2",
+        "category": "unknown",
+        "tests": [
+          "lfsr_seq"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g13_nightly.log",
+          "line": 16,
+          "quote": "*** tb_lfsr16: SUCCESS (1000 steps, 0 scoreboard mismatches) ***"
+        }
+      },
+      {
+        "fingerprint": "unknown:d990384b",
+        "category": "unknown",
+        "tests": [
+          "pwm_duty"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g13_nightly.log",
+          "line": 32,
+          "quote": "== FAIL =="
+        }
+      },
+      {
+        "fingerprint": "compile_error:1f0397cf",
+        "category": "compile_error",
+        "tests": [
+          "lfsr_taps_v2"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g13_nightly.log",
+          "line": 41,
+          "quote": "hdl/holdout2/rtl/lfsr16.v:14: error: Unable to bind parameter `TAPS_V2' in `tb_lfsr16.dut'"
+        }
+      },
+      {
+        "fingerprint": "unknown:7bb5db06",
+        "category": "unknown",
+        "tests": [
+          "spi_loopback"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g13_nightly.log",
+          "line": 52,
+          "quote": "spi_tb: RESULT PASSED (4/4 transfers)"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": true
+  },
+  "score": {
+    "sample_id": "g13_nightly",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "uart_tx_bytes",
+        "gold": {
+          "result": "fail",
+          "category": "timeout",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "lfsr_seq",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "pwm_duty",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "regfile_lint",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "lfsr_taps_v2",
+        "gold": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "spi_loopback",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "lfsr_taps_v2"
+      ],
+      "fp": [],
+      "fn": [
+        "pwm_duty",
+        "uart_tx_bytes"
+      ]
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 4,
+    "extra_citations_on_unmatched": 0
+  }
+}

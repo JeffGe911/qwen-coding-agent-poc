@@ -1,0 +1,135 @@
+{
+  "sample_id": "d14_raw_vvp_fail",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v2",
+    "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+    "file": "dataset/dev/d14_raw_vvp_fail.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 4341,
+    "timeout_s": 180,
+    "seconds": 6.455,
+    "usage": {
+      "prompt_tokens": 923,
+      "prompt_tokens_details": {
+        "cached_tokens": 922
+      },
+      "completion_tokens": 582,
+      "total_tokens": 1505
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": []
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "tb_alu8",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/dev/d14_raw_vvp_fail.log",
+            "line": 10,
+            "quote": "TEST FAILED: tb_alu8 errors=8"
+          },
+          {
+            "file": "dataset/dev/d14_raw_vvp_fail.log",
+            "line": 2,
+            "quote": "ERROR: [2000] tb_alu8 op=1 a=3 b=1 expected y=2 got y=4"
+          },
+          {
+            "file": "dataset/dev/d14_raw_vvp_fail.log",
+            "line": 3,
+            "quote": "ERROR: [6000] tb_alu8 op=1 a=32 b=8 expected y=24 got y=40"
+          },
+          {
+            "file": "dataset/dev/d14_raw_vvp_fail.log",
+            "line": 4,
+            "quote": "ERROR: [10000] tb_alu8 op=1 a=61 b=15 expected y=46 got y=76"
+          },
+          {
+            "file": "dataset/dev/d14_raw_vvp_fail.log",
+            "line": 5,
+            "quote": "ERROR: [14000] tb_alu8 op=1 a=90 b=22 expected y=68 got y=112"
+          },
+          {
+            "file": "dataset/dev/d14_raw_vvp_fail.log",
+            "line": 6,
+            "quote": "ERROR: [18000] tb_alu8 op=1 a=119 b=29 expected y=90 got y=148"
+          },
+          {
+            "file": "dataset/dev/d14_raw_vvp_fail.log",
+            "line": 7,
+            "quote": "ERROR: [22000] tb_alu8 op=1 a=148 b=36 expected y=112 got y=184"
+          },
+          {
+            "file": "dataset/dev/d14_raw_vvp_fail.log",
+            "line": 8,
+            "quote": "ERROR: [26000] tb_alu8 op=1 a=177 b=43 expected y=134 got y=220"
+          },
+          {
+            "file": "dataset/dev/d14_raw_vvp_fail.log",
+            "line": 9,
+            "quote": "ERROR: [30000] tb_alu8 op=1 a=206 b=50 expected y=156 got y=0"
+          }
+        ],
+        "suggestion": "Review the ALU8 testbench and design for errors in the expected outcomes or the ALU implementation.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "The test failed due to multiple mismatches between expected and actual outputs. The first error is at line 2, indicating a discrepancy in the ALU's operation for the given inputs.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/dev/d14_raw_vvp_fail.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "d14_raw_vvp_fail",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "tb_alu8",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 9,
+        "citations_valid": 9,
+        "citations_relevant": 9,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "tb_alu8"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

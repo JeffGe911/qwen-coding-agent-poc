@@ -1,0 +1,141 @@
+{
+  "sample_id": "g10_lint",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0005,
+    "model_status": "ok",
+    "model_seconds": 5.197,
+    "model_needed": true,
+    "model_tests_used": 1
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/holdout2/g10_lint.log",
+    "sha256": "e54b4303067cb0b08877b4eb9eaed149f6722fb0308a0598c620fd94695a7ed9",
+    "lines": 17,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "debounce_lint",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g10_lint.log",
+            "line": 7,
+            "quote": "#RUN test=debounce_lint stage=lint exit=0 elapsed_s=0.046 timed_out=false output_truncated=false"
+          }
+        ],
+        "fingerprint": null,
+        "certainty": "confirmed",
+        "notes": [
+          "lint 退出码为 0"
+        ],
+        "suggestion": "通过 dataset/holdout2/g10_lint.log:7：“#RUN test=debounce_lint stage=lint exit=0 elapsed_s=0.046 timed_out=false output_truncated=false”。",
+        "source": "rules"
+      },
+      {
+        "test_id": "pwm_lint",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g10_lint.log",
+            "line": 15,
+            "quote": "%Error: Exiting due to 1 warning(s)"
+          }
+        ],
+        "suggestion": "The lint test for pwm_gen failed due to a width truncation warning. Consider using '/* verilator lint_off WIDTHTRUNC */' and lint_on around the source to disable this message.",
+        "rejected_citations": [],
+        "source": "model",
+        "notes": [
+          "lint以退出码 1 结束，但没有可识别的错误行",
+          "规则无法判断，采用模型的判断，需工程师复核"
+        ]
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:d152cabe",
+        "category": "unknown",
+        "tests": [
+          "pwm_lint"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g10_lint.log",
+          "line": 9,
+          "quote": "%Warning-WIDTHTRUNC: hdl/holdout2/rtl\\pwm_gen.v:18:17: Operator ASSIGNDLY expects 8 bits on the Assign RHS, but Assign RHS's ADD generates 9 bits."
+        }
+      }
+    ],
+    "flags": [],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": true
+  },
+  "score": {
+    "sample_id": "g10_lint",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "debounce_lint",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "pwm_lint",
+        "gold": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": false,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "pwm_lint"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

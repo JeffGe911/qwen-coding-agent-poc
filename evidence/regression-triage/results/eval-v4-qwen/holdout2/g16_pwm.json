@@ -1,0 +1,157 @@
+{
+  "sample_id": "g16_pwm",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v2",
+    "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+    "file": "dataset/holdout2/g16_pwm.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 5643,
+    "timeout_s": 180,
+    "seconds": 11.43,
+    "usage": {
+      "prompt_tokens": 1409,
+      "prompt_tokens_details": {
+        "cached_tokens": 509
+      },
+      "completion_tokens": 604,
+      "total_tokens": 2013
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": []
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "pwm_duty",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g16_pwm.log",
+            "line": 8,
+            "quote": "== PASS =="
+          },
+          {
+            "file": "dataset/holdout2/g16_pwm.log",
+            "line": 9,
+            "quote": "pwm_gen duty sweep (period 256 clocks)"
+          },
+          {
+            "file": "dataset/holdout2/g16_pwm.log",
+            "line": 10,
+            "quote": "  duty=  0  high=  1  expect=  0  <-- MISMATCH"
+          },
+          {
+            "file": "dataset/holdout2/g16_pwm.log",
+            "line": 11,
+            "quote": "  WARN: duty=0 holds pwm_out low for the whole period (by spec)"
+          },
+          {
+            "file": "dataset/holdout2/g16_pwm.log",
+            "line": 12,
+            "quote": "  duty=  1  high=  2  expect=  1  <-- MISMATCH"
+          },
+          {
+            "file": "dataset/holdout2/g16_pwm.log",
+            "line": 13,
+            "quote": "  duty= 64  high= 65  expect= 64  <-- MISMATCH"
+          },
+          {
+            "file": "dataset/holdout2/g16_pwm.log",
+            "line": 14,
+            "quote": "  duty=128  high=129  expect=128  <-- MISMATCH"
+          },
+          {
+            "file": "dataset/holdout2/g16_pwm.log",
+            "line": 15,
+            "quote": "  duty=200  high=201  expect=200  <-- MISMATCH"
+          },
+          {
+            "file": "dataset/holdout2/g16_pwm.log",
+            "line": 16,
+            "quote": "  duty=255  high=256  expect=255  <-- MISMATCH"
+          },
+          {
+            "file": "dataset/holdout2/g16_pwm.log",
+            "line": 17,
+            "quote": "  WARN: duty=255 gives 255/256 high, 100% is not reachable (by spec)"
+          },
+          {
+            "file": "dataset/holdout2/g16_pwm.log",
+            "line": 18,
+            "quote": "Errors: 6 Warnings: 2"
+          },
+          {
+            "file": "dataset/holdout2/g16_pwm.log",
+            "line": 19,
+            "quote": "== FAIL =="
+          },
+          {
+            "file": "dataset/holdout2/g16_pwm.log",
+            "line": 20,
+            "quote": "hdl/holdout2/tb/tb_pwm_gen.v:80: $finish called at 46096000 (1ps)"
+          }
+        ],
+        "suggestion": "Review the mismatches and warnings in the test output. Ensure the design meets the expected behavior for all duty cycle values.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "The test passed the compile stage but failed during the run stage due to mismatches and warnings in the test results.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout2/g16_pwm.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "g16_pwm",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "pwm_duty",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 13,
+        "citations_valid": 13,
+        "citations_relevant": 8,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "pwm_duty"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "forged_runner_line"
+    ],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

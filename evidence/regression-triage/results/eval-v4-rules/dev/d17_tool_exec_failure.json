@@ -1,0 +1,200 @@
+{
+  "sample_id": "d17_tool_exec_failure",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/dev/d17_tool_exec_failure.log",
+    "sha256": "2249b7612f91a1952f53bf7399df2c3bed29ffb334d61f4c4dc549e12079fc59",
+    "lines": 9,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "alu_basic",
+        "result": "not_run",
+        "category": "tool_error",
+        "side": "infrastructure",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/dev/d17_tool_exec_failure.log",
+            "line": 4,
+            "quote": "#RUN test=alu_basic stage=compile exit=4294967295 elapsed_s=0.055 timed_out=false output_truncated=false"
+          }
+        ],
+        "fingerprint": "tool_error:d028e022",
+        "certainty": "confirmed",
+        "notes": [
+          "编译器以退出码 4294967295 结束且没有任何输出，工具没有正常运行"
+        ],
+        "suggestion": "工具没有正常运行 dataset/dev/d17_tool_exec_failure.log:4：“#RUN test=alu_basic stage=compile exit=4294967295 elapsed_s=0.055 timed_out=false output_truncated=false”。这是环境问题，不是设计问题：检查仿真器安装路径、环境变量和许可证。"
+      },
+      {
+        "test_id": "fifo_basic",
+        "result": "not_run",
+        "category": "tool_error",
+        "side": "infrastructure",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/dev/d17_tool_exec_failure.log",
+            "line": 6,
+            "quote": "#RUN test=fifo_basic stage=compile exit=4294967295 elapsed_s=0.019 timed_out=false output_truncated=false"
+          }
+        ],
+        "fingerprint": "tool_error:7596b587",
+        "certainty": "confirmed",
+        "notes": [
+          "编译器以退出码 4294967295 结束且没有任何输出，工具没有正常运行"
+        ],
+        "suggestion": "工具没有正常运行 dataset/dev/d17_tool_exec_failure.log:6：“#RUN test=fifo_basic stage=compile exit=4294967295 elapsed_s=0.019 timed_out=false output_truncated=false”。这是环境问题，不是设计问题：检查仿真器安装路径、环境变量和许可证。"
+      },
+      {
+        "test_id": "handshake_basic",
+        "result": "not_run",
+        "category": "tool_error",
+        "side": "infrastructure",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/dev/d17_tool_exec_failure.log",
+            "line": 8,
+            "quote": "#RUN test=handshake_basic stage=compile exit=4294967295 elapsed_s=0.017 timed_out=false output_truncated=false"
+          }
+        ],
+        "fingerprint": "tool_error:e8e5a705",
+        "certainty": "confirmed",
+        "notes": [
+          "编译器以退出码 4294967295 结束且没有任何输出，工具没有正常运行"
+        ],
+        "suggestion": "工具没有正常运行 dataset/dev/d17_tool_exec_failure.log:8：“#RUN test=handshake_basic stage=compile exit=4294967295 elapsed_s=0.017 timed_out=false output_truncated=false”。这是环境问题，不是设计问题：检查仿真器安装路径、环境变量和许可证。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "tool_error:d028e022",
+        "category": "tool_error",
+        "tests": [
+          "alu_basic"
+        ],
+        "example": {
+          "file": "dataset/dev/d17_tool_exec_failure.log",
+          "line": 4,
+          "quote": "#RUN test=alu_basic stage=compile exit=4294967295 elapsed_s=0.055 timed_out=false output_truncated=false"
+        }
+      },
+      {
+        "fingerprint": "tool_error:7596b587",
+        "category": "tool_error",
+        "tests": [
+          "fifo_basic"
+        ],
+        "example": {
+          "file": "dataset/dev/d17_tool_exec_failure.log",
+          "line": 6,
+          "quote": "#RUN test=fifo_basic stage=compile exit=4294967295 elapsed_s=0.019 timed_out=false output_truncated=false"
+        }
+      },
+      {
+        "fingerprint": "tool_error:e8e5a705",
+        "category": "tool_error",
+        "tests": [
+          "handshake_basic"
+        ],
+        "example": {
+          "file": "dataset/dev/d17_tool_exec_failure.log",
+          "line": 8,
+          "quote": "#RUN test=handshake_basic stage=compile exit=4294967295 elapsed_s=0.017 timed_out=false output_truncated=false"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "d17_tool_exec_failure",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "alu_basic",
+        "gold": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "pred": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "fifo_basic",
+        "gold": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "pred": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "handshake_basic",
+        "gold": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "pred": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "alu_basic",
+        "fifo_basic",
+        "handshake_basic"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

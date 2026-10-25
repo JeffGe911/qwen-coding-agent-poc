@@ -1,0 +1,220 @@
+{
+  "sample_id": "g17_regfile_pair",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0004,
+    "model_status": "ok",
+    "model_seconds": 9.888,
+    "model_needed": true,
+    "model_tests_used": 3
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/holdout2/g17_regfile_pair.log",
+    "sha256": "454bdacdbebcfa7d044ffbf43f911e64ee01f044d0563c6f478e4c425fd5839c",
+    "lines": 33,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "regfile_rw",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g17_regfile_pair.log",
+            "line": 7,
+            "quote": "[rf] MISCOMPARE @181000 raddr=3 we=0 waddr=5 exp=1e got=00"
+          },
+          {
+            "file": "dataset/holdout2/g17_regfile_pair.log",
+            "line": 8,
+            "quote": "[rf] MISCOMPARE @281000 raddr=3 we=0 waddr=3 exp=c3 got=00"
+          }
+        ],
+        "suggestion": "Review the design of the regfile at addresses 3 and 5, and ensure that the write operation is correctly updating the register values.",
+        "rejected_citations": [],
+        "source": "model",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过",
+          "规则无法判断，采用模型的判断，需工程师复核"
+        ]
+      },
+      {
+        "test_id": "uart_tx_bytes",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g17_regfile_pair.log",
+            "line": 17,
+            "quote": "uart_tx_tb: tx 0x55 -> rx 0x55 ok"
+          },
+          {
+            "file": "dataset/holdout2/g17_regfile_pair.log",
+            "line": 18,
+            "quote": "uart_tx_tb: tx 0xa3 -> rx 0xa3 ok"
+          },
+          {
+            "file": "dataset/holdout2/g17_regfile_pair.log",
+            "line": 19,
+            "quote": "uart_tx_tb: tx 0x00 -> rx 0x00 ok"
+          },
+          {
+            "file": "dataset/holdout2/g17_regfile_pair.log",
+            "line": 20,
+            "quote": "uart_tx_tb: tx 0xff -> rx 0xff ok"
+          }
+        ],
+        "suggestion": "No action required as the test passed.",
+        "rejected_citations": [],
+        "source": "model",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过",
+          "规则无法判断，采用模型的判断，需工程师复核"
+        ]
+      },
+      {
+        "test_id": "regfile_b2b",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g17_regfile_pair.log",
+            "line": 28,
+            "quote": "[rf] MISCOMPARE @101000 raddr=3 we=0 waddr=3 exp=c3 got=00"
+          }
+        ],
+        "suggestion": "Review the design of the regfile at address 3, and ensure that the write operation is correctly updating the register value.",
+        "rejected_citations": [],
+        "source": "model",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过",
+          "规则无法判断，采用模型的判断，需工程师复核"
+        ]
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:962619bd",
+        "category": "unknown",
+        "tests": [
+          "regfile_rw",
+          "regfile_b2b"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g17_regfile_pair.log",
+          "line": 10,
+          "quote": "[rf] RESULT: FAIL"
+        }
+      },
+      {
+        "fingerprint": "unknown:a39f1880",
+        "category": "unknown",
+        "tests": [
+          "uart_tx_bytes"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g17_regfile_pair.log",
+          "line": 21,
+          "quote": "UART TB RESULT: PASS (tb_uart_tx)"
+        }
+      }
+    ],
+    "flags": [
+      "duplicate_failures"
+    ],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": true
+  },
+  "score": {
+    "sample_id": "g17_regfile_pair",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "regfile_rw",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "uart_tx_bytes",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 4,
+        "citations_valid": 4,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      },
+      {
+        "test_id": "regfile_b2b",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "regfile_b2b",
+        "regfile_rw"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "duplicate_failures"
+    ],
+    "flags_found": [
+      "duplicate_failures"
+    ],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

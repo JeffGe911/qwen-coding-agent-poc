@@ -1,0 +1,123 @@
+{
+  "sample_id": "g20_raw_pwm_build",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v2",
+    "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+    "file": "dataset/holdout2/g20_raw_pwm_build.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 5803,
+    "timeout_s": 180,
+    "seconds": 6.41,
+    "usage": {
+      "prompt_tokens": 1294,
+      "prompt_tokens_details": {
+        "cached_tokens": 508
+      },
+      "completion_tokens": 332,
+      "total_tokens": 1626
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": [
+      "(log): 2 citation(s) rejected (file/line/quote do not match the log)"
+    ]
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "fail",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g20_raw_pwm_build.log",
+            "line": 1,
+            "quote": "hdl/holdout2/rtl/pwm_gen.v:37: syntax error"
+          },
+          {
+            "file": "dataset/holdout2/g20_raw_pwm_build.log",
+            "line": 2,
+            "quote": "hdl/holdout2/tb/tb_pwm_gen.v:6: error: Malformed statement"
+          },
+          {
+            "file": "dataset/holdout2/g20_raw_pwm_build.log",
+            "line": 9,
+            "quote": "hdl/holdout2/tb/tb_pwm_gen.v:10: syntax error"
+          },
+          {
+            "file": "dataset/holdout2/g20_raw_pwm_build.log",
+            "line": 11,
+            "quote": "hdl/holdout2/tb/tb_pwm_gen.v:11: syntax error"
+          }
+        ],
+        "suggestion": "Fix syntax errors in the design and testbench files, particularly in tb_pwm_gen.v.",
+        "rejected_citations": [
+          {
+            "file": "dataset/holdout2/g20_raw_pwm_build.log",
+            "line": 18,
+            "quote": "hdl/holdout2/tb/tb_pwm_gen.v:18: syntax error"
+          },
+          {
+            "file": "dataset/holdout2/g20_raw_pwm_build.log",
+            "line": 22,
+            "quote": "hdl/holdout2/tb/tb_pwm_gen.v:22: syntax error"
+          }
+        ]
+      }
+    ],
+    "notes": "The log contains multiple syntax errors and malformed statements in the testbench file, preventing the design from compiling.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout2/g20_raw_pwm_build.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "g20_raw_pwm_build",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "(log)",
+        "gold": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": false,
+        "side_ok": true,
+        "citations": 4,
+        "citations_valid": 4,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "(log)"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

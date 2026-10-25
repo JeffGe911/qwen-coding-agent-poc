@@ -1,0 +1,102 @@
+{
+  "sample_id": "g27_raw_lint",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v2",
+    "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+    "file": "dataset/holdout2/g27_raw_lint.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 4899,
+    "timeout_s": 180,
+    "seconds": 5.029,
+    "usage": {
+      "prompt_tokens": 940,
+      "prompt_tokens_details": {
+        "cached_tokens": 509
+      },
+      "completion_tokens": 260,
+      "total_tokens": 1200
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": []
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "fail",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g27_raw_lint.log",
+            "line": 1,
+            "quote": "%Error: Cannot find verilated_std_waiver.vlt containing built-in lint waivers: '/yosyshq/share/verilator\\include\\verilated_std_waiver.vlt'"
+          },
+          {
+            "file": "dataset/holdout2/g27_raw_lint.log",
+            "line": 12,
+            "quote": "%Error: Cannot find verilated_std.sv containing built-in std:: definitions: '/yosyshq/share/verilator\\include\\verilated_std.sv'"
+          }
+        ],
+        "suggestion": "Specify the correct include path for verilated_std_waiver.vlt and verilated_std.sv using the -I<dir> option.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "The log indicates a compile error due to missing files. The errors are related to the absence of verilated_std_waiver.vlt and verilated_std.sv. The engineer should ensure that the correct include paths are specified.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout2/g27_raw_lint.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "g27_raw_lint",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "(log)",
+        "gold": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "(log)"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "tool_setup_error"
+    ],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

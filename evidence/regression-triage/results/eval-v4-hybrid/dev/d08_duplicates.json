@@ -1,0 +1,219 @@
+{
+  "sample_id": "d08_duplicates",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0008,
+    "model_status": "ok",
+    "model_seconds": 5.237,
+    "model_needed": false,
+    "model_tests_used": 0
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/dev/d08_duplicates.log",
+    "sha256": "9f08b9665dda6101eefe387d30229d9677950768841273bd38161e6f5cc73955",
+    "lines": 40,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "alu_sub_a",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "kind": "self_check",
+        "evidence": [
+          {
+            "file": "dataset/dev/d08_duplicates.log",
+            "line": 7,
+            "quote": "ERROR: [2000] tb_alu8 op=1 a=3 b=1 expected y=2 got y=4"
+          },
+          {
+            "file": "dataset/dev/d08_duplicates.log",
+            "line": 8,
+            "quote": "ERROR: [6000] tb_alu8 op=1 a=32 b=8 expected y=24 got y=40"
+          },
+          {
+            "file": "dataset/dev/d08_duplicates.log",
+            "line": 9,
+            "quote": "ERROR: [10000] tb_alu8 op=1 a=61 b=15 expected y=46 got y=76"
+          },
+          {
+            "file": "dataset/dev/d08_duplicates.log",
+            "line": 15,
+            "quote": "TEST FAILED: tb_alu8 errors=8"
+          }
+        ],
+        "fingerprint": "test_failure:b623ce23",
+        "certainty": "confirmed",
+        "notes": [
+          "共 8 条 ERROR 行"
+        ],
+        "suggestion": "testbench 检查失败，首条证据 dataset/dev/d08_duplicates.log:7：“ERROR: [2000] tb_alu8 op=1 a=3 b=1 expected y=2 got y=4”。对照期望值与实际值，查看相关信号在报告时刻附近的驱动和时序。",
+        "source": "rules"
+      },
+      {
+        "test_id": "fifo_basic",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/dev/d08_duplicates.log",
+            "line": 22,
+            "quote": "TEST PASSED: tb_sync_fifo"
+          }
+        ],
+        "fingerprint": null,
+        "certainty": "confirmed",
+        "notes": [],
+        "suggestion": "通过 dataset/dev/d08_duplicates.log:22：“TEST PASSED: tb_sync_fifo”。",
+        "source": "rules"
+      },
+      {
+        "test_id": "alu_sub_b",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "kind": "self_check",
+        "evidence": [
+          {
+            "file": "dataset/dev/d08_duplicates.log",
+            "line": 29,
+            "quote": "ERROR: [2000] tb_alu8 op=1 a=3 b=1 expected y=2 got y=4"
+          },
+          {
+            "file": "dataset/dev/d08_duplicates.log",
+            "line": 30,
+            "quote": "ERROR: [6000] tb_alu8 op=1 a=32 b=8 expected y=24 got y=40"
+          },
+          {
+            "file": "dataset/dev/d08_duplicates.log",
+            "line": 31,
+            "quote": "ERROR: [10000] tb_alu8 op=1 a=61 b=15 expected y=46 got y=76"
+          },
+          {
+            "file": "dataset/dev/d08_duplicates.log",
+            "line": 37,
+            "quote": "TEST FAILED: tb_alu8 errors=8"
+          }
+        ],
+        "fingerprint": "test_failure:b623ce23",
+        "certainty": "confirmed",
+        "notes": [
+          "共 8 条 ERROR 行"
+        ],
+        "suggestion": "testbench 检查失败，首条证据 dataset/dev/d08_duplicates.log:29：“ERROR: [2000] tb_alu8 op=1 a=3 b=1 expected y=2 got y=4”。对照期望值与实际值，查看相关信号在报告时刻附近的驱动和时序。",
+        "source": "rules"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "test_failure:b623ce23",
+        "category": "test_failure",
+        "tests": [
+          "alu_sub_a",
+          "alu_sub_b"
+        ],
+        "example": {
+          "file": "dataset/dev/d08_duplicates.log",
+          "line": 7,
+          "quote": "ERROR: [2000] tb_alu8 op=1 a=3 b=1 expected y=2 got y=4"
+        }
+      }
+    ],
+    "flags": [
+      "duplicate_failures"
+    ],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": false
+  },
+  "score": {
+    "sample_id": "d08_duplicates",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "alu_sub_a",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 4,
+        "citations_valid": 4,
+        "citations_relevant": 4,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "fifo_basic",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "alu_sub_b",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 4,
+        "citations_valid": 4,
+        "citations_relevant": 4,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "alu_sub_a",
+        "alu_sub_b"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "duplicate_failures"
+    ],
+    "flags_found": [
+      "duplicate_failures"
+    ],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

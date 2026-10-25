@@ -1,0 +1,224 @@
+{
+  "sample_id": "h22_missing_fields",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v2",
+    "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+    "file": "dataset/holdout/h22_missing_fields.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 7261,
+    "timeout_s": 180,
+    "seconds": 14.478,
+    "usage": {
+      "prompt_tokens": 2029,
+      "prompt_tokens_details": {
+        "cached_tokens": 508
+      },
+      "completion_tokens": 749,
+      "total_tokens": 2778
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": []
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "cnt_rand_s11",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h22_missing_fields.log",
+            "line": 6,
+            "quote": "[tb_updown] MISMATCH t=60000 q=151 expected=152 (en=1 up=0 load=0)"
+          },
+          {
+            "file": "dataset/holdout/h22_missing_fields.log",
+            "line": 11,
+            "quote": "RESULT: FAIL  tb_updown  checks=159 mismatches=54"
+          }
+        ],
+        "suggestion": "Review the mismatches at t=60000, t=70000, t=100000, and t=110000 in tb_updown.sv:70.",
+        "rejected_citations": []
+      },
+      {
+        "test_id": "cnt_up_only",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h22_missing_fields.log",
+            "line": 18,
+            "quote": "RESULT: PASS  tb_updown  checks=159 mismatches=0"
+          }
+        ],
+        "suggestion": "No action needed as the test passed.",
+        "rejected_citations": []
+      },
+      {
+        "test_id": "cnt_rand_s29",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h22_missing_fields.log",
+            "line": 25,
+            "quote": "[tb_updown] MISMATCH t=70000 q=145 expected=146 (en=1 up=0 load=0)"
+          },
+          {
+            "file": "dataset/holdout/h22_missing_fields.log",
+            "line": 30,
+            "quote": "hdl/holdout/tb/tb_updown.sv:70: $finish called at 1620000 (1ps)"
+          },
+          {
+            "file": "dataset/holdout/h22_missing_fields.log",
+            "line": 31,
+            "quote": "#RUN test=cnt_rand_s29 stage=run exit=0 elapsed_s=0.024 timed_out=false output_truncated=false"
+          }
+        ],
+        "suggestion": "Review the mismatches at t=70000, t=100000, t=140000, and t=160000 in tb_updown.sv:70.",
+        "rejected_citations": []
+      },
+      {
+        "test_id": "crc_smoke",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "undetermined",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h22_missing_fields.log",
+            "line": 32,
+            "quote": "#RUN test=crc_smoke stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_crc8 hdl/holdout/rtl/crc8.v hdl/holdout/tb/tb_crc8.sv"
+          },
+          {
+            "file": "dataset/holdout/h22_missing_fields.log",
+            "line": 33,
+            "quote": "#RUN test=crc_smoke stage=compile elapsed_s=0.053"
+          }
+        ],
+        "suggestion": "The test did not run. Check the compile log for any errors.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "The crc_smoke test did not run, so its result is unknown.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout/h22_missing_fields.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "h22_missing_fields",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "cnt_rand_s11",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "cnt_up_only",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "cnt_rand_s29",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "crc_smoke",
+        "gold": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "cnt_rand_s11",
+        "cnt_rand_s29"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "missing_fields",
+      "duplicate_failures"
+    ],
+    "flags_found": [],
+    "unknown_tests": 1,
+    "extra_citations_on_unmatched": 0
+  }
+}

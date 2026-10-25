@@ -1,0 +1,101 @@
+{
+  "sample_id": "g19_uart_tb",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0003,
+    "model_status": "ok",
+    "model_seconds": 4.403,
+    "model_needed": false,
+    "model_tests_used": 0
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/holdout2/g19_uart_tb.log",
+    "sha256": "32e74e13cea46e0febcca732d52eec620be7bb5febb8b358a93aaf8ffa183c79",
+    "lines": 8,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "uart_tx_v2",
+        "result": "not_run",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g19_uart_tb.log",
+            "line": 4,
+            "quote": "hdl/holdout2/tb/tb_uart_tx.v:72: error: Unable to bind wire/reg/memory `rx_valid_q' in `tb_uart_tx'"
+          }
+        ],
+        "fingerprint": "compile_error:23906110",
+        "certainty": "confirmed",
+        "notes": [
+          "其余 1 条报错多半是第一条引起的连锁报错"
+        ],
+        "suggestion": "先修第一条编译错误 dataset/holdout2/g19_uart_tb.log:4：“hdl/holdout2/tb/tb_uart_tx.v:72: error: Unable to bind wire/reg/memory `rx_valid_q' in `tb_uart_tx'”。之后的报错多半是它引起的连锁报错，修完再重新编译。",
+        "source": "rules"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "compile_error:23906110",
+        "category": "compile_error",
+        "tests": [
+          "uart_tx_v2"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g19_uart_tb.log",
+          "line": 4,
+          "quote": "hdl/holdout2/tb/tb_uart_tx.v:72: error: Unable to bind wire/reg/memory `rx_valid_q' in `tb_uart_tx'"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": false
+  },
+  "score": {
+    "sample_id": "g19_uart_tb",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "uart_tx_v2",
+        "gold": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "uart_tx_v2"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

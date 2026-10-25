@@ -1,0 +1,105 @@
+{
+  "sample_id": "h24_vendor_style_compile",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v2",
+    "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+    "file": "dataset/holdout/h24_vendor_style_compile.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 4398,
+    "timeout_s": 180,
+    "seconds": 3.942,
+    "usage": {
+      "prompt_tokens": 833,
+      "prompt_tokens_details": {
+        "cached_tokens": 508
+      },
+      "completion_tokens": 208,
+      "total_tokens": 1041
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": []
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "fail",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h24_vendor_style_compile.log",
+            "line": 8,
+            "quote": "Error-[IND] Identifier not declared"
+          },
+          {
+            "file": "dataset/holdout/h24_vendor_style_compile.log",
+            "line": 9,
+            "quote": "hdl/holdout/rtl/crc8.v, 35"
+          },
+          {
+            "file": "dataset/holdout/h24_vendor_style_compile.log",
+            "line": 10,
+            "quote": "Identifier 'crc_next' has not been declared yet."
+          }
+        ],
+        "suggestion": "Check the declaration of 'crc_next' in crc8.v at line 35.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "The log indicates a compile error due to an undeclared identifier 'crc_next'. This is a design issue that needs to be addressed in the RTL code.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout/h24_vendor_style_compile.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "h24_vendor_style_compile",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "(log)",
+        "gold": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": false,
+        "side_ok": true,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 3,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "(log)"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

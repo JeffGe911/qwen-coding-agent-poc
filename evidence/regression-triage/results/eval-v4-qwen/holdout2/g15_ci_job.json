@@ -1,0 +1,140 @@
+{
+  "sample_id": "g15_ci_job",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v2",
+    "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+    "file": "dataset/holdout2/g15_ci_job.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 7445,
+    "timeout_s": 180,
+    "seconds": 6.261,
+    "usage": {
+      "prompt_tokens": 2516,
+      "prompt_tokens_details": {
+        "cached_tokens": 509
+      },
+      "completion_tokens": 291,
+      "total_tokens": 2807
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": []
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "spi_loopback",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g15_ci_job.log",
+            "line": 21,
+            "quote": "spi_tb: RESULT PASSED (4/4 transfers)"
+          }
+        ],
+        "suggestion": "No issues found for spi_loopback test.",
+        "rejected_citations": []
+      },
+      {
+        "test_id": "debounce_glitch",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g15_ci_job.log",
+            "line": 28,
+            "quote": "mismatch at 290 ns: clean expected 0, observed 1 (cycle 29)"
+          },
+          {
+            "file": "dataset/holdout2/g15_ci_job.log",
+            "line": 33,
+            "quote": "tb_debounce: 85 cycles compared"
+          },
+          {
+            "file": "dataset/holdout2/g15_ci_job.log",
+            "line": 34,
+            "quote": "SIM RESULT: NOT OK (10 mismatching cycles)"
+          }
+        ],
+        "suggestion": "Review the debounce_glitch test for mismatches at cycles 29-32.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "The log shows two tests: spi_loopback passed and debounce_glitch failed. The debounce_glitch test had mismatches that need investigation.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout2/g15_ci_job.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "g15_ci_job",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "spi_loopback",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "debounce_glitch",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "debounce_glitch"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "sample_id": "h25_uvm_style_pass",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout/h25_uvm_style_pass.log",
+    "sha256": "a373c0daaf7a38523ea7dae3955c7abcd34771ca4c546d64eb0da2130c0e317c",
+    "lines": 33,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "arb_smoke_test",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout/h25_uvm_style_pass.log",
+            "line": 23,
+            "quote": "UVM_ERROR :    0"
+          }
+        ],
+        "fingerprint": null,
+        "certainty": "confirmed",
+        "notes": [
+          "UVM 汇总显示 0 个 error、0 个 fatal"
+        ],
+        "suggestion": "通过 dataset/holdout/h25_uvm_style_pass.log:23：“UVM_ERROR :    0”。"
+      }
+    ],
+    "groups": [],
+    "flags": [],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "h25_uvm_style_pass",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "arb_smoke_test",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

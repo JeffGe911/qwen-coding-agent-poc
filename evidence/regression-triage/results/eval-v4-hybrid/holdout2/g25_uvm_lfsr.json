@@ -1,0 +1,92 @@
+{
+  "sample_id": "g25_uvm_lfsr",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0002,
+    "model_status": "ok",
+    "model_seconds": 5.57,
+    "model_needed": true,
+    "model_tests_used": 1
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/holdout2/g25_uvm_lfsr.log",
+    "sha256": "a7a9b7b4d8b0b50fb8f0933deda220669bb04082cdd2ca043230b25972091975",
+    "lines": 34,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g25_uvm_lfsr.log",
+            "line": 12,
+            "quote": "UVM_ERROR lfsr_scoreboard.sv(102) @ 1415000: uvm_test_top.env.sb [SB_MISMATCH] item 141: dut state=0x5ae1 ref=0x5ae0"
+          },
+          {
+            "file": "dataset/holdout2/g25_uvm_lfsr.log",
+            "line": 13,
+            "quote": "UVM_ERROR lfsr_scoreboard.sv(102) @ 1425000: uvm_test_top.env.sb [SB_MISMATCH] item 142: dut state=0xd2f1 ref=0x2d70"
+          }
+        ],
+        "suggestion": "Review the mismatches in the scoreboard at items 141 and 142. Ensure the DUT state matches the reference value.",
+        "rejected_citations": [],
+        "source": "model",
+        "notes": [
+          "没有识别出仿真器、编译器或测试框架的输出",
+          "规则无法判断，采用模型的判断，需工程师复核"
+        ]
+      }
+    ],
+    "groups": [],
+    "flags": [],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": true
+  },
+  "score": {
+    "sample_id": "g25_uvm_lfsr",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "lfsr_rand_test",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "lfsr_rand_test"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

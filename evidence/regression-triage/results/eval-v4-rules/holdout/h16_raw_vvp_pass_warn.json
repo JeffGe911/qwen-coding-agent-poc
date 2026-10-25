@@ -1,0 +1,73 @@
+{
+  "sample_id": "h16_raw_vvp_pass_warn",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout/h16_raw_vvp_pass_warn.log",
+    "sha256": "4c4ec1a64563d7243628bc4da089c16f475c062b6ad8e72697fd9399b3c7b5e6",
+    "lines": 7,
+    "log_status": "unknown_format",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "undetermined",
+        "kind": null,
+        "evidence": [],
+        "fingerprint": null,
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "没有识别出仿真器、编译器或测试框架的输出"
+        ],
+        "suggestion": "证据不足，无法判断 （日志中没有可引用的行）。需要完整的日志（含退出码和 testbench 结论行）或人工查看。"
+      }
+    ],
+    "groups": [],
+    "flags": [],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "h16_raw_vvp_pass_warn",
+    "log_status_ok": false,
+    "log_status": {
+      "gold": "complete",
+      "pred": "unknown_format"
+    },
+    "tests": [
+      {
+        "test_id": "tb_updown",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 1,
+    "extra_citations_on_unmatched": 0
+  }
+}

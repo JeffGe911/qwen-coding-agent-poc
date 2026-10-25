@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-891",
+  "object": "chat.completion",
+  "created": 1792964506,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"spi_loopback\",\n      \"result\": \"fail\",\n      \"category\": \"test_failure\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\n          \"log_line\": 7,\n          \"quote\": \"FATAL: hdl/holdout2/tb/tb_spi_shift.v:43: spi_tb watchdog: transfer not finished after 20000 ns (cs_n=0 sclk=0)\"\n        }\n      ],\n      \"suggestion\": \"Check the design or testbench at hdl/holdout2/tb/tb_spi_shift.v:43 for issues causing the transfer not to finish within the watchdog timeout.\"\n    }\n  ],\n  \"notes\": \"The test failed due to a watchdog timeout indicating a design or testbench issue.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1113,
+    "prompt_tokens_details": {
+      "cached_tokens": 509
+    },
+    "completion_tokens": 189,
+    "total_tokens": 1302
+  }
+}

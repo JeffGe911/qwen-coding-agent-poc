@@ -1,0 +1,178 @@
+{
+  "sample_id": "g01_smoke",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v2",
+    "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+    "file": "dataset/holdout2/g01_smoke.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 7180,
+    "timeout_s": 180,
+    "seconds": 14.273,
+    "usage": {
+      "prompt_tokens": 1972,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens": 414,
+      "total_tokens": 2386
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": []
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "debounce_basic",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g01_smoke.log",
+            "line": 8,
+            "quote": "SIM RESULT: OK"
+          },
+          {
+            "file": "dataset/holdout2/g01_smoke.log",
+            "line": 9,
+            "quote": "hdl/holdout2/tb/tb_debounce.v:73: $finish called at 850000 (1ps)"
+          }
+        ],
+        "suggestion": "No issues found. Test passed.",
+        "rejected_citations": []
+      },
+      {
+        "test_id": "pwm_duty",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g01_smoke.log",
+            "line": 24,
+            "quote": "== PASS =="
+          },
+          {
+            "file": "dataset/holdout2/g01_smoke.log",
+            "line": 25,
+            "quote": "hdl/holdout2/tb/tb_pwm_gen.v:80: $finish called at 46096000 (1ps)"
+          }
+        ],
+        "suggestion": "No issues found. Test passed.",
+        "rejected_citations": []
+      },
+      {
+        "test_id": "lfsr_seq",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g01_smoke.log",
+            "line": 31,
+            "quote": "*** tb_lfsr16: SUCCESS (1000 steps, 0 scoreboard mismatches) ***"
+          },
+          {
+            "file": "dataset/holdout2/g01_smoke.log",
+            "line": 32,
+            "quote": "hdl/holdout2/tb/tb_lfsr16.sv:38: $finish called at 10030000 (1ps)"
+          }
+        ],
+        "suggestion": "No issues found. Test passed.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "All tests completed successfully with no errors or warnings.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout2/g01_smoke.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "g01_smoke",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "debounce_basic",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "pwm_duty",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "lfsr_seq",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

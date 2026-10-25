@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-596",
+  "object": "chat.completion",
+  "created": 1792964138,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"unknown_format\",\n  \"tests\": [\n    {\n      \"test_id\": \"(log)\",\n      \"result\": \"unknown\",\n      \"category\": \"unknown\",\n      \"side\": \"none\",\n      \"evidence\": [\n        {\n          \"log_line\": 5,\n          \"quote\": \"[ci] job 4411 finished with status=2\"\n        }\n      ],\n      \"suggestion\": \"The log format is unknown, and the job finished with a non-zero status. Check the artifacts/elab.out file for more details.\"\n    }\n  ],\n  \"notes\": \"The log does not contain any test results or failures. The job finished with a status of 2, which is not a pass. The format of the log is also unknown, making it difficult to determine the exact cause of the failure.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 645,
+    "prompt_tokens_details": {
+      "cached_tokens": 506
+    },
+    "completion_tokens": 177,
+    "total_tokens": 822
+  }
+}

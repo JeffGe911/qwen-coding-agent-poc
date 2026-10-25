@@ -1,0 +1,77 @@
+{
+  "sample_id": "d09_misleading_pass",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/dev/d09_misleading_pass.log",
+    "sha256": "43066857240d30fa0077269614074171e4dfd5af5b8781fa51f457e58c88f760",
+    "lines": 12,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "alu_error_path",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/dev/d09_misleading_pass.log",
+            "line": 9,
+            "quote": "TEST PASSED: tb_alu8"
+          }
+        ],
+        "fingerprint": null,
+        "certainty": "confirmed",
+        "notes": [],
+        "suggestion": "通过 dataset/dev/d09_misleading_pass.log:9：“TEST PASSED: tb_alu8”。"
+      }
+    ],
+    "groups": [],
+    "flags": [],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "d09_misleading_pass",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "alu_error_path",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

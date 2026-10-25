@@ -1,0 +1,178 @@
+{
+  "sample_id": "d08_duplicates",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v2",
+    "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+    "file": "dataset/dev/d08_duplicates.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 7534,
+    "timeout_s": 180,
+    "seconds": 5.237,
+    "usage": {
+      "prompt_tokens": 2266,
+      "prompt_tokens_details": {
+        "cached_tokens": 2265
+      },
+      "completion_tokens": 463,
+      "total_tokens": 2729
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": []
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "alu_sub_a",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/dev/d08_duplicates.log",
+            "line": 7,
+            "quote": "ERROR: [2000] tb_alu8 op=1 a=3 b=1 expected y=2 got y=4"
+          },
+          {
+            "file": "dataset/dev/d08_duplicates.log",
+            "line": 15,
+            "quote": "TEST FAILED: tb_alu8 errors=8"
+          }
+        ],
+        "suggestion": "Review the testbench for errors in the ALU subtraction operation. Check the expected and actual values for the inputs a=3, b=1, and a=32, b=8.",
+        "rejected_citations": []
+      },
+      {
+        "test_id": "fifo_basic",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [
+          {
+            "file": "dataset/dev/d08_duplicates.log",
+            "line": 22,
+            "quote": "TEST PASSED: tb_sync_fifo"
+          }
+        ],
+        "suggestion": "No action needed. The FIFO test passed as expected.",
+        "rejected_citations": []
+      },
+      {
+        "test_id": "alu_sub_b",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/dev/d08_duplicates.log",
+            "line": 29,
+            "quote": "ERROR: [2000] tb_alu8 op=1 a=3 b=1 expected y=2 got y=4"
+          },
+          {
+            "file": "dataset/dev/d08_duplicates.log",
+            "line": 37,
+            "quote": "TEST FAILED: tb_alu8 errors=8"
+          }
+        ],
+        "suggestion": "Review the testbench for errors in the ALU subtraction operation. Check the expected and actual values for the inputs a=3, b=1, and a=32, b=8.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "The ALU subtraction tests failed due to incorrect results. The FIFO test passed as expected.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/dev/d08_duplicates.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "d08_duplicates",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "alu_sub_a",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "fifo_basic",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "alu_sub_b",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "alu_sub_a",
+        "alu_sub_b"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "duplicate_failures"
+    ],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

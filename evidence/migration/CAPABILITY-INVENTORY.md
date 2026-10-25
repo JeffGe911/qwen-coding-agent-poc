@@ -17,6 +17,7 @@
 | 业务：Coding Agent | 单文件修复提案，经人工审批后在受限执行器中跑 pytest | report_pass_rate：21/21（含 12 个 holdout）；chip_final_yield：**没有修好** | evidence/report-pass-rate/、evidence/chip-rev2/REPORT.md | 只是小任务 |
 | 业务：日志分诊（规则） | 用真实的 Icarus/Verilator 运行生成日志，规则基线按冻结合同评测 | dev 37/37；独立 holdout 15/39，没有误放行 | evidence/regression-triage/REPORT-eval-v1.md | 覆盖率低：结论写法因项目而异 |
 | 业务：日志分诊（本地 Qwen，迁移前基线） | Ollama r2，后端配置 ollama-r2，单并发，合同 eval-v3（与 eval-v1 数据相同，prompt 未改） | holdout 盲测类别 34/39；漏报 0/24；误放行 1；引用 7/63 通过校验；50 个请求 0 失败；中位数 3.0 s/样本 | evidence/regression-triage/REPORT-eval-v3.md、results/eval-v3-qwen/、model-runs/eval-v3/ | 缺少结论行时放行；引用对不上日志行；笔记本数据不能外推 |
+| 业务：日志分诊（组合引擎） | 规则优先；规则判断不了时，采用经过守卫的 Qwen（没有结论行不能判通过，退出码矛盾也不能）；prompt v2 修正引用格式；合同 eval-v4 | 新的独立盲测集 holdout2：类别 33/45，误放行 0，漏报 5/27；Qwen v2 单独用 31/45，误放行 2 | evidence/regression-triage/REPORT-eval-v4.md | 输出预算按测试数给；规则一个测试都没识别时、或判为“日志不完整”时，都要交给模型（这两处未修，修完需要新的独立测试集）；lint 通过没有结论字样，守卫会误伤 |
 | 评测纪律 | 合同冻结数据、金标准和代码的哈希；holdout 由独立代理编写和标注；证据按字节存储；有请求体的黄金哈希 | `eval` 遇到哈希不符、合同未覆盖的引擎、重复运行时都会拒绝（有测试） | contract/、tests/ | — |
 
 ## 二、只有代码（有单元测试或静态检查，没在目标环境运行过）

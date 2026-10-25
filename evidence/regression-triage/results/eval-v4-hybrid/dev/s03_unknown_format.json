@@ -1,0 +1,99 @@
+{
+  "sample_id": "s03_unknown_format",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001,
+    "model_status": "ok",
+    "model_seconds": 2.14,
+    "model_needed": true,
+    "model_tests_used": 0
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/dev/s03_unknown_format.log",
+    "sha256": "0bb8420c05f89c5c01b370694a6756716422cfa7277fa3ff13c519b24d15592b",
+    "lines": 5,
+    "log_status": "unknown_format",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "undetermined",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/dev/s03_unknown_format.log",
+            "line": 5,
+            "quote": "[ci] job 4411 finished with status=2"
+          }
+        ],
+        "fingerprint": "unknown:aedfa22d",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "没有识别出仿真器、编译器或测试框架的输出"
+        ],
+        "suggestion": "证据不足，无法判断 dataset/dev/s03_unknown_format.log:5。需要完整的日志（含退出码和 testbench 结论行）或人工查看。",
+        "source": "rules"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:aedfa22d",
+        "category": "unknown",
+        "tests": [
+          "(log)"
+        ],
+        "example": {
+          "file": "dataset/dev/s03_unknown_format.log",
+          "line": 5,
+          "quote": "[ci] job 4411 finished with status=2"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": true
+  },
+  "score": {
+    "sample_id": "s03_unknown_format",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "unknown_format",
+      "pred": "unknown_format"
+    },
+    "tests": [
+      {
+        "test_id": "(log)",
+        "gold": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 1,
+    "extra_citations_on_unmatched": 0
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "sample_id": "g07_uart",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v2",
+    "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+    "file": "dataset/holdout2/g07_uart.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 5095,
+    "timeout_s": 180,
+    "seconds": 3.758,
+    "usage": {
+      "prompt_tokens": 1137,
+      "prompt_tokens_details": {
+        "cached_tokens": 509
+      },
+      "completion_tokens": 192,
+      "total_tokens": 1329
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": []
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "uart_tx_bytes",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g07_uart.log",
+            "line": 8,
+            "quote": "*** WATCHDOG: busy stuck high for 400 clocks (frame is 40), aborting ***"
+          },
+          {
+            "file": "dataset/holdout2/g07_uart.log",
+            "line": 9,
+            "quote": "UART TB RESULT: FAIL (tb_uart_tx, watchdog)"
+          }
+        ],
+        "suggestion": "Review the design or testbench for potential issues causing the watchdog to trigger. Check the timing constraints and ensure the design is functioning as expected.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "The test failed due to a watchdog timeout, indicating a potential issue with the design or testbench.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout2/g07_uart.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "g07_uart",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "uart_tx_bytes",
+        "gold": {
+          "result": "fail",
+          "category": "timeout",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": false,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "uart_tx_bytes"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

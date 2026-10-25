@@ -1,0 +1,105 @@
+{
+  "sample_id": "g07_uart",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0003,
+    "model_status": "ok",
+    "model_seconds": 3.758,
+    "model_needed": true,
+    "model_tests_used": 1
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/holdout2/g07_uart.log",
+    "sha256": "a54e56c91f264de18e31ae18e616f3d37f1c0822f5e0fa754d4aa4b26b91a800",
+    "lines": 12,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "uart_tx_bytes",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g07_uart.log",
+            "line": 8,
+            "quote": "*** WATCHDOG: busy stuck high for 400 clocks (frame is 40), aborting ***"
+          },
+          {
+            "file": "dataset/holdout2/g07_uart.log",
+            "line": 9,
+            "quote": "UART TB RESULT: FAIL (tb_uart_tx, watchdog)"
+          }
+        ],
+        "suggestion": "Review the design or testbench for potential issues causing the watchdog to trigger. Check the timing constraints and ensure the design is functioning as expected.",
+        "rejected_citations": [],
+        "source": "model",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过",
+          "规则无法判断，采用模型的判断，需工程师复核"
+        ]
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:6e28cf7b",
+        "category": "unknown",
+        "tests": [
+          "uart_tx_bytes"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g07_uart.log",
+          "line": 9,
+          "quote": "UART TB RESULT: FAIL (tb_uart_tx, watchdog)"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": true
+  },
+  "score": {
+    "sample_id": "g07_uart",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "uart_tx_bytes",
+        "gold": {
+          "result": "fail",
+          "category": "timeout",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": false,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "uart_tx_bytes"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

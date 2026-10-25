@@ -1,0 +1,160 @@
+{
+  "sample_id": "g08_pwm_regfile",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0005,
+    "model_status": "ok",
+    "model_seconds": 6.139,
+    "model_needed": true,
+    "model_tests_used": 2
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/holdout2/g08_pwm_regfile.log",
+    "sha256": "8a379adfb2310677bf07d6077b54d2817ec0c5f1b9bee05f80310588b33a9cc0",
+    "lines": 35,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "pwm_duty_chatty",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g08_pwm_regfile.log",
+            "line": 20,
+            "quote": "== PASS =="
+          },
+          {
+            "file": "dataset/holdout2/g08_pwm_regfile.log",
+            "line": 21,
+            "quote": "hdl/holdout2/tb/tb_pwm_gen.v:80: $finish called at 46096000 (1ps)"
+          }
+        ],
+        "suggestion": "The test passed as indicated by the '== PASS ==' message and the simulation finishing normally.",
+        "rejected_citations": [],
+        "source": "model",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过",
+          "规则无法判断，采用模型的判断，需工程师复核"
+        ]
+      },
+      {
+        "test_id": "regfile_err_resp",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g08_pwm_regfile.log",
+            "line": 32,
+            "quote": "[rf] RESULT: PASS"
+          },
+          {
+            "file": "dataset/holdout2/g08_pwm_regfile.log",
+            "line": 33,
+            "quote": "hdl/holdout2/tb/tb_regfile.v:106: $finish called at 341000 (1ps)"
+          }
+        ],
+        "suggestion": "The test passed as indicated by the '[rf] RESULT: PASS' message and the simulation finishing normally.",
+        "rejected_citations": [],
+        "source": "model",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过",
+          "规则无法判断，采用模型的判断，需工程师复核"
+        ]
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:f0dd6693",
+        "category": "unknown",
+        "tests": [
+          "pwm_duty_chatty"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g08_pwm_regfile.log",
+          "line": 20,
+          "quote": "== PASS =="
+        }
+      },
+      {
+        "fingerprint": "unknown:3b7e4bb7",
+        "category": "unknown",
+        "tests": [
+          "regfile_err_resp"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g08_pwm_regfile.log",
+          "line": 32,
+          "quote": "[rf] RESULT: PASS"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": true
+  },
+  "score": {
+    "sample_id": "g08_pwm_regfile",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "pwm_duty_chatty",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "regfile_err_resp",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

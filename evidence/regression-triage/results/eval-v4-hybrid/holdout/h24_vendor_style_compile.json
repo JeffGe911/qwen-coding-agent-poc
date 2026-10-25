@@ -1,0 +1,97 @@
+{
+  "sample_id": "h24_vendor_style_compile",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001,
+    "model_status": "ok",
+    "model_seconds": 3.942,
+    "model_needed": true,
+    "model_tests_used": 1
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/holdout/h24_vendor_style_compile.log",
+    "sha256": "b06cf0d674fb88441725ff30f9ac2921ef1cab9ecab56ef4dc6874e37e51fa41",
+    "lines": 18,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "fail",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h24_vendor_style_compile.log",
+            "line": 8,
+            "quote": "Error-[IND] Identifier not declared"
+          },
+          {
+            "file": "dataset/holdout/h24_vendor_style_compile.log",
+            "line": 9,
+            "quote": "hdl/holdout/rtl/crc8.v, 35"
+          },
+          {
+            "file": "dataset/holdout/h24_vendor_style_compile.log",
+            "line": 10,
+            "quote": "Identifier 'crc_next' has not been declared yet."
+          }
+        ],
+        "suggestion": "Check the declaration of 'crc_next' in crc8.v at line 35.",
+        "rejected_citations": [],
+        "source": "model",
+        "notes": [
+          "没有识别出仿真器、编译器或测试框架的输出",
+          "规则无法判断，采用模型的判断，需工程师复核"
+        ]
+      }
+    ],
+    "groups": [],
+    "flags": [],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": true
+  },
+  "score": {
+    "sample_id": "h24_vendor_style_compile",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "(log)",
+        "gold": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": false,
+        "side_ok": true,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 3,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "(log)"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

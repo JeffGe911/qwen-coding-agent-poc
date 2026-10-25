@@ -1,0 +1,105 @@
+{
+  "sample_id": "h09_arb_watchdog",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v2",
+    "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+    "file": "dataset/holdout/h09_arb_watchdog.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 5101,
+    "timeout_s": 180,
+    "seconds": 4.66,
+    "usage": {
+      "prompt_tokens": 1120,
+      "prompt_tokens_details": {
+        "cached_tokens": 508
+      },
+      "completion_tokens": 243,
+      "total_tokens": 1363
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": []
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "arb_rotation",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h09_arb_watchdog.log",
+            "line": 7,
+            "quote": "WATCHDOG: no progress for 3000 ns (still waiting for grant[2]); stopping simulation"
+          },
+          {
+            "file": "dataset/holdout/h09_arb_watchdog.log",
+            "line": 8,
+            "quote": "Simulation FAILED (tb_rr_arbiter): watchdog expired"
+          },
+          {
+            "file": "dataset/holdout/h09_arb_watchdog.log",
+            "line": 9,
+            "quote": "hdl/holdout/tb/tb_rr_arbiter.sv:38: $finish called at 3000000 (1ps)"
+          }
+        ],
+        "suggestion": "Review the design or testbench to ensure that the arbiter is making progress and that the watchdog timeout is appropriate.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "The simulation failed due to a watchdog timeout, indicating that the design or testbench did not make progress within the expected time frame.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout/h09_arb_watchdog.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "h09_arb_watchdog",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "arb_rotation",
+        "gold": {
+          "result": "fail",
+          "category": "timeout",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": false,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "arb_rotation"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

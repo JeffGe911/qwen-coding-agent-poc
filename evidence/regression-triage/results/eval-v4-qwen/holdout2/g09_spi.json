@@ -1,0 +1,95 @@
+{
+  "sample_id": "g09_spi",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v2",
+    "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+    "file": "dataset/holdout2/g09_spi.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 4792,
+    "timeout_s": 180,
+    "seconds": 3.07,
+    "usage": {
+      "prompt_tokens": 1017,
+      "prompt_tokens_details": {
+        "cached_tokens": 509
+      },
+      "completion_tokens": 152,
+      "total_tokens": 1169
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": []
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "spi_soak",
+        "result": "fail",
+        "category": "timeout",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g09_spi.log",
+            "line": 6,
+            "quote": "exit=1 elapsed_s=3.012 timed_out=true output_truncated=false"
+          }
+        ],
+        "suggestion": "Check the design or test for potential issues causing the timeout. Consider increasing the watchdog timeout or optimizing the test.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "The test timed out during the run stage, indicating a potential issue with the design or test itself.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout2/g09_spi.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "g09_spi",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "spi_soak",
+        "gold": {
+          "result": "fail",
+          "category": "timeout",
+          "side": "undetermined"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "timeout",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": false,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "spi_soak"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

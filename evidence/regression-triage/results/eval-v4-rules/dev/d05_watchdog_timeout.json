@@ -1,0 +1,97 @@
+{
+  "sample_id": "d05_watchdog_timeout",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/dev/d05_watchdog_timeout.log",
+    "sha256": "87cd9ec7de284205f133d84fa14b6e6d9cd369ab5e41904f34429173c1fcaff6",
+    "lines": 11,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "handshake_basic",
+        "result": "fail",
+        "category": "timeout",
+        "side": "design_or_test",
+        "kind": "watchdog",
+        "evidence": [
+          {
+            "file": "dataset/dev/d05_watchdog_timeout.log",
+            "line": 7,
+            "quote": "ERROR: [2000000] TIMEOUT watchdog: ack not seen within 2000 ns after req"
+          },
+          {
+            "file": "dataset/dev/d05_watchdog_timeout.log",
+            "line": 8,
+            "quote": "TEST FAILED: tb_handshake (timeout)"
+          }
+        ],
+        "fingerprint": "timeout:ee609678",
+        "certainty": "confirmed",
+        "notes": [],
+        "suggestion": "testbench 的 watchdog 触发 dataset/dev/d05_watchdog_timeout.log:7：“ERROR: [2000000] TIMEOUT watchdog: ack not seen within 2000 ns after req”。DUT 没有在规定时间内响应，优先检查握手信号、复位和计数器是否推进。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "timeout:ee609678",
+        "category": "timeout",
+        "tests": [
+          "handshake_basic"
+        ],
+        "example": {
+          "file": "dataset/dev/d05_watchdog_timeout.log",
+          "line": 7,
+          "quote": "ERROR: [2000000] TIMEOUT watchdog: ack not seen within 2000 ns after req"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "d05_watchdog_timeout",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "handshake_basic",
+        "gold": {
+          "result": "fail",
+          "category": "timeout",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "timeout",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "handshake_basic"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "sample_id": "h08_gray_selfcheck_exit0",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0003,
+    "model_status": "ok",
+    "model_seconds": 4.648,
+    "model_needed": true,
+    "model_tests_used": 1
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/holdout/h08_gray_selfcheck_exit0.log",
+    "sha256": "7b90f7893c5530ab3c9a8b70c2edbe016c064ebabe113b024fd4040a3438fed0",
+    "lines": 17,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "gray_exhaustive",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h08_gray_selfcheck_exit0.log",
+            "line": 7,
+            "quote": "MISMATCH @3000: encode bin=00010 exp=00011 act=00010"
+          },
+          {
+            "file": "dataset/holdout/h08_gray_selfcheck_exit0.log",
+            "line": 14,
+            "quote": "*** TEST FAILED *** tb_gray: 47 of 95 checks wrong"
+          }
+        ],
+        "suggestion": "Review the mismatches at addresses 3000, 4000, and 5000 in tb_gray.sv. Ensure the design and testbench are correctly implementing the gray code encoding and decoding.",
+        "rejected_citations": [],
+        "source": "model",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过",
+          "规则无法判断，采用模型的判断，需工程师复核"
+        ]
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:5a185bcd",
+        "category": "unknown",
+        "tests": [
+          "gray_exhaustive"
+        ],
+        "example": {
+          "file": "dataset/holdout/h08_gray_selfcheck_exit0.log",
+          "line": 14,
+          "quote": "*** TEST FAILED *** tb_gray: 47 of 95 checks wrong"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": true
+  },
+  "score": {
+    "sample_id": "h08_gray_selfcheck_exit0",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "gray_exhaustive",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "gray_exhaustive"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

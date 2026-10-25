@@ -1,0 +1,167 @@
+{
+  "sample_id": "d17_tool_exec_failure",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v2",
+    "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+    "file": "dataset/dev/d17_tool_exec_failure.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 5358,
+    "timeout_s": 180,
+    "seconds": 3.924,
+    "usage": {
+      "prompt_tokens": 1228,
+      "prompt_tokens_details": {
+        "cached_tokens": 1227
+      },
+      "completion_tokens": 332,
+      "total_tokens": 1560
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": []
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "alu_basic",
+        "result": "fail",
+        "category": "tool_error",
+        "side": "infrastructure",
+        "evidence": [
+          {
+            "file": "dataset/dev/d17_tool_exec_failure.log",
+            "line": 4,
+            "quote": "exit=4294967295"
+          }
+        ],
+        "suggestion": "Check the Icarus Verilog installation and ensure it is correctly configured.",
+        "rejected_citations": []
+      },
+      {
+        "test_id": "fifo_basic",
+        "result": "fail",
+        "category": "tool_error",
+        "side": "infrastructure",
+        "evidence": [
+          {
+            "file": "dataset/dev/d17_tool_exec_failure.log",
+            "line": 6,
+            "quote": "exit=4294967295"
+          }
+        ],
+        "suggestion": "Verify the Icarus Verilog installation and check for any missing dependencies.",
+        "rejected_citations": []
+      },
+      {
+        "test_id": "handshake_basic",
+        "result": "fail",
+        "category": "tool_error",
+        "side": "infrastructure",
+        "evidence": [
+          {
+            "file": "dataset/dev/d17_tool_exec_failure.log",
+            "line": 8,
+            "quote": "exit=4294967295"
+          }
+        ],
+        "suggestion": "Ensure that the Icarus Verilog tool is up-to-date and properly installed.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "All tests failed due to a tool error, indicating an issue with the Icarus Verilog installation.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/dev/d17_tool_exec_failure.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "d17_tool_exec_failure",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "alu_basic",
+        "gold": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "category_ok": true,
+        "result_ok": false,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "fifo_basic",
+        "gold": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "category_ok": true,
+        "result_ok": false,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "handshake_basic",
+        "gold": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "category_ok": true,
+        "result_ok": false,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "alu_basic",
+        "fifo_basic",
+        "handshake_basic"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "sample_id": "h14_shift_no_verdict",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v2",
+    "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+    "file": "dataset/holdout/h14_shift_no_verdict.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 5013,
+    "timeout_s": 180,
+    "seconds": 3.066,
+    "usage": {
+      "prompt_tokens": 1091,
+      "prompt_tokens_details": {
+        "cached_tokens": 508
+      },
+      "completion_tokens": 151,
+      "total_tokens": 1242
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": []
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "shift_smoke",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h14_shift_no_verdict.log",
+            "line": 8,
+            "quote": "hdl/holdout/tb/tb_shiftreg.sv:56: $finish called at 2420000 (1ps)"
+          }
+        ],
+        "suggestion": "The test completed successfully with $finish called at the expected time.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "The log shows that the test completed without errors, and the simulation finished as expected.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout/h14_shift_no_verdict.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "h14_shift_no_verdict",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "shift_smoke",
+        "gold": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-156",
+  "object": "chat.completion",
+  "created": 1792964119,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"(log)\",\n      \"result\": \"fail\",\n      \"category\": \"compile_error\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\n          \"log_line\": 1,\n          \"quote\": \"hdl/rtl/alu8.v:25: syntax error\"\n        },\n        {\n          \"log_line\": 2,\n          \"quote\": \"I give up.\"\n        }\n      ],\n      \"suggestion\": \"Fix the syntax error in alu8.v at line 25.\"\n    }\n  ],\n  \"notes\": \"The log shows a syntax error in the design file, which prevents the compilation from completing successfully.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 584,
+    "prompt_tokens_details": {
+      "cached_tokens": 506
+    },
+    "completion_tokens": 159,
+    "total_tokens": 743
+  }
+}

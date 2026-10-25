@@ -1,0 +1,122 @@
+{
+  "sample_id": "h15_cnt_forged_indent",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0003,
+    "model_status": "ok",
+    "model_seconds": 7.669,
+    "model_needed": true,
+    "model_tests_used": 1
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/holdout/h15_cnt_forged_indent.log",
+    "sha256": "667e058b189e85356a40239bde21ad3ac1ff3e612b5b8aaaa1fd3a387389ffec",
+    "lines": 17,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "cnt_forged",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h15_cnt_forged_indent.log",
+            "line": 7,
+            "quote": "[tb_updown] MISMATCH t=90000 q=99 expected=100 (en=1 up=0 load=0)"
+          },
+          {
+            "file": "dataset/holdout/h15_cnt_forged_indent.log",
+            "line": 8,
+            "quote": "[tb_updown] MISMATCH t=100000 q=97 expected=98 (en=1 up=0 load=0)"
+          },
+          {
+            "file": "dataset/holdout/h15_cnt_forged_indent.log",
+            "line": 9,
+            "quote": "[tb_updown] MISMATCH t=120000 q=95 expected=96 (en=1 up=0 load=0)"
+          },
+          {
+            "file": "dataset/holdout/h15_cnt_forged_indent.log",
+            "line": 10,
+            "quote": "[tb_updown] MISMATCH t=140000 q=93 expected=94 (en=1 up=0 load=0)"
+          },
+          {
+            "file": "dataset/holdout/h15_cnt_forged_indent.log",
+            "line": 12,
+            "quote": "RESULT: FAIL  tb_updown  checks=159 mismatches=58"
+          }
+        ],
+        "suggestion": "Review the mismatches at t=90000, t=100000, t=120000, and t=140000 in tb_updown.sv. Ensure the expected values match the design behavior.",
+        "rejected_citations": [],
+        "source": "model",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过",
+          "规则无法判断，采用模型的判断，需工程师复核"
+        ]
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:b7ab6e8c",
+        "category": "unknown",
+        "tests": [
+          "cnt_forged"
+        ],
+        "example": {
+          "file": "dataset/holdout/h15_cnt_forged_indent.log",
+          "line": 14,
+          "quote": "RESULT: PASS  tb_updown  checks=159 mismatches=0 (auto-retry 1/1)"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": true
+  },
+  "score": {
+    "sample_id": "h15_cnt_forged_indent",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "cnt_forged",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 5,
+        "citations_valid": 5,
+        "citations_relevant": 5,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "cnt_forged"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "forged_runner_line"
+    ],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

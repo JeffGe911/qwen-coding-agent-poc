@@ -1,0 +1,256 @@
+{
+  "sample_id": "h11_mixed",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v2",
+    "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+    "file": "dataset/holdout/h11_mixed.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 8882,
+    "timeout_s": 180,
+    "seconds": 12.794,
+    "usage": {
+      "prompt_tokens": 2521,
+      "prompt_tokens_details": {
+        "cached_tokens": 508
+      },
+      "completion_tokens": 635,
+      "total_tokens": 3156
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": [
+      "shift_lvalue: 1 citation(s) rejected (file/line/quote do not match the log)"
+    ]
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "shift_smoke",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h11_mixed.log",
+            "line": 7,
+            "quote": "tb_shiftreg: all 24 patterns OK -- PASS"
+          }
+        ],
+        "suggestion": "No issues found. Test passed.",
+        "rejected_citations": []
+      },
+      {
+        "test_id": "shift_lvalue",
+        "result": "fail",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h11_mixed.log",
+            "line": 11,
+            "quote": "hdl/holdout/rtl/shift_reg.v:23: error: 'q_r' is not a valid l-value for a procedural assignment."
+          }
+        ],
+        "suggestion": "Fix the declaration of 'q_r' to be a reg or a variable.",
+        "rejected_citations": [
+          {
+            "file": "dataset/holdout/h11_mixed.log",
+            "line": 13,
+            "quote": "hdl/holdout/rtl/shift_reg.v:16:      : 'q_r' is declared here as a wire."
+          }
+        ]
+      },
+      {
+        "test_id": "parity_modes",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h11_mixed.log",
+            "line": 23,
+            "quote": "parity check failed: data=0x00 odd=1 parity=0 expected=1"
+          },
+          {
+            "file": "dataset/holdout/h11_mixed.log",
+            "line": 27,
+            "quote": "FAIL: tb_parity (384 of 768 vectors wrong)"
+          }
+        ],
+        "suggestion": "Review the parity check logic in the testbench.",
+        "rejected_citations": []
+      },
+      {
+        "test_id": "crc_stop",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h11_mixed.log",
+            "line": 34,
+            "quote": "FATAL: hdl/holdout/tb/tb_crc8.sv:69: frame 1: crc=d4 but the reference says 72; stopping at the first CRC mismatch"
+          }
+        ],
+        "suggestion": "Check the CRC calculation in the design and testbench.",
+        "rejected_citations": []
+      },
+      {
+        "test_id": "arb_fairness",
+        "result": "fail",
+        "category": "timeout",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h11_mixed.log",
+            "line": 41,
+            "quote": "WATCHDOG: no progress for 3000 ns (still waiting for grant[2]); stopping simulation"
+          },
+          {
+            "file": "dataset/holdout/h11_mixed.log",
+            "line": 42,
+            "quote": "Simulation FAILED (tb_rr_arbiter): watchdog expired"
+          }
+        ],
+        "suggestion": "Optimize the arbiter logic to avoid long wait times.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "The log is complete and all tests have been evaluated.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout/h11_mixed.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "h11_mixed",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "shift_smoke",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "shift_lvalue",
+        "gold": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": false,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "parity_modes",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "crc_stop",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "arb_fairness",
+        "gold": {
+          "result": "fail",
+          "category": "timeout",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "timeout",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "arb_fairness",
+        "crc_stop",
+        "parity_modes",
+        "shift_lvalue"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "sample_id": "h23_ci_license_failure",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001,
+    "model_status": "ok",
+    "model_seconds": 3.148,
+    "model_needed": true,
+    "model_tests_used": 1
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/holdout/h23_ci_license_failure.log",
+    "sha256": "19db67c8dca78b5de8d07b2d033f49e5050a55b1ce9f86e2545e5b96185a46d3",
+    "lines": 10,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "fail",
+        "category": "tool_error",
+        "side": "infrastructure",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h23_ci_license_failure.log",
+            "line": 6,
+            "quote": "simctl: ERROR: license request failed: all 12 seats of 'sv_sim_runtime' are in use and queueing is disabled (-licqueue 0)"
+          }
+        ],
+        "suggestion": "Check the license server for available seats and ensure queueing is enabled if necessary.",
+        "rejected_citations": [],
+        "source": "model",
+        "notes": [
+          "没有识别出仿真器、编译器或测试框架的输出",
+          "规则无法判断，采用模型的判断，需工程师复核"
+        ]
+      }
+    ],
+    "groups": [],
+    "flags": [],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": true
+  },
+  "score": {
+    "sample_id": "h23_ci_license_failure",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "(log)",
+        "gold": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "category_ok": true,
+        "result_ok": false,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "(log)"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "sample_id": "h17_raw_iverilog_multidriver",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout/h17_raw_iverilog_multidriver.log",
+    "sha256": "2857cd16fd618259b5f8d47f1a42972ec5d7d12e691dc911cb4c973cede722a1",
+    "lines": 2,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "not_run",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout/h17_raw_iverilog_multidriver.log",
+            "line": 1,
+            "quote": "hdl/holdout/rtl/parity_gen.v:21: error: Cannot perform procedural assignment to variable 'perr_r' because it is also continuously assigned."
+          }
+        ],
+        "fingerprint": "compile_error:cdce655a",
+        "certainty": "confirmed",
+        "notes": [],
+        "suggestion": "先修第一条编译错误 dataset/holdout/h17_raw_iverilog_multidriver.log:1：“hdl/holdout/rtl/parity_gen.v:21: error: Cannot perform procedural assignment to variable 'perr_r' because it is also continuously assigned.”。之后的报错多半是它引起的连锁报错，修完再重新编译。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "compile_error:cdce655a",
+        "category": "compile_error",
+        "tests": [
+          "(log)"
+        ],
+        "example": {
+          "file": "dataset/holdout/h17_raw_iverilog_multidriver.log",
+          "line": 1,
+          "quote": "hdl/holdout/rtl/parity_gen.v:21: error: Cannot perform procedural assignment to variable 'perr_r' because it is also continuously assigned."
+        }
+      }
+    ],
+    "flags": [],
+    "notes": [
+      "原始编译器输出：日志中没有退出码"
+    ]
+  },
+  "score": {
+    "sample_id": "h17_raw_iverilog_multidriver",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "(log)",
+        "gold": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "(log)"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

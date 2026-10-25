@@ -1,0 +1,73 @@
+{
+  "sample_id": "h20_whitespace_only",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout/h20_whitespace_only.log",
+    "sha256": "eadf5479125ea8b8b369d66dfd68486f8e3cbca2eb18c55559bc88c01914e312",
+    "lines": 6,
+    "log_status": "empty",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "unknown",
+        "category": "incomplete_log",
+        "side": "infrastructure",
+        "kind": null,
+        "evidence": [],
+        "fingerprint": null,
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "日志文件为空"
+        ],
+        "suggestion": "日志不完整 （日志中没有可引用的行），缺少结束记录，不能据此判断结果。请重新运行，或检查日志采集和存储是否中断。"
+      }
+    ],
+    "groups": [],
+    "flags": [],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "h20_whitespace_only",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "empty",
+      "pred": "empty"
+    },
+    "tests": [
+      {
+        "test_id": "(log)",
+        "gold": {
+          "result": "unknown",
+          "category": "incomplete_log",
+          "side": "infrastructure"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "incomplete_log",
+          "side": "infrastructure"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": null
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

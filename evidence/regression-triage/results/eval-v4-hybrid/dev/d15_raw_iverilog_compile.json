@@ -1,0 +1,101 @@
+{
+  "sample_id": "d15_raw_iverilog_compile",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001,
+    "model_status": "ok",
+    "model_seconds": 1.92,
+    "model_needed": false,
+    "model_tests_used": 0
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/dev/d15_raw_iverilog_compile.log",
+    "sha256": "596d085117e1311154e107ed4f67a54f4d82551d93e72e8c8c4fbf914f78a813",
+    "lines": 2,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "not_run",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/dev/d15_raw_iverilog_compile.log",
+            "line": 1,
+            "quote": "hdl/rtl/alu8.v:25: syntax error"
+          }
+        ],
+        "fingerprint": "compile_error:849a9b12",
+        "certainty": "confirmed",
+        "notes": [],
+        "suggestion": "先修第一条编译错误 dataset/dev/d15_raw_iverilog_compile.log:1：“hdl/rtl/alu8.v:25: syntax error”。之后的报错多半是它引起的连锁报错，修完再重新编译。",
+        "source": "rules"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "compile_error:849a9b12",
+        "category": "compile_error",
+        "tests": [
+          "(log)"
+        ],
+        "example": {
+          "file": "dataset/dev/d15_raw_iverilog_compile.log",
+          "line": 1,
+          "quote": "hdl/rtl/alu8.v:25: syntax error"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": [
+      "原始编译器输出：日志中没有退出码"
+    ],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": false
+  },
+  "score": {
+    "sample_id": "d15_raw_iverilog_compile",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "(log)",
+        "gold": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "(log)"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

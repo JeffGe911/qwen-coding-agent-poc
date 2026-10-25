@@ -1,0 +1,96 @@
+{
+  "sample_id": "g12_tools",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout2/g12_tools.log",
+    "sha256": "e6c35d2c91644d55d5ec06a78cfab1d5cf14ccfd9e79189d4259f8099b9bda5b",
+    "lines": 5,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "spi_loopback",
+        "result": "not_run",
+        "category": "tool_error",
+        "side": "infrastructure",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g12_tools.log",
+            "line": 4,
+            "quote": "#RUN test=spi_loopback stage=compile tool_error=\"FileNotFoundError: [WinError 2] 系统找不到指定的文件。\" elapsed_s=0.001"
+          }
+        ],
+        "fingerprint": "tool_error:36717409",
+        "certainty": "confirmed",
+        "notes": [
+          "仿真器程序无法启动"
+        ],
+        "suggestion": "工具没有正常运行 dataset/holdout2/g12_tools.log:4：“#RUN test=spi_loopback stage=compile tool_error=\"FileNotFoundError: [WinError 2] 系统找不到指定的文件。\" elapsed_s=0.001”。这是环境问题，不是设计问题：检查仿真器安装路径、环境变量和许可证。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "tool_error:36717409",
+        "category": "tool_error",
+        "tests": [
+          "spi_loopback"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g12_tools.log",
+          "line": 4,
+          "quote": "#RUN test=spi_loopback stage=compile tool_error=\"FileNotFoundError: [WinError 2] 系统找不到指定的文件。\" elapsed_s=0.001"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "g12_tools",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "spi_loopback",
+        "gold": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "pred": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "spi_loopback"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "tool_setup_error"
+    ],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

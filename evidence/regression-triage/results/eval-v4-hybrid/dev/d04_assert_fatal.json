@@ -1,0 +1,99 @@
+{
+  "sample_id": "d04_assert_fatal",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0002,
+    "model_status": "ok",
+    "model_seconds": 2.227,
+    "model_needed": false,
+    "model_tests_used": 0
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/dev/d04_assert_fatal.log",
+    "sha256": "8867548f522870b70bd4e147f8a060b4a9508bcf49fdc6eef3408c336a7e88ba",
+    "lines": 10,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "fifo_basic",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "kind": "assertion",
+        "evidence": [
+          {
+            "file": "dataset/dev/d04_assert_fatal.log",
+            "line": 7,
+            "quote": "FATAL: hdl/tb/tb_sync_fifo.v:26: fifo reports full after 3 writes (count=3, DEPTH=4)"
+          }
+        ],
+        "fingerprint": "test_failure:c65e3fd8",
+        "certainty": "confirmed",
+        "notes": [],
+        "suggestion": "testbench 检查失败，首条证据 dataset/dev/d04_assert_fatal.log:7：“FATAL: hdl/tb/tb_sync_fifo.v:26: fifo reports full after 3 writes (count=3, DEPTH=4)”。对照期望值与实际值，查看相关信号在报告时刻附近的驱动和时序。",
+        "source": "rules"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "test_failure:c65e3fd8",
+        "category": "test_failure",
+        "tests": [
+          "fifo_basic"
+        ],
+        "example": {
+          "file": "dataset/dev/d04_assert_fatal.log",
+          "line": 7,
+          "quote": "FATAL: hdl/tb/tb_sync_fifo.v:26: fifo reports full after 3 writes (count=3, DEPTH=4)"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": false
+  },
+  "score": {
+    "sample_id": "d04_assert_fatal",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "fifo_basic",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "fifo_basic"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

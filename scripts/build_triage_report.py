@@ -36,9 +36,12 @@ def results(version):
     return found
 
 
-def counts(samples):
+def counts(samples, split=None):
+    """Totals over every gold test of the split: with `split`, the tests of a sample the engine could not answer (call
+    failed or output invalid) count as wrong and, when they needed attention, as missed (fn)."""
     tests = [t for s in samples if s["score"] for t in s["score"]["tests"]]
-    gold_total = sum(len(s["score"]["tests"]) for s in samples if s["score"])
+    unscored = [load(EV / "gold" / split / f"{s['sample_id']}.json")["tests"] for s in samples if not s["score"]] if split else []
+    gold_total = sum(len(s["score"]["tests"]) for s in samples if s["score"]) + sum(len(g) for g in unscored)
     c = {k: sum(t[f"{k}_ok"] for t in tests) for k, _ in QUALITY}
     # The model client drops citations that fail validation before scoring; count them back in, so a rate is over
     # every citation the engine gave, not only the ones that survived (rules never have rejected citations).
@@ -48,6 +51,7 @@ def counts(samples):
              need=sum(t["has_relevant_citation"] is not None for t in tests), has=sum(bool(t["has_relevant_citation"]) for t in tests))
     for k in ("tp", "fp", "fn"):
         c[k] = sum(len(s["score"]["flagged"][k]) for s in samples if s["score"])
+    c["fn"] += sum(t["result"] in ("fail", "not_run") for g in unscored for t in g.values())
     return c
 
 
@@ -55,7 +59,7 @@ def quality_table(found):
     cols = sorted(found, key=lambda k: (ENGINES.index(k[0]), SPLITS.index(k[1])))
     head = "| 指标 | " + " | ".join(f"{e} · {s}" for e, s in cols) + " |\n|---|" + "---|" * len(cols) + "\n"
     rows = []
-    cs = {k: counts(found[k]["samples"]) for k in cols}
+    cs = {k: counts(found[k]["samples"], k[1]) for k in cols}
     ms = {k: found[k]["metrics"] for k in cols}
     for key, label in QUALITY:
         rows.append(f"| {label} | " + " | ".join(frac(cs[k][key], cs[k]["tests"]) for k in cols) + " |")
@@ -125,7 +129,7 @@ def comparison(found):
         if len(engines) < 2 or "rules" not in engines:
             continue
         sf = {e: safety(found[(e, split)]["samples"], split) for e in engines}
-        cs = {e: counts(found[(e, split)]["samples"]) for e in engines}
+        cs = {e: counts(found[(e, split)]["samples"], split) for e in engines}
         n = sf["rules"]["tests"]
         row = lambda label, f: f"| {label} | " + " | ".join(f(e) for e in engines) + " |"
         out += [f"### {split}（{n} 个金标准测试）\n", "| | " + " | ".join(NAMES[e] for e in engines) + " |", "|---|" + "---|" * len(engines),

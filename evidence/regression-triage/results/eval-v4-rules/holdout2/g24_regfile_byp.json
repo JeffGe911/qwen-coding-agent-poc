@@ -1,0 +1,104 @@
+{
+  "sample_id": "g24_regfile_byp",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout2/g24_regfile_byp.log",
+    "sha256": "67ed94e2f9e219f100f70d1e1c5bf83f45c8fb10170b9cb4e2b4e8ca5907cf4f",
+    "lines": 17,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "regfile_rw",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "undetermined",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g24_regfile_byp.log",
+            "line": 14,
+            "quote": "[rf] RESULT: FAIL"
+          },
+          {
+            "file": "dataset/holdout2/g24_regfile_byp.log",
+            "line": 15,
+            "quote": "hdl/holdout2/tb/tb_regfile.v:106: $finish called at 321000 (1ps)"
+          },
+          {
+            "file": "dataset/holdout2/g24_regfile_byp.log",
+            "line": 16,
+            "quote": "#RUN test=regfile_rw stage=run exit=0 elapsed_s=0.045 timed_out=false output_truncated=false"
+          }
+        ],
+        "fingerprint": "unknown:962619bd",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过"
+        ],
+        "suggestion": "证据不足，无法判断 dataset/holdout2/g24_regfile_byp.log:14。需要完整的日志（含退出码和 testbench 结论行）或人工查看。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:962619bd",
+        "category": "unknown",
+        "tests": [
+          "regfile_rw"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g24_regfile_byp.log",
+          "line": 14,
+          "quote": "[rf] RESULT: FAIL"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "g24_regfile_byp",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "regfile_rw",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": [
+        "regfile_rw"
+      ]
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 1,
+    "extra_citations_on_unmatched": 0
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "sample_id": "h04_gray_unknown_module",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout/h04_gray_unknown_module.log",
+    "sha256": "b549949d7ca3c8a8ad309249f276ace620fbe346fb3a1562aff03067018b6f43",
+    "lines": 10,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "gray_exhaustive",
+        "result": "not_run",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout/h04_gray_unknown_module.log",
+            "line": 4,
+            "quote": "hdl/holdout/tb/tb_gray.sv:14: error: Unknown module type: gray_encoder"
+          }
+        ],
+        "fingerprint": "compile_error:ac0aaa8f",
+        "certainty": "confirmed",
+        "notes": [],
+        "suggestion": "先修第一条编译错误 dataset/holdout/h04_gray_unknown_module.log:4：“hdl/holdout/tb/tb_gray.sv:14: error: Unknown module type: gray_encoder”。之后的报错多半是它引起的连锁报错，修完再重新编译。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "compile_error:ac0aaa8f",
+        "category": "compile_error",
+        "tests": [
+          "gray_exhaustive"
+        ],
+        "example": {
+          "file": "dataset/holdout/h04_gray_unknown_module.log",
+          "line": 4,
+          "quote": "hdl/holdout/tb/tb_gray.sv:14: error: Unknown module type: gray_encoder"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "h04_gray_unknown_module",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "gray_exhaustive",
+        "gold": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "gray_exhaustive"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

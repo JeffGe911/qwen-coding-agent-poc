@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-234",
+  "object": "chat.completion",
+  "created": 1792964213,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"arb_rotation\",\n      \"result\": \"fail\",\n      \"category\": \"test_failure\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\n          \"log_line\": 7,\n          \"quote\": \"WATCHDOG: no progress for 3000 ns (still waiting for grant[2]); stopping simulation\"\n        },\n        {\n          \"log_line\": 8,\n          \"quote\": \"Simulation FAILED (tb_rr_arbiter): watchdog expired\"\n        },\n        {\n          \"log_line\": 9,\n          \"quote\": \"hdl/holdout/tb/tb_rr_arbiter.sv:38: $finish called at 3000000 (1ps)\"\n        }\n      ],\n      \"suggestion\": \"Review the design or testbench to ensure that the arbiter is making progress and that the watchdog timeout is appropriate.\"\n    }\n  ],\n  \"notes\": \"The simulation failed due to a watchdog timeout, indicating that the design or testbench did not make progress within the expected time frame.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1120,
+    "prompt_tokens_details": {
+      "cached_tokens": 508
+    },
+    "completion_tokens": 243,
+    "total_tokens": 1363
+  }
+}

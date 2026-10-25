@@ -33,7 +33,7 @@ def side(version, engine, split):
     secs = sorted(c["seconds"] for c in calls if c.get("seconds") is not None)
     pct = lambda q: secs[min(len(secs) - 1, int(q * len(secs)))] if secs else None
     usage = [c.get("usage") or {} for c in calls]
-    return {"samples": samples, "safety": safety(samples, split), "counts": counts(samples), "n": len(calls),
+    return {"samples": samples, "safety": safety(samples, split), "counts": counts(samples, split), "n": len(calls),
             "ok": sum(c["status"] == "ok" for c in calls), "request_failed": sum(c["status"] == "request_failed" for c in calls),
             "invalid_output": sum(c["status"] == "invalid_output" for c in calls),
             "seconds": {"median": pct(0.5), "p90": pct(0.9), "max": secs[-1] if secs else None, "total": round(sum(secs), 1)},

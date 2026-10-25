@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-520",
+  "object": "chat.completion",
+  "created": 1792964452,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"uart_tx_bytes\",\n      \"result\": \"fail\",\n      \"category\": \"test_failure\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\"log_line\": 8, \"quote\": \"*** WATCHDOG: busy stuck high for 400 clocks (frame is 40), aborting ***\"},\n        {\"log_line\": 9, \"quote\": \"UART TB RESULT: FAIL (tb_uart_tx, watchdog)\"}\n      ],\n      \"suggestion\": \"Review the UART testbench for potential issues causing the watchdog to trigger.\"\n    },\n    {\n      \"test_id\": \"lfsr_seq\",\n      \"result\": \"pass\",\n      \"category\": \"pass\",\n      \"side\": \"none\",\n      \"evidence\": [\n        {\"log_line\": 15, \"quote\": \"[tb_lfsr16] seed=16'hACE1 taps=16'hB400, 1000 steps\"},\n        {\"log_line\": 16, \"quote\": \"*** tb_lfsr16: SUCCESS (1000 steps, 0 scoreboard mismatches) ***\"}\n      ],\n      \"suggestion\": \"No action needed as the test passed.\"\n    },\n    {\n      \"test_id\": \"pwm_duty\",\n      \"result\": \"fail\",\n      \"category\": \"test_failure\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\"log_line\": 22, \"quote\": \"pwm_gen duty sweep (period 256 clocks)\"},\n        {\"log_line\": 23, \"quote\": \"  duty=  0  high=  1  expect=  0  <-- MISMATCH\"},\n        {\"log_line\": 25, \"quote\": \"  duty=  1  high=  2  expect=  1  <-- MISMATCH\"},\n        {\"log_line\": 26, \"quote\": \"  duty= 64  high= 65  expect= 64  <-- MISMATCH\"},\n        {\"log_line\": 27, \"quote\": \"  duty=128  high=129  expect=128  <-- MISMATCH\"},\n        {\"log_line\": 28, \"quote\": \"  duty=200  high=201  expect=200  <-- MISMATCH\"},\n        {\"log_line\": 29, \"quote\": \"  duty=255  high=256  expect=255  <-- MISMATCH\"},\n        {\"log_line\": 30, \"quote\": \"  WARN: duty=255 gives 255/256 high, 100% is not reachable (by spec)\"},\n        {\"log_line\": 31, \"quote\": \"Errors: 6 Warnings: 2\"},\n        {\"log_line\": 32, \"quote\": \"== FAIL ==\"}\n      ],\n      \"suggestion\": \"Review the PWM generator testbench for mismatches and warnings.\"\n    },\n    {\n      \"test_id\": \"regfile_lint\",\n      \"result\": \"pass\",\n      \"category\": \"pass\",\n      \"side\": \"none\",\n      \"evidence\": [\n        {\"log_line\": 35, \"quote\": \"#RUN test=regfile_lint stage=lint cmd=verilator_bin.exe --lint-only -Wall --top-module regfile hdl/holdout2/rtl/regfile.v\"},\n        {\"log_line\": 36, \"quote\": \"- V e r i l a t i o n   R e p o r t: Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)\"},\n        {\"log_line\": 37, \"quote\": \"- Verilator: Built from 0.049 MB sources in 3 modules, into 0.026 MB in 3 C++ files needing 0.000 MB\"},\n        {\"log_line\": 38, \"quote\": \"- Verilator: Walltime 0.012 s (elab=0.000, cvt=0.003, bld=0.000); cpu 0.000 s on 1 threads; allocated 14.793 MB\"},\n        {\"log_line\": 39, \"quote\": \"#RUN test=regfile_lint stage=lint exit=0 elapsed_s=0.043 timed_out=false output_truncated=false\"}\n      ],\n      \"suggestion\": \"No action needed as the lint test passed.\"\n    },\n    {\n      \"test_id\": \"lfsr_taps_v2\",\n      \"result\": \"fail\",\n      \"category\": \"compile_error\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\"log_line\": 41, \"quote\": \"hdl/holdout2/rtl/lfsr16.v:14: error: Unable to bind parameter `TAPS_V2' in `tb_lfsr16.dut'\"},\n        {\"log_line\": 42, \"quote\": \"1 error(s) during elaboration.\"}\n      ],\n      \"suggestion\": \"Fix the error in the LFSR testbench by binding the `TAPS_V2` parameter correctly.\"\n    },\n    {\n      \"test_id\": \"spi_loopback\",\n      \"result\": \"pass\",\n      \"category\": \"pass\",\n      \""
+      },
+      "finish_reason": "length"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 2951,
+    "prompt_tokens_details": {
+      "cached_tokens": 509
+    },
+    "completion_tokens": 1200,
+    "total_tokens": 4151
+  }
+}

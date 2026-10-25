@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-345",
+  "object": "chat.completion",
+  "created": 1792964380,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"debounce_basic\",\n      \"result\": \"pass\",\n      \"category\": \"pass\",\n      \"side\": \"none\",\n      \"evidence\": [\n        {\"log_line\": 8, \"quote\": \"SIM RESULT: OK\"},\n        {\"log_line\": 9, \"quote\": \"hdl/holdout2/tb/tb_debounce.v:73: $finish called at 850000 (1ps)\"}\n      ],\n      \"suggestion\": \"No issues found. Test passed.\"\n    },\n    {\n      \"test_id\": \"pwm_duty\",\n      \"result\": \"pass\",\n      \"category\": \"pass\",\n      \"side\": \"none\",\n      \"evidence\": [\n        {\"log_line\": 24, \"quote\": \"== PASS ==\"},\n        {\"log_line\": 25, \"quote\": \"hdl/holdout2/tb/tb_pwm_gen.v:80: $finish called at 46096000 (1ps)\"}\n      ],\n      \"suggestion\": \"No issues found. Test passed.\"\n    },\n    {\n      \"test_id\": \"lfsr_seq\",\n      \"result\": \"pass\",\n      \"category\": \"pass\",\n      \"side\": \"none\",\n      \"evidence\": [\n        {\"log_line\": 31, \"quote\": \"*** tb_lfsr16: SUCCESS (1000 steps, 0 scoreboard mismatches) ***\"},\n        {\"log_line\": 32, \"quote\": \"hdl/holdout2/tb/tb_lfsr16.sv:38: $finish called at 10030000 (1ps)\"}\n      ],\n      \"suggestion\": \"No issues found. Test passed.\"\n    }\n  ],\n  \"notes\": \"All tests completed successfully with no errors or warnings.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1972,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "completion_tokens": 414,
+    "total_tokens": 2386
+  }
+}

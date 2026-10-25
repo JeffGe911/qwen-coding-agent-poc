@@ -118,7 +118,7 @@ def triage_section():
     if not rows:
         return ""
     return ('<h2>7. 仿真回归日志分诊（真实 Icarus / Verilator 运行）</h2><p>读日志 → 引用原文行的失败归类 → 工程师确认。dev 由规则作者编写，只用于开发；'
-            'holdout 由独立代理编写和标注，规则在它交付前已提交，只运行一次（盲测）。本地 Qwen（eval-v3，Ollama r2）与规则使用同一个 holdout：Qwen 覆盖面广得多，但会在缺少结论行时放行，引用大多对不上日志行。'
+            'holdout 由独立代理编写和标注，规则在它交付前已提交，只运行一次（盲测）。本地 Qwen（eval-v3）与规则使用同一个 holdout：Qwen 覆盖面广得多，但会在缺少结论行时放行。eval-v4 加入了规则优先 + 守卫后的 Qwen 的组合引擎，在新的独立盲测集 holdout2 上类别 33/45，没有误放行。'
             '<a href="regression-triage/REPORT-eval-v1.md">完整报告</a></p>'
             + table(["合同", "引擎", "拆分", "样本 / 金标准测试", "类别准确率", "需关注 precision", "需关注 recall", "引用有效率", "unknown 比例", "请求失败 / 输出不合规"], rows)
             + "<p><small>规则在 holdout 上的错误几乎都是“不知道”，从不放行；Qwen 漏报为 0，但有 1 次误放行，引用有效率只有约 11%。详见报告。</small></p>")

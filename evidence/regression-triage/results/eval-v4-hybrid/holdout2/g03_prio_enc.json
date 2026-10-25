@@ -1,0 +1,99 @@
+{
+  "sample_id": "g03_prio_enc",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0003,
+    "model_status": "ok",
+    "model_seconds": 4.223,
+    "model_needed": false,
+    "model_tests_used": 0
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/holdout2/g03_prio_enc.log",
+    "sha256": "2b2eeed1db606515a81c02618046e96fe94e49d83f2f836e7e78c744708ecee2",
+    "lines": 7,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "prio_enc_exh",
+        "result": "not_run",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g03_prio_enc.log",
+            "line": 4,
+            "quote": "hdl/holdout2/rtl/prio_enc8.v:33: syntax error"
+          }
+        ],
+        "fingerprint": "compile_error:dc6b3830",
+        "certainty": "confirmed",
+        "notes": [],
+        "suggestion": "先修第一条编译错误 dataset/holdout2/g03_prio_enc.log:4：“hdl/holdout2/rtl/prio_enc8.v:33: syntax error”。之后的报错多半是它引起的连锁报错，修完再重新编译。",
+        "source": "rules"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "compile_error:dc6b3830",
+        "category": "compile_error",
+        "tests": [
+          "prio_enc_exh"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g03_prio_enc.log",
+          "line": 4,
+          "quote": "hdl/holdout2/rtl/prio_enc8.v:33: syntax error"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": false
+  },
+  "score": {
+    "sample_id": "g03_prio_enc",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "prio_enc_exh",
+        "gold": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "prio_enc_exh"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "sample_id": "g18_prio_phase",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0002,
+    "model_status": "ok",
+    "model_seconds": 3.591,
+    "model_needed": true,
+    "model_tests_used": 0
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/holdout2/g18_prio_phase.log",
+    "sha256": "f347be33c2f494246837289d59c2727bdae15bbb6fbd1f234e52ebb90c679009",
+    "lines": 9,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "prio_enc_split",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "undetermined",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g18_prio_phase.log",
+            "line": 6,
+            "quote": "tb_prio_enc8: exhaustive sweep, 256 vectors"
+          },
+          {
+            "file": "dataset/holdout2/g18_prio_phase.log",
+            "line": 7,
+            "quote": "tb_prio_enc8: phase 1 done (128 vectors, 0 bad), waiting for phase 2 release"
+          },
+          {
+            "file": "dataset/holdout2/g18_prio_phase.log",
+            "line": 8,
+            "quote": "#RUN test=prio_enc_split stage=run exit=0 elapsed_s=0.037 timed_out=false output_truncated=false"
+          }
+        ],
+        "fingerprint": "unknown:d1007f06",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过"
+        ],
+        "suggestion": "证据不足，无法判断 dataset/holdout2/g18_prio_phase.log:6。需要完整的日志（含退出码和 testbench 结论行）或人工查看。",
+        "source": "rules"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:d1007f06",
+        "category": "unknown",
+        "tests": [
+          "prio_enc_split"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g18_prio_phase.log",
+          "line": 6,
+          "quote": "tb_prio_enc8: exhaustive sweep, 256 vectors"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": true
+  },
+  "score": {
+    "sample_id": "g18_prio_phase",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "prio_enc_split",
+        "gold": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 1,
+    "extra_citations_on_unmatched": 0
+  }
+}

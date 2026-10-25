@@ -1,0 +1,91 @@
+{
+  "model": "qwen2.5-coder:7b",
+  "unloaded": true,
+  "before": {
+    "at_utc": "2026-10-25T21:39:05+00:00",
+    "memory": {
+      "total_mb": 32129,
+      "available_mb": 3476,
+      "commit_limit_mb": 44417,
+      "commit_headroom_mb": 3999
+    },
+    "gpu": {
+      "vram_used_mb": 5112,
+      "vram_total_mb": 12227,
+      "vram_free_mb": 7115,
+      "gpu_util_pct": 0,
+      "gpu_temp_c": 48
+    },
+    "api_ps": {
+      "models": [
+        {
+          "name": "qwen2.5-coder:7b",
+          "model": "qwen2.5-coder:7b",
+          "size": 5148633988,
+          "digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+          "details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "qwen2",
+            "families": [
+              "qwen2"
+            ],
+            "parameter_size": "7.6B",
+            "quantization_level": "Q4_K_M"
+          },
+          "expires_at": "2026-10-25T15:08:33.0125152-07:00",
+          "size_vram": 5148633988,
+          "context_length": 8192,
+          "runner": "llamacpp"
+        }
+      ]
+    },
+    "processes": [
+      {
+        "pid": 34896,
+        "name": "llama-server",
+        "private_mb": 10083,
+        "working_set_mb": 4799
+      },
+      {
+        "pid": 36120,
+        "name": "ollama",
+        "private_mb": 101,
+        "working_set_mb": 64
+      }
+    ]
+  },
+  "after": {
+    "at_utc": "2026-10-25T21:39:07+00:00",
+    "memory": {
+      "total_mb": 32129,
+      "available_mb": 8588,
+      "commit_limit_mb": 44417,
+      "commit_headroom_mb": 14433
+    },
+    "gpu": {
+      "vram_used_mb": 0,
+      "vram_total_mb": 12227,
+      "vram_free_mb": 12227,
+      "gpu_util_pct": 0,
+      "gpu_temp_c": 48
+    },
+    "api_ps": {
+      "models": []
+    },
+    "processes": [
+      {
+        "pid": 54076,
+        "name": "llama-server",
+        "private_mb": 335,
+        "working_set_mb": 245
+      },
+      {
+        "pid": 36120,
+        "name": "ollama",
+        "private_mb": 101,
+        "working_set_mb": 64
+      }
+    ]
+  }
+}

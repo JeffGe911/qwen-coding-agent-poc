@@ -1,0 +1,65 @@
+g01_smoke ok 3 / 3
+g02_debounce ok 1 / 1
+g03_prio_enc ok 1 / 1
+g04_regfile ok 1 / 1
+g05_shard ok 0 / 1
+g06_lfsr ok 1 / 1
+g07_uart ok 0 / 1
+g08_pwm_regfile ok 2 / 2
+g09_spi ok 1 / 1
+g10_lint ok 1 / 2
+g11_raw_prio ok 1 / 1
+g12_tools ok 0 / 1
+g13_nightly invalid_output  / 6
+g14_debounce_notes ok 1 / 1
+g15_ci_job ok 2 / 2
+g16_pwm ok 1 / 1
+g17_regfile_pair ok 3 / 3
+g18_prio_phase ok 0 / 1
+g19_uart_tb ok 1 / 1
+g20_raw_pwm_build ok 1 / 1
+g21_prio_dbg ok 1 / 1
+g22_spi_wdog ok 0 / 1
+g23_uart_b ok 0 / 1
+g24_regfile_byp ok 1 / 1
+g25_uvm_lfsr ok 1 / 1
+g26_regfile_c ok 1 / 1
+g27_raw_lint ok 0 / 1
+g28_uart_warn ok 1 / 1
+g29_mixed_b ok 2 / 2
+g30_sim_farm ok 1 / 1
+g31_build ok 1 / 1
+g32_job_summary ok 1 / 1
+{
+ "samples": 31,
+ "gold_tests": 39,
+ "category_accuracy": 0.7949,
+ "result_accuracy": 0.7692,
+ "side_accuracy": 0.8205,
+ "flagged_precision": 1.0,
+ "flagged_recall": 1.0,
+ "flagged_counts": {
+  "tp": 24,
+  "fp": 0,
+  "fn": 0
+ },
+ "citations": 93,
+ "citation_valid_rate": 1.0,
+ "citation_relevant_rate": 0.7097,
+ "tests_with_relevant_citation": 0.9474,
+ "unknown_rate": 0.0513,
+ "unmatched_tests": 0,
+ "log_status_accuracy": 0.9032,
+ "flag_recall": 0.0,
+ "requests": 32,
+ "request_failed": 0,
+ "invalid_output": 1,
+ "scored_samples": 31,
+ "unscored_samples": [
+  "g13_nightly"
+ ],
+ "seconds_total": 187.882,
+ "prompt_tokens": 40768,
+ "completion_tokens": 9314,
+ "category_accuracy_all_samples": 0.6889
+}

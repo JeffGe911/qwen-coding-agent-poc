@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-452",
+  "object": "chat.completion",
+  "created": 1792964484,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"regfile_rw\",\n      \"result\": \"fail\",\n      \"category\": \"test_failure\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\"log_line\": 7, \"quote\": \"[rf] MISCOMPARE @181000 raddr=3 we=0 waddr=5 exp=1e got=00\"},\n        {\"log_line\": 8, \"quote\": \"[rf] MISCOMPARE @281000 raddr=3 we=0 waddr=3 exp=c3 got=00\"}\n      ],\n      \"suggestion\": \"Review the design of the regfile at addresses 3 and 5, and ensure that the write operation is correctly updating the register values.\"\n    },\n    {\n      \"test_id\": \"uart_tx_bytes\",\n      \"result\": \"pass\",\n      \"category\": \"pass\",\n      \"side\": \"none\",\n      \"evidence\": [\n        {\"log_line\": 17, \"quote\": \"uart_tx_tb: tx 0x55 -> rx 0x55 ok\"},\n        {\"log_line\": 18, \"quote\": \"uart_tx_tb: tx 0xa3 -> rx 0xa3 ok\"},\n        {\"log_line\": 19, \"quote\": \"uart_tx_tb: tx 0x00 -> rx 0x00 ok\"},\n        {\"log_line\": 20, \"quote\": \"uart_tx_tb: tx 0xff -> rx 0xff ok\"}\n      ],\n      \"suggestion\": \"No action required as the test passed.\"\n    },\n    {\n      \"test_id\": \"regfile_b2b\",\n      \"result\": \"fail\",\n      \"category\": \"test_failure\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\"log_line\": 28, \"quote\": \"[rf] MISCOMPARE @101000 raddr=3 we=0 waddr=3 exp=c3 got=00\"}\n      ],\n      \"suggestion\": \"Review the design of the regfile at address 3, and ensure that the write operation is correctly updating the register value.\"\n    }\n  ],\n  \"notes\": \"The regression run completed successfully, but two tests failed due to mismatches in register values.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1952,
+    "prompt_tokens_details": {
+      "cached_tokens": 509
+    },
+    "completion_tokens": 507,
+    "total_tokens": 2459
+  }
+}

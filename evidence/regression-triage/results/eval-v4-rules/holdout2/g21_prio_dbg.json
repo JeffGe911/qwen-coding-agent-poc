@@ -1,0 +1,102 @@
+{
+  "sample_id": "g21_prio_dbg",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout2/g21_prio_dbg.log",
+    "sha256": "d17c971db747f0ef7e836f890f585d1d87578017a4d9a739f7761c8e4a7864e3",
+    "lines": 13,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "prio_enc_dbg",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "undetermined",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g21_prio_dbg.log",
+            "line": 10,
+            "quote": "PASS: tb_prio_enc8 (256/256 vectors)"
+          },
+          {
+            "file": "dataset/holdout2/g21_prio_dbg.log",
+            "line": 11,
+            "quote": "hdl/holdout2/tb/tb_prio_enc8.v:60: $finish called at 256000 (1ps)"
+          },
+          {
+            "file": "dataset/holdout2/g21_prio_dbg.log",
+            "line": 12,
+            "quote": "#RUN test=prio_enc_dbg stage=run exit=0 elapsed_s=0.09 timed_out=false output_truncated=false"
+          }
+        ],
+        "fingerprint": "unknown:e939fa73",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过"
+        ],
+        "suggestion": "证据不足，无法判断 dataset/holdout2/g21_prio_dbg.log:10。需要完整的日志（含退出码和 testbench 结论行）或人工查看。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:e939fa73",
+        "category": "unknown",
+        "tests": [
+          "prio_enc_dbg"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g21_prio_dbg.log",
+          "line": 10,
+          "quote": "PASS: tb_prio_enc8 (256/256 vectors)"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "g21_prio_dbg",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "prio_enc_dbg",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 1,
+    "extra_citations_on_unmatched": 0
+  }
+}

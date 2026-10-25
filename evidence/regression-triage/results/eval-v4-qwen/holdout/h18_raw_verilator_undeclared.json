@@ -1,0 +1,105 @@
+{
+  "sample_id": "h18_raw_verilator_undeclared",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v2",
+    "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+    "file": "dataset/holdout/h18_raw_verilator_undeclared.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 4054,
+    "timeout_s": 180,
+    "seconds": 4.394,
+    "usage": {
+      "prompt_tokens": 675,
+      "prompt_tokens_details": {
+        "cached_tokens": 508
+      },
+      "completion_tokens": 238,
+      "total_tokens": 913
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": []
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "fail",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h18_raw_verilator_undeclared.log",
+            "line": 1,
+            "quote": "%Error: hdl/holdout/rtl\\crc8.v:35:20: Can't find definition of variable: 'crc_next'"
+          },
+          {
+            "file": "dataset/holdout/h18_raw_verilator_undeclared.log",
+            "line": 2,
+            "quote": "    35 |             crc <= crc_next;                             "
+          },
+          {
+            "file": "dataset/holdout/h18_raw_verilator_undeclared.log",
+            "line": 3,
+            "quote": "      |                    ^~~~~~~~"
+          }
+        ],
+        "suggestion": "Check the definition of 'crc_next' in crc8.v. Ensure it is declared and accessible in the scope where it is being used.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "The log indicates a compile error due to an undeclared variable 'crc_next'. This is a design issue that needs to be addressed in the RTL code.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout/h18_raw_verilator_undeclared.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "h18_raw_verilator_undeclared",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "(log)",
+        "gold": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 3,
+        "citations_valid": 3,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "(log)"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

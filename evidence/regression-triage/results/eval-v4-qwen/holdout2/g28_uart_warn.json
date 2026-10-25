@@ -1,0 +1,93 @@
+{
+  "sample_id": "g28_uart_warn",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v2",
+    "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+    "file": "dataset/holdout2/g28_uart_warn.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 5322,
+    "timeout_s": 180,
+    "seconds": 2.819,
+    "usage": {
+      "prompt_tokens": 1232,
+      "prompt_tokens_details": {
+        "cached_tokens": 509
+      },
+      "completion_tokens": 134,
+      "total_tokens": 1366
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": []
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "uart_tx_bytes",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g28_uart_warn.log",
+            "line": 13,
+            "quote": "UART TB RESULT: PASS (tb_uart_tx)"
+          }
+        ],
+        "suggestion": "The test passed as indicated by the 'UART TB RESULT: PASS (tb_uart_tx)' message.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "The log is complete and the test passed without any errors or warnings.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout2/g28_uart_warn.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "g28_uart_warn",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "uart_tx_bytes",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

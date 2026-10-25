@@ -1,0 +1,105 @@
+{
+  "sample_id": "g31_build",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout2/g31_build.log",
+    "sha256": "7b57c81d3076c9a8bcc09ba70278a349acca60f039db80e5e55bfde95ac3ba59",
+    "lines": 9,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "uart_tx_bytes",
+        "result": "not_run",
+        "category": "unknown",
+        "side": "undetermined",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g31_build.log",
+            "line": 4,
+            "quote": "Assertion failed: net->pin_count() == 1, file ../../elab_net.cc, line 1287"
+          },
+          {
+            "file": "dataset/holdout2/g31_build.log",
+            "line": 5,
+            "quote": ""
+          }
+        ],
+        "fingerprint": "unknown:55783e97",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "编译以退出码 3 结束，但没有可识别的错误行"
+        ],
+        "suggestion": "证据不足，无法判断 dataset/holdout2/g31_build.log:4。需要完整的日志（含退出码和 testbench 结论行）或人工查看。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:55783e97",
+        "category": "unknown",
+        "tests": [
+          "uart_tx_bytes"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g31_build.log",
+          "line": 4,
+          "quote": "Assertion failed: net->pin_count() == 1, file ../../elab_net.cc, line 1287"
+        }
+      }
+    ],
+    "flags": [
+      "tool_internal_assertion"
+    ],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "g31_build",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "uart_tx_bytes",
+        "gold": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "pred": {
+          "result": "not_run",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": false,
+        "result_ok": true,
+        "side_ok": false,
+        "citations": 2,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "uart_tx_bytes"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "tool_internal_assertion"
+    ],
+    "flags_found": [
+      "tool_internal_assertion"
+    ],
+    "unknown_tests": 1,
+    "extra_citations_on_unmatched": 0
+  }
+}

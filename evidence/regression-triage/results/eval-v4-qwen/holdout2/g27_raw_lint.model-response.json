@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-171",
+  "object": "chat.completion",
+  "created": 1792964533,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"(log)\",\n      \"result\": \"fail\",\n      \"category\": \"compile_error\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\n          \"log_line\": 1,\n          \"quote\": \"%Error: Cannot find verilated_std_waiver.vlt containing built-in lint waivers: '/yosyshq/share/verilator\\\\include\\\\verilated_std_waiver.vlt'\"\n        },\n        {\n          \"log_line\": 12,\n          \"quote\": \"%Error: Cannot find verilated_std.sv containing built-in std:: definitions: '/yosyshq/share/verilator\\\\include\\\\verilated_std.sv'\"\n        }\n      ],\n      \"suggestion\": \"Specify the correct include path for verilated_std_waiver.vlt and verilated_std.sv using the -I<dir> option.\"\n    }\n  ],\n  \"notes\": \"The log indicates a compile error due to missing files. The errors are related to the absence of verilated_std_waiver.vlt and verilated_std.sv. The engineer should ensure that the correct include paths are specified.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 940,
+    "prompt_tokens_details": {
+      "cached_tokens": 509
+    },
+    "completion_tokens": 260,
+    "total_tokens": 1200
+  }
+}

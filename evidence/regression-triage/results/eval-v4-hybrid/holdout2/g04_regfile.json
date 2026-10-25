@@ -1,0 +1,99 @@
+{
+  "sample_id": "g04_regfile",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0004,
+    "model_status": "ok",
+    "model_seconds": 3.66,
+    "model_needed": false,
+    "model_tests_used": 0
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/holdout2/g04_regfile.log",
+    "sha256": "9d868c43f8e99d5040e9e7a90bfa9ebdbd9799a3f16d5f698ded7ca455e7bd7d",
+    "lines": 10,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "regfile_rw",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "kind": "assertion",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g04_regfile.log",
+            "line": 7,
+            "quote": "FATAL: hdl/holdout2/tb/tb_regfile.v:36: regfile readback mismatch: raddr=3 expected 1e, got 00"
+          }
+        ],
+        "fingerprint": "test_failure:e0ca841c",
+        "certainty": "confirmed",
+        "notes": [],
+        "suggestion": "testbench 检查失败，首条证据 dataset/holdout2/g04_regfile.log:7：“FATAL: hdl/holdout2/tb/tb_regfile.v:36: regfile readback mismatch: raddr=3 expected 1e, got 00”。对照期望值与实际值，查看相关信号在报告时刻附近的驱动和时序。",
+        "source": "rules"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "test_failure:e0ca841c",
+        "category": "test_failure",
+        "tests": [
+          "regfile_rw"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g04_regfile.log",
+          "line": 7,
+          "quote": "FATAL: hdl/holdout2/tb/tb_regfile.v:36: regfile readback mismatch: raddr=3 expected 1e, got 00"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": false
+  },
+  "score": {
+    "sample_id": "g04_regfile",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "regfile_rw",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "regfile_rw"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

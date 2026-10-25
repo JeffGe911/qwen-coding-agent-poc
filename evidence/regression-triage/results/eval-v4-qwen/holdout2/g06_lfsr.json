@@ -1,0 +1,110 @@
+{
+  "sample_id": "g06_lfsr",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v2",
+    "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+    "file": "dataset/holdout2/g06_lfsr.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 5289,
+    "timeout_s": 180,
+    "seconds": 6.448,
+    "usage": {
+      "prompt_tokens": 1283,
+      "prompt_tokens_details": {
+        "cached_tokens": 509
+      },
+      "completion_tokens": 339,
+      "total_tokens": 1622
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": []
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "lfsr_seq",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g06_lfsr.log",
+            "line": 7,
+            "quote": "ERROR: hdl/holdout2/tb/tb_lfsr16.sv:34: wrap high at step 137 (state=5ae1) before the period ended"
+          },
+          {
+            "file": "dataset/holdout2/g06_lfsr.log",
+            "line": 8,
+            "quote": "Time: 1410000  Scope: tb_lfsr16"
+          },
+          {
+            "file": "dataset/holdout2/g06_lfsr.log",
+            "line": 9,
+            "quote": "ERROR: hdl/holdout2/tb/tb_lfsr16.sv:34: wrap high at step 373 (state=d3e1) before the period ended"
+          },
+          {
+            "file": "dataset/holdout2/g06_lfsr.log",
+            "line": 10,
+            "quote": "Time: 3770000  Scope: tb_lfsr16"
+          }
+        ],
+        "suggestion": "Review the testbench at hdl/holdout2/tb/tb_lfsr16.sv, specifically lines 34 and 38, to ensure the LFSR behavior matches the expected period.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "The test passed the simulation but failed the design assertion, indicating a potential issue with the LFSR implementation.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout2/g06_lfsr.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "g06_lfsr",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "lfsr_seq",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 4,
+        "citations_valid": 4,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "lfsr_seq"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

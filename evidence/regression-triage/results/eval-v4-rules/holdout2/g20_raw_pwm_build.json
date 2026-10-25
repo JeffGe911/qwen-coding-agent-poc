@@ -1,0 +1,96 @@
+{
+  "sample_id": "g20_raw_pwm_build",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout2/g20_raw_pwm_build.log",
+    "sha256": "7280ecc0fa06dff0338afeb4e7e473cc550f209fb1df021f2e1e5aff0c818496",
+    "lines": 26,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "not_run",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g20_raw_pwm_build.log",
+            "line": 1,
+            "quote": "hdl/holdout2/rtl/pwm_gen.v:37: syntax error"
+          }
+        ],
+        "fingerprint": "compile_error:1ec8f6c7",
+        "certainty": "confirmed",
+        "notes": [
+          "其余 19 条报错多半是第一条引起的连锁报错"
+        ],
+        "suggestion": "先修第一条编译错误 dataset/holdout2/g20_raw_pwm_build.log:1：“hdl/holdout2/rtl/pwm_gen.v:37: syntax error”。之后的报错多半是它引起的连锁报错，修完再重新编译。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "compile_error:1ec8f6c7",
+        "category": "compile_error",
+        "tests": [
+          "(log)"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g20_raw_pwm_build.log",
+          "line": 1,
+          "quote": "hdl/holdout2/rtl/pwm_gen.v:37: syntax error"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": [
+      "原始编译器输出：日志中没有退出码"
+    ]
+  },
+  "score": {
+    "sample_id": "g20_raw_pwm_build",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "(log)",
+        "gold": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "not_run",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "(log)"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

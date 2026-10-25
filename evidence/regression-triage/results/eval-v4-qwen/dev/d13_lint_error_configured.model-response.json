@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-677",
+  "object": "chat.completion",
+  "created": 1792964110,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"alu_lint\",\n      \"result\": \"fail\",\n      \"category\": \"compile_error\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\n          \"log_line\": 4,\n          \"quote\": \"%Error: hdl/rtl\\\\alu8.v:25:5: syntax error, unexpected end, expecting ';'\"\n        },\n        {\n          \"log_line\": 5,\n          \"quote\": \"    25 |     end\"\n        },\n        {\n          \"log_line\": 6,\n          \"quote\": \"    |     ^~~\"\n        }\n      ],\n      \"suggestion\": \"Fix the syntax error in hdl/rtl/alu8.v at line 25, column 5.\"\n    }\n  ],\n  \"notes\": \"The lint test failed due to a syntax error in the design file. The error is clear and can be fixed by adding a missing semicolon.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1036,
+    "prompt_tokens_details": {
+      "cached_tokens": 1035
+    },
+    "completion_tokens": 217,
+    "total_tokens": 1253
+  }
+}

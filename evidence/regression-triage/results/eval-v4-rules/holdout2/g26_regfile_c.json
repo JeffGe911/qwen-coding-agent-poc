@@ -1,0 +1,96 @@
+{
+  "sample_id": "g26_regfile_c",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout2/g26_regfile_c.log",
+    "sha256": "a04591ddf8e759b1bdcb011165acec05f74de6193eb66912f873e0aa42d8039a",
+    "lines": 8,
+    "log_status": "incomplete",
+    "tests": [
+      {
+        "test_id": "regfile_rw",
+        "result": "unknown",
+        "category": "incomplete_log",
+        "side": "infrastructure",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g26_regfile_c.log",
+            "line": 8,
+            "quote": "[rf] MISCOMPARE @211000 raddr=0 we=1 waddr=0 exp=c0 got=4b"
+          }
+        ],
+        "fingerprint": "incomplete_log:ab24a099",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "运行阶段没有结束记录（日志被截断）"
+        ],
+        "suggestion": "日志不完整 dataset/holdout2/g26_regfile_c.log:8，缺少结束记录，不能据此判断结果。请重新运行，或检查日志采集和存储是否中断。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "incomplete_log:ab24a099",
+        "category": "incomplete_log",
+        "tests": [
+          "regfile_rw"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g26_regfile_c.log",
+          "line": 8,
+          "quote": "[rf] MISCOMPARE @211000 raddr=0 we=1 waddr=0 exp=c0 got=4b"
+        }
+      }
+    ],
+    "flags": [
+      "no_regression_end_record"
+    ],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "g26_regfile_c",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "incomplete",
+      "pred": "incomplete"
+    },
+    "tests": [
+      {
+        "test_id": "regfile_rw",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "incomplete_log",
+          "side": "infrastructure"
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": [
+        "regfile_rw"
+      ]
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

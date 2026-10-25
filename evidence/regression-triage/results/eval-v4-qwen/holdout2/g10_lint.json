@@ -1,0 +1,130 @@
+{
+  "sample_id": "g10_lint",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v2",
+    "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+    "file": "dataset/holdout2/g10_lint.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 5821,
+    "timeout_s": 180,
+    "seconds": 5.197,
+    "usage": {
+      "prompt_tokens": 1389,
+      "prompt_tokens_details": {
+        "cached_tokens": 508
+      },
+      "completion_tokens": 259,
+      "total_tokens": 1648
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": []
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "debounce_lint",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g10_lint.log",
+            "line": 7,
+            "quote": "#RUN test=debounce_lint stage=lint exit=0 elapsed_s=0.046 timed_out=false output_truncated=false"
+          }
+        ],
+        "suggestion": "The lint test for debounce passed successfully.",
+        "rejected_citations": []
+      },
+      {
+        "test_id": "pwm_lint",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g10_lint.log",
+            "line": 15,
+            "quote": "%Error: Exiting due to 1 warning(s)"
+          }
+        ],
+        "suggestion": "The lint test for pwm_gen failed due to a width truncation warning. Consider using '/* verilator lint_off WIDTHTRUNC */' and lint_on around the source to disable this message.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "The log is complete and contains evidence for both tests.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout2/g10_lint.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "g10_lint",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "debounce_lint",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "pwm_lint",
+        "gold": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": false,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "pwm_lint"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

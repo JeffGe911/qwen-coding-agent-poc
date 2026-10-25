@@ -1,0 +1,98 @@
+{
+  "sample_id": "h02_parity_misleading_pass",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0003,
+    "model_status": "ok",
+    "model_seconds": 2.795,
+    "model_needed": true,
+    "model_tests_used": 1
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/holdout/h02_parity_misleading_pass.log",
+    "sha256": "ac3f83bdf7d6ec94c6f147f21d34ed5a3f70585e66e95003cacffaacb2abaa2a",
+    "lines": 15,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "parity_fault_inject",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h02_parity_misleading_pass.log",
+            "line": 12,
+            "quote": "PASS: tb_parity (768 vectors, 256 injected faults)"
+          }
+        ],
+        "suggestion": "The test passed as indicated by the 'PASS' message.",
+        "rejected_citations": [],
+        "source": "model",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过",
+          "规则无法判断，采用模型的判断，需工程师复核"
+        ]
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:651f9ab5",
+        "category": "unknown",
+        "tests": [
+          "parity_fault_inject"
+        ],
+        "example": {
+          "file": "dataset/holdout/h02_parity_misleading_pass.log",
+          "line": 12,
+          "quote": "PASS: tb_parity (768 vectors, 256 injected faults)"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": true
+  },
+  "score": {
+    "sample_id": "h02_parity_misleading_pass",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "parity_fault_inject",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

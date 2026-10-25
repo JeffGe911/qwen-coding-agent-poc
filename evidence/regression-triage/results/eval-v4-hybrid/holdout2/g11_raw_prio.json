@@ -1,0 +1,92 @@
+{
+  "sample_id": "g11_raw_prio",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001,
+    "model_status": "ok",
+    "model_seconds": 4.451,
+    "model_needed": true,
+    "model_tests_used": 1
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/holdout2/g11_raw_prio.log",
+    "sha256": "304087afe913afa739985cce14519f79886874d7ce5df041f216d927af4b499e",
+    "lines": 8,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g11_raw_prio.log",
+            "line": 7,
+            "quote": "FAIL: tb_prio_enc8 (247/256 vectors wrong)"
+          },
+          {
+            "file": "dataset/holdout2/g11_raw_prio.log",
+            "line": 8,
+            "quote": "hdl/holdout2/tb/tb_prio_enc8.v:60: $finish called at 256000 (1ps)"
+          }
+        ],
+        "suggestion": "Review the design and testbench at hdl/holdout2/tb/tb_prio_enc8.v:60 to ensure the test vectors are correct and the design behaves as expected.",
+        "rejected_citations": [],
+        "source": "model",
+        "notes": [
+          "没有识别出仿真器、编译器或测试框架的输出",
+          "规则无法判断，采用模型的判断，需工程师复核"
+        ]
+      }
+    ],
+    "groups": [],
+    "flags": [],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": true
+  },
+  "score": {
+    "sample_id": "g11_raw_prio",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "tb_prio_enc8",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "tb_prio_enc8"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

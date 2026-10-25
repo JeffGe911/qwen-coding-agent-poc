@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-50",
+  "object": "chat.completion",
+  "created": 1792964423,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"tb_prio_enc8\",\n      \"result\": \"fail\",\n      \"category\": \"test_failure\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\n          \"log_line\": 7,\n          \"quote\": \"FAIL: tb_prio_enc8 (247/256 vectors wrong)\"\n        },\n        {\n          \"log_line\": 8,\n          \"quote\": \"hdl/holdout2/tb/tb_prio_enc8.v:60: $finish called at 256000 (1ps)\"\n        }\n      ],\n      \"suggestion\": \"Review the design and testbench at hdl/holdout2/tb/tb_prio_enc8.v:60 to ensure the test vectors are correct and the design behaves as expected.\"\n    }\n  ],\n  \"notes\": \"The test failed due to 247 out of 256 vectors being wrong. The testbench finished at 256000 ps, indicating the test ran to completion.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 757,
+    "prompt_tokens_details": {
+      "cached_tokens": 509
+    },
+    "completion_tokens": 241,
+    "total_tokens": 998
+  }
+}

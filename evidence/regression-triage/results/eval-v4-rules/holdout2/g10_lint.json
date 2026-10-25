@@ -1,0 +1,139 @@
+{
+  "sample_id": "g10_lint",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout2/g10_lint.log",
+    "sha256": "e54b4303067cb0b08877b4eb9eaed149f6722fb0308a0598c620fd94695a7ed9",
+    "lines": 17,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "debounce_lint",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g10_lint.log",
+            "line": 7,
+            "quote": "#RUN test=debounce_lint stage=lint exit=0 elapsed_s=0.046 timed_out=false output_truncated=false"
+          }
+        ],
+        "fingerprint": null,
+        "certainty": "confirmed",
+        "notes": [
+          "lint 退出码为 0"
+        ],
+        "suggestion": "通过 dataset/holdout2/g10_lint.log:7：“#RUN test=debounce_lint stage=lint exit=0 elapsed_s=0.046 timed_out=false output_truncated=false”。"
+      },
+      {
+        "test_id": "pwm_lint",
+        "result": "not_run",
+        "category": "unknown",
+        "side": "undetermined",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g10_lint.log",
+            "line": 9,
+            "quote": "%Warning-WIDTHTRUNC: hdl/holdout2/rtl\\pwm_gen.v:18:17: Operator ASSIGNDLY expects 8 bits on the Assign RHS, but Assign RHS's ADD generates 9 bits."
+          },
+          {
+            "file": "dataset/holdout2/g10_lint.log",
+            "line": 10,
+            "quote": ": ... note: In instance 'pwm_gen'"
+          }
+        ],
+        "fingerprint": "unknown:d152cabe",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "lint以退出码 1 结束，但没有可识别的错误行"
+        ],
+        "suggestion": "证据不足，无法判断 dataset/holdout2/g10_lint.log:9。需要完整的日志（含退出码和 testbench 结论行）或人工查看。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:d152cabe",
+        "category": "unknown",
+        "tests": [
+          "pwm_lint"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g10_lint.log",
+          "line": 9,
+          "quote": "%Warning-WIDTHTRUNC: hdl/holdout2/rtl\\pwm_gen.v:18:17: Operator ASSIGNDLY expects 8 bits on the Assign RHS, but Assign RHS's ADD generates 9 bits."
+        }
+      }
+    ],
+    "flags": [],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "g10_lint",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "debounce_lint",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "pwm_lint",
+        "gold": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "not_run",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "pwm_lint"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 1,
+    "extra_citations_on_unmatched": 0
+  }
+}

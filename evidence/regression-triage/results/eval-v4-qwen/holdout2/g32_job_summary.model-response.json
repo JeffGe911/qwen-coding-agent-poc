@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-248",
+  "object": "chat.completion",
+  "created": 1792964554,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"incomplete\",\n  \"tests\": [\n    {\n      \"test_id\": \"(log)\",\n      \"result\": \"unknown\",\n      \"category\": \"unknown\",\n      \"side\": \"none\",\n      \"evidence\": [\n        {\n          \"log_line\": 4,\n          \"quote\": \"rc=?\"\n        }\n      ],\n      \"suggestion\": \"The log is incomplete, and the exit code is unknown. Check the dashboard for the job status.\"\n    }\n  ],\n  \"notes\": \"The log does not contain any test results or failure evidence. The exit code is unknown, and the log is incomplete.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 688,
+    "prompt_tokens_details": {
+      "cached_tokens": 509
+    },
+    "completion_tokens": 135,
+    "total_tokens": 823
+  }
+}

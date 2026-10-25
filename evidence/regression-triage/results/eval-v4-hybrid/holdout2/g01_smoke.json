@@ -1,0 +1,217 @@
+{
+  "sample_id": "g01_smoke",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0008,
+    "model_status": "ok",
+    "model_seconds": 14.273,
+    "model_needed": true,
+    "model_tests_used": 3
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/holdout2/g01_smoke.log",
+    "sha256": "b760f930b3f9fc251aa9c8c4a192fb3d17f88bb5315441fd416637b663f048aa",
+    "lines": 34,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "debounce_basic",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g01_smoke.log",
+            "line": 8,
+            "quote": "SIM RESULT: OK"
+          },
+          {
+            "file": "dataset/holdout2/g01_smoke.log",
+            "line": 9,
+            "quote": "hdl/holdout2/tb/tb_debounce.v:73: $finish called at 850000 (1ps)"
+          }
+        ],
+        "suggestion": "No issues found. Test passed.",
+        "rejected_citations": [],
+        "source": "model",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过",
+          "规则无法判断，采用模型的判断，需工程师复核"
+        ]
+      },
+      {
+        "test_id": "pwm_duty",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g01_smoke.log",
+            "line": 24,
+            "quote": "== PASS =="
+          },
+          {
+            "file": "dataset/holdout2/g01_smoke.log",
+            "line": 25,
+            "quote": "hdl/holdout2/tb/tb_pwm_gen.v:80: $finish called at 46096000 (1ps)"
+          }
+        ],
+        "suggestion": "No issues found. Test passed.",
+        "rejected_citations": [],
+        "source": "model",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过",
+          "规则无法判断，采用模型的判断，需工程师复核"
+        ]
+      },
+      {
+        "test_id": "lfsr_seq",
+        "result": "pass",
+        "category": "pass",
+        "side": "none",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g01_smoke.log",
+            "line": 31,
+            "quote": "*** tb_lfsr16: SUCCESS (1000 steps, 0 scoreboard mismatches) ***"
+          },
+          {
+            "file": "dataset/holdout2/g01_smoke.log",
+            "line": 32,
+            "quote": "hdl/holdout2/tb/tb_lfsr16.sv:38: $finish called at 10030000 (1ps)"
+          }
+        ],
+        "suggestion": "No issues found. Test passed.",
+        "rejected_citations": [],
+        "source": "model",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过",
+          "规则无法判断，采用模型的判断，需工程师复核"
+        ]
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:814bae6a",
+        "category": "unknown",
+        "tests": [
+          "debounce_basic"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g01_smoke.log",
+          "line": 8,
+          "quote": "SIM RESULT: OK"
+        }
+      },
+      {
+        "fingerprint": "unknown:f0dd6693",
+        "category": "unknown",
+        "tests": [
+          "pwm_duty"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g01_smoke.log",
+          "line": 24,
+          "quote": "== PASS =="
+        }
+      },
+      {
+        "fingerprint": "unknown:8a217ea2",
+        "category": "unknown",
+        "tests": [
+          "lfsr_seq"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g01_smoke.log",
+          "line": 31,
+          "quote": "*** tb_lfsr16: SUCCESS (1000 steps, 0 scoreboard mismatches) ***"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": true
+  },
+  "score": {
+    "sample_id": "g01_smoke",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "debounce_basic",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "pwm_duty",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      },
+      {
+        "test_id": "lfsr_seq",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

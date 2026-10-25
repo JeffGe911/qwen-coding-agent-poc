@@ -1,0 +1,100 @@
+{
+  "sample_id": "h06_arb_lint_width",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v2",
+    "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+    "file": "dataset/holdout/h06_arb_lint_width.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 5750,
+    "timeout_s": 180,
+    "seconds": 4.899,
+    "usage": {
+      "prompt_tokens": 1276,
+      "prompt_tokens_details": {
+        "cached_tokens": 508
+      },
+      "completion_tokens": 250,
+      "total_tokens": 1526
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": []
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "arb_lint",
+        "result": "fail",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h06_arb_lint_width.log",
+            "line": 4,
+            "quote": "%Warning-WIDTHTRUNC: hdl/holdout/rtl\\rr_arbiter.v:33:26: Operator ASSIGNW expects 2 bits on the Assign RHS, but Assign RHS's ADD generates 3 bits."
+          },
+          {
+            "file": "dataset/holdout/h06_arb_lint_width.log",
+            "line": 16,
+            "quote": "%Error: Exiting due to 2 warning(s)"
+          }
+        ],
+        "suggestion": "Fix the width truncation error by adjusting the bit width of the 'next_last' wire or the 'ADD' operation. Consider using '/* verilator lint_off WIDTHTRUNC */' and 'lint_on' around the source to disable this message if it is intentional.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "The lint-only test failed due to width truncation and unused signal warnings. The first warning is the root cause of the failure.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout/h06_arb_lint_width.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "h06_arb_lint_width",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "arb_lint",
+        "gold": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "arb_lint"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

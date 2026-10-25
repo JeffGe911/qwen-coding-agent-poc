@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-360",
+  "object": "chat.completion",
+  "created": 1792964228,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"shift_smoke\",\n      \"result\": \"pass\",\n      \"category\": \"pass\",\n      \"side\": \"none\",\n      \"evidence\": [\n        {\"log_line\": 7, \"quote\": \"tb_shiftreg: all 24 patterns OK -- PASS\"}\n      ],\n      \"suggestion\": \"No issues found. Test passed.\"\n    },\n    {\n      \"test_id\": \"shift_lvalue\",\n      \"result\": \"fail\",\n      \"category\": \"compile_error\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\"log_line\": 11, \"quote\": \"hdl/holdout/rtl/shift_reg.v:23: error: 'q_r' is not a valid l-value for a procedural assignment.\"},\n        {\"log_line\": 13, \"quote\": \"hdl/holdout/rtl/shift_reg.v:16:      : 'q_r' is declared here as a wire.\"}\n      ],\n      \"suggestion\": \"Fix the declaration of 'q_r' to be a reg or a variable.\"\n    },\n    {\n      \"test_id\": \"parity_modes\",\n      \"result\": \"fail\",\n      \"category\": \"test_failure\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\"log_line\": 23, \"quote\": \"parity check failed: data=0x00 odd=1 parity=0 expected=1\"},\n        {\"log_line\": 27, \"quote\": \"FAIL: tb_parity (384 of 768 vectors wrong)\"}\n      ],\n      \"suggestion\": \"Review the parity check logic in the testbench.\"\n    },\n    {\n      \"test_id\": \"crc_stop\",\n      \"result\": \"fail\",\n      \"category\": \"test_failure\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\"log_line\": 34, \"quote\": \"FATAL: hdl/holdout/tb/tb_crc8.sv:69: frame 1: crc=d4 but the reference says 72; stopping at the first CRC mismatch\"}\n      ],\n      \"suggestion\": \"Check the CRC calculation in the design and testbench.\"\n    },\n    {\n      \"test_id\": \"arb_fairness\",\n      \"result\": \"fail\",\n      \"category\": \"timeout\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\"log_line\": 41, \"quote\": \"WATCHDOG: no progress for 3000 ns (still waiting for grant[2]); stopping simulation\"},\n        {\"log_line\": 42, \"quote\": \"Simulation FAILED (tb_rr_arbiter): watchdog expired\"}\n      ],\n      \"suggestion\": \"Optimize the arbiter logic to avoid long wait times.\"\n    }\n  ],\n  \"notes\": \"The log is complete and all tests have been evaluated.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 2521,
+    "prompt_tokens_details": {
+      "cached_tokens": 508
+    },
+    "completion_tokens": 635,
+    "total_tokens": 3156
+  }
+}

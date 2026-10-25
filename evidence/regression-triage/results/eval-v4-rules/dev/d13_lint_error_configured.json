@@ -1,0 +1,92 @@
+{
+  "sample_id": "d13_lint_error_configured",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/dev/d13_lint_error_configured.log",
+    "sha256": "388a8e44159bcaac17ced33aaba284b8fbee2d7c0ff2f082869d94adf5439935",
+    "lines": 11,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "alu_lint",
+        "result": "fail",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/dev/d13_lint_error_configured.log",
+            "line": 4,
+            "quote": "%Error: hdl/rtl\\alu8.v:25:5: syntax error, unexpected end, expecting ';'"
+          }
+        ],
+        "fingerprint": "compile_error:f0b7a166",
+        "certainty": "confirmed",
+        "notes": [],
+        "suggestion": "先修第一条编译错误 dataset/dev/d13_lint_error_configured.log:4：“%Error: hdl/rtl\\alu8.v:25:5: syntax error, unexpected end, expecting ';'”。之后的报错多半是它引起的连锁报错，修完再重新编译。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "compile_error:f0b7a166",
+        "category": "compile_error",
+        "tests": [
+          "alu_lint"
+        ],
+        "example": {
+          "file": "dataset/dev/d13_lint_error_configured.log",
+          "line": 4,
+          "quote": "%Error: hdl/rtl\\alu8.v:25:5: syntax error, unexpected end, expecting ';'"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "d13_lint_error_configured",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "alu_lint",
+        "gold": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "alu_lint"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

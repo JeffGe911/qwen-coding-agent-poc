@@ -1,0 +1,37 @@
+{
+  "contract": "eval-v4",
+  "engine": "qwen",
+  "split": "holdout2",
+  "finished_utc": "2026-10-25T21:42:34+00:00",
+  "samples": 31,
+  "gold_tests": 39,
+  "category_accuracy": 0.7949,
+  "result_accuracy": 0.7692,
+  "side_accuracy": 0.8205,
+  "flagged_precision": 1.0,
+  "flagged_recall": 1.0,
+  "flagged_counts": {
+    "tp": 24,
+    "fp": 0,
+    "fn": 0
+  },
+  "citations": 93,
+  "citation_valid_rate": 1.0,
+  "citation_relevant_rate": 0.7097,
+  "tests_with_relevant_citation": 0.9474,
+  "unknown_rate": 0.0513,
+  "unmatched_tests": 0,
+  "log_status_accuracy": 0.9032,
+  "flag_recall": 0.0,
+  "requests": 32,
+  "request_failed": 0,
+  "invalid_output": 1,
+  "scored_samples": 31,
+  "unscored_samples": [
+    "g13_nightly"
+  ],
+  "seconds_total": 187.882,
+  "prompt_tokens": 40768,
+  "completion_tokens": 9314,
+  "category_accuracy_all_samples": 0.6889
+}

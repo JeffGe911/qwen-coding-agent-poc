@@ -1,0 +1,135 @@
+{
+  "sample_id": "g24_regfile_byp",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0003,
+    "model_status": "ok",
+    "model_seconds": 8.957,
+    "model_needed": true,
+    "model_tests_used": 1
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/holdout2/g24_regfile_byp.log",
+    "sha256": "67ed94e2f9e219f100f70d1e1c5bf83f45c8fb10170b9cb4e2b4e8ca5907cf4f",
+    "lines": 17,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "regfile_rw",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g24_regfile_byp.log",
+            "line": 7,
+            "quote": "[rf] MISCOMPARE @211000 raddr=0 we=1 waddr=0 exp=c0 got=4b"
+          },
+          {
+            "file": "dataset/holdout2/g24_regfile_byp.log",
+            "line": 8,
+            "quote": "[rf] MISCOMPARE @231000 raddr=1 we=1 waddr=1 exp=c1 got=78"
+          },
+          {
+            "file": "dataset/holdout2/g24_regfile_byp.log",
+            "line": 9,
+            "quote": "[rf] MISCOMPARE @251000 raddr=2 we=1 waddr=2 exp=c2 got=69"
+          },
+          {
+            "file": "dataset/holdout2/g24_regfile_byp.log",
+            "line": 10,
+            "quote": "[rf] MISCOMPARE @271000 raddr=3 we=1 waddr=3 exp=c3 got=1e"
+          },
+          {
+            "file": "dataset/holdout2/g24_regfile_byp.log",
+            "line": 11,
+            "quote": "[rf] MISCOMPARE @291000 raddr=4 we=1 waddr=4 exp=c4 got=0f"
+          },
+          {
+            "file": "dataset/holdout2/g24_regfile_byp.log",
+            "line": 12,
+            "quote": "[rf] MISCOMPARE @311000 raddr=5 we=1 waddr=5 exp=c5 got=3c"
+          },
+          {
+            "file": "dataset/holdout2/g24_regfile_byp.log",
+            "line": 13,
+            "quote": "[rf] summary: checks=18 passed=12 failed=6"
+          },
+          {
+            "file": "dataset/holdout2/g24_regfile_byp.log",
+            "line": 14,
+            "quote": "[rf] RESULT: FAIL"
+          }
+        ],
+        "suggestion": "Review the testbench and design for the regfile_rw test to identify and fix the mismatches.",
+        "rejected_citations": [],
+        "source": "model",
+        "notes": [
+          "没有 TEST PASSED/FAILED 结论行，也没有错误行；仅凭退出码 0 不能判为通过",
+          "规则无法判断，采用模型的判断，需工程师复核"
+        ]
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:962619bd",
+        "category": "unknown",
+        "tests": [
+          "regfile_rw"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g24_regfile_byp.log",
+          "line": 14,
+          "quote": "[rf] RESULT: FAIL"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": true
+  },
+  "score": {
+    "sample_id": "g24_regfile_byp",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "regfile_rw",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 8,
+        "citations_valid": 8,
+        "citations_relevant": 8,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "regfile_rw"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

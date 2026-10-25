@@ -1,0 +1,80 @@
+{
+  "sample_id": "h19_vcd_waveform",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0012,
+    "model_status": "ok",
+    "model_seconds": 6.251,
+    "model_needed": true,
+    "model_tests_used": 0
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/holdout/h19_vcd_waveform.log",
+    "sha256": "f2067da6e660b6c2991789b7989cf3aa882a954ebea9eb5c874e634d00231495",
+    "lines": 502,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "undetermined",
+        "kind": null,
+        "evidence": [],
+        "fingerprint": null,
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "没有识别出仿真器、编译器或测试框架的输出"
+        ],
+        "suggestion": "证据不足，无法判断 （日志中没有可引用的行）。需要完整的日志（含退出码和 testbench 结论行）或人工查看。",
+        "source": "rules"
+      }
+    ],
+    "groups": [],
+    "flags": [],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": true
+  },
+  "score": {
+    "sample_id": "h19_vcd_waveform",
+    "log_status_ok": false,
+    "log_status": {
+      "gold": "unknown_format",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "(log)",
+        "gold": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": null
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 1,
+    "extra_citations_on_unmatched": 0
+  }
+}

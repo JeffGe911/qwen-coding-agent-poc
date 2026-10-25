@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-930",
+  "object": "chat.completion",
+  "created": 1792964144,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"alu_basic\",\n      \"result\": \"pass\",\n      \"category\": \"pass\",\n      \"side\": \"none\",\n      \"evidence\": [\n        {\"log_line\": 6, \"quote\": \"TEST PASSED: tb_alu8\"}\n      ],\n      \"suggestion\": \"No issues found for alu_basic test.\"\n    },\n    {\n      \"test_id\": \"fifo_basic\",\n      \"result\": \"pass\",\n      \"category\": \"pass\",\n      \"side\": \"none\",\n      \"evidence\": [\n        {\"log_line\": 12, \"quote\": \"tb_sync_fifo: start\"},\n        {\"log_line\": 13, \"quote\": \"hdl/tb/tb_sync_fifo.v:37: $finish called at 140000 (1ps)\"}\n      ],\n      \"suggestion\": \"No issues found for fifo_basic test.\"\n    }\n  ],\n  \"notes\": \"Both tests completed successfully with expected results.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1127,
+    "prompt_tokens_details": {
+      "cached_tokens": 1126
+    },
+    "completion_tokens": 225,
+    "total_tokens": 1352
+  }
+}

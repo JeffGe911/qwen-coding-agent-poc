@@ -1,0 +1,118 @@
+{
+  "sample_id": "d14_raw_vvp_fail",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0002,
+    "model_status": "ok",
+    "model_seconds": 6.455,
+    "model_needed": false,
+    "model_tests_used": 0
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/dev/d14_raw_vvp_fail.log",
+    "sha256": "c2108102ef99f76112f483c4ea25f8dbb207e08dabf647a69fa5c0418610a8bf",
+    "lines": 11,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "tb_alu8",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "kind": "self_check",
+        "evidence": [
+          {
+            "file": "dataset/dev/d14_raw_vvp_fail.log",
+            "line": 2,
+            "quote": "ERROR: [2000] tb_alu8 op=1 a=3 b=1 expected y=2 got y=4"
+          },
+          {
+            "file": "dataset/dev/d14_raw_vvp_fail.log",
+            "line": 3,
+            "quote": "ERROR: [6000] tb_alu8 op=1 a=32 b=8 expected y=24 got y=40"
+          },
+          {
+            "file": "dataset/dev/d14_raw_vvp_fail.log",
+            "line": 4,
+            "quote": "ERROR: [10000] tb_alu8 op=1 a=61 b=15 expected y=46 got y=76"
+          },
+          {
+            "file": "dataset/dev/d14_raw_vvp_fail.log",
+            "line": 10,
+            "quote": "TEST FAILED: tb_alu8 errors=8"
+          }
+        ],
+        "fingerprint": "test_failure:b623ce23",
+        "certainty": "confirmed",
+        "notes": [
+          "共 8 条 ERROR 行"
+        ],
+        "suggestion": "testbench 检查失败，首条证据 dataset/dev/d14_raw_vvp_fail.log:2：“ERROR: [2000] tb_alu8 op=1 a=3 b=1 expected y=2 got y=4”。对照期望值与实际值，查看相关信号在报告时刻附近的驱动和时序。",
+        "source": "rules"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "test_failure:b623ce23",
+        "category": "test_failure",
+        "tests": [
+          "tb_alu8"
+        ],
+        "example": {
+          "file": "dataset/dev/d14_raw_vvp_fail.log",
+          "line": 2,
+          "quote": "ERROR: [2000] tb_alu8 op=1 a=3 b=1 expected y=2 got y=4"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": [
+      "原始仿真器输出：日志中没有退出码"
+    ],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": false
+  },
+  "score": {
+    "sample_id": "d14_raw_vvp_fail",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "tb_alu8",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 4,
+        "citations_valid": 4,
+        "citations_relevant": 4,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "tb_alu8"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

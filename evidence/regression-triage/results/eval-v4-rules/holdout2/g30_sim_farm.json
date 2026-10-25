@@ -1,0 +1,96 @@
+{
+  "sample_id": "g30_sim_farm",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout2/g30_sim_farm.log",
+    "sha256": "47deeedb2814192e79cb8c52f85480a0198d356ae29fdce280c2e15dacead550",
+    "lines": 12,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "not_run",
+        "category": "tool_error",
+        "side": "infrastructure",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g30_sim_farm.log",
+            "line": 9,
+            "quote": "simx: Error: license checkout failed for feature 'SIMX_SV': all 12 licenses in use (queueing disabled)"
+          }
+        ],
+        "fingerprint": "tool_error:867a181a",
+        "certainty": "confirmed",
+        "notes": [
+          "许可证或工具启动失败"
+        ],
+        "suggestion": "工具没有正常运行 dataset/holdout2/g30_sim_farm.log:9：“simx: Error: license checkout failed for feature 'SIMX_SV': all 12 licenses in use (queueing disabled)”。这是环境问题，不是设计问题：检查仿真器安装路径、环境变量和许可证。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "tool_error:867a181a",
+        "category": "tool_error",
+        "tests": [
+          "(log)"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g30_sim_farm.log",
+          "line": 9,
+          "quote": "simx: Error: license checkout failed for feature 'SIMX_SV': all 12 licenses in use (queueing disabled)"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "g30_sim_farm",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "(log)",
+        "gold": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "pred": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "(log)"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "tool_setup_error"
+    ],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

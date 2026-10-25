@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-768",
+  "object": "chat.completion",
+  "created": 1792964259,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"(log)\",\n      \"result\": \"pass\",\n      \"category\": \"pass\",\n      \"side\": \"none\",\n      \"evidence\": [\n        {\n          \"log_line\": 6,\n          \"quote\": \"RESULT: PASS  tb_updown  checks=159 mismatches=0\"\n        }\n      ],\n      \"suggestion\": \"The test passed as indicated by the 'RESULT: PASS' message.\"\n    }\n  ],\n  \"notes\": \"The log shows a single test that completed successfully with no failures or errors.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 770,
+    "prompt_tokens_details": {
+      "cached_tokens": 508
+    },
+    "completion_tokens": 134,
+    "total_tokens": 904
+  }
+}

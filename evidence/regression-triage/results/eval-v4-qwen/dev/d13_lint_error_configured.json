@@ -1,0 +1,108 @@
+{
+  "sample_id": "d13_lint_error_configured",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v2",
+    "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+    "file": "dataset/dev/d13_lint_error_configured.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 4915,
+    "timeout_s": 180,
+    "seconds": 2.712,
+    "usage": {
+      "prompt_tokens": 1036,
+      "prompt_tokens_details": {
+        "cached_tokens": 1035
+      },
+      "completion_tokens": 217,
+      "total_tokens": 1253
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": [
+      "alu_lint: 1 citation(s) rejected (file/line/quote do not match the log)"
+    ]
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "alu_lint",
+        "result": "fail",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/dev/d13_lint_error_configured.log",
+            "line": 4,
+            "quote": "%Error: hdl/rtl\\alu8.v:25:5: syntax error, unexpected end, expecting ';'"
+          },
+          {
+            "file": "dataset/dev/d13_lint_error_configured.log",
+            "line": 5,
+            "quote": "    25 |     end"
+          }
+        ],
+        "suggestion": "Fix the syntax error in hdl/rtl/alu8.v at line 25, column 5.",
+        "rejected_citations": [
+          {
+            "file": "dataset/dev/d13_lint_error_configured.log",
+            "line": 6,
+            "quote": "    |     ^~~"
+          }
+        ]
+      }
+    ],
+    "notes": "The lint test failed due to a syntax error in the design file. The error is clear and can be fixed by adding a missing semicolon.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/dev/d13_lint_error_configured.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "d13_lint_error_configured",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "alu_lint",
+        "gold": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "alu_lint"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

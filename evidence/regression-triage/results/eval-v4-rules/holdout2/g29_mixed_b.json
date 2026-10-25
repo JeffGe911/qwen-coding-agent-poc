@@ -1,0 +1,156 @@
+{
+  "sample_id": "g29_mixed_b",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout2/g29_mixed_b.log",
+    "sha256": "635da43baee375676405572e50b0851e8d3f2719a54b3261fd150786b674d7bb",
+    "lines": 25,
+    "log_status": "incomplete",
+    "tests": [
+      {
+        "test_id": "prio_enc_exh",
+        "result": "unknown",
+        "category": "incomplete_log",
+        "side": "infrastructure",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g29_mixed_b.log",
+            "line": 3,
+            "quote": "#RUN test=prio_enc_exh stage=compile elapsed_s=0.116"
+          }
+        ],
+        "fingerprint": "incomplete_log:51b50b56",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "已编译，但没有运行阶段的记录"
+        ],
+        "suggestion": "日志不完整 dataset/holdout2/g29_mixed_b.log:3，缺少结束记录，不能据此判断结果。请重新运行，或检查日志采集和存储是否中断。"
+      },
+      {
+        "test_id": "pwm_duty",
+        "result": "unknown",
+        "category": "incomplete_log",
+        "side": "infrastructure",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g29_mixed_b.log",
+            "line": 10,
+            "quote": "#RUN test=pwm_duty stage=compile elapsed_s=0.083"
+          }
+        ],
+        "fingerprint": "incomplete_log:a98a7958",
+        "certainty": "insufficient_evidence",
+        "notes": [
+          "已编译，但没有运行阶段的记录"
+        ],
+        "suggestion": "日志不完整 dataset/holdout2/g29_mixed_b.log:10，缺少结束记录，不能据此判断结果。请重新运行，或检查日志采集和存储是否中断。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "incomplete_log:51b50b56",
+        "category": "incomplete_log",
+        "tests": [
+          "prio_enc_exh"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g29_mixed_b.log",
+          "line": 3,
+          "quote": "#RUN test=prio_enc_exh stage=compile elapsed_s=0.116"
+        }
+      },
+      {
+        "fingerprint": "incomplete_log:a98a7958",
+        "category": "incomplete_log",
+        "tests": [
+          "pwm_duty"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g29_mixed_b.log",
+          "line": 10,
+          "quote": "#RUN test=pwm_duty stage=compile elapsed_s=0.083"
+        }
+      }
+    ],
+    "flags": [
+      "missing_fields"
+    ],
+    "notes": [
+      "缺少字段：回归头部缺少 run_id",
+      "缺少字段：prio_enc_exh：编译结束记录缺少退出码",
+      "缺少字段：pwm_duty：编译结束记录缺少退出码"
+    ]
+  },
+  "score": {
+    "sample_id": "g29_mixed_b",
+    "log_status_ok": false,
+    "log_status": {
+      "gold": "complete",
+      "pred": "incomplete"
+    },
+    "tests": [
+      {
+        "test_id": "prio_enc_exh",
+        "gold": {
+          "result": "pass",
+          "category": "pass",
+          "side": "none"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "incomplete_log",
+          "side": "infrastructure"
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      },
+      {
+        "test_id": "pwm_duty",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "incomplete_log",
+          "side": "infrastructure"
+        },
+        "category_ok": false,
+        "result_ok": false,
+        "side_ok": false,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": [
+        "pwm_duty"
+      ]
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "missing_fields"
+    ],
+    "flags_found": [
+      "missing_fields"
+    ],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

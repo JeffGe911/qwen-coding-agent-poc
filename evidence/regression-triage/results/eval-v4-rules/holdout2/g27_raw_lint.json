@@ -1,0 +1,107 @@
+{
+  "sample_id": "g27_raw_lint",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout2/g27_raw_lint.log",
+    "sha256": "8ec656a6364fbade3316ce512dbb7404f2be8b186b40fe0425106687d4134fba",
+    "lines": 13,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "not_run",
+        "category": "tool_error",
+        "side": "infrastructure",
+        "kind": null,
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g27_raw_lint.log",
+            "line": 1,
+            "quote": "%Error: Cannot find verilated_std_waiver.vlt containing built-in lint waivers: '/yosyshq/share/verilator\\include\\verilated_std_waiver.vlt'"
+          },
+          {
+            "file": "dataset/holdout2/g27_raw_lint.log",
+            "line": 12,
+            "quote": "%Error: Cannot find verilated_std.sv containing built-in std:: definitions: '/yosyshq/share/verilator\\include\\verilated_std.sv'"
+          }
+        ],
+        "fingerprint": "tool_error:c351b40b",
+        "certainty": "confirmed",
+        "notes": [
+          "工具找不到自带的内置文件（安装或环境问题），也需要修复"
+        ],
+        "suggestion": "工具没有正常运行 dataset/holdout2/g27_raw_lint.log:1：“%Error: Cannot find verilated_std_waiver.vlt containing built-in lint waivers: '/yosyshq/share/verilator\\include\\verilated_std_waiver.vlt'”。这是环境问题，不是设计问题：检查仿真器安装路径、环境变量和许可证。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "tool_error:c351b40b",
+        "category": "tool_error",
+        "tests": [
+          "(log)"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g27_raw_lint.log",
+          "line": 1,
+          "quote": "%Error: Cannot find verilated_std_waiver.vlt containing built-in lint waivers: '/yosyshq/share/verilator\\include\\verilated_std_waiver.vlt'"
+        }
+      }
+    ],
+    "flags": [
+      "tool_setup_error"
+    ],
+    "notes": [
+      "原始编译器输出：日志中没有退出码"
+    ]
+  },
+  "score": {
+    "sample_id": "g27_raw_lint",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "(log)",
+        "gold": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "pred": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "(log)"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "tool_setup_error"
+    ],
+    "flags_found": [
+      "tool_setup_error"
+    ],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

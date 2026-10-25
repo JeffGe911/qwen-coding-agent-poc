@@ -1,0 +1,56 @@
+h01_cnt_pass_warnings ok 2 / 2
+h02_parity_misleading_pass ok 1 / 1
+h03_cnt_undeclared ok 1 / 1
+h04_gray_unknown_module ok 1 / 1
+h05_arb_bad_port ok 1 / 1
+h06_arb_lint_width ok 1 / 1
+h07_crc_assert_error ok 1 / 1
+h08_gray_selfcheck_exit0 ok 1 / 1
+h09_arb_watchdog ok 0 / 1
+h10_shift_wallclock ok 1 / 1
+h11_mixed ok 5 / 5
+h12_cnt_duplicates ok 4 / 4
+h13_parity_injection ok 1 / 1
+h14_shift_no_verdict ok 0 / 1
+h15_cnt_forged_indent ok 1 / 1
+h16_raw_vvp_pass_warn ok 1 / 1
+h17_raw_iverilog_multidriver ok 1 / 1
+h18_raw_verilator_undeclared ok 1 / 1
+h19_vcd_waveform ok 1 / 1
+h20_whitespace_only ok 0 / 1
+h21_truncated_mixed ok 3 / 4
+h22_missing_fields ok 4 / 4
+h23_ci_license_failure ok 1 / 1
+h24_vendor_style_compile ok 1 / 1
+h25_uvm_style_pass ok 1 / 1
+{
+ "samples": 25,
+ "gold_tests": 39,
+ "category_accuracy": 0.8974,
+ "result_accuracy": 0.7692,
+ "side_accuracy": 0.8718,
+ "flagged_precision": 1.0,
+ "flagged_recall": 1.0,
+ "flagged_counts": {
+  "tp": 24,
+  "fp": 0,
+  "fn": 0
+ },
+ "citations": 62,
+ "citation_valid_rate": 1.0,
+ "citation_relevant_rate": 0.8548,
+ "tests_with_relevant_citation": 1.0,
+ "unknown_rate": 0.1026,
+ "unmatched_tests": 0,
+ "log_status_accuracy": 0.92,
+ "flag_recall": 0.0,
+ "requests": 25,
+ "request_failed": 0,
+ "invalid_output": 0,
+ "scored_samples": 25,
+ "unscored_samples": [],
+ "seconds_total": 137.798,
+ "prompt_tokens": 38213,
+ "completion_tokens": 6792,
+ "category_accuracy_all_samples": 0.8974
+}

@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-218",
+  "object": "chat.completion",
+  "created": 1792964241,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"cnt_rand_s11\",\n      \"result\": \"fail\",\n      \"category\": \"test_failure\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\n          \"log_line\": 7,\n          \"quote\": \"[tb_updown] MISMATCH t=60000 q=151 expected=152 (en=1 up=0 load=0)\"\n        },\n        {\n          \"log_line\": 12,\n          \"quote\": \"RESULT: FAIL  tb_updown  checks=159 mismatches=54\"\n        }\n      ],\n      \"suggestion\": \"Review the mismatches at t=60000, t=70000, t=100000, and t=110000 in tb_updown.sv.\"\n    },\n    {\n      \"test_id\": \"cnt_up_only\",\n      \"result\": \"pass\",\n      \"category\": \"pass\",\n      \"side\": \"none\",\n      \"evidence\": [\n        {\n          \"log_line\": 19,\n          \"quote\": \"RESULT: PASS  tb_updown  checks=159 mismatches=0\"\n        }\n      ],\n      \"suggestion\": \"No action needed as the test passed.\"\n    },\n    {\n      \"test_id\": \"cnt_rand_s29\",\n      \"result\": \"fail\",\n      \"category\": \"test_failure\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\n          \"log_line\": 26,\n          \"quote\": \"[tb_updown] MISMATCH t=70000 q=145 expected=146 (en=1 up=0 load=0)\"\n        },\n        {\n          \"log_line\": 31,\n          \"quote\": \"RESULT: FAIL  tb_updown  checks=159 mismatches=57\"\n        }\n      ],\n      \"suggestion\": \"Review the mismatches at t=70000, t=100000, t=140000, and t=160000 in tb_updown.sv.\"\n    },\n    {\n      \"test_id\": \"crc_smoke\",\n      \"result\": \"pass\",\n      \"category\": \"pass\",\n      \"side\": \"none\",\n      \"evidence\": [\n        {\n          \"log_line\": 38,\n          \"quote\": \"[tb_crc8] SUMMARY: 6 frames, 0 bad -> PASS\"\n        }\n      ],\n      \"suggestion\": \"No action needed as the test passed.\"\n    }\n  ],\n  \"notes\": \"All tests completed with mismatches in cnt_rand_s11 and cnt_rand_s29. The crc_smoke test passed.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 2460,
+    "prompt_tokens_details": {
+      "cached_tokens": 508
+    },
+    "completion_tokens": 611,
+    "total_tokens": 3071
+  }
+}

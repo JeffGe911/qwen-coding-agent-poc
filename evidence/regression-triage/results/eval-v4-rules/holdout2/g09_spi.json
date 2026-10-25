@@ -1,0 +1,94 @@
+{
+  "sample_id": "g09_spi",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0001
+  },
+  "triage": {
+    "engine": "rules-v1",
+    "file": "dataset/holdout2/g09_spi.log",
+    "sha256": "bcd0f59b080b35b7de55ffa99a181f1f19400b9d17f92316e0558cd0bb5839c3",
+    "lines": 7,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "spi_soak",
+        "result": "fail",
+        "category": "timeout",
+        "side": "undetermined",
+        "kind": "wallclock",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g09_spi.log",
+            "line": 6,
+            "quote": "#RUN test=spi_soak stage=run exit=1 elapsed_s=3.012 timed_out=true output_truncated=false"
+          }
+        ],
+        "fingerprint": "timeout:605b5588",
+        "certainty": "confirmed",
+        "notes": [
+          "被 runner 的墙钟时限强制结束，结束前的输出可能已丢失"
+        ],
+        "suggestion": "仿真被 runner 的墙钟时限强制结束 dataset/holdout2/g09_spi.log:6，没有留下 testbench 输出。可能是 testbench 缺少 $finish/watchdog、DUT 死循环，或时限设置过小；先确认 testbench 会自行结束。"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "timeout:605b5588",
+        "category": "timeout",
+        "tests": [
+          "spi_soak"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g09_spi.log",
+          "line": 6,
+          "quote": "#RUN test=spi_soak stage=run exit=1 elapsed_s=3.012 timed_out=true output_truncated=false"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": []
+  },
+  "score": {
+    "sample_id": "g09_spi",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "spi_soak",
+        "gold": {
+          "result": "fail",
+          "category": "timeout",
+          "side": "undetermined"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "timeout",
+          "side": "undetermined"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 1,
+        "citations_valid": 1,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "spi_soak"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

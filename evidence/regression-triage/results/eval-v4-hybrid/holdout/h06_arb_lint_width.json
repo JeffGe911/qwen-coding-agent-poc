@@ -1,0 +1,105 @@
+{
+  "sample_id": "h06_arb_lint_width",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0003,
+    "model_status": "ok",
+    "model_seconds": 4.899,
+    "model_needed": true,
+    "model_tests_used": 1
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/holdout/h06_arb_lint_width.log",
+    "sha256": "fb77cff12636711fcc65aa917976331264d610d63b0f3fefd388ebbeb65d1cbf",
+    "lines": 18,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "arb_lint",
+        "result": "fail",
+        "category": "compile_error",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h06_arb_lint_width.log",
+            "line": 4,
+            "quote": "%Warning-WIDTHTRUNC: hdl/holdout/rtl\\rr_arbiter.v:33:26: Operator ASSIGNW expects 2 bits on the Assign RHS, but Assign RHS's ADD generates 3 bits."
+          },
+          {
+            "file": "dataset/holdout/h06_arb_lint_width.log",
+            "line": 16,
+            "quote": "%Error: Exiting due to 2 warning(s)"
+          }
+        ],
+        "suggestion": "Fix the width truncation error by adjusting the bit width of the 'next_last' wire or the 'ADD' operation. Consider using '/* verilator lint_off WIDTHTRUNC */' and 'lint_on' around the source to disable this message if it is intentional.",
+        "rejected_citations": [],
+        "source": "model",
+        "notes": [
+          "lint以退出码 1 结束，但没有可识别的错误行",
+          "规则无法判断，采用模型的判断，需工程师复核"
+        ]
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "unknown:8066c29c",
+        "category": "unknown",
+        "tests": [
+          "arb_lint"
+        ],
+        "example": {
+          "file": "dataset/holdout/h06_arb_lint_width.log",
+          "line": 4,
+          "quote": "%Warning-WIDTHTRUNC: hdl/holdout/rtl\\rr_arbiter.v:33:26: Operator ASSIGNW expects 2 bits on the Assign RHS, but Assign RHS's ADD generates 3 bits."
+        }
+      }
+    ],
+    "flags": [],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": true
+  },
+  "score": {
+    "sample_id": "h06_arb_lint_width",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "arb_lint",
+        "gold": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "compile_error",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 1,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "arb_lint"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "sample_id": "g06_lfsr",
+  "call": {
+    "status": "ok",
+    "seconds": 0.0003,
+    "model_status": "ok",
+    "model_seconds": 6.448,
+    "model_needed": false,
+    "model_tests_used": 0
+  },
+  "triage": {
+    "engine": "hybrid(rules-v1 + qwen:qwen2.5-coder:7b)",
+    "file": "dataset/holdout2/g06_lfsr.log",
+    "sha256": "d9af616e501ccaac02c0c03e8d380abc76563d26d62ea4b19b8ff7e1eb078c4e",
+    "lines": 14,
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "lfsr_seq",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "kind": "assertion",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g06_lfsr.log",
+            "line": 7,
+            "quote": "ERROR: hdl/holdout2/tb/tb_lfsr16.sv:34: wrap high at step 137 (state=5ae1) before the period ended"
+          },
+          {
+            "file": "dataset/holdout2/g06_lfsr.log",
+            "line": 9,
+            "quote": "ERROR: hdl/holdout2/tb/tb_lfsr16.sv:34: wrap high at step 373 (state=d3e1) before the period ended"
+          }
+        ],
+        "fingerprint": "test_failure:ad5a6ccd",
+        "certainty": "confirmed",
+        "notes": [],
+        "suggestion": "testbench 检查失败，首条证据 dataset/holdout2/g06_lfsr.log:7：“ERROR: hdl/holdout2/tb/tb_lfsr16.sv:34: wrap high at step 137 (state=5ae1) before the period ended”。对照期望值与实际值，查看相关信号在报告时刻附近的驱动和时序。",
+        "source": "rules"
+      }
+    ],
+    "groups": [
+      {
+        "fingerprint": "test_failure:ad5a6ccd",
+        "category": "test_failure",
+        "tests": [
+          "lfsr_seq"
+        ],
+        "example": {
+          "file": "dataset/holdout2/g06_lfsr.log",
+          "line": 7,
+          "quote": "ERROR: hdl/holdout2/tb/tb_lfsr16.sv:34: wrap high at step 137 (state=5ae1) before the period ended"
+        }
+      }
+    ],
+    "flags": [],
+    "notes": [],
+    "hybrid_version": "hybrid-v1",
+    "model_needed": false
+  },
+  "score": {
+    "sample_id": "g06_lfsr",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "lfsr_seq",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "lfsr_seq"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

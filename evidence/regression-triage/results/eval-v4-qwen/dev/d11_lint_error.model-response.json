@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-430",
+  "object": "chat.completion",
+  "created": 1792964101,
+  "model": "qwen2.5-coder:7b",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"log_status\": \"complete\",\n  \"tests\": [\n    {\n      \"test_id\": \"alu_lint\",\n      \"result\": \"fail\",\n      \"category\": \"compile_error\",\n      \"side\": \"design_or_test\",\n      \"evidence\": [\n        {\n          \"log_line\": 4,\n          \"quote\": \"%Error: Cannot find verilated_std_waiver.vlt containing built-in lint waivers: '/yosyshq/share/verilator\\\\include\\\\verilated_std_waiver.vlt'\"\n        },\n        {\n          \"log_line\": 16,\n          \"quote\": \"%Error: hdl/rtl\\\\alu8.v:25:5: syntax error, unexpected end, expecting ';'\"\n        }\n      ],\n      \"suggestion\": \"Check the include paths and ensure that 'verilated_std_waiver.vlt' and 'verilated_std.sv' are correctly specified and accessible. Also, review the syntax error in alu8.v at line 25.\"\n    }\n  ],\n  \"notes\": \"The lint test failed due to missing include files and a syntax error in the design file.\"\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1366,
+    "prompt_tokens_details": {
+      "cached_tokens": 1365
+    },
+    "completion_tokens": 242,
+    "total_tokens": 1608
+  }
+}

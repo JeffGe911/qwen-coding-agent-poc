@@ -1,0 +1,102 @@
+{
+  "sample_id": "g31_build",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v2",
+    "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+    "file": "dataset/holdout2/g31_build.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 4784,
+    "timeout_s": 180,
+    "seconds": 4.005,
+    "usage": {
+      "prompt_tokens": 987,
+      "prompt_tokens_details": {
+        "cached_tokens": 509
+      },
+      "completion_tokens": 212,
+      "total_tokens": 1199
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": []
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "uart_tx_bytes",
+        "result": "fail",
+        "category": "tool_error",
+        "side": "infrastructure",
+        "evidence": [
+          {
+            "file": "dataset/holdout2/g31_build.log",
+            "line": 4,
+            "quote": "Assertion failed: net->pin_count() == 1, file ../../elab_net.cc, line 1287"
+          },
+          {
+            "file": "dataset/holdout2/g31_build.log",
+            "line": 6,
+            "quote": "This application has requested the Runtime to terminate it in an unusual way."
+          }
+        ],
+        "suggestion": "Check the Icarus Verilog installation and ensure all dependencies are correctly set up. The assertion failure suggests a problem with the tool itself.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "The log indicates a tool error due to an assertion failure in Icarus Verilog. This is likely an infrastructure issue that needs to be addressed by the tool's support team.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout2/g31_build.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "g31_build",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "uart_tx_bytes",
+        "gold": {
+          "result": "not_run",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "tool_error",
+          "side": "infrastructure"
+        },
+        "category_ok": true,
+        "result_ok": false,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "uart_tx_bytes"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [
+      "tool_internal_assertion"
+    ],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

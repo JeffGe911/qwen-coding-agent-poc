@@ -1,0 +1,100 @@
+{
+  "sample_id": "h07_crc_assert_error",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v2",
+    "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+    "file": "dataset/holdout/h07_crc_assert_error.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 5621,
+    "timeout_s": 180,
+    "seconds": 4.587,
+    "usage": {
+      "prompt_tokens": 1396,
+      "prompt_tokens_details": {
+        "cached_tokens": 508
+      },
+      "completion_tokens": 223,
+      "total_tokens": 1619
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": []
+  },
+  "triage": {
+    "log_status": "complete",
+    "tests": [
+      {
+        "test_id": "crc_frames",
+        "result": "fail",
+        "category": "test_failure",
+        "side": "design_or_test",
+        "evidence": [
+          {
+            "file": "dataset/holdout/h07_crc_assert_error.log",
+            "line": 7,
+            "quote": "ERROR: hdl/holdout/tb/tb_crc8.sv:71: frame 1 (len 2): crc=d4, reference 72"
+          },
+          {
+            "file": "dataset/holdout/h07_crc_assert_error.log",
+            "line": 17,
+            "quote": "[tb_crc8] SUMMARY: 6 frames, 5 bad -> FAIL"
+          }
+        ],
+        "suggestion": "Review the CRC calculation in tb_crc8.sv at line 71. Ensure the CRC polynomial and frame handling are correct.",
+        "rejected_citations": []
+      }
+    ],
+    "notes": "The test failed due to multiple CRC mismatches between the calculated and reference values. The testbench summary indicates a failure, and the error messages pinpoint the specific frames causing the issue.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout/h07_crc_assert_error.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "h07_crc_assert_error",
+    "log_status_ok": true,
+    "log_status": {
+      "gold": "complete",
+      "pred": "complete"
+    },
+    "tests": [
+      {
+        "test_id": "crc_frames",
+        "gold": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "pred": {
+          "result": "fail",
+          "category": "test_failure",
+          "side": "design_or_test"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": true,
+        "citations": 2,
+        "citations_valid": 2,
+        "citations_relevant": 2,
+        "has_relevant_citation": true
+      }
+    ],
+    "flagged": {
+      "tp": [
+        "crc_frames"
+      ],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 0,
+    "extra_citations_on_unmatched": 0
+  }
+}

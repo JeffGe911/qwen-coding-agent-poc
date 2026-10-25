@@ -1,0 +1,96 @@
+{
+  "sample_id": "g32_job_summary",
+  "call": {
+    "engine": "qwen:qwen2.5-coder:7b",
+    "backend": "ollama-r2",
+    "backend_sha256": "5bca08cac0c7be15b46728fdf3dd6d9178d6d2788cbf327c24588b21dddff0fc",
+    "prompt_version": "triage-prompt-v2",
+    "prompt_sha256": "20002b0f784833ce27d866b1479dc7c06ba06fd137d61a12ccc898092c0ab916",
+    "file": "dataset/holdout2/g32_job_summary.log",
+    "input_truncated": false,
+    "omitted_line_ranges": [],
+    "request_chars": 3951,
+    "timeout_s": 180,
+    "seconds": 2.492,
+    "usage": {
+      "prompt_tokens": 688,
+      "prompt_tokens_details": {
+        "cached_tokens": 509
+      },
+      "completion_tokens": 135,
+      "total_tokens": 823
+    },
+    "finish_reason": "stop",
+    "server_context": 8192,
+    "server_context_source": "ollama /api/ps context_length",
+    "status": "ok",
+    "problems": [
+      "(log): 1 citation(s) rejected (file/line/quote do not match the log)"
+    ]
+  },
+  "triage": {
+    "log_status": "incomplete",
+    "tests": [
+      {
+        "test_id": "(log)",
+        "result": "unknown",
+        "category": "unknown",
+        "side": "none",
+        "evidence": [],
+        "suggestion": "The log is incomplete, and the exit code is unknown. Check the dashboard for the job status.",
+        "rejected_citations": [
+          {
+            "file": "dataset/holdout2/g32_job_summary.log",
+            "line": 4,
+            "quote": "rc=?"
+          }
+        ],
+        "certainty": "insufficient_evidence"
+      }
+    ],
+    "notes": "The log does not contain any test results or failure evidence. The exit code is unknown, and the log is incomplete.",
+    "engine": "qwen:qwen2.5-coder:7b",
+    "file": "dataset/holdout2/g32_job_summary.log",
+    "flags": []
+  },
+  "score": {
+    "sample_id": "g32_job_summary",
+    "log_status_ok": false,
+    "log_status": {
+      "gold": "unknown_format",
+      "pred": "incomplete"
+    },
+    "tests": [
+      {
+        "test_id": "(log)",
+        "gold": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "undetermined"
+        },
+        "pred": {
+          "result": "unknown",
+          "category": "unknown",
+          "side": "none"
+        },
+        "category_ok": true,
+        "result_ok": true,
+        "side_ok": false,
+        "citations": 0,
+        "citations_valid": 0,
+        "citations_relevant": 0,
+        "has_relevant_citation": false
+      }
+    ],
+    "flagged": {
+      "tp": [],
+      "fp": [],
+      "fn": []
+    },
+    "unmatched_tests": [],
+    "flags_expected": [],
+    "flags_found": [],
+    "unknown_tests": 1,
+    "extra_citations_on_unmatched": 0
+  }
+}
