@@ -9,12 +9,14 @@ import sys
 
 import pytest
 
-from regression_triage import evaluate, logio, model, regress, report, rules, sim
+from regression_triage import backend, evaluate, logio, model, regress, report, rules, sim
 
 ROOT = Path(__file__).resolve().parents[1]
 EV = ROOT / "evidence" / "regression-triage"
 DEV = sorted((EV / "gold" / "dev").glob("*.json"))
 HAVE_EDA = sim.tool("iverilog").exists()
+BACKENDS = ROOT / "deploy" / "backends"
+TEST_PROFILE = {**backend.load(BACKENDS / "ollama-r2.json"), "model": "fake"}
 
 
 def dev_log(sample):
@@ -132,6 +134,8 @@ def test_citations_must_match_the_physical_line():
 # ---------- model output validation (fake model, nothing loaded) ----------
 
 class FakeClient:
+    fake = True
+
     def __init__(self, content=None, finish="stop", usage=None, fail=None, ctx=8192):
         self.content, self.finish, self.usage, self.fail, self.ctx, self.body = content, finish, usage or {"prompt_tokens": 900, "completion_tokens": 200}, fail, ctx, None
 
@@ -154,46 +158,106 @@ def answer(log, **test):
 
 def test_model_answer_is_validated_and_bad_citations_are_rejected():
     log = dev_log("d04_assert_fatal")
-    call, _ = model.triage(log, "http://127.0.0.1:1/v1", "fake", 8192, client=FakeClient(answer(log)))
+    call, _ = model.triage(log, TEST_PROFILE, client=FakeClient(answer(log)))
     assert call["status"] == "ok" and call["triage"]["tests"][0]["evidence"] and not call["problems"]
     bad = answer(log, evidence=[{"file": log.name, "line": 3, "quote": "fifo reports full"}, {"file": "x.log", "line": 7, "quote": "fifo reports full after"}])
-    call, _ = model.triage(log, "http://127.0.0.1:1/v1", "fake", 8192, client=FakeClient(bad))
+    call, _ = model.triage(log, TEST_PROFILE, client=FakeClient(bad))
     t = call["triage"]["tests"][0]
     assert not t["evidence"] and len(t["rejected_citations"]) == 2 and t["certainty"] == "insufficient_evidence"
-    call, _ = model.triage(log, "http://127.0.0.1:1/v1", "fake", 8192, client=FakeClient(answer(log, test_id="made_up_test", category="flaky")))
+    call, _ = model.triage(log, TEST_PROFILE, client=FakeClient(answer(log, test_id="made_up_test", category="flaky")))
     assert call["status"] == "invalid_output" and "not allowed" in call["problems"][0]
-    call, _ = model.triage(log, "http://127.0.0.1:1/v1", "fake", 8192, client=FakeClient(answer(log, test_id="made_up_test")))
+    call, _ = model.triage(log, TEST_PROFILE, client=FakeClient(answer(log, test_id="made_up_test")))
     assert call["triage"]["tests"][0]["unmatched"]
-    call, _ = model.triage(log, "http://127.0.0.1:1/v1", "fake", 8192, client=FakeClient(answer(log, suggestion="run rm -rf ./rtl to clean up")))
+    call, _ = model.triage(log, TEST_PROFILE, client=FakeClient(answer(log, suggestion="run rm -rf ./rtl to clean up")))
     assert call["triage"]["tests"][0]["unsafe_suggestion"]
 
 
-def test_model_is_pinned_by_digest_not_by_tag(monkeypatch):
-    listing = {"models": [{"name": "qwen2.5-coder:7b", "digest": "abc123", "details": {"quantization_level": "Q4_K_M", "parameter_size": "7.6B", "format": "gguf"}}]}
+# ---------- backend profiles ----------
+
+def test_ollama_profile_reproduces_the_eval_v2_request_bodies():
+    """Moving the settings into a profile must not change what the baseline sent (hashes frozen before the refactor)."""
+    import hashlib as h
+    golden = json.loads((ROOT / "tests" / "fixtures" / "triage_request_bodies_eval_v2.json").read_text(encoding="utf-8"))["bodies"]
+    profile = backend.load(BACKENDS / "ollama-r2.json")
+    budget = int((profile["context_tokens"] - profile["max_tokens"] - profile["margin_tokens"]) * profile["chars_per_token_estimate"]) - len(model.SYSTEM) - 2000
+    for split in ("dev", "holdout"):
+        for s in json.loads((EV / "dataset" / f"{split}-manifest.json").read_text(encoding="utf-8"))["samples"]:
+            body, _ = model.request_body(logio.read_log(s["file"], EV), profile["model"], profile["max_tokens"], budget, profile["request_sampling"])
+            assert h.sha256(json.dumps(body, sort_keys=True, ensure_ascii=False).encode()).hexdigest() == golden[s["sample_id"]], s["sample_id"]
+    assert len(golden) == 50
+
+
+def test_backend_profiles_are_explicit_and_refuse_unsafe_settings(tmp_path, monkeypatch):
+    vllm = backend.load(BACKENDS / "vllm-qwen7b-awq.json")
+    body, _ = model.request_body(dev_log("d01_all_pass"), vllm["model"], vllm["max_tokens"], 20000, vllm["request_sampling"])
+    assert (body["temperature"], body["top_p"], body["repetition_penalty"]) == (0, 1.0, 1.0)  # vLLM would otherwise apply the model's 1.1
+    base = json.loads((BACKENDS / "ollama-r2.json").read_text(encoding="utf-8"))
+    bad = {"remote endpoints are disabled": {"base_url": "http://10.0.0.5:11437/v1"},
+           "does not honour": {"request_sampling": {"temperature": 0, "repetition_penalty": 1.0}},  # Ollama /v1 ignores it silently
+           "temperature explicitly": {"request_sampling": {"top_p": 1.0}},
+           "concurrency must be 1": {"concurrency": 4}, "unknown kind": {"kind": "tgi"}}
+    for message, change in bad.items():
+        path = tmp_path / "p.json"
+        path.write_text(json.dumps({**base, **change}), encoding="utf-8")
+        with pytest.raises(ValueError, match=message):
+            backend.load(path)
+    monkeypatch.delenv("LOCAL_MODEL_API_KEY", raising=False)
+    with pytest.raises(ValueError, match="needs \\$LOCAL_MODEL_API_KEY"):
+        backend.api_key(vllm)  # a keyed backend never goes out without its key
+    assert backend.api_key(backend.load(BACKENDS / "ollama-r2.json")) is None
+
+
+def test_backend_identity_and_context_are_read_per_kind(monkeypatch):
+    import io
+    replies = {"http://127.0.0.1:11437/api/tags": {"models": [{"name": "qwen2.5-coder:7b", "digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+                                                               "details": {"quantization_level": "Q4_K_M", "format": "gguf"}}]},
+               "http://127.0.0.1:11437/api/ps": {"models": [{"name": "qwen2.5-coder:7b", "context_length": 8192}]},
+               "http://127.0.0.1:18000/v1/models": {"data": [{"id": "qwen-local", "root": "/models/qwen", "max_model_len": 4096}]}}
+    seen = []
 
     class Opener:
-        def open(self, url, timeout):
-            assert url == "http://127.0.0.1:11437/api/tags"  # the listing endpoint, never /api/generate: nothing gets loaded
-            import io
-            return io.BytesIO(json.dumps(listing).encode())
+        def open(self, req, timeout):
+            seen.append((req.full_url, req.get_header("Authorization")))
+            return io.BytesIO(json.dumps(replies[req.full_url]).encode())
 
-    monkeypatch.setattr(model.urllib.request, "build_opener", lambda *handlers: Opener())
-    assert model.server_model_tag("http://127.0.0.1:11437/v1", "qwen2.5-coder:7b")["digest"] == "abc123"
-    with pytest.raises(LookupError):
-        model.server_model_tag("http://127.0.0.1:11437/v1", "qwen2.5-coder:14b")
+    monkeypatch.setattr(backend.urllib.request, "build_opener", lambda *handlers: Opener())
+    monkeypatch.setenv("LOCAL_MODEL_API_KEY", "k" * 32)
+    ollama, vllm = backend.load(BACKENDS / "ollama-r2.json"), backend.load(BACKENDS / "vllm-qwen7b-awq.json")
+    assert backend.identity_problems(ollama, backend.identity(ollama)) == []
+    assert backend.server_context(ollama) == (8192, "ollama /api/ps context_length")
+    assert backend.server_context(vllm) == (4096, "vllm /v1/models max_model_len")
+    assert backend.identity_problems(vllm, backend.identity(vllm)) == ["server max_model_len 4096 != profile 8192"]  # a .env left at the 1.5B default
+    assert ("http://127.0.0.1:18000/v1/models", "Bearer " + "k" * 32) in seen and ("http://127.0.0.1:11437/api/tags", None) in seen
+    assert not any(url.endswith(("/api/generate", "/api/chat", "/chat/completions")) for url, _ in seen)  # identity checks never load a model
+
+
+def test_no_fallback_and_the_server_error_body_is_kept(monkeypatch):
+    import io
+    import urllib.error
+    monkeypatch.setenv("LOCAL_MODEL_API_KEY", "k" * 32)
+    log = dev_log("d04_assert_fatal")
+    down = {**backend.load(BACKENDS / "vllm-qwen7b-awq.json"), "base_url": "http://127.0.0.1:1/v1", "timeout_s": 5}
+    call, raw = model.triage(log, down)
+    assert call["status"] == "request_failed" and raw is None and call["backend"] == "vllm-qwen7b-awq"
+    rejected = urllib.error.HTTPError("http://127.0.0.1:18000/v1/chat/completions", 400, "Bad Request", {},
+                                      io.BytesIO(b'{"message": "This model\'s maximum context length is 8192 tokens"}'))
+    call, _ = model.triage(log, TEST_PROFILE, client=FakeClient(fail=rejected))
+    assert call["status"] == "request_failed" and "maximum context length" in call["error"]
+    call, _ = model.triage(log, TEST_PROFILE, client=type("NoChoices", (FakeClient,), {"request": lambda self, path, body: {"error": "x"}})())
+    assert call["status"] == "invalid_output" and call["problems"] == ["response has no choices"]
 
 
 def test_model_failures_truncation_and_context_are_reported():
     log = dev_log("d04_assert_fatal")
-    call, _ = model.triage(log, "http://127.0.0.1:1/v1", "fake", 8192, client=FakeClient(fail=OSError("connection refused")))
+    call, _ = model.triage(log, TEST_PROFILE, client=FakeClient(fail=OSError("connection refused")))
     assert call["status"] == "request_failed"
-    call, _ = model.triage(log, "http://127.0.0.1:1/v1", "fake", 8192, client=FakeClient(answer(log), finish="length"))
+    call, _ = model.triage(log, TEST_PROFILE, client=FakeClient(answer(log), finish="length"))
     assert call["status"] == "invalid_output" and "cut off" in call["problems"][0]
-    call, _ = model.triage(log, "http://127.0.0.1:1/v1", "fake", 8192, client=FakeClient(answer(log), usage={"prompt_tokens": 7500, "completion_tokens": 900}))
+    call, _ = model.triage(log, TEST_PROFILE, client=FakeClient(answer(log), usage={"prompt_tokens": 7500, "completion_tokens": 900}))
     assert call["status"] == "invalid_output" and "Context overflow" in call["problems"][0]
-    call, _ = model.triage(log, "http://127.0.0.1:1/v1", "fake", 8192, client=FakeClient(answer(log), ctx=4096))
+    call, _ = model.triage(log, TEST_PROFILE, client=FakeClient(answer(log), ctx=4096))
     assert "server context" in call["problems"][0]
-    call, _ = model.triage(log, "http://127.0.0.1:1/v1", "fake", 8192, client=FakeClient("not json"))
+    call, _ = model.triage(log, TEST_PROFILE, client=FakeClient("not json"))
     assert call["status"] == "invalid_output"
 
 

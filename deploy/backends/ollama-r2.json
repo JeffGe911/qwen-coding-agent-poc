@@ -1,0 +1,33 @@
+{
+  "name": "ollama-r2",
+  "kind": "ollama",
+  "status": "measured on the Windows laptop (evidence/migration/baseline-ollama-r2/)",
+  "base_url": "http://127.0.0.1:11437/v1",
+  "model": "qwen2.5-coder:7b",
+  "weights": {
+    "source": "Ollama library qwen2.5-coder:7b",
+    "format": "gguf",
+    "quantization": "Q4_K_M",
+    "parameter_size": "7.6B",
+    "digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364"
+  },
+  "server": {
+    "software": "Ollama 0.40.9, Windows portable build",
+    "release": "r2-7b-ctx8192-np1 (deploy/releases/r2-7b-ctx8192-np1.json)",
+    "start": "powershell -ExecutionPolicy Bypass -File scripts\\start_ollama.ps1 -Port 11437 -Context 8192 -NumParallel 1",
+    "stop": "powershell -ExecutionPolicy Bypass -File scripts\\stop_ollama.ps1 -Port 11437",
+    "structured_output": "response_format json_schema, enforced by Ollama/llama.cpp grammar sampling"
+  },
+  "auth": {"type": "none", "note": "listens on 127.0.0.1 only; the optional local gateway (OPERATIONS.md) adds a bearer token in front"},
+  "timeout_s": 180,
+  "context_tokens": 8192,
+  "max_tokens": 1200,
+  "margin_tokens": 300,
+  "chars_per_token_estimate": 3.0,
+  "request_sampling": {"temperature": 0},
+  "effective_sampling": {
+    "temperature": 0, "top_p": 1.0, "top_k": 40, "repeat_penalty": 1.0, "min_p": 0.0, "decoder": "greedy",
+    "source": "server log 'sampler params' (evidence/migration/baseline-ollama-r2/server-log/); /v1 ignores repeat_penalty and top_k, so they are not sent"
+  },
+  "concurrency": 1
+}

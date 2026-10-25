@@ -9,17 +9,19 @@ import argparse
 from datetime import datetime, timezone
 import hashlib
 import json
-import os
 from pathlib import Path
 import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from regression_triage import model, rules
+from regression_triage import backend, model, rules
 
 EV = ROOT / "evidence" / "regression-triage"
-CODE = ["regression_triage/rules.py", "regression_triage/model.py", "regression_triage/evaluate.py", "regression_triage/logio.py", "regression_triage/__main__.py"]
+# Everything on the request and scoring path, including the shared client: eval-v1/v2 hashed only the first five, so a
+# change in qwen_agent/client.py (timeout, auth, URL checks) would have gone unnoticed.
+CODE = ["regression_triage/rules.py", "regression_triage/model.py", "regression_triage/evaluate.py", "regression_triage/logio.py", "regression_triage/__main__.py",
+        "regression_triage/backend.py", "qwen_agent/client.py", "qwen_agent/workflow.py", "qwen_agent/policy.py"]
 
 
 def sha(path):
@@ -30,8 +32,7 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("version")
     p.add_argument("--note", default="")
-    p.add_argument("--base-url", default="http://127.0.0.1:11437/v1")
-    p.add_argument("--model", default="qwen2.5-coder:7b")
+    p.add_argument("--backend", default=str(ROOT / "deploy" / "backends" / "ollama-r2.json"), help="backend profile for the model engine")
     p.add_argument("--engines", choices=["rules", "rules,qwen"], default="rules,qwen",
                    help="'rules' freezes without a model block (no server needed); the model then needs a later contract version")
     args = p.parse_args()
@@ -53,11 +54,14 @@ def main():
     commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
     qwen = None
     if "qwen" in args.engines:
-        qwen = {"base_url": args.base_url, "model": args.model, "model_tag": model.server_model_tag(args.base_url, args.model), "release": (ROOT / "deploy" / "releases" / "ACTIVE").read_text(encoding="utf-8").strip(),
-                "transport": "/v1/chat/completions with response_format json_schema", "sampling": {"temperature": 0, "note": "other sampling values are the server's /v1 defaults (top_p 1.0, repeat_penalty 1.0 per the r2 server log)"},
-                "context_tokens": 8192, "max_tokens": 1200, "margin_tokens": 300, "chars_per_token_estimate": 3.0,
-                "timeout_s": float(os.environ.get("QWEN_AGENT_TIMEOUT", "180")), "auth": "Bearer from LOCAL_MODEL_API_KEY if set" if os.environ.get("LOCAL_MODEL_API_KEY") else "none (loopback only)",
-                "concurrency": 1,
+        profile = backend.load(args.backend)
+        served = backend.identity(profile)  # listing only; never loads a model
+        problems = backend.identity_problems(profile, served)
+        if problems:
+            raise SystemExit("the running server does not match the backend profile: " + "; ".join(problems))
+        qwen = {"backend_file": Path(args.backend).resolve().relative_to(ROOT).as_posix(), "backend": profile, "backend_sha256": backend.sha256(profile),
+                "served_identity_at_freeze": served, "transport": "/v1/chat/completions with response_format json_schema",
+                "release": (ROOT / "deploy" / "releases" / "ACTIVE").read_text(encoding="utf-8").strip() if profile["kind"] == "ollama" else None,
                 "prompt_version": model.PROMPT_VERSION, "prompt_sha256": model.prompt_sha256()}
     contract = {
         "version": args.version, "frozen_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"), "note": args.note,

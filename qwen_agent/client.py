@@ -49,17 +49,19 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 
 
 class Client:
-    def __init__(self, base_url, model, timeout=None):
+    def __init__(self, base_url, model, timeout=None, api_key=None):
         self.base_url = validate_url(base_url)
         self.model = model
         # A stuck server must surface as a recorded model_error, not an endless wait.
         self.timeout = timeout or float(os.environ.get("QWEN_AGENT_TIMEOUT", "180"))
+        # None: take $LOCAL_MODEL_API_KEY as before; "": send no key (a backend profile with auth type none).
+        self.api_key = os.environ.get("LOCAL_MODEL_API_KEY") if api_key is None else api_key
         self.opener = urllib.request.build_opener(urllib.request.ProxyHandler({}), NoRedirect())
 
     def request(self, path, body=None):
         headers = {"Content-Type": "application/json"}
-        if os.environ.get("LOCAL_MODEL_API_KEY"):
-            headers["Authorization"] = "Bearer " + os.environ["LOCAL_MODEL_API_KEY"]
+        if self.api_key:
+            headers["Authorization"] = "Bearer " + self.api_key
         request = urllib.request.Request(self.base_url + path, data=None if body is None else json.dumps(body).encode(), headers=headers)
         with self.opener.open(request, timeout=self.timeout) as response:
             raw = response.read(262145)

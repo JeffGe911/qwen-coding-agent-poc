@@ -1,0 +1,35 @@
+{
+  "name": "vllm-qwen7b-awq",
+  "kind": "vllm",
+  "status": "NEVER RUN: no Linux GPU host yet (evidence/linux-serving/STATUS.md)",
+  "base_url": "http://127.0.0.1:18000/v1",
+  "model": "qwen-local",
+  "weights": {
+    "source": "Qwen/Qwen2.5-Coder-7B-Instruct-AWQ",
+    "revision": "8e8ed243bbe6f9a5aff549a0924562fc719b2b8a",
+    "format": "safetensors",
+    "quantization": "AWQ 4-bit GEMM, group_size 128",
+    "verified_by": "deploy/linux-vllm/download_model.sh writes the safetensors sha256 on the host; vLLM's API reports no digest",
+    "differs_from_baseline": "not the same weights as ollama-r2 (GGUF Q4_K_M): same base model, different 4-bit quantization method and file format"
+  },
+  "server": {
+    "software": "vllm/vllm-openai:v0.32.0@sha256:befccf0e7e4089aa23926bb6f887a85c0d46c2a99e6de5c5ffdf5cb7957c5b34",
+    "env_file": "deploy/linux-vllm/env.7b-awq.example (copy to deploy/linux-vllm/.env)",
+    "start": "docker compose --env-file deploy/linux-vllm/.env -f deploy/linux-vllm/compose.yaml up -d",
+    "stop": "docker compose --env-file deploy/linux-vllm/.env -f deploy/linux-vllm/compose.yaml stop",
+    "structured_output": "response_format json_schema, vLLM structured outputs backend auto (xgrammar or guidance)",
+    "generation_config": "vllm (compose passes --generation-config=vllm so the model's repetition_penalty 1.1 is not applied)"
+  },
+  "auth": {"type": "bearer_env", "env": "LOCAL_MODEL_API_KEY", "note": "same value as VLLM_API_KEY in the git-ignored .env; protects /v1 only"},
+  "timeout_s": 180,
+  "context_tokens": 8192,
+  "max_tokens": 1200,
+  "margin_tokens": 300,
+  "chars_per_token_estimate": 3.0,
+  "request_sampling": {"temperature": 0, "top_p": 1.0, "repetition_penalty": 1.0},
+  "effective_sampling": {
+    "temperature": 0, "top_p": 1.0, "repetition_penalty": 1.0, "top_k": "disabled (vLLM default under --generation-config vllm)", "decoder": "greedy (temperature 0)",
+    "source": "docs.vllm.ai v0.32.0 serve and sampling_params pages (evidence/linux-serving/docs-check.md); to be confirmed on the running server"
+  },
+  "concurrency": 1
+}

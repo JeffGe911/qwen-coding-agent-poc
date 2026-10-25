@@ -121,7 +121,10 @@ def main():
     p.add_argument("--unload-only", action="store_true")
     args = p.parse_args()
     contract = json.loads(Path(args.contract).read_text(encoding="utf-8"))
-    q = contract["qwen"]
+    q = contract["qwen"]["backend"] if "backend" in contract["qwen"] else contract["qwen"]  # eval-v3+ profile, or the eval-v2 shape
+    if q.get("kind", "ollama") != "ollama":
+        raise SystemExit("this session wrapper measures Ollama on Windows (memory counters, /api/ps, keep_alive unload); "
+                         "for vLLM on Linux use deploy/linux-vllm/migrate.sh, which records resources with nvidia-smi and docker stats")
     origin = q["base_url"][: -len("/v1")]
     if args.unload_only:
         before = snapshot(origin)

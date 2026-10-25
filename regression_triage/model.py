@@ -8,12 +8,13 @@ token budget, and prompts that would not fit the server context are reported as 
 import json
 import re
 import time
-import urllib.request
+import urllib.error
 
 from qwen_agent.client import Client
 from qwen_agent.policy import digest
 from qwen_agent.workflow import context_problem
 
+from . import backend
 from .evaluate import citation_ok
 from .rules import CATEGORIES, RESULTS, RUN, SIDES, parse_runner
 
@@ -56,18 +57,6 @@ def prompt_sha256():
     return digest({"system": SYSTEM, "schema": SCHEMA, "version": PROMPT_VERSION})
 
 
-def server_model_tag(base_url, name):
-    """Digest and quantization of `name` from Ollama's /api/tags. Listing models does not load one. A tag such as
-    qwen2.5-coder:7b can be re-pulled to different weights, so evaluations pin the digest, not the name."""
-    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
-    with opener.open(base_url[: -len("/v1")] + "/api/tags", timeout=10) as r:
-        for m in json.loads(r.read()).get("models", []):
-            if m["name"] == name:
-                return {"name": name, "digest": m["digest"], "quantization": m["details"].get("quantization_level"),
-                        "parameter_size": m["details"].get("parameter_size"), "format": m["details"].get("format")}
-    raise LookupError(f"model {name} is not listed by {base_url}")
-
-
 def structure(log):
     """Structural facts only (test sections, stage line ranges, exit codes). No verdicts, so the model judges on its own."""
     if not any(RUN.match(line) for line in log.lines):
@@ -107,11 +96,12 @@ def numbered(log, budget_chars):
     return "\n".join(text), omitted
 
 
-def request_body(log, model, max_tokens, input_budget_chars):
+def request_body(log, model, max_tokens, input_budget_chars, sampling=None):
+    """sampling: the backend profile's request_sampling ({"temperature": 0} for Ollama, the full set for vLLM)."""
     lines, omitted = numbered(log, input_budget_chars)
     user = {"file": log.name, "line_count": len(log.lines), "summary": structure(log), "input_truncated": bool(omitted),
             "omitted_line_ranges": omitted, "log": lines}
-    return {"model": model, "temperature": 0, "max_tokens": max_tokens, "stream": False,
+    return {"model": model, **(sampling or {"temperature": 0}), "max_tokens": max_tokens, "stream": False,
             "response_format": {"type": "json_schema", "json_schema": {"name": "triage", "strict": True, "schema": SCHEMA}},
             "messages": [{"role": "system", "content": SYSTEM}, {"role": "user", "content": json.dumps(user, ensure_ascii=False)}]}, omitted
 
@@ -164,20 +154,37 @@ def validate(content, log):
     return obj, problems
 
 
-def triage(log, base_url, model, context_tokens, max_tokens=1200, margin_tokens=300, chars_per_token=3.0, client=None):
-    """One request. Never raises for model problems; the outcome is recorded in 'status'."""
-    budget_chars = int((context_tokens - max_tokens - margin_tokens) * chars_per_token) - len(SYSTEM) - 2000
-    body, omitted = request_body(log, model, max_tokens, budget_chars)
-    client = client or Client(base_url, model)
-    out = {"engine": f"qwen:{model}", "prompt_version": PROMPT_VERSION, "prompt_sha256": prompt_sha256(), "file": log.name,
-           "input_truncated": bool(omitted), "omitted_line_ranges": omitted, "request_chars": len(json.dumps(body, ensure_ascii=False))}
+def http_error(exc):
+    """Status and the start of the server's error body (vLLM explains a rejected request there, e.g. context overflow)."""
+    detail = f"{type(exc).__name__}: {exc}"
+    if isinstance(exc, urllib.error.HTTPError):
+        try:
+            detail += " | " + exc.read(600).decode("utf-8", "replace")
+        except OSError:
+            pass
+    return detail
+
+
+def triage(log, profile, client=None):
+    """One request to the backend described by `profile` (regression_triage/backend.py). The prompt, schema and
+    validation are the same for every backend. Never raises for model problems; the outcome is recorded in 'status'."""
+    model, context_tokens, max_tokens = profile["model"], profile["context_tokens"], profile["max_tokens"]
+    budget_chars = int((context_tokens - max_tokens - profile["margin_tokens"]) * profile["chars_per_token_estimate"]) - len(SYSTEM) - 2000
+    body, omitted = request_body(log, model, max_tokens, budget_chars, profile["request_sampling"])
+    out = {"engine": f"qwen:{model}", "backend": profile["name"], "backend_sha256": backend.sha256(profile), "prompt_version": PROMPT_VERSION,
+           "prompt_sha256": prompt_sha256(), "file": log.name, "input_truncated": bool(omitted), "omitted_line_ranges": omitted,
+           "request_chars": len(json.dumps(body, ensure_ascii=False)), "timeout_s": profile["timeout_s"]}
     started = time.monotonic()
     try:
+        client = client or Client(profile["base_url"], model, timeout=profile["timeout_s"], api_key=backend.api_key(profile) or "")
         resp = client.request("/chat/completions", body)
     except (OSError, ValueError) as exc:
-        out.update(status="request_failed", error=f"{type(exc).__name__}: {exc}", seconds=round(time.monotonic() - started, 3))
+        out.update(status="request_failed", error=http_error(exc), seconds=round(time.monotonic() - started, 3))
         return out, None
     out["seconds"] = round(time.monotonic() - started, 3)
+    if not isinstance(resp, dict) or not resp.get("choices"):
+        out.update(status="invalid_output", problems=["response has no choices"])
+        return out, resp
     choice = resp["choices"][0]
     usage = resp.get("usage") or {}
     out.update(usage=usage, finish_reason=choice.get("finish_reason"))
@@ -187,7 +194,8 @@ def triage(log, base_url, model, context_tokens, max_tokens=1200, margin_tokens=
     ctx = context_problem(usage, context_tokens)
     if ctx:
         problems.append(ctx)
-    actual = client.server_context() if hasattr(client, "server_context") else None
+    actual, source = (client.server_context(), "test client") if hasattr(client, "fake") else backend.server_context(profile)
+    out.update(server_context=actual, server_context_source=source)
     if actual and actual != context_tokens:
         problems.append(f"server context {actual} != expected {context_tokens}")
     if problems:

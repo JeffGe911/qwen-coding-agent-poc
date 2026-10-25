@@ -15,7 +15,7 @@ from pathlib import Path
 import sys
 import time
 
-from . import evaluate, logio, model, regress, report, rules
+from . import backend, evaluate, logio, model, regress, report, rules
 
 ROOT = Path(__file__).resolve().parents[1]
 EV = ROOT / "evidence" / "regression-triage"
@@ -33,7 +33,7 @@ def write(path, obj):
 
 
 def model_settings(args):
-    return {"base_url": args.base_url, "model": args.model, "context_tokens": args.context_tokens, "max_tokens": args.max_tokens}
+    return backend.load(args.backend)
 
 
 def run_engine(engine, log, settings):
@@ -41,7 +41,7 @@ def run_engine(engine, log, settings):
         t0 = time.monotonic()
         result = rules.triage(log)
         return {"status": "ok", "seconds": round(time.monotonic() - t0, 4)}, result, None
-    call, raw = model.triage(log, settings["base_url"], settings["model"], settings["context_tokens"], settings["max_tokens"])
+    call, raw = model.triage(log, settings)
     return {k: v for k, v in call.items() if k != "triage"}, call.get("triage"), raw
 
 
@@ -93,12 +93,12 @@ def cmd_eval(args):
     if args.engine not in contract.get("engines", ["rules", "qwen"]):
         raise SystemExit(f"contract {contract['version']} does not cover engine {args.engine}; freeze a contract version that does")
     if args.engine == "qwen":
-        settings = contract["qwen"]
-        if model.prompt_sha256() != settings["prompt_sha256"]:
+        settings = contract["qwen"]["backend"]
+        if model.prompt_sha256() != contract["qwen"]["prompt_sha256"]:
             raise SystemExit("prompt/schema differ from the contract; freeze a new contract version")
-        served = model.server_model_tag(settings["base_url"], settings["model"])
-        if served["digest"] != settings["model_tag"]["digest"]:
-            raise SystemExit(f"{settings['model']} on the server is {served['digest'][:12]}, the contract froze {settings['model_tag']['digest'][:12]}")
+        problems = backend.identity_problems(settings, backend.identity(settings))
+        if problems:
+            raise SystemExit(f"backend {settings['name']} does not match the contract: " + "; ".join(problems))
     else:
         settings = None
     out = EV / "results" / f"{contract['version']}-{args.engine}" / args.split
@@ -139,7 +139,7 @@ def cmd_demo(args):
     out = Path(args.out)
     reg = regress.run_regression(ROOT / "hdl" / "regressions" / "dev" / "d07_mixed.json", out / "runs")
     ns = argparse.Namespace(log=(reg / "regression.log").relative_to(out).as_posix(), root=str(out), out=str(out / "triage"),
-                            engine="both" if args.with_model else "rules", **{k: getattr(args, k) for k in ("base_url", "model", "context_tokens", "max_tokens")})
+                            engine="both" if args.with_model else "rules", backend=args.backend)
     cmd_triage(ns)
 
 
@@ -155,8 +155,8 @@ def main(argv=None):
     e.add_argument("--engine", choices=["rules", "qwen"], required=True)
     d = sub.add_parser("demo"); d.add_argument("--out", required=True); d.add_argument("--with-model", action="store_true")
     for sp in (t, d):
-        sp.add_argument("--base-url", default="http://127.0.0.1:11437/v1"); sp.add_argument("--model", default="qwen2.5-coder:7b")
-        sp.add_argument("--context-tokens", type=int, default=8192); sp.add_argument("--max-tokens", type=int, default=1200)
+        sp.add_argument("--backend", default=str(ROOT / "deploy" / "backends" / "ollama-r2.json"),
+                        help="backend profile (deploy/backends/*.json): endpoint, model, auth, timeout, context, output budget, sampling")
     args = p.parse_args(argv)
     {"run": cmd_run, "triage": cmd_triage, "review": cmd_review, "eval": cmd_eval, "demo": cmd_demo}[args.cmd](args)
 
