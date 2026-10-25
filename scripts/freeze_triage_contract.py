@@ -9,6 +9,7 @@ import argparse
 from datetime import datetime, timezone
 import hashlib
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -55,6 +56,8 @@ def main():
         qwen = {"base_url": args.base_url, "model": args.model, "model_tag": model.server_model_tag(args.base_url, args.model), "release": (ROOT / "deploy" / "releases" / "ACTIVE").read_text(encoding="utf-8").strip(),
                 "transport": "/v1/chat/completions with response_format json_schema", "sampling": {"temperature": 0, "note": "other sampling values are the server's /v1 defaults (top_p 1.0, repeat_penalty 1.0 per the r2 server log)"},
                 "context_tokens": 8192, "max_tokens": 1200, "margin_tokens": 300, "chars_per_token_estimate": 3.0,
+                "timeout_s": float(os.environ.get("QWEN_AGENT_TIMEOUT", "180")), "auth": "Bearer from LOCAL_MODEL_API_KEY if set" if os.environ.get("LOCAL_MODEL_API_KEY") else "none (loopback only)",
+                "concurrency": 1,
                 "prompt_version": model.PROMPT_VERSION, "prompt_sha256": model.prompt_sha256()}
     contract = {
         "version": args.version, "frozen_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"), "note": args.note,
