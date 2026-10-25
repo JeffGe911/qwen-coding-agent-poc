@@ -324,3 +324,14 @@ def test_model_session_refuses_to_load_or_aborts_on_low_memory():
     assert [p for p in s.problems(tight, gpu) if p.startswith("commit headroom")] and not s.must_abort(tight)
     assert s.problems(roomy, {"vram_free_mb": 5000})  # something else holds the GPU
     assert s.must_abort({"available_mb": 1500, "commit_headroom_mb": 9000}) and s.must_abort({"available_mb": 9000, "commit_headroom_mb": 1000})
+
+
+def test_migration_comparison_reports_both_sides_and_refuses_different_datasets(tmp_path):
+    import subprocess
+    script = ROOT / "scripts" / "compare_migration.py"
+    out = tmp_path / "cmp.md"
+    r = subprocess.run([sys.executable, str(script), "--before", "eval-v1", "--after", "eval-v1", "--engine", "rules", "--out", str(out)], capture_output=True, text=True)
+    text = out.read_text(encoding="utf-8")
+    assert r.returncode == 0 and text.count("不同：0") == 2 and "类别正确 | 37/37" in text  # same results on both sides: no differences
+    r = subprocess.run([sys.executable, str(script), "--before", "eval-v1", "--after", "eval-v2", "--engine", "qwen", "--out", str(out)], capture_output=True, text=True)
+    assert r.returncode == 0 and "缺少结果" in out.read_text(encoding="utf-8")  # a missing side is reported, never filled in

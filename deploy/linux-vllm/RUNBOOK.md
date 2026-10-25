@@ -91,7 +91,45 @@ sudo QWEN_VLLM_CONFIRM=yes bash deploy/linux-vllm/acceptance.sh
 | 请求返回 400，提示上下文过长 | 请求的 prompt 加 `max_tokens` | 这是 vLLM 显式拒绝，和 Ollama 静默截断不同；缩短输入或调大 `MAX_MODEL_LEN` |
 | `/metrics` 能被访问 | 端口绑定 | 只绑定在 127.0.0.1；对外提供服务时，要在前面加带 token 的 allowlist 网关（`deploy/nginx.conf.template`） |
 | 容器被 OOM kill | `docker inspect -f '{{.State.OOMKilled}}'` | 降低并发或上下文，或提高 `MEM_LIMIT`（不能超过 WSL 上限） |
+| 生成速度只有平时的几分之一，GPU 利用率却接近 100% | `nvidia-smi --query-gpu=pstate,clocks.mem,enforced.power.limit,clocks_event_reasons.sw_power_cap --format=csv`，以及服务日志里的 `eval time` | **实际遇到过（2026-10-25，Windows 基线）**：笔记本用电池供电、电源方案为“静音”，GPU 在 P5、功耗上限 33 W、显存时钟 810 MHz，生成从 50–90 tok/s 降到 7.4 tok/s，已接近请求超时。接上电源、换电源方案后再测。降频状态下测到的耗时不能当基线 |
+| 迁移后输出质量变了，或出现重复 | 启动参数里是否有 `--generation-config vllm`，请求里是否带了 `repetition_penalty` | vLLM 默认会套用模型自带的 generation_config.json（Qwen2.5-Coder-7B 的 repetition_penalty 是 1.1）。两边对齐见 deploy/VERSIONS.md |
+| 评测拒绝运行：`backend ... does not match the contract` | `curl -H "Authorization: Bearer $KEY" 127.0.0.1:18000/v1/models` | 服务名或 `max_model_len` 与后端配置不一致，常见原因是 `.env` 还停留在 1.5B 的设置（4096）。不要改合同，应修正 `.env` |
+| 评测拒绝运行：`... changed since the contract was frozen` | `git status` | 被哈希的代码有改动。要么恢复改动，要么冻结一个新的合同版本 |
+| 请求返回 401 | `.env` 中的 `VLLM_API_KEY` 和环境变量 `LOCAL_MODEL_API_KEY` | migrate.sh 会从 `.env` 导出 key；手动运行时要自己 export，不要写进命令历史 |
 
-## 9. 两台服务器时
+## 9. 业务迁移（Ollama → vLLM）与对比
+
+业务入口和输出契约都不变：同一套 prompt、schema、引用校验和评分，只换后端配置文件（`deploy/backends/*.json`）。配置文件记录接口地址、模型名、权重标识、鉴权、超时、上下文、输出预算、请求里发送的采样参数，以及服务端实际生效的参数。没有回退：服务不响应时，记为 request_failed。
+
+```bash
+# 迁移前（Windows，已具备条件时）：冻结基线合同，按 dev → holdout 运行，带资源监控，结束后卸载模型
+python scripts/freeze_triage_contract.py eval-v3 --engines rules,qwen --backend deploy/backends/ollama-r2.json --note "..."
+python scripts/triage_model_session.py --contract evidence/regression-triage/contract/eval-v3.json --split dev
+python scripts/triage_model_session.py --contract evidence/regression-triage/contract/eval-v3.json --split holdout --unload
+
+# 迁移后（Linux）：cp deploy/linux-vllm/env.7b-awq.example deploy/linux-vllm/.env，填好 key，再执行
+sudo QWEN_VLLM_CONFIRM=yes bash deploy/linux-vllm/migrate.sh dev       # 验收 8 项 → 冻结 eval-v4 → dev，停下等复核
+sudo QWEN_VLLM_CONFIRM=yes bash deploy/linux-vllm/migrate.sh holdout   # holdout 跑一次 → 对比报告
+# 端到端一条命令（复现用）：验收 → dev → 检查流程是否正常（不看准确率）→ holdout → 对比
+sudo QWEN_VLLM_CONFIRM=yes bash deploy/linux-vllm/migrate.sh all
+```
+
+对比报告由 `scripts/compare_migration.py` 生成，写到 `evidence/migration/COMPARISON-eval-v3-vs-eval-v4.md`。内容依次是：
+1. 两边的差异：权重、量化、结构化输出实现、采样参数；
+2. 请求成功率和结构化输出合规率；
+3. 类别正确、误放行、漏报、误报、unknown 和引用相关率；
+4. 耗时、token 数和资源占用；
+5. 逐个测试的类别是否一致。
+
+两边输出不要求逐字相同，接口调用成功也不等于业务迁移成功。
+
+恢复命令：
+- 停止：`docker compose --env-file deploy/linux-vllm/.env -f deploy/linux-vllm/compose.yaml stop`
+- 启动：把命令里的 `stop` 换成 `up -d`
+- 重启：换成 `restart vllm`
+- 回滚配置：改配置前先执行 `cp deploy/linux-vllm/.env deploy/linux-vllm/.env.known-good`，这个文件含 key，已被 git 忽略。回滚时把它复制回 `.env`，再执行 `up -d --force-recreate vllm`。acceptance.sh 第 8 步用临时副本做同样的事，脚本结束时临时副本会被删除。
+- Ollama 一侧：`scripts\stop_ollama.ps1 -Port 11437`，然后 `scripts\start_ollama.ps1 -Port 11437 -Context 8192 -NumParallel 1`，最后用 `python -m qwen_ops release verify --name r2-7b-ctx8192-np1` 核对。
+
+## 10. 两台服务器时
 
 这份 compose 只针对单机。到两台服务器时，按 `deploy/compose.vllm.yaml`（网关 + 内部网络）部署推理机。另一台的用途（执行沙箱、评测或第二个推理副本）在盘点之后再决定。`wip/ops-drills-linux` 分支里有一套更完整但从未运行、也没审查完的套件，复用之前要先审查。

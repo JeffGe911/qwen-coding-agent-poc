@@ -111,3 +111,20 @@ def test_acceptance_redacts_the_key_from_every_evidence_file(tmp_path):
     _, _, files = acceptance(tmp_path, free_mb=3000, leak_key=True)
     assert files and not any(KEY in text for text in files.values())
     assert any("[REDACTED]" in text for text in files.values())
+
+
+def test_migration_script_is_gated_and_uses_the_recorded_profile():
+    text = (DEPLOY / "migrate.sh").read_text(encoding="utf-8")
+    assert "QWEN_VLLM_CONFIRM" in text and "set -x" not in text and "deploy/backends/vllm-qwen7b-awq.json" in text
+    assert "MAX_MODEL_LEN in $ENV_FILE must be 8192" in text  # same context as the Ollama baseline
+    assert 'grep -R -q -F "$LOCAL_MODEL_API_KEY"' in text and "echo $LOCAL_MODEL_API_KEY" not in text
+    assert 'kill "$pid"' in text and "accuracy is not looked at" in text  # stops only its own eval; the gate never tunes on results
+    profile = (DEPLOY.parent / "backends" / "vllm-qwen7b-awq.json").read_text(encoding="utf-8")
+    assert "NEVER RUN" in profile and "8e8ed243bbe6f9a5aff549a0924562fc719b2b8a" in profile
+    env = (DEPLOY / "env.7b-awq.example").read_text(encoding="utf-8")
+    assert "MAX_MODEL_LEN=8192" in env and "Qwen2.5-Coder-7B-Instruct-AWQ" in env and "REPLACE_WITH" in env
+
+
+@pytest.mark.skipif(not shutil.which("bash"), reason="bash not available")
+def test_migration_script_parses():
+    assert subprocess.run(["bash", "-n", str(DEPLOY / "migrate.sh")], capture_output=True).returncode == 0

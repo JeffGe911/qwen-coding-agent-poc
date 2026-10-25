@@ -11,3 +11,4 @@ deploy/.env
 
 deploy/linux-vllm/.env
 deploy/**/*.env.local
+deploy/linux-vllm/.env.*
