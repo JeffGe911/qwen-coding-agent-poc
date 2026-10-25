@@ -1,0 +1,13 @@
+%Error: Cannot find verilated_std_waiver.vlt containing built-in lint waivers: '/yosyshq/share/verilator\include\verilated_std_waiver.vlt'
+        ... See the manual at https://verilator.org/verilator_doc.html?v=5.053 for more assistance.
+        ... This may be because there's no search path specified with -I<dir>.
+        ... Looked in:
+             /yosyshq/share/verilator\include\verilated_std_waiver.vlt
+             /yosyshq/share/verilator\include\verilated_std_waiver.vlt.v
+             /yosyshq/share/verilator\include\verilated_std_waiver.vlt.sv
+             obj_dir\/yosyshq/share/verilator\include\verilated_std_waiver.vlt
+             obj_dir\/yosyshq/share/verilator\include\verilated_std_waiver.vlt.v
+             obj_dir\/yosyshq/share/verilator\include\verilated_std_waiver.vlt.sv
+        ... With current working directory 'C:\Users\Jeff1\AppData\Local\Temp\raw-60ahnw8r'
+%Error: Cannot find verilated_std.sv containing built-in std:: definitions: '/yosyshq/share/verilator\include\verilated_std.sv'
+%Error: Exiting due to 2 error(s)

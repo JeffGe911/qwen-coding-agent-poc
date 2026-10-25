@@ -1,0 +1,10 @@
+#RUN regression=g22_spi_wdog run_id=20261025T212408Z-g22_spi_wdog-6c847a started_utc=2026-10-25T21:24:08+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=spi_loopback stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_spi_shift -DREV_H hdl/holdout2/rtl/spi_shift.v hdl/holdout2/tb/tb_spi_shift.v
+#RUN test=spi_loopback stage=compile exit=0 elapsed_s=0.115 timed_out=false output_truncated=false
+#RUN test=spi_loopback stage=run cmd=vvp.exe -n sim.vvp
+spi_tb: watchdog armed, 20000 ns
+FATAL: hdl/holdout2/tb/tb_spi_shift.v:43: spi_tb watchdog: transfer not finished after 20000 ns (cs_n=0 sclk=0)
+       Time: 20000000  Scope: tb_spi_shift.watchdog
+#RUN test=spi_loopback stage=run exit=1 elapsed_s=0.048 timed_out=false output_truncated=false
+#RUN regression=g22_spi_wdog end tests=1 finished_utc=2026-10-25T21:24:08+00:00

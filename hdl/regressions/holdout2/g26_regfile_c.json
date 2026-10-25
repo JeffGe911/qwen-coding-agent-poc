@@ -1,0 +1,19 @@
+{
+  "regression": "g26_regfile_c",
+  "description": "source run for the truncated-after-failure synthetic sample: regfile ECO_WE + ECO_BYP",
+  "tests": [
+    {
+      "test_id": "regfile_rw",
+      "top": "tb_regfile",
+      "sources": [
+        "hdl/holdout2/rtl/regfile.v",
+        "hdl/holdout2/tb/tb_regfile.v"
+      ],
+      "defines": [
+        "ECO_WE",
+        "ECO_BYP"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

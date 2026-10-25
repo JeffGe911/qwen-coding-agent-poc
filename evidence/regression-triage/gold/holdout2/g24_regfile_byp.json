@@ -1,0 +1,22 @@
+{
+  "sample_id": "g24_regfile_byp",
+  "log_status": "complete",
+  "tests": {
+    "regfile_rw": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ]
+    }
+  },
+  "notes": "Self-check failure with exit 0; summary counter and RESULT: FAIL also accepted."
+}

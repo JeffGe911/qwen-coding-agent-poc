@@ -1,0 +1,24 @@
+{
+  "sample_id": "g10_lint",
+  "log_status": "complete",
+  "tests": {
+    "debounce_lint": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        7
+      ]
+    },
+    "pwm_lint": {
+      "result": "fail",
+      "category": "compile_error",
+      "side": "design_or_test",
+      "evidence_lines": [
+        9,
+        15
+      ]
+    }
+  },
+  "notes": "debounce_lint: lint has no testbench verdict line; a lint check that exits 0 with no diagnostics (only Verilator's statistics report) is labelled pass, evidence = the runner's exit=0 line. pwm_lint: -Wall makes the WIDTHTRUNC warning fatal; the first diagnostic line and the 'Exiting due to 1 warning(s)' line are accepted."
+}

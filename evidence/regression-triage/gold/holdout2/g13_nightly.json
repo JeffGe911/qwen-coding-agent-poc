@@ -1,0 +1,63 @@
+{
+  "sample_id": "g13_nightly",
+  "log_status": "complete",
+  "tests": {
+    "uart_tx_bytes": {
+      "result": "fail",
+      "category": "timeout",
+      "side": "design_or_test",
+      "evidence_lines": [
+        8,
+        9
+      ]
+    },
+    "lfsr_seq": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        16
+      ]
+    },
+    "pwm_duty": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        23,
+        25,
+        26,
+        27,
+        28,
+        29,
+        31,
+        32
+      ]
+    },
+    "regfile_lint": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        39
+      ]
+    },
+    "lfsr_taps_v2": {
+      "result": "not_run",
+      "category": "compile_error",
+      "side": "design_or_test",
+      "evidence_lines": [
+        41
+      ]
+    },
+    "spi_loopback": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        52
+      ]
+    }
+  },
+  "notes": "regfile_lint follows the lint-pass convention of g10 (exit 0, no diagnostics). lfsr_taps_v2 is an elaboration error (unbound parameter)."
+}

@@ -1,0 +1,34 @@
+#RUN regression=g01_smoke run_id=20261025T212341Z-g01_smoke-b64acd started_utc=2026-10-25T21:23:41+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=debounce_basic stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_debounce hdl/holdout2/rtl/debounce.v hdl/holdout2/tb/tb_debounce.v
+#RUN test=debounce_basic stage=compile exit=0 elapsed_s=0.09 timed_out=false output_truncated=false
+#RUN test=debounce_basic stage=run cmd=vvp.exe -n sim.vvp
+tb_debounce: STABLE_CYCLES=8, comparing against reference model every cycle
+tb_debounce: 85 cycles compared
+SIM RESULT: OK
+hdl/holdout2/tb/tb_debounce.v:73: $finish called at 850000 (1ps)
+#RUN test=debounce_basic stage=run exit=0 elapsed_s=0.037 timed_out=false output_truncated=false
+#RUN test=pwm_duty stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_pwm_gen hdl/holdout2/rtl/pwm_gen.v hdl/holdout2/tb/tb_pwm_gen.v
+#RUN test=pwm_duty stage=compile exit=0 elapsed_s=0.095 timed_out=false output_truncated=false
+#RUN test=pwm_duty stage=run cmd=vvp.exe -n sim.vvp
+pwm_gen duty sweep (period 256 clocks)
+  duty=  0  high=  0  expect=  0            ok
+  WARN: duty=0 holds pwm_out low for the whole period (by spec)
+  duty=  1  high=  1  expect=  1            ok
+  duty= 64  high= 64  expect= 64            ok
+  duty=128  high=128  expect=128            ok
+  duty=200  high=200  expect=200            ok
+  duty=255  high=255  expect=255            ok
+  WARN: duty=255 gives 255/256 high, 100% is not reachable (by spec)
+Errors: 0 Warnings: 2
+== PASS ==
+hdl/holdout2/tb/tb_pwm_gen.v:80: $finish called at 46096000 (1ps)
+#RUN test=pwm_duty stage=run exit=0 elapsed_s=0.042 timed_out=false output_truncated=false
+#RUN test=lfsr_seq stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_lfsr16 hdl/holdout2/rtl/lfsr16.v hdl/holdout2/tb/tb_lfsr16.sv
+#RUN test=lfsr_seq stage=compile exit=0 elapsed_s=0.111 timed_out=false output_truncated=false
+#RUN test=lfsr_seq stage=run cmd=vvp.exe -n sim.vvp
+[tb_lfsr16] seed=16'hACE1 taps=16'hB400, 1000 steps
+*** tb_lfsr16: SUCCESS (1000 steps, 0 scoreboard mismatches) ***
+hdl/holdout2/tb/tb_lfsr16.sv:38: $finish called at 10030000 (1ps)
+#RUN test=lfsr_seq stage=run exit=0 elapsed_s=0.041 timed_out=false output_truncated=false
+#RUN regression=g01_smoke end tests=3 finished_utc=2026-10-25T21:23:42+00:00

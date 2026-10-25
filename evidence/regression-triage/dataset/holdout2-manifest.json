@@ -1,0 +1,325 @@
+{
+  "split": "holdout2",
+  "samples": [
+    {
+      "sample_id": "g01_smoke",
+      "split": "holdout2",
+      "kind": "real",
+      "source": "runs/20261025T212341Z-g01_smoke-b64acd/regression.log",
+      "provenance": "real: runner log of hdl/regressions/holdout2/g01_smoke.json (3 test(s)), copied byte for byte",
+      "file": "dataset/holdout2/g01_smoke.log",
+      "sha256": "b760f930b3f9fc251aa9c8c4a192fb3d17f88bb5315441fd416637b663f048aa",
+      "bytes": 2431
+    },
+    {
+      "sample_id": "g02_debounce",
+      "split": "holdout2",
+      "kind": "real",
+      "source": "runs/20261025T212353Z-g02_debounce-0536db/regression.log",
+      "provenance": "real: runner log of hdl/regressions/holdout2/g02_debounce.json (1 test(s)), copied byte for byte",
+      "file": "dataset/holdout2/g02_debounce.log",
+      "sha256": "ca92c4a367d18a036f7a6fd7cec7410354d1911011521820446e1000883701dc",
+      "bytes": 1265
+    },
+    {
+      "sample_id": "g03_prio_enc",
+      "split": "holdout2",
+      "kind": "real",
+      "source": "runs/20261025T212353Z-g03_prio_enc-745233/regression.log",
+      "provenance": "real: runner log of hdl/regressions/holdout2/g03_prio_enc.json (1 test(s)), copied byte for byte",
+      "file": "dataset/holdout2/g03_prio_enc.log",
+      "sha256": "2b2eeed1db606515a81c02618046e96fe94e49d83f2f836e7e78c744708ecee2",
+      "bytes": 738
+    },
+    {
+      "sample_id": "g04_regfile",
+      "split": "holdout2",
+      "kind": "real",
+      "source": "runs/20261025T212354Z-g04_regfile-d46bd4/regression.log",
+      "provenance": "real: runner log of hdl/regressions/holdout2/g04_regfile.json (1 test(s)), copied byte for byte",
+      "file": "dataset/holdout2/g04_regfile.log",
+      "sha256": "9d868c43f8e99d5040e9e7a90bfa9ebdbd9799a3f16d5f698ded7ca455e7bd7d",
+      "bytes": 938
+    },
+    {
+      "sample_id": "g05_shard",
+      "split": "holdout2",
+      "kind": "synthetic",
+      "source": "hand-written",
+      "provenance": "synthetic: empty file (0 bytes), as left by a job that died before writing",
+      "file": "dataset/holdout2/g05_shard.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "sample_id": "g06_lfsr",
+      "split": "holdout2",
+      "kind": "real",
+      "source": "runs/20261025T212355Z-g06_lfsr-31f6a6/regression.log",
+      "provenance": "real: runner log of hdl/regressions/holdout2/g06_lfsr.json (1 test(s)), copied byte for byte",
+      "file": "dataset/holdout2/g06_lfsr.log",
+      "sha256": "d9af616e501ccaac02c0c03e8d380abc76563d26d62ea4b19b8ff7e1eb078c4e",
+      "bytes": 1193
+    },
+    {
+      "sample_id": "g07_uart",
+      "split": "holdout2",
+      "kind": "real",
+      "source": "runs/20261025T212355Z-g07_uart-a36fcb/regression.log",
+      "provenance": "real: runner log of hdl/regressions/holdout2/g07_uart.json (1 test(s)), copied byte for byte",
+      "file": "dataset/holdout2/g07_uart.log",
+      "sha256": "a54e56c91f264de18e31ae18e616f3d37f1c0822f5e0fa754d4aa4b26b91a800",
+      "bytes": 1008
+    },
+    {
+      "sample_id": "g08_pwm_regfile",
+      "split": "holdout2",
+      "kind": "real",
+      "source": "runs/20261025T212356Z-g08_pwm_regfile-1c9ab5/regression.log",
+      "provenance": "real: runner log of hdl/regressions/holdout2/g08_pwm_regfile.json (2 test(s)), copied byte for byte",
+      "file": "dataset/holdout2/g08_pwm_regfile.log",
+      "sha256": "8a379adfb2310677bf07d6077b54d2817ec0c5f1b9bee05f80310588b33a9cc0",
+      "bytes": 2362
+    },
+    {
+      "sample_id": "g09_spi",
+      "split": "holdout2",
+      "kind": "real",
+      "source": "runs/20261025T212357Z-g09_spi-696721/regression.log",
+      "provenance": "real: runner log of hdl/regressions/holdout2/g09_spi.json (1 test(s)), copied byte for byte",
+      "file": "dataset/holdout2/g09_spi.log",
+      "sha256": "bcd0f59b080b35b7de55ffa99a181f1f19400b9d17f92316e0558cd0bb5839c3",
+      "bytes": 747
+    },
+    {
+      "sample_id": "g10_lint",
+      "split": "holdout2",
+      "kind": "real",
+      "source": "runs/20261025T212400Z-g10_lint-982e28/regression.log",
+      "provenance": "real: runner log of hdl/regressions/holdout2/g10_lint.json (2 test(s)), copied byte for byte",
+      "file": "dataset/holdout2/g10_lint.log",
+      "sha256": "e54b4303067cb0b08877b4eb9eaed149f6722fb0308a0598c620fd94695a7ed9",
+      "bytes": 1649
+    },
+    {
+      "sample_id": "g11_raw_prio",
+      "split": "holdout2",
+      "kind": "real",
+      "source": "raw-tool-output/holdout2/g11_raw_prio.log",
+      "provenance": "real: raw tool output, no runner annotations (vvp run stage only (compile step not captured)); bytes exactly as the tool printed them, CRLF kept; command and exit code in the .json next to the source",
+      "file": "dataset/holdout2/g11_raw_prio.log",
+      "sha256": "304087afe913afa739985cce14519f79886874d7ce5df041f216d927af4b499e",
+      "bytes": 401
+    },
+    {
+      "sample_id": "g12_tools",
+      "split": "holdout2",
+      "kind": "real",
+      "source": "runs/20261025T212401Z-g12_tools-45ab04/regression.log",
+      "provenance": "real: runner log of hdl/regressions/holdout2/g12_tools.json (1 test(s)), copied byte for byte",
+      "file": "dataset/holdout2/g12_tools.log",
+      "sha256": "e6c35d2c91644d55d5ec06a78cfab1d5cf14ccfd9e79189d4259f8099b9bda5b",
+      "bytes": 649
+    },
+    {
+      "sample_id": "g13_nightly",
+      "split": "holdout2",
+      "kind": "real",
+      "source": "runs/20261025T212402Z-g13_nightly-4292fb/regression.log",
+      "provenance": "real: runner log of hdl/regressions/holdout2/g13_nightly.json (6 test(s)), copied byte for byte",
+      "file": "dataset/holdout2/g13_nightly.log",
+      "sha256": "d7551f3937b75a0d89bf51abc8e701abe2c83cb8aa1d931072f5e5e5e23dd56e",
+      "bytes": 4072
+    },
+    {
+      "sample_id": "g14_debounce_notes",
+      "split": "holdout2",
+      "kind": "real",
+      "source": "runs/20261025T212403Z-g14_debounce_notes-afcef2/regression.log",
+      "provenance": "real: runner log of hdl/regressions/holdout2/g14_debounce_notes.json (1 test(s)), copied byte for byte",
+      "file": "dataset/holdout2/g14_debounce_notes.log",
+      "sha256": "67b4fbe2432030a6e7a7ca7b394880035405456a07716bc05b0322e56a33f184",
+      "bytes": 1757
+    },
+    {
+      "sample_id": "g15_ci_job",
+      "split": "holdout2",
+      "kind": "synthetic",
+      "source": "runs/20261025T212404Z-g15_ci_job-270b71/regression.log",
+      "provenance": "synthetic: real runner log wrapped in CI-job text (timestamp prefix on every runner line, pipeline header/footer, job status line); runner and tool text otherwise unchanged",
+      "file": "dataset/holdout2/g15_ci_job.log",
+      "sha256": "4991b145100c7e13baf97ff37b3cdef28fd96c2008638b0839996c89b6fc4c5d",
+      "bytes": 3383
+    },
+    {
+      "sample_id": "g16_pwm",
+      "split": "holdout2",
+      "kind": "real",
+      "source": "runs/20261025T212404Z-g16_pwm-65e51c/regression.log",
+      "provenance": "real: runner log of hdl/regressions/holdout2/g16_pwm.json (1 test(s)), copied byte for byte",
+      "file": "dataset/holdout2/g16_pwm.log",
+      "sha256": "526d0ff9e16a332bee23cacaa7692bb67737a8e0bdeee82ef0bf7a06637c6aa5",
+      "bytes": 1492
+    },
+    {
+      "sample_id": "g17_regfile_pair",
+      "split": "holdout2",
+      "kind": "real",
+      "source": "runs/20261025T212405Z-g17_regfile_pair-369a0d/regression.log",
+      "provenance": "real: runner log of hdl/regressions/holdout2/g17_regfile_pair.json (3 test(s)), copied byte for byte",
+      "file": "dataset/holdout2/g17_regfile_pair.log",
+      "sha256": "454bdacdbebcfa7d044ffbf43f911e64ee01f044d0563c6f478e4c425fd5839c",
+      "bytes": 2330
+    },
+    {
+      "sample_id": "g18_prio_phase",
+      "split": "holdout2",
+      "kind": "real",
+      "source": "runs/20261025T212406Z-g18_prio_phase-d0671d/regression.log",
+      "provenance": "real: runner log of hdl/regressions/holdout2/g18_prio_phase.json (1 test(s)), copied byte for byte",
+      "file": "dataset/holdout2/g18_prio_phase.log",
+      "sha256": "f347be33c2f494246837289d59c2727bdae15bbb6fbd1f234e52ebb90c679009",
+      "bytes": 911
+    },
+    {
+      "sample_id": "g19_uart_tb",
+      "split": "holdout2",
+      "kind": "real",
+      "source": "runs/20261025T212407Z-g19_uart_tb-9f8523/regression.log",
+      "provenance": "real: runner log of hdl/regressions/holdout2/g19_uart_tb.json (1 test(s)), copied byte for byte",
+      "file": "dataset/holdout2/g19_uart_tb.log",
+      "sha256": "32e74e13cea46e0febcca732d52eec620be7bb5febb8b358a93aaf8ffa183c79",
+      "bytes": 819
+    },
+    {
+      "sample_id": "g20_raw_pwm_build",
+      "split": "holdout2",
+      "kind": "real",
+      "source": "raw-tool-output/holdout2/g20_raw_pwm_build.log",
+      "provenance": "real: raw tool output, no runner annotations (iverilog compile); bytes exactly as the tool printed them, CRLF kept; command and exit code in the .json next to the source",
+      "file": "dataset/holdout2/g20_raw_pwm_build.log",
+      "sha256": "7280ecc0fa06dff0338afeb4e7e473cc550f209fb1df021f2e1e5aff0c818496",
+      "bytes": 1964
+    },
+    {
+      "sample_id": "g21_prio_dbg",
+      "split": "holdout2",
+      "kind": "real",
+      "source": "runs/20261025T212407Z-g21_prio_dbg-a0a20a/regression.log",
+      "provenance": "real: runner log of hdl/regressions/holdout2/g21_prio_dbg.json (1 test(s)), copied byte for byte",
+      "file": "dataset/holdout2/g21_prio_dbg.log",
+      "sha256": "d17c971db747f0ef7e836f890f585d1d87578017a4d9a739f7761c8e4a7864e3",
+      "bytes": 1156
+    },
+    {
+      "sample_id": "g22_spi_wdog",
+      "split": "holdout2",
+      "kind": "real",
+      "source": "runs/20261025T212408Z-g22_spi_wdog-6c847a/regression.log",
+      "provenance": "real: runner log of hdl/regressions/holdout2/g22_spi_wdog.json (1 test(s)), copied byte for byte",
+      "file": "dataset/holdout2/g22_spi_wdog.log",
+      "sha256": "d043d209d559e12a1940e404737a16501457f99688e74c9379481125903535ce",
+      "bytes": 967
+    },
+    {
+      "sample_id": "g23_uart_b",
+      "split": "holdout2",
+      "kind": "synthetic",
+      "source": "runs/20261025T212409Z-g23_uart_b-5942db/regression.log",
+      "provenance": "synthetic: real runner log truncated inside the run stage (mid-line, no final newline), as if the job was killed while writing",
+      "file": "dataset/holdout2/g23_uart_b.log",
+      "sha256": "a0b94745c8d915d9f3447372f472ad5fd31cceda19a7a931ca3c70dd7911acc2",
+      "bytes": 702
+    },
+    {
+      "sample_id": "g24_regfile_byp",
+      "split": "holdout2",
+      "kind": "real",
+      "source": "runs/20261025T212410Z-g24_regfile_byp-c0c096/regression.log",
+      "provenance": "real: runner log of hdl/regressions/holdout2/g24_regfile_byp.json (1 test(s)), copied byte for byte",
+      "file": "dataset/holdout2/g24_regfile_byp.log",
+      "sha256": "67ed94e2f9e219f100f70d1e1c5bf83f45c8fb10170b9cb4e2b4e8ca5907cf4f",
+      "bytes": 1279
+    },
+    {
+      "sample_id": "g25_uvm_lfsr",
+      "split": "holdout2",
+      "kind": "synthetic",
+      "source": "hand-written",
+      "provenance": "synthetic: hand-written UVM-style transcript in a commercial-simulator layout ('# ' prefix, report summary, tool error/warning counts); no tool was run",
+      "file": "dataset/holdout2/g25_uvm_lfsr.log",
+      "sha256": "a7a9b7b4d8b0b50fb8f0933deda220669bb04082cdd2ca043230b25972091975",
+      "bytes": 1640
+    },
+    {
+      "sample_id": "g26_regfile_c",
+      "split": "holdout2",
+      "kind": "synthetic",
+      "source": "runs/20261025T212410Z-g26_regfile_c-b5fdfa/regression.log",
+      "provenance": "synthetic: real runner log truncated after its first 8 lines (ends on a complete line)",
+      "file": "dataset/holdout2/g26_regfile_c.log",
+      "sha256": "a04591ddf8e759b1bdcb011165acec05f74de6193eb66912f873e0aa42d8039a",
+      "bytes": 746
+    },
+    {
+      "sample_id": "g27_raw_lint",
+      "split": "holdout2",
+      "kind": "real",
+      "source": "raw-tool-output/holdout2/g27_raw_lint.log",
+      "provenance": "real: raw tool output, no runner annotations (Verilator lint with VERILATOR_ROOT not set); bytes exactly as the tool printed them, CRLF kept; command and exit code in the .json next to the source",
+      "file": "dataset/holdout2/g27_raw_lint.log",
+      "sha256": "8ec656a6364fbade3316ce512dbb7404f2be8b186b40fe0425106687d4134fba",
+      "bytes": 1068
+    },
+    {
+      "sample_id": "g28_uart_warn",
+      "split": "holdout2",
+      "kind": "real",
+      "source": "runs/20261025T212411Z-g28_uart_warn-507cc9/regression.log",
+      "provenance": "real: runner log of hdl/regressions/holdout2/g28_uart_warn.json (1 test(s)), copied byte for byte",
+      "file": "dataset/holdout2/g28_uart_warn.log",
+      "sha256": "dc77c58037f6624e5bf790c1a578aeea0a5ef55ab68bfac01038d13ebd2e4300",
+      "bytes": 1202
+    },
+    {
+      "sample_id": "g29_mixed_b",
+      "split": "holdout2",
+      "kind": "synthetic",
+      "source": "runs/20261025T212412Z-g29_mixed_b-171ddf/regression.log",
+      "provenance": "synthetic: real runner log with fields removed (tools line, run_id/started_utc/host_os, cmd=, exit=, timed_out=, output_truncated=, finished_utc=); tool output unchanged",
+      "file": "dataset/holdout2/g29_mixed_b.log",
+      "sha256": "635da43baee375676405572e50b0851e8d3f2719a54b3261fd150786b674d7bb",
+      "bytes": 1096
+    },
+    {
+      "sample_id": "g30_sim_farm",
+      "split": "holdout2",
+      "kind": "synthetic",
+      "source": "hand-written",
+      "provenance": "synthetic: hand-written simulation-farm job log in a commercial-simulator style (fictional tool name 'simx'); no tool was run",
+      "file": "dataset/holdout2/g30_sim_farm.log",
+      "sha256": "47deeedb2814192e79cb8c52f85480a0198d356ae29fdce280c2e15dacead550",
+      "bytes": 633
+    },
+    {
+      "sample_id": "g31_build",
+      "split": "holdout2",
+      "kind": "synthetic",
+      "source": "runs/20261025T212412Z-g31_build-0a739f/regression.log",
+      "provenance": "synthetic: header and final line of a real runner log; compile-stage output replaced by a hand-written compiler-internal assertion crash and exit=3 (run stage removed, as the runner stops after a failed compile)",
+      "file": "dataset/holdout2/g31_build.log",
+      "sha256": "7b57c81d3076c9a8bcc09ba70278a349acca60f039db80e5e55bfde95ac3ba59",
+      "bytes": 820
+    },
+    {
+      "sample_id": "g32_job_summary",
+      "split": "holdout2",
+      "kind": "synthetic",
+      "source": "hand-written",
+      "provenance": "synthetic: hand-written summary from an unknown in-house job wrapper; no tool output",
+      "file": "dataset/holdout2/g32_job_summary.log",
+      "sha256": "e741b4f42ebcadab1de47ef5b7333744fe72f45e13dc7c34f099d80b993485b9",
+      "bytes": 226
+    }
+  ]
+}

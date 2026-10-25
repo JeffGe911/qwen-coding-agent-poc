@@ -1,0 +1,18 @@
+{
+  "regression": "g21_prio_dbg",
+  "description": "prio DBG_PORT: passing run with a port-width compile warning and a VCD dump",
+  "tests": [
+    {
+      "test_id": "prio_enc_dbg",
+      "top": "tb_prio_enc8",
+      "sources": [
+        "hdl/holdout2/rtl/prio_enc8.v",
+        "hdl/holdout2/tb/tb_prio_enc8.v"
+      ],
+      "defines": [
+        "DBG_PORT"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

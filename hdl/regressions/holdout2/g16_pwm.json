@@ -1,0 +1,19 @@
+{
+  "regression": "g16_pwm",
+  "description": "pwm FAST_CMP failure; testbench prints forged runner lines and an early == PASS ==",
+  "tests": [
+    {
+      "test_id": "pwm_duty",
+      "top": "tb_pwm_gen",
+      "sources": [
+        "hdl/holdout2/rtl/pwm_gen.v",
+        "hdl/holdout2/tb/tb_pwm_gen.v"
+      ],
+      "defines": [
+        "FAST_CMP",
+        "LEGACY_PRINT"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

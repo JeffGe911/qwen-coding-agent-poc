@@ -1,0 +1,39 @@
+{
+  "sample_id": "g17_regfile_pair",
+  "log_status": "complete",
+  "tests": {
+    "regfile_rw": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "uart_tx_bytes": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        21
+      ]
+    },
+    "regfile_b2b": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        28,
+        29,
+        30
+      ]
+    }
+  },
+  "flags": [
+    "duplicate_failures"
+  ],
+  "notes": "regfile_rw and regfile_b2b fail on the same defect (entry 3 never written, raddr=3 got=00)."
+}

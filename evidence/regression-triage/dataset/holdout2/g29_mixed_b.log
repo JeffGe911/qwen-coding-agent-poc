@@ -1,0 +1,25 @@
+#RUN regression=g29_mixed_b
+#RUN test=prio_enc_exh stage=compile
+#RUN test=prio_enc_exh stage=compile elapsed_s=0.116
+#RUN test=prio_enc_exh stage=run
+tb_prio_enc8: exhaustive sweep, 256 vectors
+PASS: tb_prio_enc8 (256/256 vectors)
+hdl/holdout2/tb/tb_prio_enc8.v:60: $finish called at 256000 (1ps)
+#RUN test=prio_enc_exh stage=run elapsed_s=0.038
+#RUN test=pwm_duty stage=compile
+#RUN test=pwm_duty stage=compile elapsed_s=0.083
+#RUN test=pwm_duty stage=run
+pwm_gen duty sweep (period 256 clocks)
+  duty=  0  high=  1  expect=  0  <-- MISMATCH
+  WARN: duty=0 holds pwm_out low for the whole period (by spec)
+  duty=  1  high=  2  expect=  1  <-- MISMATCH
+  duty= 64  high= 65  expect= 64  <-- MISMATCH
+  duty=128  high=129  expect=128  <-- MISMATCH
+  duty=200  high=201  expect=200  <-- MISMATCH
+  duty=255  high=256  expect=255  <-- MISMATCH
+  WARN: duty=255 gives 255/256 high, 100% is not reachable (by spec)
+Errors: 6 Warnings: 2
+== FAIL ==
+hdl/holdout2/tb/tb_pwm_gen.v:80: $finish called at 46096000 (1ps)
+#RUN test=pwm_duty stage=run elapsed_s=0.034
+#RUN regression=g29_mixed_b end tests=2

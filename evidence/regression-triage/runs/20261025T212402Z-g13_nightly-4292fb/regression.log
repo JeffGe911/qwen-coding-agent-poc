@@ -1,0 +1,55 @@
+#RUN regression=g13_nightly run_id=20261025T212402Z-g13_nightly-4292fb started_utc=2026-10-25T21:24:02+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=uart_tx_bytes stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_uart_tx -DREV_E hdl/holdout2/rtl/uart_tx.v hdl/holdout2/tb/tb_uart_tx.v
+#RUN test=uart_tx_bytes stage=compile exit=0 elapsed_s=0.074 timed_out=false output_truncated=false
+#RUN test=uart_tx_bytes stage=run cmd=vvp.exe -n sim.vvp
+uart_tx_tb: CLKS_PER_BIT=4, 4 bytes
+uart_tx_tb: tx 0x55 -> rx 0x55 ok
+*** WATCHDOG: busy stuck high for 400 clocks (frame is 40), aborting ***
+UART TB RESULT: FAIL (tb_uart_tx, watchdog)
+hdl/holdout2/tb/tb_uart_tx.v:31: $finish called at 4045000 (1ps)
+#RUN test=uart_tx_bytes stage=run exit=0 elapsed_s=0.031 timed_out=false output_truncated=false
+#RUN test=lfsr_seq stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_lfsr16 hdl/holdout2/rtl/lfsr16.v hdl/holdout2/tb/tb_lfsr16.sv
+#RUN test=lfsr_seq stage=compile exit=0 elapsed_s=0.07 timed_out=false output_truncated=false
+#RUN test=lfsr_seq stage=run cmd=vvp.exe -n sim.vvp
+[tb_lfsr16] seed=16'hACE1 taps=16'hB400, 1000 steps
+*** tb_lfsr16: SUCCESS (1000 steps, 0 scoreboard mismatches) ***
+hdl/holdout2/tb/tb_lfsr16.sv:38: $finish called at 10030000 (1ps)
+#RUN test=lfsr_seq stage=run exit=0 elapsed_s=0.032 timed_out=false output_truncated=false
+#RUN test=pwm_duty stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_pwm_gen -DFAST_CMP hdl/holdout2/rtl/pwm_gen.v hdl/holdout2/tb/tb_pwm_gen.v
+#RUN test=pwm_duty stage=compile exit=0 elapsed_s=0.067 timed_out=false output_truncated=false
+#RUN test=pwm_duty stage=run cmd=vvp.exe -n sim.vvp
+pwm_gen duty sweep (period 256 clocks)
+  duty=  0  high=  1  expect=  0  <-- MISMATCH
+  WARN: duty=0 holds pwm_out low for the whole period (by spec)
+  duty=  1  high=  2  expect=  1  <-- MISMATCH
+  duty= 64  high= 65  expect= 64  <-- MISMATCH
+  duty=128  high=129  expect=128  <-- MISMATCH
+  duty=200  high=201  expect=200  <-- MISMATCH
+  duty=255  high=256  expect=255  <-- MISMATCH
+  WARN: duty=255 gives 255/256 high, 100% is not reachable (by spec)
+Errors: 6 Warnings: 2
+== FAIL ==
+hdl/holdout2/tb/tb_pwm_gen.v:80: $finish called at 46096000 (1ps)
+#RUN test=pwm_duty stage=run exit=0 elapsed_s=0.042 timed_out=false output_truncated=false
+#RUN test=regfile_lint stage=lint cmd=verilator_bin.exe --lint-only -Wall --top-module regfile hdl/holdout2/rtl/regfile.v
+- V e r i l a t i o n   R e p o r t: Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)
+- Verilator: Built from 0.049 MB sources in 3 modules, into 0.026 MB in 3 C++ files needing 0.000 MB
+- Verilator: Walltime 0.012 s (elab=0.000, cvt=0.003, bld=0.000); cpu 0.000 s on 1 threads; allocated 14.793 MB
+#RUN test=regfile_lint stage=lint exit=0 elapsed_s=0.043 timed_out=false output_truncated=false
+#RUN test=lfsr_taps_v2 stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_lfsr16 -DREV_K hdl/holdout2/rtl/lfsr16.v hdl/holdout2/tb/tb_lfsr16.sv
+hdl/holdout2/rtl/lfsr16.v:14: error: Unable to bind parameter `TAPS_V2' in `tb_lfsr16.dut'
+1 error(s) during elaboration.
+#RUN test=lfsr_taps_v2 stage=compile exit=1 elapsed_s=0.13 timed_out=false output_truncated=false
+#RUN test=spi_loopback stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_spi_shift hdl/holdout2/rtl/spi_shift.v hdl/holdout2/tb/tb_spi_shift.v
+#RUN test=spi_loopback stage=compile exit=0 elapsed_s=0.07 timed_out=false output_truncated=false
+#RUN test=spi_loopback stage=run cmd=vvp.exe -n sim.vvp
+spi_tb: watchdog armed, 20000 ns
+spi_tb: transfer 0 tx=a5 rx=5a ok
+spi_tb: transfer 1 tx=3c rx=c3 ok
+spi_tb: transfer 2 tx=00 rx=81 ok
+spi_tb: transfer 3 tx=ff rx=7e ok
+spi_tb: RESULT PASSED (4/4 transfers)
+hdl/holdout2/tb/tb_spi_shift.v:75: $finish called at 706000 (1ps)
+#RUN test=spi_loopback stage=run exit=0 elapsed_s=0.04 timed_out=false output_truncated=false
+#RUN regression=g13_nightly end tests=6 finished_utc=2026-10-25T21:24:03+00:00

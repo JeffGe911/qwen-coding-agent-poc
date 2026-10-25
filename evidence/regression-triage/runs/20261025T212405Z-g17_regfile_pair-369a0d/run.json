@@ -1,0 +1,125 @@
+{
+  "run_id": "20261025T212405Z-g17_regfile_pair-369a0d",
+  "regression": "g17_regfile_pair",
+  "manifest": "hdl/regressions/holdout2/g17_regfile_pair.json",
+  "manifest_sha256": "8a678e04836b0ae1096bac4301674a098c0e2b683370c385da311aaaa0e71e87",
+  "started_utc": "2026-10-25T21:24:05+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "regfile_rw",
+      "defines": [
+        "ECO_WE"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout2/rtl/regfile.v": "21ab51192b57608bbd88ba5719adf958c0657c7d5c709e16c16f048a8bf50dbf",
+        "hdl/holdout2/tb/tb_regfile.v": "43bdf654a00dab843dd6e7d26ae3f3be822e8572f493daa054be2aa4927f0582"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_regfile -DECO_WE hdl/holdout2/rtl/regfile.v hdl/holdout2/tb/tb_regfile.v",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.07,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.043,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 6
+        }
+      ]
+    },
+    {
+      "test_id": "uart_tx_bytes",
+      "defines": [],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout2/rtl/uart_tx.v": "6b0af25acbadf019be8e80f7bac2eca29cfa730d410327b87c06c774c3958d34",
+        "hdl/holdout2/tb/tb_uart_tx.v": "7fb309fa0e80869b52af6256518ae89b08329ba3c9b039ffc769ec94617e8f00"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_uart_tx hdl/holdout2/rtl/uart_tx.v hdl/holdout2/tb/tb_uart_tx.v",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.077,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.042,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 7
+        }
+      ]
+    },
+    {
+      "test_id": "regfile_b2b",
+      "defines": [
+        "ECO_WE"
+      ],
+      "plusargs": [
+        "+B2B"
+      ],
+      "sources_sha256": {
+        "hdl/holdout2/rtl/regfile.v": "21ab51192b57608bbd88ba5719adf958c0657c7d5c709e16c16f048a8bf50dbf",
+        "hdl/holdout2/tb/tb_regfile.v": "43bdf654a00dab843dd6e7d26ae3f3be822e8572f493daa054be2aa4927f0582"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_regfile -DECO_WE hdl/holdout2/rtl/regfile.v hdl/holdout2/tb/tb_regfile.v",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.076,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp +B2B",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.046,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 5
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-25T21:24:06+00:00"
+}

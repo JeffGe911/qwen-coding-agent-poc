@@ -1,0 +1,17 @@
+{
+  "regression": "g12_tools",
+  "description": "simulator executable intentionally not available",
+  "tests": [
+    {
+      "test_id": "spi_loopback",
+      "top": "tb_spi_shift",
+      "sources": [
+        "hdl/holdout2/rtl/spi_shift.v",
+        "hdl/holdout2/tb/tb_spi_shift.v"
+      ],
+      "defines": [],
+      "timeout_s": 10,
+      "simulate_missing_tool": true
+    }
+  ]
+}

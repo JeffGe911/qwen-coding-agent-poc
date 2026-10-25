@@ -1,0 +1,15 @@
+{
+  "sample_id": "g22_spi_wdog",
+  "log_status": "complete",
+  "tests": {
+    "spi_loopback": {
+      "result": "fail",
+      "category": "timeout",
+      "side": "design_or_test",
+      "evidence_lines": [
+        7
+      ]
+    }
+  },
+  "notes": "The testbench watchdog reports through $fatal (FATAL line, exit 1). Labelled timeout by the watchdog rule rather than test_failure."
+}

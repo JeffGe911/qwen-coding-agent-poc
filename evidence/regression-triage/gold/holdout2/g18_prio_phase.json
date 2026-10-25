@@ -1,0 +1,16 @@
+{
+  "sample_id": "g18_prio_phase",
+  "log_status": "complete",
+  "tests": {
+    "prio_enc_split": {
+      "result": "unknown",
+      "category": "unknown",
+      "side": "undetermined",
+      "evidence_lines": [
+        7,
+        8
+      ]
+    }
+  },
+  "notes": "The testbench waits for an event that never fires; the simulation runs out of events and vvp exits 0 without $finish or a verdict. No pass verdict and no failure evidence -> unknown/unknown/undetermined. Not incomplete_log: the runner recorded the stage end and the regression end. Evidence lists the last testbench line and the exit line."
+}

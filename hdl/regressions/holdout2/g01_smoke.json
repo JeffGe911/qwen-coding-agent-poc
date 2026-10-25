@@ -1,0 +1,36 @@
+{
+  "regression": "g01_smoke",
+  "description": "debounce, pwm and lfsr default configurations",
+  "tests": [
+    {
+      "test_id": "debounce_basic",
+      "top": "tb_debounce",
+      "sources": [
+        "hdl/holdout2/rtl/debounce.v",
+        "hdl/holdout2/tb/tb_debounce.v"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "pwm_duty",
+      "top": "tb_pwm_gen",
+      "sources": [
+        "hdl/holdout2/rtl/pwm_gen.v",
+        "hdl/holdout2/tb/tb_pwm_gen.v"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "lfsr_seq",
+      "top": "tb_lfsr16",
+      "sources": [
+        "hdl/holdout2/rtl/lfsr16.v",
+        "hdl/holdout2/tb/tb_lfsr16.sv"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    }
+  ]
+}

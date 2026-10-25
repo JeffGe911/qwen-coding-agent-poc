@@ -1,0 +1,21 @@
+{
+  "regression": "g04_regfile",
+  "description": "regfile ECO_WE (entry 3 never written) with +STRICT: first miscompare calls $fatal",
+  "tests": [
+    {
+      "test_id": "regfile_rw",
+      "top": "tb_regfile",
+      "sources": [
+        "hdl/holdout2/rtl/regfile.v",
+        "hdl/holdout2/tb/tb_regfile.v"
+      ],
+      "defines": [
+        "ECO_WE"
+      ],
+      "plusargs": [
+        "+STRICT"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

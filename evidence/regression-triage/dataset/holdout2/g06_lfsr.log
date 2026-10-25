@@ -1,0 +1,14 @@
+#RUN regression=g06_lfsr run_id=20261025T212355Z-g06_lfsr-31f6a6 started_utc=2026-10-25T21:23:55+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=lfsr_seq stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_lfsr16 -DREV_C hdl/holdout2/rtl/lfsr16.v hdl/holdout2/tb/tb_lfsr16.sv
+#RUN test=lfsr_seq stage=compile exit=0 elapsed_s=0.076 timed_out=false output_truncated=false
+#RUN test=lfsr_seq stage=run cmd=vvp.exe -n sim.vvp
+[tb_lfsr16] seed=16'hACE1 taps=16'hB400, 1000 steps
+ERROR: hdl/holdout2/tb/tb_lfsr16.sv:34: wrap high at step 137 (state=5ae1) before the period ended
+       Time: 1410000  Scope: tb_lfsr16
+ERROR: hdl/holdout2/tb/tb_lfsr16.sv:34: wrap high at step 373 (state=d3e1) before the period ended
+       Time: 3770000  Scope: tb_lfsr16
+*** tb_lfsr16: SUCCESS (1000 steps, 0 scoreboard mismatches) ***
+hdl/holdout2/tb/tb_lfsr16.sv:38: $finish called at 10030000 (1ps)
+#RUN test=lfsr_seq stage=run exit=0 elapsed_s=0.043 timed_out=false output_truncated=false
+#RUN regression=g06_lfsr end tests=1 finished_utc=2026-10-25T21:23:55+00:00

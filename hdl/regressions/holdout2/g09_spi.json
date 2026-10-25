@@ -1,0 +1,21 @@
+{
+  "regression": "g09_spi",
+  "description": "spi REV_H (done never pulses) with the watchdog disabled; only the 3 s wall-clock limit stops it",
+  "tests": [
+    {
+      "test_id": "spi_soak",
+      "top": "tb_spi_shift",
+      "sources": [
+        "hdl/holdout2/rtl/spi_shift.v",
+        "hdl/holdout2/tb/tb_spi_shift.v"
+      ],
+      "defines": [
+        "REV_H"
+      ],
+      "plusargs": [
+        "+NO_WDOG"
+      ],
+      "timeout_s": 3
+    }
+  ]
+}

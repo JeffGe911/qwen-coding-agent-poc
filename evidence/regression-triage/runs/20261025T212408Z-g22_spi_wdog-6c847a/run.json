@@ -1,0 +1,59 @@
+{
+  "run_id": "20261025T212408Z-g22_spi_wdog-6c847a",
+  "regression": "g22_spi_wdog",
+  "manifest": "hdl/regressions/holdout2/g22_spi_wdog.json",
+  "manifest_sha256": "e5ea5d1d86c11729f6c85ae5fae97ff3a4638fd27bc4da32e383aba703188939",
+  "started_utc": "2026-10-25T21:24:08+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "spi_loopback",
+      "defines": [
+        "REV_H"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout2/rtl/spi_shift.v": "438ab82ca65ab36e29210303395ce15455f5aa489563ca1fbca5dbb86f7dace1",
+        "hdl/holdout2/tb/tb_spi_shift.v": "99e88573e418835cd188c465fd4154718770445d6e9b61bd33f8841d1caf3d57"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_spi_shift -DREV_H hdl/holdout2/rtl/spi_shift.v hdl/holdout2/tb/tb_spi_shift.v",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.115,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 1,
+          "timed_out": false,
+          "elapsed_s": 0.048,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 3
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-25T21:24:08+00:00"
+}

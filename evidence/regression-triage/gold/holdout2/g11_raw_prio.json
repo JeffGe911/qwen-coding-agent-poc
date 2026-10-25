@@ -1,0 +1,20 @@
+{
+  "sample_id": "g11_raw_prio",
+  "log_status": "complete",
+  "tests": {
+    "tb_prio_enc8": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    }
+  },
+  "notes": "Raw vvp capture without runner lines; test_id taken from the verdict line 'FAIL: tb_prio_enc8 ...'. CRLF line endings are the tool's own bytes."
+}

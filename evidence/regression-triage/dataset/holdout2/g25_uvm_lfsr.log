@@ -1,0 +1,34 @@
+# //  sim -c -do "run -all; quit -f" work.lfsr_tb_top +UVM_TESTNAME=lfsr_rand_test +UVM_VERBOSITY=UVM_LOW
+# //  Simulation started on host simfarm-12, Sun Oct 25 09:12:40 2026
+# Loading sv_std.std
+# Loading work.uvm_pkg(fast)
+# Loading work.lfsr_pkg(fast)
+# Loading work.lfsr_tb_top(fast)
+# Loading work.lfsr16(fast)
+# UVM_INFO @ 0: reporter [RNTST] Running test lfsr_rand_test...
+# UVM_INFO lfsr_env.sv(41) @ 0: uvm_test_top.env [CFG] seed=0xace1 taps=0xb400 n_items=200
+# UVM_WARNING lfsr_driver.sv(77) @ 0: uvm_test_top.env.agt.drv [CLKCFG] clock period not found in config_db, using default 10ns
+# UVM_INFO lfsr_scoreboard.sv(88) @ 1005000: uvm_test_top.env.sb [SB] checked 100 items, 0 mismatches
+# UVM_ERROR lfsr_scoreboard.sv(102) @ 1415000: uvm_test_top.env.sb [SB_MISMATCH] item 141: dut state=0x5ae1 ref=0x5ae0
+# UVM_ERROR lfsr_scoreboard.sv(102) @ 1425000: uvm_test_top.env.sb [SB_MISMATCH] item 142: dut state=0xd2f1 ref=0x2d70
+# UVM_INFO lfsr_scoreboard.sv(88) @ 2005000: uvm_test_top.env.sb [SB] checked 200 items, 2 mismatches
+# UVM_INFO lfsr_rand_test.sv(52) @ 2005000: uvm_test_top [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+#
+# --- UVM Report Summary ---
+#
+# ** Report counts by severity
+# UVM_INFO :    5
+# UVM_WARNING :    1
+# UVM_ERROR :    2
+# UVM_FATAL :    0
+# ** Report counts by id
+# [CFG]     1
+# [CLKCFG]     1
+# [RNTST]     1
+# [SB]     2
+# [SB_MISMATCH]     2
+# [TEST_DONE]     1
+# ** Note: $finish    : /opt/uvm-1.2/src/base/uvm_root.svh(517)
+#    Time: 2005 ns  Iteration: 54  Instance: /lfsr_tb_top
+# End time: 09:12:43 on Oct 25,2026, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 1

@@ -1,0 +1,27 @@
+{
+  "sample_id": "g15_ci_job",
+  "log_status": "complete",
+  "tests": {
+    "spi_loopback": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        21
+      ]
+    },
+    "debounce_glitch": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        28,
+        29,
+        30,
+        31,
+        34
+      ]
+    }
+  },
+  "notes": "'Finished: SUCCESS' is the CI job status (the runner does not fail the job on test results), not a test verdict."
+}

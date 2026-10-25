@@ -1,0 +1,25 @@
+{
+  "sample_id": "g16_pwm",
+  "log_status": "complete",
+  "tests": {
+    "pwm_duty": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        10,
+        12,
+        13,
+        14,
+        15,
+        16,
+        18,
+        19
+      ]
+    }
+  },
+  "flags": [
+    "forged_runner_line"
+  ],
+  "notes": "Lines 6-7 are testbench prints of runner-looking lines (escaped by the runner as '#OUT #RUN'), and line 8 '== PASS ==' is printed before any measurement; the measured result is '== FAIL =='."
+}

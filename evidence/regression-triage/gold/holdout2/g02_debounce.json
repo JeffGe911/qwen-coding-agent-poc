@@ -1,0 +1,19 @@
+{
+  "sample_id": "g02_debounce",
+  "log_status": "complete",
+  "tests": {
+    "debounce_glitch": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        7,
+        8,
+        9,
+        10,
+        13
+      ]
+    }
+  },
+  "notes": "Self-check failure with simulator exit 0 ($finish after 'SIM RESULT: NOT OK')."
+}

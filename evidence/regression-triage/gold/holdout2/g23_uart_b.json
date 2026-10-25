@@ -1,0 +1,16 @@
+{
+  "sample_id": "g23_uart_b",
+  "log_status": "incomplete",
+  "tests": {
+    "uart_tx_bytes": {
+      "result": "unknown",
+      "category": "incomplete_log",
+      "side": "infrastructure",
+      "evidence_lines": [
+        8,
+        9
+      ]
+    }
+  },
+  "notes": "Truncated mid-line inside the run stage with no verdict and no runner exit record; the per-byte 'ok' lines are progress, not a verdict. Evidence: the last complete line and the partial last line."
+}

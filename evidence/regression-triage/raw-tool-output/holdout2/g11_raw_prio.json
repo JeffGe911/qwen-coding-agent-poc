@@ -1,0 +1,22 @@
+{
+  "sample_id": "g11_raw_prio",
+  "captured_cmd": "vvp.exe -n sim.vvp",
+  "exit_code": 0,
+  "preparation_steps_not_captured": [
+    {
+      "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_prio_enc8 -DLSB_FIRST hdl/holdout2/rtl/prio_enc8.v hdl/holdout2/tb/tb_prio_enc8.v",
+      "exit_code": 0,
+      "output_bytes": 0
+    }
+  ],
+  "cwd": "fresh temporary directory with the sources copied at their hdl/... paths",
+  "env": {
+    "PATH": "<eda>/bin;<eda>/lib;%SystemRoot%",
+    "VERILATOR_ROOT": "<eda>/share/verilator"
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "bytes": 401,
+  "sha256": "304087afe913afa739985cce14519f79886874d7ce5df041f216d927af4b499e",
+  "cr_bytes": 8,
+  "note": "Raw vvp output of the run stage only; the compile step (exit 0, no output) was not captured. Output bytes are exactly what the tool printed (stdout and stderr to one file, no newline conversion)."
+}

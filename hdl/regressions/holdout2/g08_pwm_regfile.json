@@ -1,0 +1,31 @@
+{
+  "regression": "g08_pwm_regfile",
+  "description": "passing pwm (chatty bring-up text, Warnings: 2) and regfile error-response path",
+  "tests": [
+    {
+      "test_id": "pwm_duty_chatty",
+      "top": "tb_pwm_gen",
+      "sources": [
+        "hdl/holdout2/rtl/pwm_gen.v",
+        "hdl/holdout2/tb/tb_pwm_gen.v"
+      ],
+      "defines": [
+        "CHATTY"
+      ],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "regfile_err_resp",
+      "top": "tb_regfile",
+      "sources": [
+        "hdl/holdout2/rtl/regfile.v",
+        "hdl/holdout2/tb/tb_regfile.v"
+      ],
+      "defines": [],
+      "plusargs": [
+        "+ERRPATH"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

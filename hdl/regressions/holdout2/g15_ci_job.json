@@ -1,0 +1,28 @@
+{
+  "regression": "g15_ci_job",
+  "description": "source run for the CI-wrapper synthetic sample: spi pass + debounce REV_B failure",
+  "tests": [
+    {
+      "test_id": "spi_loopback",
+      "top": "tb_spi_shift",
+      "sources": [
+        "hdl/holdout2/rtl/spi_shift.v",
+        "hdl/holdout2/tb/tb_spi_shift.v"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "debounce_glitch",
+      "top": "tb_debounce",
+      "sources": [
+        "hdl/holdout2/rtl/debounce.v",
+        "hdl/holdout2/tb/tb_debounce.v"
+      ],
+      "defines": [
+        "REV_B"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

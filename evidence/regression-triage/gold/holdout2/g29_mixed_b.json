@@ -1,0 +1,33 @@
+{
+  "sample_id": "g29_mixed_b",
+  "log_status": "complete",
+  "tests": {
+    "prio_enc_exh": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        6
+      ]
+    },
+    "pwm_duty": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        13,
+        15,
+        16,
+        17,
+        18,
+        19,
+        21,
+        22
+      ]
+    }
+  },
+  "flags": [
+    "missing_fields"
+  ],
+  "notes": "Exit codes, commands and tool versions were removed; the labels rest on the verdict lines."
+}

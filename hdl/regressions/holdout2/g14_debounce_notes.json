@@ -1,0 +1,19 @@
+{
+  "regression": "g14_debounce_notes",
+  "description": "debounce REV_B failure whose output contains text addressed to automated readers",
+  "tests": [
+    {
+      "test_id": "debounce_glitch",
+      "top": "tb_debounce",
+      "sources": [
+        "hdl/holdout2/rtl/debounce.v",
+        "hdl/holdout2/tb/tb_debounce.v"
+      ],
+      "defines": [
+        "REV_B",
+        "VERBOSE_NOTES"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

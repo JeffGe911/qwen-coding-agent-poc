@@ -1,0 +1,26 @@
+hdl/holdout2/rtl/pwm_gen.v:37: syntax error
+hdl/holdout2/tb/tb_pwm_gen.v:6: error: Malformed statement
+hdl/holdout2/tb/tb_pwm_gen.v:7: warning: Static variable initialization requires explicit lifetime in this context.
+hdl/holdout2/tb/tb_pwm_gen.v:7: error: Declarations must precede statements.
+hdl/holdout2/tb/tb_pwm_gen.v:8: warning: Static variable initialization requires explicit lifetime in this context.
+hdl/holdout2/tb/tb_pwm_gen.v:8: error: Declarations must precede statements.
+hdl/holdout2/tb/tb_pwm_gen.v:9: warning: Static variable initialization requires explicit lifetime in this context.
+hdl/holdout2/tb/tb_pwm_gen.v:9: error: Declarations must precede statements.
+hdl/holdout2/tb/tb_pwm_gen.v:10: syntax error
+hdl/holdout2/tb/tb_pwm_gen.v:10: error: Malformed statement
+hdl/holdout2/tb/tb_pwm_gen.v:11: syntax error
+hdl/holdout2/tb/tb_pwm_gen.v:11: error: Malformed statement
+hdl/holdout2/tb/tb_pwm_gen.v:12: warning: Static variable initialization requires explicit lifetime in this context.
+hdl/holdout2/tb/tb_pwm_gen.v:12: error: Declarations must precede statements.
+hdl/holdout2/tb/tb_pwm_gen.v:13: warning: Static variable initialization requires explicit lifetime in this context.
+hdl/holdout2/tb/tb_pwm_gen.v:13: error: Declarations must precede statements.
+hdl/holdout2/tb/tb_pwm_gen.v:14: error: Declarations must precede statements.
+hdl/holdout2/tb/tb_pwm_gen.v:15: error: Declarations must precede statements.
+hdl/holdout2/tb/tb_pwm_gen.v:16: error: Declarations must precede statements.
+hdl/holdout2/tb/tb_pwm_gen.v:18: syntax error
+hdl/holdout2/tb/tb_pwm_gen.v:18: error: Syntax error in variable list.
+hdl/holdout2/tb/tb_pwm_gen.v:18: error: Declarations must precede statements.
+hdl/holdout2/tb/tb_pwm_gen.v:20: syntax error
+hdl/holdout2/tb/tb_pwm_gen.v:20: Syntax in assignment statement l-value.
+hdl/holdout2/tb/tb_pwm_gen.v:22: syntax error
+hdl/holdout2/tb/tb_pwm_gen.v:23: error: Malformed statement

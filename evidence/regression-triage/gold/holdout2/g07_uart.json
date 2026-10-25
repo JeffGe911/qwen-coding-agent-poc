@@ -1,0 +1,16 @@
+{
+  "sample_id": "g07_uart",
+  "log_status": "complete",
+  "tests": {
+    "uart_tx_bytes": {
+      "result": "fail",
+      "category": "timeout",
+      "side": "design_or_test",
+      "evidence_lines": [
+        8,
+        9
+      ]
+    }
+  },
+  "notes": "Testbench watchdog fired and printed its own FAIL verdict naming the watchdog; category timeout by the watchdog rule. vvp exit 0."
+}

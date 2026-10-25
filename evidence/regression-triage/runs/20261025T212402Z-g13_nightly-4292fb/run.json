@@ -1,0 +1,197 @@
+{
+  "run_id": "20261025T212402Z-g13_nightly-4292fb",
+  "regression": "g13_nightly",
+  "manifest": "hdl/regressions/holdout2/g13_nightly.json",
+  "manifest_sha256": "5ce63ec8a63935ff6b1666ee3db44127653be7c77184adcdb8ae805a250d066c",
+  "started_utc": "2026-10-25T21:24:02+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "uart_tx_bytes",
+      "defines": [
+        "REV_E"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout2/rtl/uart_tx.v": "6b0af25acbadf019be8e80f7bac2eca29cfa730d410327b87c06c774c3958d34",
+        "hdl/holdout2/tb/tb_uart_tx.v": "7fb309fa0e80869b52af6256518ae89b08329ba3c9b039ffc769ec94617e8f00"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_uart_tx -DREV_E hdl/holdout2/rtl/uart_tx.v hdl/holdout2/tb/tb_uart_tx.v",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.074,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.031,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 5
+        }
+      ]
+    },
+    {
+      "test_id": "lfsr_seq",
+      "defines": [],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout2/rtl/lfsr16.v": "6aec2b142c8de3271a3622a391d754d4a50a991c1dab59ef1823c50ca40f7061",
+        "hdl/holdout2/tb/tb_lfsr16.sv": "4d9192e74f3028196d766aaf6c6d2669f0c9df05c18cac09f61b40ef805e5848"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_lfsr16 hdl/holdout2/rtl/lfsr16.v hdl/holdout2/tb/tb_lfsr16.sv",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.07,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.032,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 3
+        }
+      ]
+    },
+    {
+      "test_id": "pwm_duty",
+      "defines": [
+        "FAST_CMP"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout2/rtl/pwm_gen.v": "7eb6aecbc51c266993c70482fb7327d7f501edeb839764dc364d0cbdfc73828b",
+        "hdl/holdout2/tb/tb_pwm_gen.v": "8cf66a7cd5905e45f8902493c0a45dc7fe0ea815f544aa48a56b6bd350921813"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_pwm_gen -DFAST_CMP hdl/holdout2/rtl/pwm_gen.v hdl/holdout2/tb/tb_pwm_gen.v",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.067,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.042,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 12
+        }
+      ]
+    },
+    {
+      "test_id": "regfile_lint",
+      "defines": [],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout2/rtl/regfile.v": "21ab51192b57608bbd88ba5719adf958c0657c7d5c709e16c16f048a8bf50dbf"
+      },
+      "stages": [
+        {
+          "stage": "lint",
+          "cmd": "verilator_bin.exe --lint-only -Wall --top-module regfile hdl/holdout2/rtl/regfile.v",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.043,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 3
+        }
+      ]
+    },
+    {
+      "test_id": "lfsr_taps_v2",
+      "defines": [
+        "REV_K"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout2/rtl/lfsr16.v": "6aec2b142c8de3271a3622a391d754d4a50a991c1dab59ef1823c50ca40f7061",
+        "hdl/holdout2/tb/tb_lfsr16.sv": "4d9192e74f3028196d766aaf6c6d2669f0c9df05c18cac09f61b40ef805e5848"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_lfsr16 -DREV_K hdl/holdout2/rtl/lfsr16.v hdl/holdout2/tb/tb_lfsr16.sv",
+          "exit_code": 1,
+          "timed_out": false,
+          "elapsed_s": 0.13,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 2
+        }
+      ]
+    },
+    {
+      "test_id": "spi_loopback",
+      "defines": [],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout2/rtl/spi_shift.v": "438ab82ca65ab36e29210303395ce15455f5aa489563ca1fbca5dbb86f7dace1",
+        "hdl/holdout2/tb/tb_spi_shift.v": "99e88573e418835cd188c465fd4154718770445d6e9b61bd33f8841d1caf3d57"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_spi_shift hdl/holdout2/rtl/spi_shift.v hdl/holdout2/tb/tb_spi_shift.v",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.07,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.04,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 7
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-25T21:24:03+00:00"
+}

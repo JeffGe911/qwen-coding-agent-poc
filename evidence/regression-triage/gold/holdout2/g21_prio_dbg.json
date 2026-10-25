@@ -1,0 +1,15 @@
+{
+  "sample_id": "g21_prio_dbg",
+  "log_status": "complete",
+  "tests": {
+    "prio_enc_dbg": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        10
+      ]
+    }
+  },
+  "notes": "Port-width compile warning and the VCD info line are harmless; the verdict is PASS."
+}

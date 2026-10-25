@@ -1,0 +1,8 @@
+tb_prio_enc8: exhaustive sweep, 256 vectors
+  vec 03: idx=0 valid=1, expected idx=1 valid=1
+  vec 05: idx=0 valid=1, expected idx=2 valid=1
+  vec 06: idx=1 valid=1, expected idx=2 valid=1
+  vec 07: idx=0 valid=1, expected idx=2 valid=1
+  vec 09: idx=0 valid=1, expected idx=3 valid=1
+FAIL: tb_prio_enc8 (247/256 vectors wrong)
+hdl/holdout2/tb/tb_prio_enc8.v:60: $finish called at 256000 (1ps)

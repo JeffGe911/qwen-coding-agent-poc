@@ -1,0 +1,16 @@
+{
+  "sample_id": "g27_raw_lint",
+  "captured_cmd": "verilator_bin.exe --lint-only -Wall --top-module debounce hdl/holdout2/rtl/debounce.v",
+  "exit_code": 1,
+  "preparation_steps_not_captured": [],
+  "cwd": "fresh temporary directory with the sources copied at their hdl/... paths",
+  "env": {
+    "PATH": "<eda>/bin;<eda>/lib;%SystemRoot%",
+    "VERILATOR_ROOT": "(not set)"
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "bytes": 1068,
+  "sha256": "8ec656a6364fbade3316ce512dbb7404f2be8b186b40fe0425106687d4134fba",
+  "cr_bytes": 13,
+  "note": "Raw Verilator lint output with VERILATOR_ROOT deliberately not set (the OSS CAD Suite build then looks in a compiled-in /yosyshq path). Output bytes are exactly what the tool printed (stdout and stderr to one file, no newline conversion)."
+}

@@ -1,0 +1,60 @@
+{
+  "run_id": "20261025T212404Z-g16_pwm-65e51c",
+  "regression": "g16_pwm",
+  "manifest": "hdl/regressions/holdout2/g16_pwm.json",
+  "manifest_sha256": "33f0caec8648ce674e5612f9dfd1993f57b447933bb77c0f7f832bcf0778037d",
+  "started_utc": "2026-10-25T21:24:05+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "pwm_duty",
+      "defines": [
+        "FAST_CMP",
+        "LEGACY_PRINT"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout2/rtl/pwm_gen.v": "7eb6aecbc51c266993c70482fb7327d7f501edeb839764dc364d0cbdfc73828b",
+        "hdl/holdout2/tb/tb_pwm_gen.v": "8cf66a7cd5905e45f8902493c0a45dc7fe0ea815f544aa48a56b6bd350921813"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_pwm_gen -DFAST_CMP -DLEGACY_PRINT hdl/holdout2/rtl/pwm_gen.v hdl/holdout2/tb/tb_pwm_gen.v",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.126,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.06,
+          "output_truncated": false,
+          "escaped_annotation_lines": 2,
+          "output_lines": 15
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-25T21:24:05+00:00"
+}

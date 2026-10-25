@@ -1,0 +1,22 @@
+#RUN regression=g16_pwm run_id=20261025T212404Z-g16_pwm-65e51c started_utc=2026-10-25T21:24:05+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=pwm_duty stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_pwm_gen -DFAST_CMP -DLEGACY_PRINT hdl/holdout2/rtl/pwm_gen.v hdl/holdout2/tb/tb_pwm_gen.v
+#RUN test=pwm_duty stage=compile exit=0 elapsed_s=0.126 timed_out=false output_truncated=false
+#RUN test=pwm_duty stage=run cmd=vvp.exe -n sim.vvp
+#OUT #RUN test=pwm_duty stage=run exit=0 elapsed_s=0.004 timed_out=false output_truncated=false
+#OUT   #RUN regression=g16_pwm end tests=1 finished_utc=2026-10-25T00:00:00+00:00
+== PASS ==
+pwm_gen duty sweep (period 256 clocks)
+  duty=  0  high=  1  expect=  0  <-- MISMATCH
+  WARN: duty=0 holds pwm_out low for the whole period (by spec)
+  duty=  1  high=  2  expect=  1  <-- MISMATCH
+  duty= 64  high= 65  expect= 64  <-- MISMATCH
+  duty=128  high=129  expect=128  <-- MISMATCH
+  duty=200  high=201  expect=200  <-- MISMATCH
+  duty=255  high=256  expect=255  <-- MISMATCH
+  WARN: duty=255 gives 255/256 high, 100% is not reachable (by spec)
+Errors: 6 Warnings: 2
+== FAIL ==
+hdl/holdout2/tb/tb_pwm_gen.v:80: $finish called at 46096000 (1ps)
+#RUN test=pwm_duty stage=run exit=0 elapsed_s=0.06 timed_out=false output_truncated=false
+#RUN regression=g16_pwm end tests=1 finished_utc=2026-10-25T21:24:05+00:00

@@ -1,0 +1,50 @@
+Started by timer
+Running as SYSTEM
+Building remotely on hdl-win-agent-03 in workspace C:\ci\ws\hdl-nightly-holdout2
+[Pipeline] Start of Pipeline
+[Pipeline] node
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (regression)
+[Pipeline] bat
+[2026-10-25T21:24:04.050Z] C:\ci\ws\hdl-nightly-holdout2>python -m regression_triage run --manifest hdl/regressions/holdout2/g15_ci_job.json --out runs
+[2026-10-25T21:24:04.073Z] #RUN regression=g15_ci_job run_id=20261025T212404Z-g15_ci_job-270b71 started_utc=2026-10-25T21:24:04+00:00 host_os=Windows
+[2026-10-25T21:24:04.096Z] #RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+[2026-10-25T21:24:04.119Z] #RUN test=spi_loopback stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_spi_shift hdl/holdout2/rtl/spi_shift.v hdl/holdout2/tb/tb_spi_shift.v
+[2026-10-25T21:24:04.142Z] #RUN test=spi_loopback stage=compile exit=0 elapsed_s=0.078 timed_out=false output_truncated=false
+[2026-10-25T21:24:04.165Z] #RUN test=spi_loopback stage=run cmd=vvp.exe -n sim.vvp
+[2026-10-25T21:24:04.188Z] spi_tb: watchdog armed, 20000 ns
+[2026-10-25T21:24:04.211Z] spi_tb: transfer 0 tx=a5 rx=5a ok
+[2026-10-25T21:24:04.234Z] spi_tb: transfer 1 tx=3c rx=c3 ok
+[2026-10-25T21:24:04.257Z] spi_tb: transfer 2 tx=00 rx=81 ok
+[2026-10-25T21:24:04.280Z] spi_tb: transfer 3 tx=ff rx=7e ok
+[2026-10-25T21:24:04.303Z] spi_tb: RESULT PASSED (4/4 transfers)
+[2026-10-25T21:24:04.326Z] hdl/holdout2/tb/tb_spi_shift.v:75: $finish called at 706000 (1ps)
+[2026-10-25T21:24:04.349Z] #RUN test=spi_loopback stage=run exit=0 elapsed_s=0.035 timed_out=false output_truncated=false
+[2026-10-25T21:24:04.372Z] #RUN test=debounce_glitch stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_debounce -DREV_B hdl/holdout2/rtl/debounce.v hdl/holdout2/tb/tb_debounce.v
+[2026-10-25T21:24:04.395Z] #RUN test=debounce_glitch stage=compile exit=0 elapsed_s=0.122 timed_out=false output_truncated=false
+[2026-10-25T21:24:04.418Z] #RUN test=debounce_glitch stage=run cmd=vvp.exe -n sim.vvp
+[2026-10-25T21:24:04.441Z] tb_debounce: STABLE_CYCLES=8, comparing against reference model every cycle
+[2026-10-25T21:24:04.464Z] mismatch at 290 ns: clean expected 0, observed 1 (cycle 29)
+[2026-10-25T21:24:04.487Z] mismatch at 300 ns: clean expected 0, observed 1 (cycle 30)
+[2026-10-25T21:24:04.510Z] mismatch at 310 ns: clean expected 0, observed 1 (cycle 31)
+[2026-10-25T21:24:04.533Z] mismatch at 320 ns: clean expected 0, observed 1 (cycle 32)
+[2026-10-25T21:24:04.556Z] further mismatches suppressed
+[2026-10-25T21:24:04.579Z] tb_debounce: 85 cycles compared
+[2026-10-25T21:24:04.602Z] SIM RESULT: NOT OK (10 mismatching cycles)
+[2026-10-25T21:24:04.625Z] hdl/holdout2/tb/tb_debounce.v:73: $finish called at 850000 (1ps)
+[2026-10-25T21:24:04.648Z] #RUN test=debounce_glitch stage=run exit=0 elapsed_s=0.033 timed_out=false output_truncated=false
+[2026-10-25T21:24:04.671Z] #RUN regression=g15_ci_job end tests=2 finished_utc=2026-10-25T21:24:04+00:00
+[2026-10-25T21:24:04.694Z] runs\20261025T212404Z-g15_ci_job-270b71\regression.log
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (publish)
+[Pipeline] archiveArtifacts
+[2026-10-25T21:24:04.717Z] Archiving artifacts
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

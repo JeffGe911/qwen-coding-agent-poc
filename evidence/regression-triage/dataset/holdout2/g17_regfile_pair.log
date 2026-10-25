@@ -1,0 +1,33 @@
+#RUN regression=g17_regfile_pair run_id=20261025T212405Z-g17_regfile_pair-369a0d started_utc=2026-10-25T21:24:05+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=regfile_rw stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_regfile -DECO_WE hdl/holdout2/rtl/regfile.v hdl/holdout2/tb/tb_regfile.v
+#RUN test=regfile_rw stage=compile exit=0 elapsed_s=0.07 timed_out=false output_truncated=false
+#RUN test=regfile_rw stage=run cmd=vvp.exe -n sim.vvp
+[rf] regfile 6x8 test, strict=0
+[rf] MISCOMPARE @181000 raddr=3 we=0 waddr=5 exp=1e got=00
+[rf] MISCOMPARE @281000 raddr=3 we=0 waddr=3 exp=c3 got=00
+[rf] summary: checks=18 passed=16 failed=2
+[rf] RESULT: FAIL
+hdl/holdout2/tb/tb_regfile.v:106: $finish called at 321000 (1ps)
+#RUN test=regfile_rw stage=run exit=0 elapsed_s=0.043 timed_out=false output_truncated=false
+#RUN test=uart_tx_bytes stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_uart_tx hdl/holdout2/rtl/uart_tx.v hdl/holdout2/tb/tb_uart_tx.v
+#RUN test=uart_tx_bytes stage=compile exit=0 elapsed_s=0.077 timed_out=false output_truncated=false
+#RUN test=uart_tx_bytes stage=run cmd=vvp.exe -n sim.vvp
+uart_tx_tb: CLKS_PER_BIT=4, 4 bytes
+uart_tx_tb: tx 0x55 -> rx 0x55 ok
+uart_tx_tb: tx 0xa3 -> rx 0xa3 ok
+uart_tx_tb: tx 0x00 -> rx 0x00 ok
+uart_tx_tb: tx 0xff -> rx 0xff ok
+UART TB RESULT: PASS (tb_uart_tx)
+hdl/holdout2/tb/tb_uart_tx.v:79: $finish called at 1710000 (1ps)
+#RUN test=uart_tx_bytes stage=run exit=0 elapsed_s=0.042 timed_out=false output_truncated=false
+#RUN test=regfile_b2b stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_regfile -DECO_WE hdl/holdout2/rtl/regfile.v hdl/holdout2/tb/tb_regfile.v
+#RUN test=regfile_b2b stage=compile exit=0 elapsed_s=0.076 timed_out=false output_truncated=false
+#RUN test=regfile_b2b stage=run cmd=vvp.exe -n sim.vvp +B2B
+[rf] regfile 6x8 test, strict=0
+[rf] MISCOMPARE @101000 raddr=3 we=0 waddr=3 exp=c3 got=00
+[rf] summary: checks=12 passed=11 failed=1
+[rf] RESULT: FAIL
+hdl/holdout2/tb/tb_regfile.v:106: $finish called at 141000 (1ps)
+#RUN test=regfile_b2b stage=run exit=0 elapsed_s=0.046 timed_out=false output_truncated=false
+#RUN regression=g17_regfile_pair end tests=3 finished_utc=2026-10-25T21:24:06+00:00

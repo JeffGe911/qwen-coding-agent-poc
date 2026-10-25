@@ -1,0 +1,18 @@
+{
+  "regression": "g06_lfsr",
+  "description": "lfsr REV_C (wrap compares low byte only): $error assertion messages, scoreboard banner still SUCCESS",
+  "tests": [
+    {
+      "test_id": "lfsr_seq",
+      "top": "tb_lfsr16",
+      "sources": [
+        "hdl/holdout2/rtl/lfsr16.v",
+        "hdl/holdout2/tb/tb_lfsr16.sv"
+      ],
+      "defines": [
+        "REV_C"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "regression": "g02_debounce",
+  "description": "debounce B-step acceptance window (REV_B: terminal count two short); self-check mismatches, ends with $finish",
+  "tests": [
+    {
+      "test_id": "debounce_glitch",
+      "top": "tb_debounce",
+      "sources": [
+        "hdl/holdout2/rtl/debounce.v",
+        "hdl/holdout2/tb/tb_debounce.v"
+      ],
+      "defines": [
+        "REV_B"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

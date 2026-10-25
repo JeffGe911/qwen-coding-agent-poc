@@ -1,0 +1,20 @@
+{
+  "sample_id": "g27_raw_lint",
+  "log_status": "complete",
+  "tests": {
+    "(log)": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure",
+      "evidence_lines": [
+        1,
+        12,
+        13
+      ]
+    }
+  },
+  "flags": [
+    "tool_setup_error"
+  ],
+  "notes": "Verilator started but could not find its own standard files because VERILATOR_ROOT was not set; the lint check never ran, so not_run / tool_error rather than a lint failure. No test name in the output -> (log). CRLF kept as printed."
+}

@@ -1,0 +1,15 @@
+{
+  "sample_id": "g04_regfile",
+  "log_status": "complete",
+  "tests": {
+    "regfile_rw": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        7
+      ]
+    }
+  },
+  "notes": "+STRICT: $fatal at the first miscompare, vvp exit 1, no verdict line; the FATAL line is the evidence."
+}

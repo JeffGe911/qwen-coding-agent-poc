@@ -1,0 +1,18 @@
+{
+  "regression": "g19_uart_tb",
+  "description": "uart testbench TB_V2 references an undeclared signal (elaboration error in the testbench)",
+  "tests": [
+    {
+      "test_id": "uart_tx_v2",
+      "top": "tb_uart_tx",
+      "sources": [
+        "hdl/holdout2/rtl/uart_tx.v",
+        "hdl/holdout2/tb/tb_uart_tx.v"
+      ],
+      "defines": [
+        "TB_V2"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

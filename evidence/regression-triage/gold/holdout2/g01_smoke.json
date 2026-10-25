@@ -1,0 +1,32 @@
+{
+  "sample_id": "g01_smoke",
+  "log_status": "complete",
+  "tests": {
+    "debounce_basic": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        8
+      ]
+    },
+    "pwm_duty": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        23,
+        24
+      ]
+    },
+    "lfsr_seq": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        31
+      ]
+    }
+  },
+  "notes": "pwm_duty: the two WARN lines and 'Warnings: 2' are the testbench's own by-spec advisories; 'Errors: 0' plus '== PASS ==' is the verdict."
+}

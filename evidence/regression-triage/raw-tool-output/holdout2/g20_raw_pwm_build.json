@@ -1,0 +1,16 @@
+{
+  "sample_id": "g20_raw_pwm_build",
+  "captured_cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_pwm_gen -DREV_S hdl/holdout2/rtl/pwm_gen.v hdl/holdout2/tb/tb_pwm_gen.v",
+  "exit_code": 21,
+  "preparation_steps_not_captured": [],
+  "cwd": "fresh temporary directory with the sources copied at their hdl/... paths",
+  "env": {
+    "PATH": "<eda>/bin;<eda>/lib;%SystemRoot%",
+    "VERILATOR_ROOT": "<eda>/share/verilator"
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "bytes": 1964,
+  "sha256": "7280ecc0fa06dff0338afeb4e7e473cc550f209fb1df021f2e1e5aff0c818496",
+  "cr_bytes": 26,
+  "note": "Raw iverilog compile output. Output bytes are exactly what the tool printed (stdout and stderr to one file, no newline conversion)."
+}

@@ -1,0 +1,18 @@
+{
+  "regression": "g18_prio_phase",
+  "description": "prio SPLIT_PHASE: phase-2 event never fires, simulation runs out of events, no verdict, exit 0",
+  "tests": [
+    {
+      "test_id": "prio_enc_split",
+      "top": "tb_prio_enc8",
+      "sources": [
+        "hdl/holdout2/rtl/prio_enc8.v",
+        "hdl/holdout2/tb/tb_prio_enc8.v"
+      ],
+      "defines": [
+        "SPLIT_PHASE"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

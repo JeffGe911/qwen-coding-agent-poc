@@ -1,0 +1,16 @@
+{
+  "regression": "g23_uart_b",
+  "description": "source run for the truncated synthetic sample: uart default (pass)",
+  "tests": [
+    {
+      "test_id": "uart_tx_bytes",
+      "top": "tb_uart_tx",
+      "sources": [
+        "hdl/holdout2/rtl/uart_tx.v",
+        "hdl/holdout2/tb/tb_uart_tx.v"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    }
+  ]
+}

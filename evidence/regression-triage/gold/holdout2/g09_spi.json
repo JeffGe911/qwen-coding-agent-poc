@@ -1,0 +1,15 @@
+{
+  "sample_id": "g09_spi",
+  "log_status": "complete",
+  "tests": {
+    "spi_soak": {
+      "result": "fail",
+      "category": "timeout",
+      "side": "undetermined",
+      "evidence_lines": [
+        6
+      ]
+    }
+  },
+  "notes": "Runner wall-clock timeout (timed_out=true). No testbench output survived the kill (vvp's buffered stdout was lost). GOLD-FORMAT fixes category/side for this case but not result; result=fail chosen for a test killed at its time limit."
+}

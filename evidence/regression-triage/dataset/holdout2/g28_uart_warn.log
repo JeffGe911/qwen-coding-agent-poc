@@ -1,0 +1,16 @@
+#RUN regression=g28_uart_warn run_id=20261025T212411Z-g28_uart_warn-507cc9 started_utc=2026-10-25T21:24:11+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=uart_tx_bytes stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_uart_tx hdl/holdout2/rtl/uart_tx.v hdl/holdout2/tb/tb_uart_tx.v
+#RUN test=uart_tx_bytes stage=compile exit=0 elapsed_s=0.072 timed_out=false output_truncated=false
+#RUN test=uart_tx_bytes stage=run cmd=vvp.exe -n sim.vvp +BAUD_NOTE
+uart_tx_tb: CLKS_PER_BIT=4, 4 bytes
+WARNING: hdl/holdout2/tb/tb_uart_tx.v:67: CLKS_PER_BIT=4 is below the recommended 8; receiver sampling margin is reduced
+         Time: 0  Scope: tb_uart_tx
+uart_tx_tb: tx 0x55 -> rx 0x55 ok
+uart_tx_tb: tx 0xa3 -> rx 0xa3 ok
+uart_tx_tb: tx 0x00 -> rx 0x00 ok
+uart_tx_tb: tx 0xff -> rx 0xff ok
+UART TB RESULT: PASS (tb_uart_tx)
+hdl/holdout2/tb/tb_uart_tx.v:79: $finish called at 1710000 (1ps)
+#RUN test=uart_tx_bytes stage=run exit=0 elapsed_s=0.047 timed_out=false output_truncated=false
+#RUN regression=g28_uart_warn end tests=1 finished_utc=2026-10-25T21:24:11+00:00

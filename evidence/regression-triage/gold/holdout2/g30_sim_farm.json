@@ -1,0 +1,19 @@
+{
+  "sample_id": "g30_sim_farm",
+  "log_status": "complete",
+  "tests": {
+    "(log)": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure",
+      "evidence_lines": [
+        9,
+        10
+      ]
+    }
+  },
+  "flags": [
+    "tool_setup_error"
+  ],
+  "notes": "No test name appears (the top-level module listing is not a verdict line), so test_id is (log). License checkout failure -> tool_error / infrastructure; tool_setup_error is this split's reading of that flag (see g12)."
+}

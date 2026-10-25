@@ -1,0 +1,18 @@
+{
+  "regression": "g07_uart",
+  "description": "uart REV_E (stop-bit timer never ticks): busy stuck, testbench watchdog fires",
+  "tests": [
+    {
+      "test_id": "uart_tx_bytes",
+      "top": "tb_uart_tx",
+      "sources": [
+        "hdl/holdout2/rtl/uart_tx.v",
+        "hdl/holdout2/tb/tb_uart_tx.v"
+      ],
+      "defines": [
+        "REV_E"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

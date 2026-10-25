@@ -1,0 +1,15 @@
+{
+  "sample_id": "g19_uart_tb",
+  "log_status": "complete",
+  "tests": {
+    "uart_tx_v2": {
+      "result": "not_run",
+      "category": "compile_error",
+      "side": "design_or_test",
+      "evidence_lines": [
+        4
+      ]
+    }
+  },
+  "notes": "The compile error is in the testbench, not the RTL; still compile_error / design_or_test. Line 5 is a consequence of line 4."
+}

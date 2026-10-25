@@ -1,0 +1,90 @@
+{
+  "run_id": "20261025T212404Z-g15_ci_job-270b71",
+  "regression": "g15_ci_job",
+  "manifest": "hdl/regressions/holdout2/g15_ci_job.json",
+  "manifest_sha256": "fb15339ba3ef9220c50bb678e76f2ecf95fc379fc4d3e9cc73a35aba1ab9463e",
+  "started_utc": "2026-10-25T21:24:04+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "spi_loopback",
+      "defines": [],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout2/rtl/spi_shift.v": "438ab82ca65ab36e29210303395ce15455f5aa489563ca1fbca5dbb86f7dace1",
+        "hdl/holdout2/tb/tb_spi_shift.v": "99e88573e418835cd188c465fd4154718770445d6e9b61bd33f8841d1caf3d57"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_spi_shift hdl/holdout2/rtl/spi_shift.v hdl/holdout2/tb/tb_spi_shift.v",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.078,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.035,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 7
+        }
+      ]
+    },
+    {
+      "test_id": "debounce_glitch",
+      "defines": [
+        "REV_B"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout2/rtl/debounce.v": "b1e733b6e533762f9b06e741f747b6e2507fc5817edcf4acf917c82e44881d04",
+        "hdl/holdout2/tb/tb_debounce.v": "1f4622fa1c8c4cab05701c3804301c1419fccde04113cc2ff126b0c64bff2d30"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_debounce -DREV_B hdl/holdout2/rtl/debounce.v hdl/holdout2/tb/tb_debounce.v",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.122,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.033,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 9
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-25T21:24:04+00:00"
+}

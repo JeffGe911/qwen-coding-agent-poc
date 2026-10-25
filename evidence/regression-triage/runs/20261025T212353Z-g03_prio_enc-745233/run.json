@@ -1,0 +1,49 @@
+{
+  "run_id": "20261025T212353Z-g03_prio_enc-745233",
+  "regression": "g03_prio_enc",
+  "manifest": "hdl/regressions/holdout2/g03_prio_enc.json",
+  "manifest_sha256": "923a7e9147d44e263765d05bbc9535374e811b1aac1eead9dc9a1f6f3229a609",
+  "started_utc": "2026-10-25T21:23:54+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "prio_enc_exh",
+      "defines": [
+        "REV_D"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout2/rtl/prio_enc8.v": "2498d46c5917e32be6ae97f4c43e4a88ef32146af4f8b191b12092edbe9f74b3",
+        "hdl/holdout2/tb/tb_prio_enc8.v": "57766d0ff7e3e0c5b1592929a5fd62dbc0609148bb05f7a334d01ebd291cca65"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_prio_enc8 -DREV_D hdl/holdout2/rtl/prio_enc8.v hdl/holdout2/tb/tb_prio_enc8.v",
+          "exit_code": 2,
+          "timed_out": false,
+          "elapsed_s": 0.105,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 2
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-25T21:23:54+00:00"
+}

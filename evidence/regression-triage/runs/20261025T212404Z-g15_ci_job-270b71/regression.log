@@ -1,0 +1,27 @@
+#RUN regression=g15_ci_job run_id=20261025T212404Z-g15_ci_job-270b71 started_utc=2026-10-25T21:24:04+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=spi_loopback stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_spi_shift hdl/holdout2/rtl/spi_shift.v hdl/holdout2/tb/tb_spi_shift.v
+#RUN test=spi_loopback stage=compile exit=0 elapsed_s=0.078 timed_out=false output_truncated=false
+#RUN test=spi_loopback stage=run cmd=vvp.exe -n sim.vvp
+spi_tb: watchdog armed, 20000 ns
+spi_tb: transfer 0 tx=a5 rx=5a ok
+spi_tb: transfer 1 tx=3c rx=c3 ok
+spi_tb: transfer 2 tx=00 rx=81 ok
+spi_tb: transfer 3 tx=ff rx=7e ok
+spi_tb: RESULT PASSED (4/4 transfers)
+hdl/holdout2/tb/tb_spi_shift.v:75: $finish called at 706000 (1ps)
+#RUN test=spi_loopback stage=run exit=0 elapsed_s=0.035 timed_out=false output_truncated=false
+#RUN test=debounce_glitch stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_debounce -DREV_B hdl/holdout2/rtl/debounce.v hdl/holdout2/tb/tb_debounce.v
+#RUN test=debounce_glitch stage=compile exit=0 elapsed_s=0.122 timed_out=false output_truncated=false
+#RUN test=debounce_glitch stage=run cmd=vvp.exe -n sim.vvp
+tb_debounce: STABLE_CYCLES=8, comparing against reference model every cycle
+mismatch at 290 ns: clean expected 0, observed 1 (cycle 29)
+mismatch at 300 ns: clean expected 0, observed 1 (cycle 30)
+mismatch at 310 ns: clean expected 0, observed 1 (cycle 31)
+mismatch at 320 ns: clean expected 0, observed 1 (cycle 32)
+further mismatches suppressed
+tb_debounce: 85 cycles compared
+SIM RESULT: NOT OK (10 mismatching cycles)
+hdl/holdout2/tb/tb_debounce.v:73: $finish called at 850000 (1ps)
+#RUN test=debounce_glitch stage=run exit=0 elapsed_s=0.033 timed_out=false output_truncated=false
+#RUN regression=g15_ci_job end tests=2 finished_utc=2026-10-25T21:24:04+00:00

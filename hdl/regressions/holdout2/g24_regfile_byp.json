@@ -1,0 +1,18 @@
+{
+  "regression": "g24_regfile_byp",
+  "description": "regfile ECO_BYP (bypass removed): counter summary FAIL, exit 0",
+  "tests": [
+    {
+      "test_id": "regfile_rw",
+      "top": "tb_regfile",
+      "sources": [
+        "hdl/holdout2/rtl/regfile.v",
+        "hdl/holdout2/tb/tb_regfile.v"
+      ],
+      "defines": [
+        "ECO_BYP"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

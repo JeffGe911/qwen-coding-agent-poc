@@ -1,0 +1,19 @@
+{
+  "regression": "g28_uart_warn",
+  "description": "uart default with +BAUD_NOTE: passing run with a $warning advisory",
+  "tests": [
+    {
+      "test_id": "uart_tx_bytes",
+      "top": "tb_uart_tx",
+      "sources": [
+        "hdl/holdout2/rtl/uart_tx.v",
+        "hdl/holdout2/tb/tb_uart_tx.v"
+      ],
+      "defines": [],
+      "plusargs": [
+        "+BAUD_NOTE"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

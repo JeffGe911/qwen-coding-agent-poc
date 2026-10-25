@@ -1,0 +1,12 @@
+==== sim-farm job 48213 | queue short | slot farm-node-17 ====
+cmd: simx -sv -top tb_pwm_gen -f filelist.f -l sim.log
+simx 23.1 (64-bit) starting Sun Oct 25 02:00:14 2026
+Parsing design file 'hdl/holdout2/rtl/pwm_gen.v'
+Parsing design file 'hdl/holdout2/tb/tb_pwm_gen.v'
+Top level modules:
+    tb_pwm_gen
+Checking out license feature 'SIMX_SV' from 27000@lic-srv01 ...
+simx: Error: license checkout failed for feature 'SIMX_SV': all 12 licenses in use (queueing disabled)
+simx: Error: no license available, elaboration and simulation not started
+simx: exiting with status 2
+==== job 48213 finished: exit status 2, wall 00:00:03 ====

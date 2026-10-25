@@ -1,0 +1,18 @@
+{
+  "regression": "g22_spi_wdog",
+  "description": "spi REV_H with the watchdog armed: watchdog reports through $fatal",
+  "tests": [
+    {
+      "test_id": "spi_loopback",
+      "top": "tb_spi_shift",
+      "sources": [
+        "hdl/holdout2/rtl/spi_shift.v",
+        "hdl/holdout2/tb/tb_spi_shift.v"
+      ],
+      "defines": [
+        "REV_H"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

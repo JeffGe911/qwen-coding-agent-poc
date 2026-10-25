@@ -1,0 +1,19 @@
+{
+  "sample_id": "g31_build",
+  "log_status": "complete",
+  "tests": {
+    "uart_tx_bytes": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure",
+      "evidence_lines": [
+        4,
+        6
+      ]
+    }
+  },
+  "flags": [
+    "tool_internal_assertion"
+  ],
+  "notes": "Compiler-internal assertion (file elab_net.cc) and runtime abort: a tool crash, not a design assertion; the simulation never ran."
+}

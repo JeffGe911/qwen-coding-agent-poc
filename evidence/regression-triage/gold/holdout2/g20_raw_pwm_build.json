@@ -1,0 +1,15 @@
+{
+  "sample_id": "g20_raw_pwm_build",
+  "log_status": "complete",
+  "tests": {
+    "(log)": {
+      "result": "not_run",
+      "category": "compile_error",
+      "side": "design_or_test",
+      "evidence_lines": [
+        1
+      ]
+    }
+  },
+  "notes": "Raw iverilog capture without runner lines and without a verdict line, so test_id is (log). Only the first error (pwm_gen.v:37 syntax error) counts; the testbench errors after it cascade from the unterminated module. CRLF kept as printed."
+}

@@ -1,0 +1,17 @@
+#RUN regression=g10_lint run_id=20261025T212400Z-g10_lint-982e28 started_utc=2026-10-25T21:24:01+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=debounce_lint stage=lint cmd=verilator_bin.exe --lint-only -Wall --top-module debounce hdl/holdout2/rtl/debounce.v
+- V e r i l a t i o n   R e p o r t: Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)
+- Verilator: Built from 0.049 MB sources in 3 modules, into 0.019 MB in 3 C++ files needing 0.000 MB
+- Verilator: Walltime 0.010 s (elab=0.001, cvt=0.003, bld=0.000); cpu 0.000 s on 1 threads; allocated 14.391 MB
+#RUN test=debounce_lint stage=lint exit=0 elapsed_s=0.046 timed_out=false output_truncated=false
+#RUN test=pwm_lint stage=lint cmd=verilator_bin.exe --lint-only -Wall --top-module pwm_gen -DREV_W hdl/holdout2/rtl/pwm_gen.v
+%Warning-WIDTHTRUNC: hdl/holdout2/rtl\pwm_gen.v:18:17: Operator ASSIGNDLY expects 8 bits on the Assign RHS, but Assign RHS's ADD generates 9 bits.
+                                                     : ... note: In instance 'pwm_gen'
+   18 |             cnt <= cnt + 9'd1;
+      |                 ^~
+                     ... For warning description see https://verilator.org/warn/WIDTHTRUNC?v=5.053
+                     ... Use "/* verilator lint_off WIDTHTRUNC */" and lint_on around source to disable this message.
+%Error: Exiting due to 1 warning(s)
+#RUN test=pwm_lint stage=lint exit=1 elapsed_s=0.047 timed_out=false output_truncated=false
+#RUN regression=g10_lint end tests=2 finished_utc=2026-10-25T21:24:01+00:00

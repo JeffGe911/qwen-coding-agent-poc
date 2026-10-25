@@ -1,0 +1,18 @@
+{
+  "sample_id": "g25_uvm_lfsr",
+  "log_status": "complete",
+  "tests": {
+    "lfsr_rand_test": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        12,
+        13,
+        14,
+        22
+      ]
+    }
+  },
+  "notes": "test_id from 'Running test lfsr_rand_test...'. The last line 'Errors: 0, Warnings: 1' is the simulator's own message count and does not include UVM_ERROR reports."
+}

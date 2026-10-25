@@ -1,0 +1,43 @@
+{
+  "regression": "g17_regfile_pair",
+  "description": "same regfile ECO_WE defect seen by two tests, plus a passing uart test",
+  "tests": [
+    {
+      "test_id": "regfile_rw",
+      "top": "tb_regfile",
+      "sources": [
+        "hdl/holdout2/rtl/regfile.v",
+        "hdl/holdout2/tb/tb_regfile.v"
+      ],
+      "defines": [
+        "ECO_WE"
+      ],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "uart_tx_bytes",
+      "top": "tb_uart_tx",
+      "sources": [
+        "hdl/holdout2/rtl/uart_tx.v",
+        "hdl/holdout2/tb/tb_uart_tx.v"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "regfile_b2b",
+      "top": "tb_regfile",
+      "sources": [
+        "hdl/holdout2/rtl/regfile.v",
+        "hdl/holdout2/tb/tb_regfile.v"
+      ],
+      "defines": [
+        "ECO_WE"
+      ],
+      "plusargs": [
+        "+B2B"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

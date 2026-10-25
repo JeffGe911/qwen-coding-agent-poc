@@ -1,0 +1,16 @@
+{
+  "sample_id": "g06_lfsr",
+  "log_status": "complete",
+  "tests": {
+    "lfsr_seq": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        7,
+        9
+      ]
+    }
+  },
+  "notes": "The closing banner says SUCCESS because it counts scoreboard mismatches only; the two $error assertion messages (ERROR: ... wrap high ...) are failure evidence, and a pass needs a verdict with no failure evidence."
+}

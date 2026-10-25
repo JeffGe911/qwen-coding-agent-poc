@@ -1,0 +1,72 @@
+{
+  "regression": "g13_nightly",
+  "description": "mixed: watchdog, pass, self-check fail, lint pass, elaboration error, pass",
+  "tests": [
+    {
+      "test_id": "uart_tx_bytes",
+      "top": "tb_uart_tx",
+      "sources": [
+        "hdl/holdout2/rtl/uart_tx.v",
+        "hdl/holdout2/tb/tb_uart_tx.v"
+      ],
+      "defines": [
+        "REV_E"
+      ],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "lfsr_seq",
+      "top": "tb_lfsr16",
+      "sources": [
+        "hdl/holdout2/rtl/lfsr16.v",
+        "hdl/holdout2/tb/tb_lfsr16.sv"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "pwm_duty",
+      "top": "tb_pwm_gen",
+      "sources": [
+        "hdl/holdout2/rtl/pwm_gen.v",
+        "hdl/holdout2/tb/tb_pwm_gen.v"
+      ],
+      "defines": [
+        "FAST_CMP"
+      ],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "regfile_lint",
+      "top": "regfile",
+      "sources": [
+        "hdl/holdout2/rtl/regfile.v"
+      ],
+      "defines": [],
+      "timeout_s": 10,
+      "kind": "lint"
+    },
+    {
+      "test_id": "lfsr_taps_v2",
+      "top": "tb_lfsr16",
+      "sources": [
+        "hdl/holdout2/rtl/lfsr16.v",
+        "hdl/holdout2/tb/tb_lfsr16.sv"
+      ],
+      "defines": [
+        "REV_K"
+      ],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "spi_loopback",
+      "top": "tb_spi_shift",
+      "sources": [
+        "hdl/holdout2/rtl/spi_shift.v",
+        "hdl/holdout2/tb/tb_spi_shift.v"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    }
+  ]
+}

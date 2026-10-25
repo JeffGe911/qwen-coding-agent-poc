@@ -1,0 +1,28 @@
+{
+  "regression": "g10_lint",
+  "description": "Verilator lint: clean debounce, pwm with a 9-bit increment constant (REV_W)",
+  "tests": [
+    {
+      "test_id": "debounce_lint",
+      "top": "debounce",
+      "sources": [
+        "hdl/holdout2/rtl/debounce.v"
+      ],
+      "defines": [],
+      "timeout_s": 10,
+      "kind": "lint"
+    },
+    {
+      "test_id": "pwm_lint",
+      "top": "pwm_gen",
+      "sources": [
+        "hdl/holdout2/rtl/pwm_gen.v"
+      ],
+      "defines": [
+        "REV_W"
+      ],
+      "timeout_s": 10,
+      "kind": "lint"
+    }
+  ]
+}

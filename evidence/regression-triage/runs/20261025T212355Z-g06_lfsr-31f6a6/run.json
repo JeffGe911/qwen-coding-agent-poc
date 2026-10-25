@@ -1,0 +1,59 @@
+{
+  "run_id": "20261025T212355Z-g06_lfsr-31f6a6",
+  "regression": "g06_lfsr",
+  "manifest": "hdl/regressions/holdout2/g06_lfsr.json",
+  "manifest_sha256": "39989feeb1ed767f25d18fdd9fa132a4cd99d1aaeaa57a203bfc719c050eefed",
+  "started_utc": "2026-10-25T21:23:55+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "lfsr_seq",
+      "defines": [
+        "REV_C"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout2/rtl/lfsr16.v": "6aec2b142c8de3271a3622a391d754d4a50a991c1dab59ef1823c50ca40f7061",
+        "hdl/holdout2/tb/tb_lfsr16.sv": "4d9192e74f3028196d766aaf6c6d2669f0c9df05c18cac09f61b40ef805e5848"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_lfsr16 -DREV_C hdl/holdout2/rtl/lfsr16.v hdl/holdout2/tb/tb_lfsr16.sv",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.076,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.043,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 7
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-25T21:23:55+00:00"
+}

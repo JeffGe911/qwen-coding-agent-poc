@@ -1,0 +1,17 @@
+#RUN regression=g24_regfile_byp run_id=20261025T212410Z-g24_regfile_byp-c0c096 started_utc=2026-10-25T21:24:10+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=regfile_rw stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_regfile -DECO_BYP hdl/holdout2/rtl/regfile.v hdl/holdout2/tb/tb_regfile.v
+#RUN test=regfile_rw stage=compile exit=0 elapsed_s=0.086 timed_out=false output_truncated=false
+#RUN test=regfile_rw stage=run cmd=vvp.exe -n sim.vvp
+[rf] regfile 6x8 test, strict=0
+[rf] MISCOMPARE @211000 raddr=0 we=1 waddr=0 exp=c0 got=4b
+[rf] MISCOMPARE @231000 raddr=1 we=1 waddr=1 exp=c1 got=78
+[rf] MISCOMPARE @251000 raddr=2 we=1 waddr=2 exp=c2 got=69
+[rf] MISCOMPARE @271000 raddr=3 we=1 waddr=3 exp=c3 got=1e
+[rf] MISCOMPARE @291000 raddr=4 we=1 waddr=4 exp=c4 got=0f
+[rf] MISCOMPARE @311000 raddr=5 we=1 waddr=5 exp=c5 got=3c
+[rf] summary: checks=18 passed=12 failed=6
+[rf] RESULT: FAIL
+hdl/holdout2/tb/tb_regfile.v:106: $finish called at 321000 (1ps)
+#RUN test=regfile_rw stage=run exit=0 elapsed_s=0.045 timed_out=false output_truncated=false
+#RUN regression=g24_regfile_byp end tests=1 finished_utc=2026-10-25T21:24:10+00:00

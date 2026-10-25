@@ -1,0 +1,18 @@
+{
+  "regression": "g03_prio_enc",
+  "description": "priority encoder with a missing semicolon in the decode table (REV_D)",
+  "tests": [
+    {
+      "test_id": "prio_enc_exh",
+      "top": "tb_prio_enc8",
+      "sources": [
+        "hdl/holdout2/rtl/prio_enc8.v",
+        "hdl/holdout2/tb/tb_prio_enc8.v"
+      ],
+      "defines": [
+        "REV_D"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

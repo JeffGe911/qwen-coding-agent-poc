@@ -1,0 +1,13 @@
+#RUN regression=g21_prio_dbg run_id=20261025T212407Z-g21_prio_dbg-a0a20a started_utc=2026-10-25T21:24:07+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=prio_enc_dbg stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_prio_enc8 -DDBG_PORT hdl/holdout2/rtl/prio_enc8.v hdl/holdout2/tb/tb_prio_enc8.v
+hdl/holdout2/tb/tb_prio_enc8.v:14: warning: Port 2 (idx) of module prio_enc8 expects 3 bit(s), given 4.
+hdl/holdout2/tb/tb_prio_enc8.v:14:        : Padding 1 high bits of the expression.
+#RUN test=prio_enc_dbg stage=compile exit=0 elapsed_s=0.09 timed_out=false output_truncated=false
+#RUN test=prio_enc_dbg stage=run cmd=vvp.exe -n sim.vvp
+tb_prio_enc8: exhaustive sweep, 256 vectors
+VCD info: dumpfile prio_dbg.vcd opened for output.
+PASS: tb_prio_enc8 (256/256 vectors)
+hdl/holdout2/tb/tb_prio_enc8.v:60: $finish called at 256000 (1ps)
+#RUN test=prio_enc_dbg stage=run exit=0 elapsed_s=0.09 timed_out=false output_truncated=false
+#RUN regression=g21_prio_dbg end tests=1 finished_utc=2026-10-25T21:24:08+00:00

@@ -1,0 +1,68 @@
+{
+  "run_id": "20261025T212400Z-g10_lint-982e28",
+  "regression": "g10_lint",
+  "manifest": "hdl/regressions/holdout2/g10_lint.json",
+  "manifest_sha256": "3c65b66df308e7fb94528908a946f3e3fde074b8247ede0df556b4476f692e2e",
+  "started_utc": "2026-10-25T21:24:01+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "debounce_lint",
+      "defines": [],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout2/rtl/debounce.v": "b1e733b6e533762f9b06e741f747b6e2507fc5817edcf4acf917c82e44881d04"
+      },
+      "stages": [
+        {
+          "stage": "lint",
+          "cmd": "verilator_bin.exe --lint-only -Wall --top-module debounce hdl/holdout2/rtl/debounce.v",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.046,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 3
+        }
+      ]
+    },
+    {
+      "test_id": "pwm_lint",
+      "defines": [
+        "REV_W"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout2/rtl/pwm_gen.v": "7eb6aecbc51c266993c70482fb7327d7f501edeb839764dc364d0cbdfc73828b"
+      },
+      "stages": [
+        {
+          "stage": "lint",
+          "cmd": "verilator_bin.exe --lint-only -Wall --top-module pwm_gen -DREV_W hdl/holdout2/rtl/pwm_gen.v",
+          "exit_code": 1,
+          "timed_out": false,
+          "elapsed_s": 0.047,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 7
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-25T21:24:01+00:00"
+}

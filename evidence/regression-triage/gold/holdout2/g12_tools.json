@@ -1,0 +1,18 @@
+{
+  "sample_id": "g12_tools",
+  "log_status": "complete",
+  "tests": {
+    "spi_loopback": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure",
+      "evidence_lines": [
+        4
+      ]
+    }
+  },
+  "flags": [
+    "tool_setup_error"
+  ],
+  "notes": "Simulator executable not found (message in the host's Chinese locale). Flag tool_setup_error is applied in this split to every failure caused by the tool installation or environment (missing executable, VERILATOR_ROOT not set, license)."
+}

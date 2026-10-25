@@ -1,0 +1,28 @@
+{
+  "regression": "g29_mixed_b",
+  "description": "source run for the missing-fields synthetic sample: prio pass + pwm FAST_CMP failure",
+  "tests": [
+    {
+      "test_id": "prio_enc_exh",
+      "top": "tb_prio_enc8",
+      "sources": [
+        "hdl/holdout2/rtl/prio_enc8.v",
+        "hdl/holdout2/tb/tb_prio_enc8.v"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "pwm_duty",
+      "top": "tb_pwm_gen",
+      "sources": [
+        "hdl/holdout2/rtl/pwm_gen.v",
+        "hdl/holdout2/tb/tb_pwm_gen.v"
+      ],
+      "defines": [
+        "FAST_CMP"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

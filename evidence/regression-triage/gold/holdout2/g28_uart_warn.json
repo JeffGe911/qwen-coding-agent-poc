@@ -1,0 +1,15 @@
+{
+  "sample_id": "g28_uart_warn",
+  "log_status": "complete",
+  "tests": {
+    "uart_tx_bytes": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        13
+      ]
+    }
+  },
+  "notes": "The WARNING line is the testbench's own $warning advisory about the divider; harmless, verdict PASS."
+}

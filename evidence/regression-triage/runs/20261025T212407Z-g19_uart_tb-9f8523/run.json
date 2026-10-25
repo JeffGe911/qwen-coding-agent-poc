@@ -1,0 +1,49 @@
+{
+  "run_id": "20261025T212407Z-g19_uart_tb-9f8523",
+  "regression": "g19_uart_tb",
+  "manifest": "hdl/regressions/holdout2/g19_uart_tb.json",
+  "manifest_sha256": "cdd78d30626985d64840165867992d711c17dab368aa126354a3baad4c210780",
+  "started_utc": "2026-10-25T21:24:07+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "uart_tx_v2",
+      "defines": [
+        "TB_V2"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout2/rtl/uart_tx.v": "6b0af25acbadf019be8e80f7bac2eca29cfa730d410327b87c06c774c3958d34",
+        "hdl/holdout2/tb/tb_uart_tx.v": "7fb309fa0e80869b52af6256518ae89b08329ba3c9b039ffc769ec94617e8f00"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_uart_tx -DTB_V2 hdl/holdout2/rtl/uart_tx.v hdl/holdout2/tb/tb_uart_tx.v",
+          "exit_code": 2,
+          "timed_out": false,
+          "elapsed_s": 0.094,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 3
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-25T21:24:07+00:00"
+}

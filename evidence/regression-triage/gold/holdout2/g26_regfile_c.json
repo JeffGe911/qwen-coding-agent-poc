@@ -1,0 +1,16 @@
+{
+  "sample_id": "g26_regfile_c",
+  "log_status": "incomplete",
+  "tests": {
+    "regfile_rw": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        7,
+        8
+      ]
+    }
+  },
+  "notes": "Truncated before the verdict, but two self-check failure lines are already present, so test_failure (truncated-log rule)."
+}

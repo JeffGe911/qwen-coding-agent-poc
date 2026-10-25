@@ -1,0 +1,6 @@
+[job 7731] queue=hdl-short owner=ci-bot node=n04
+[job 7731] fetch ok (3 files, 9.8 KiB)
+[job 7731] step build ... rc=0
+[job 7731] step sim ... rc=?
+[job 7731] artifacts: out/7731.tgz (412 KiB)
+[job 7731] status: see dashboard

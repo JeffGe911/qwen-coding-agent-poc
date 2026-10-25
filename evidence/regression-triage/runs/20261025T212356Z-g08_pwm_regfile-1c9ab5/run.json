@@ -1,0 +1,92 @@
+{
+  "run_id": "20261025T212356Z-g08_pwm_regfile-1c9ab5",
+  "regression": "g08_pwm_regfile",
+  "manifest": "hdl/regressions/holdout2/g08_pwm_regfile.json",
+  "manifest_sha256": "a6fcd76d31fc8fb39cc9eda8bb414e5438501e14439e6ebaad9bbe486d8582db",
+  "started_utc": "2026-10-25T21:23:56+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "pwm_duty_chatty",
+      "defines": [
+        "CHATTY"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout2/rtl/pwm_gen.v": "7eb6aecbc51c266993c70482fb7327d7f501edeb839764dc364d0cbdfc73828b",
+        "hdl/holdout2/tb/tb_pwm_gen.v": "8cf66a7cd5905e45f8902493c0a45dc7fe0ea815f544aa48a56b6bd350921813"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_pwm_gen -DCHATTY hdl/holdout2/rtl/pwm_gen.v hdl/holdout2/tb/tb_pwm_gen.v",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.064,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.05,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 16
+        }
+      ]
+    },
+    {
+      "test_id": "regfile_err_resp",
+      "defines": [],
+      "plusargs": [
+        "+ERRPATH"
+      ],
+      "sources_sha256": {
+        "hdl/holdout2/rtl/regfile.v": "21ab51192b57608bbd88ba5719adf958c0657c7d5c709e16c16f048a8bf50dbf",
+        "hdl/holdout2/tb/tb_regfile.v": "43bdf654a00dab843dd6e7d26ae3f3be822e8572f493daa054be2aa4927f0582"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_regfile hdl/holdout2/rtl/regfile.v hdl/holdout2/tb/tb_regfile.v",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.076,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp +ERRPATH",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.042,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 8
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-25T21:23:57+00:00"
+}

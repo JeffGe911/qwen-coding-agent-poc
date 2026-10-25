@@ -1,0 +1,25 @@
+{
+  "sample_id": "g08_pwm_regfile",
+  "log_status": "complete",
+  "tests": {
+    "pwm_duty_chatty": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        19,
+        20
+      ]
+    },
+    "regfile_err_resp": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        31,
+        32
+      ]
+    }
+  },
+  "notes": "Benign wording only: 'FAULT', 'error-injection hooks disabled', '0 errors, 0 failures', 'timeout guard', and the regfile 'error injection' / 'err response ... (expected)' lines describe the error path working as specified."
+}

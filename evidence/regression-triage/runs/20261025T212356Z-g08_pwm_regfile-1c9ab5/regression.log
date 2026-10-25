@@ -1,0 +1,35 @@
+#RUN regression=g08_pwm_regfile run_id=20261025T212356Z-g08_pwm_regfile-1c9ab5 started_utc=2026-10-25T21:23:56+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=pwm_duty_chatty stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_pwm_gen -DCHATTY hdl/holdout2/rtl/pwm_gen.v hdl/holdout2/tb/tb_pwm_gen.v
+#RUN test=pwm_duty_chatty stage=compile exit=0 elapsed_s=0.064 timed_out=false output_truncated=false
+#RUN test=pwm_duty_chatty stage=run cmd=vvp.exe -n sim.vvp
+pwm_gen duty sweep (period 256 clocks)
+bring-up: FAULT input not present on this block, fault checks skipped
+bring-up: error-injection hooks disabled (ERR_INJ=0)
+bring-up: timeout guard 100000 ns armed
+  duty=  0  high=  0  expect=  0            ok
+  WARN: duty=0 holds pwm_out low for the whole period (by spec)
+  duty=  1  high=  1  expect=  1            ok
+  duty= 64  high= 64  expect= 64            ok
+  duty=128  high=128  expect=128            ok
+  duty=200  high=200  expect=200            ok
+  duty=255  high=255  expect=255            ok
+  WARN: duty=255 gives 255/256 high, 100% is not reachable (by spec)
+bring-up: monitors reported 0 errors, 0 failures
+Errors: 0 Warnings: 2
+== PASS ==
+hdl/holdout2/tb/tb_pwm_gen.v:80: $finish called at 46096000 (1ps)
+#RUN test=pwm_duty_chatty stage=run exit=0 elapsed_s=0.05 timed_out=false output_truncated=false
+#RUN test=regfile_err_resp stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_regfile hdl/holdout2/rtl/regfile.v hdl/holdout2/tb/tb_regfile.v
+#RUN test=regfile_err_resp stage=compile exit=0 elapsed_s=0.076 timed_out=false output_truncated=false
+#RUN test=regfile_err_resp stage=run cmd=vvp.exe -n sim.vvp +ERRPATH
+[rf] regfile 6x8 test, strict=0
+[rf] error injection: accesses to unimplemented addresses 6 and 7 (err=1 expected)
+[rf] err response for raddr=6: err=1 rdata=00 (expected)
+[rf] err response for raddr=7: err=1 rdata=00 (expected)
+[rf] error-path checks: 2/2 as expected
+[rf] summary: checks=20 passed=20 failed=0
+[rf] RESULT: PASS
+hdl/holdout2/tb/tb_regfile.v:106: $finish called at 341000 (1ps)
+#RUN test=regfile_err_resp stage=run exit=0 elapsed_s=0.042 timed_out=false output_truncated=false
+#RUN regression=g08_pwm_regfile end tests=2 finished_utc=2026-10-25T21:23:57+00:00
