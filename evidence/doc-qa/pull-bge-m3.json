@@ -1,0 +1,20 @@
+{
+ "pulled_utc": "2026-10-26T04:35Z (ollama pull bge-m3 against the local r2 server, 127.0.0.1:11437)",
+ "name": "bge-m3:latest",
+ "digest": "7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab",
+ "size_bytes": 1157672605,
+ "details": {
+  "parent_model": "",
+  "format": "gguf",
+  "family": "bert",
+  "families": [
+   "bert"
+  ],
+  "parameter_size": "566.70M",
+  "quantization_level": "F16",
+  "context_length": 8192,
+  "embedding_length": 1024,
+  "runner": "ggml"
+ },
+ "note": "one-time download; indexing and querying run against 127.0.0.1 only"
+}

@@ -5,3 +5,5 @@
 # Regression-triage evidence is stored byte for byte: the dataset manifest and the evaluation contract hash the exact
 # bytes, and the raw-tool-output samples keep the CRLF that the Windows simulator actually printed.
 evidence/regression-triage/** -text
+# Knowledge-base documents are stored exactly as published (hashed in knowledge/MANIFEST.json).
+knowledge/** -text

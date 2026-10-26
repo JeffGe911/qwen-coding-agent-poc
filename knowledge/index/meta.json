@@ -1,0 +1,12 @@
+{
+ "index_version": "index-v1",
+ "chunker_version": "chunker-v1",
+ "max_chars": 1200,
+ "chunks": 674,
+ "dim": 1024,
+ "embed_model": "bge-m3",
+ "embed_model_digest": "7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab",
+ "embed_seconds": 46.1,
+ "corpus_manifest_sha256": "718f98209e01b0c06ecbbefde29beb8c20cc84d2cb4162b1407cad6d5792b7de",
+ "vectors_sha256": "3b751215311cf767e7beacf6e7494ee3205e488c814031ec994aac8e7975f560"
+}
