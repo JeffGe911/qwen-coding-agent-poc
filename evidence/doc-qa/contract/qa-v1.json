@@ -1,0 +1,93 @@
+{
+ "version": "qa-v1",
+ "frozen_utc": "2026-10-26T04:48:32+00:00",
+ "note": "First doc-QA contract: docqa-prompt-v1, k=6 passages (dense bge-m3 + BM25, RRF), qwen2.5-coder:7b on Ollama r2, temperature 0. dev was written by the system author; holdout was written by a separate session without seeing the system, and the code was committed (c62ae79) before it was handed over.",
+ "git_commit": "efe03122eaf0a3397b1835e13dce58e63284cab1",
+ "corpus_manifest_sha256": "718f98209e01b0c06ecbbefde29beb8c20cc84d2cb4162b1407cad6d5792b7de",
+ "index": {
+  "chunks.jsonl": "6fd0040d5a19a83b9525acf42b22a914765ee38ca59ac7fa25d7d6599da1a64d",
+  "meta.json": "5ec30508fae66178640b07ae07dc4184b2587b9c97b488670ba293c2621dc4b7",
+  "vectors.f32": "3b751215311cf767e7beacf6e7494ee3205e488c814031ec994aac8e7975f560"
+ },
+ "splits": {
+  "dev": {
+   "file": "knowledge/questions/dev.jsonl",
+   "sha256": "dadeca42f9dac663287cad54a819a6e14cb53d794d09a945269ad69ec85f76f2",
+   "questions": 17
+  },
+  "holdout": {
+   "file": "knowledge/questions/holdout.jsonl",
+   "sha256": "f0c9eba76dee27c912e512a62c069d3cacbcd8bc9ac0c1b57a7b70f1869ff4d1",
+   "questions": 40
+  }
+ },
+ "code_sha256": {
+  "doc_qa/__init__.py": "7b0e09d83b2bfabc0ebc21c0c3e87d15c73d9ce12dcfb9cc550ead65d4591d76",
+  "doc_qa/corpus.py": "18aa2223befdec4577bfe996da7e27b2356dc1cae4bb4455db73c46b75a8bed6",
+  "doc_qa/index.py": "030e360f7af4d0b2ce1a4c6153694515dd66bcb9cd7154cc1dd12a9a7d1e55f9",
+  "doc_qa/answer.py": "ec715f9d8836b70a27beb82e213ff59e20acfda0978e92b42104f7e994f8e290",
+  "doc_qa/evaluate.py": "9c44fb902db178be35a25a46b1c29919e4c25b966b53f79e8a2b939131e124c7",
+  "doc_qa/__main__.py": "6b2ce0a9bce6079b61ff1b9473e60d8f316dac935809aaa2177f29a1be4e0006",
+  "qwen_agent/client.py": "2ef7c36704bdb3ef46242b915a7db213d74ae262ca62f31914fd08992710a425",
+  "qwen_agent/policy.py": "98f066638f7285c342b9c36872d49967449c624d34e27d58e6c7adff497bb7db",
+  "regression_triage/backend.py": "1abb5a93772a8cb1c29e1ad13b815e07874f82490858293a1ca848072c43a9cc",
+  "regression_triage/model.py": "b3cd64440e28901468f3853182fc6904a1047172c09de8cf49da60ea454e8197",
+  "qwen_ops/resources.py": "27158630d8b6aa2db523161bedfedab628939435ba2b19491ccc0567a518969d"
+ },
+ "prompt_version": "docqa-prompt-v1",
+ "prompt_sha256": "3397753408c3999e76966ec33bc247fd5579e1b94635575dc630fe4442a95ebd",
+ "k": 6,
+ "backend": {
+  "name": "ollama-r2",
+  "kind": "ollama",
+  "status": "measured on the Windows laptop (evidence/migration/baseline-ollama-r2/)",
+  "base_url": "http://127.0.0.1:11437/v1",
+  "model": "qwen2.5-coder:7b",
+  "weights": {
+   "source": "Ollama library qwen2.5-coder:7b",
+   "format": "gguf",
+   "quantization": "Q4_K_M",
+   "parameter_size": "7.6B",
+   "digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364"
+  },
+  "server": {
+   "software": "Ollama 0.40.9, Windows portable build",
+   "release": "r2-7b-ctx8192-np1 (deploy/releases/r2-7b-ctx8192-np1.json)",
+   "start": "powershell -ExecutionPolicy Bypass -File scripts\\start_ollama.ps1 -Port 11437 -Context 8192 -NumParallel 1",
+   "stop": "powershell -ExecutionPolicy Bypass -File scripts\\stop_ollama.ps1 -Port 11437",
+   "structured_output": "response_format json_schema, enforced by Ollama/llama.cpp grammar sampling"
+  },
+  "auth": {
+   "type": "none",
+   "note": "listens on 127.0.0.1 only; the optional local gateway (OPERATIONS.md) adds a bearer token in front"
+  },
+  "timeout_s": 180,
+  "context_tokens": 8192,
+  "max_tokens": 1200,
+  "max_tokens_per_test": 350,
+  "max_tokens_cap": 3200,
+  "margin_tokens": 300,
+  "chars_per_token_estimate": 3.0,
+  "request_sampling": {
+   "temperature": 0
+  },
+  "effective_sampling": {
+   "temperature": 0,
+   "top_p": 1.0,
+   "top_k": 40,
+   "repeat_penalty": 1.0,
+   "min_p": 0.0,
+   "decoder": "greedy",
+   "source": "server log 'sampler params' (evidence/migration/baseline-ollama-r2/server-log/); /v1 ignores repeat_penalty and top_k, so they are not sent"
+  },
+  "concurrency": 1
+ },
+ "backend_sha256": "c21d8c6db79549724a9dfc17b3384f7d2237dd6dc8adaa20afd58a5397b72d86",
+ "qwen_identity": {
+  "digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+  "quantization": "Q4_K_M",
+  "format": "gguf"
+ },
+ "embed_model": "bge-m3",
+ "embed_model_digest": "7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab"
+}
