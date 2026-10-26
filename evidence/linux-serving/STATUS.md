@@ -1,6 +1,17 @@
 # Linux + Docker + vLLM：状态
 
-**被环境阻塞，尚未运行。**（2026-10-24）
+**vLLM 尚未运行。**（2026-10-24 写，2026-10-26 更新）
+
+2026-10-26 更新：经 Jeff 同意，已在本机安装 **WSL2**（WSL 3.0.3，内核 6.18.54.1，发行版 Ubuntu）。这次停在了安装这一步：
+- 已写 `%UserProfile%\.wslconfig`：内存 8 GB、swap 4 GB、8 个处理器，并开启闲置内存自动归还（`autoMemoryReclaim=gradual`），副本见 `wslconfig-applied.txt`。上限**还没在 WSL 里核实**（`free -m`、`nproc`）；
+- 没有安装 Docker Engine 或 NVIDIA Container Toolkit，没有拉取镜像，也没有下载权重；
+- 安装过程：系统自带的 `wsl.exe` 启动器只接受不带参数的 `--install`，`--no-distribution` 和 `--no-launch` 都被拒绝（`wsl-install-*.txt`）；最后在一个单独窗口运行 `wsl.exe --install`，由 Jeff 本人处理授权和 Ubuntu 的建用户；
+- 安装后，以 root 运行的只读命令和 `wsl --shutdown` 都超过 2 分钟没有返回，可能是在等首次启动建用户的窗口，原因**未查明**；
+- 停在这里的原因：Jeff 要求停止；另外本机可用内存只有约 8 GB，而 WSL 运行 vLLM 时最多会用到 8 GB，启动前应先腾出 10 GB 以上。
+
+继续时的顺序：确认 WSL 能正常启动、关闭，核实资源上限；Windows 可用内存 ≥ 10 GB 后，安装 Docker Engine 和 NVIDIA Container Toolkit；先用 1.5B 模型跑 `acceptance.sh`，再用 7B AWQ 跑 `migrate.sh`。结果一律标为 WSL2，不算独立服务器。
+
+以下是 2026-10-24 的原始状态：
 
 已完成（只有代码和静态检查，没有做集成验证）：
 

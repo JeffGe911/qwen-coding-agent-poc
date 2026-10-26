@@ -5,3 +5,7 @@
 memory=8GB
 swap=4GB
 processors=8
+
+# Give idle WSL memory back to Windows (applied on the laptop 2026-10-26).
+[experimental]
+autoMemoryReclaim=gradual

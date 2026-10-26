@@ -1,0 +1,9 @@
+﻿started (UTC) 2026-10-26T03:35:42  cmd: wsl.exe --install --no-launch
+*g�[ň�(u�N Linux �v Windows P[�|�~0�S�ǏЏL�  wsl.exe --install  ۏL��[ň0
+
+
+	gsQ��~�Oo`������ https://aka.ms/wslinstall
+
+
+
+exit 1

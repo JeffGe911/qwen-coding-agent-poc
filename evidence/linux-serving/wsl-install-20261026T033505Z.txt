@@ -1,0 +1,17 @@
+﻿started (UTC) 2026-10-26T03:35:05
+wsl.exe : *g�[ň�(u�N Linux �v Windows P[�|�~0�S�ǏЏL�  wsl.exe --install  ۏL��[ň
+0
+At line:1 char:545
++ ... ding utf8; $out = (& wsl.exe --install --no-distribution 2>&1 | Out-S ...
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (*g�[ň�(u�N L...l  ۏL��[ň0:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+
+	gsQ��~�Oo`������ https://aka.ms/wslinstall
+
+
+
+
+exit 1

@@ -1,0 +1,1 @@
+﻿launched wsl.exe --install in a new console window at (UTC) 2026-10-26T03:36:18
