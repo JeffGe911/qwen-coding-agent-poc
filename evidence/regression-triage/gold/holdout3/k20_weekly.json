@@ -1,0 +1,95 @@
+{
+  "sample_id": "k20_weekly",
+  "log_status": "complete",
+  "tests": {
+    "crc8_seed5": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ]
+    },
+    "arb_lock_top": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        20,
+        22,
+        24,
+        26,
+        28,
+        30,
+        32,
+        34,
+        36,
+        38,
+        40,
+        42,
+        44,
+        46,
+        48
+      ]
+    },
+    "clkdiv_gf": {
+      "result": "fail",
+      "category": "timeout",
+      "side": "design_or_test",
+      "evidence_lines": [
+        55,
+        56
+      ]
+    },
+    "mult_exhaustive": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        63
+      ]
+    },
+    "alu_flags_stop": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        70
+      ]
+    },
+    "gray_walk": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure",
+      "evidence_lines": [
+        74
+      ]
+    },
+    "bcd_count": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        80
+      ]
+    },
+    "clk_div_lint": {
+      "result": "fail",
+      "category": "compile_error",
+      "side": "design_or_test",
+      "evidence_lines": [
+        84,
+        90
+      ]
+    }
+  },
+  "flags": [
+    "tool_setup_error"
+  ],
+  "notes": "gray_walk: simulator executable missing (FileNotFoundError, zh-CN message) -> not_run/tool_error, flagged tool_setup_error; clk_div_lint: unmodified RTL, real WIDTHEXPAND warning; lint fails on warnings only (-Wall promotes them): evidence is the first %Warning line and the '%Error: Exiting due to N warning(s)' line that states the failure; later warnings are not accepted"
+}

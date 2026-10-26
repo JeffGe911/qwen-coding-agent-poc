@@ -1,0 +1,18 @@
+{
+  "regression": "arb_sva",
+  "description": "ARB_SVA: bench adds a concurrent assertion that this Icarus build does not support; compile stops with 'sorry'",
+  "tests": [
+    {
+      "test_id": "arb_patterns_sva",
+      "top": "tb_prio_arbiter",
+      "sources": [
+        "hdl/holdout3/rtl/prio_arbiter.v",
+        "hdl/holdout3/tb/tb_prio_arbiter.sv"
+      ],
+      "defines": [
+        "ARB_SVA"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

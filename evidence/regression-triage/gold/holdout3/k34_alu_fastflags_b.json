@@ -1,0 +1,15 @@
+{
+  "sample_id": "k34_alu_fastflags_b",
+  "log_status": "incomplete",
+  "tests": {
+    "alu_flags_stop": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        7
+      ]
+    }
+  },
+  "notes": "log stops mid-line after the FATAL line; the FATAL line already settles test_failure"
+}

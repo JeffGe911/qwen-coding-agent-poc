@@ -1,0 +1,23 @@
+{
+  "sample_id": "k28_crc8_seeding_ci",
+  "log_status": "complete",
+  "tests": {
+    "crc8_seeded": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        15
+      ]
+    },
+    "crc8_unseeded": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        21
+      ]
+    }
+  },
+  "notes": "CI wrapper with a timestamp prefix on every line; the grep post-check (line 25) and the make error (line 26) are wrapper lines, not test evidence; crc8_unseeded as in k26_crc8_seeding"
+}

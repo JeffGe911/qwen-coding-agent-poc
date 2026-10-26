@@ -1,0 +1,99 @@
+{
+  "regression": "weekly_full",
+  "description": "eight-test weekly: CRC poly defect, arbiter double grant, divider watchdog, mult pass, ALU $fatal, missing simulator executable, BCD pass, natural WIDTHEXPAND lint failure",
+  "tests": [
+    {
+      "test_id": "crc8_seed5",
+      "top": "tb_crc8",
+      "sources": [
+        "hdl/holdout3/rtl/crc8.v",
+        "hdl/holdout3/tb/tb_crc8.v"
+      ],
+      "defines": [
+        "CRC_POLY_ALT"
+      ],
+      "timeout_s": 10,
+      "plusargs": [
+        "+SEED=5"
+      ]
+    },
+    {
+      "test_id": "arb_lock_top",
+      "top": "tb_prio_arbiter",
+      "sources": [
+        "hdl/holdout3/rtl/prio_arbiter.v",
+        "hdl/holdout3/tb/tb_prio_arbiter.sv"
+      ],
+      "defines": [
+        "ARB_LOCK_TOP"
+      ],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "clkdiv_gf",
+      "top": "tb_clk_div",
+      "sources": [
+        "hdl/holdout3/rtl/clk_div.v",
+        "hdl/holdout3/tb/tb_clk_div.v"
+      ],
+      "defines": [
+        "DIV_GLITCHFREE"
+      ],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "mult_exhaustive",
+      "top": "tb_serial_mult",
+      "sources": [
+        "hdl/holdout3/rtl/serial_mult.v",
+        "hdl/holdout3/tb/tb_serial_mult.v"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "alu_flags_stop",
+      "top": "tb_alu_flags",
+      "sources": [
+        "hdl/holdout3/rtl/alu_flags.v",
+        "hdl/holdout3/tb/tb_alu_flags.v"
+      ],
+      "defines": [
+        "ALU_FAST_FLAGS",
+        "STOP_ON_FIRST"
+      ],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "gray_walk",
+      "top": "tb_gray_ptr",
+      "sources": [
+        "hdl/holdout3/rtl/gray_ptr.v",
+        "hdl/holdout3/tb/tb_gray_ptr.v"
+      ],
+      "defines": [],
+      "timeout_s": 10,
+      "simulate_missing_tool": true
+    },
+    {
+      "test_id": "bcd_count",
+      "top": "tb_bcd_counter",
+      "sources": [
+        "hdl/holdout3/rtl/bcd_counter.v",
+        "hdl/holdout3/tb/tb_bcd_counter.v"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "clk_div_lint",
+      "top": "clk_div",
+      "sources": [
+        "hdl/holdout3/rtl/clk_div.v"
+      ],
+      "defines": [],
+      "timeout_s": 10,
+      "kind": "lint"
+    }
+  ]
+}

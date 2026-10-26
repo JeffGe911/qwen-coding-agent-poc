@@ -1,0 +1,21 @@
+{
+  "sample_id": "k02_bcd_carry",
+  "log_status": "complete",
+  "tests": {
+    "bcd_count": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        13,
+        14
+      ]
+    }
+  },
+  "notes": "simulator exit code is 0; failure comes from the bench's Mismatch lines, its summary and the 'FAIL:' verdict"
+}

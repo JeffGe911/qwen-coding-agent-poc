@@ -1,0 +1,6 @@
+#RUN regression=arb_sva run_id=20261026T034044Z-arb_sva-e180ac started_utc=2026-10-26T03:40:44+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=arb_patterns_sva stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_prio_arbiter -DARB_SVA hdl/holdout3/rtl/prio_arbiter.v hdl/holdout3/tb/tb_prio_arbiter.sv
+hdl/holdout3/tb/tb_prio_arbiter.sv:24: sorry: concurrent_assertion_item not supported. Try -gno-assertions or -gsupported-assertions to turn this message off.
+#RUN test=arb_patterns_sva stage=compile exit=1 elapsed_s=0.096 timed_out=false output_truncated=false
+#RUN regression=arb_sva end tests=1 finished_utc=2026-10-26T03:40:44+00:00

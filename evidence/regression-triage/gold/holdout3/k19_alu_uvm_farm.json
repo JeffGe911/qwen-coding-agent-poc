@@ -1,0 +1,19 @@
+{
+  "sample_id": "k19_alu_uvm_farm",
+  "log_status": "complete",
+  "tests": {
+    "(log)": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure",
+      "evidence_lines": [
+        9,
+        14
+      ]
+    }
+  },
+  "flags": [
+    "tool_setup_error"
+  ],
+  "notes": "license checkout failure before compilation; no runner line, verdict line or 'Running test' line, so the test id is (log) even though '-top tb_alu_flags' appears in the echoed command"
+}

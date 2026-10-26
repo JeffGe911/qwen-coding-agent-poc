@@ -1,0 +1,15 @@
+{
+  "sample_id": "k14_alu_fastflags",
+  "log_status": "complete",
+  "tests": {
+    "alu_flags_stop": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        7
+      ]
+    }
+  },
+  "notes": "$fatal on the first scoreboard mismatch; vvp exits 1"
+}

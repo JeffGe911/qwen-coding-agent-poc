@@ -1,0 +1,26 @@
+{
+  "sample_id": "k30_bcd_async_load",
+  "log_status": "complete",
+  "tests": {
+    "bcd_lint": {
+      "result": "fail",
+      "category": "compile_error",
+      "side": "design_or_test",
+      "evidence_lines": [
+        4
+      ]
+    },
+    "bcd_count": {
+      "result": "not_run",
+      "category": "compile_error",
+      "side": "design_or_test",
+      "evidence_lines": [
+        11
+      ]
+    }
+  },
+  "flags": [
+    "duplicate_failures"
+  ],
+  "notes": "same keyword typo seen by lint (fail) and by the simulation compile (not_run); only the first error line of each step is accepted"
+}

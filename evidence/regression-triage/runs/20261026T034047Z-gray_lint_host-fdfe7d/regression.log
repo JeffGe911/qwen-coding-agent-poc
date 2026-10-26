@@ -1,0 +1,12 @@
+#RUN regression=gray_lint_host run_id=20261026T034047Z-gray_lint_host-fdfe7d started_utc=2026-10-26T03:40:47+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=gray_ptr_lint stage=lint cmd=iverilog-not-installed.exe --lint-only -Wall --top-module gray_ptr hdl/holdout3/rtl/gray_ptr.v
+#RUN test=gray_ptr_lint stage=lint tool_error="FileNotFoundError: [WinError 2] 系统找不到指定的文件。" elapsed_s=0.001
+#RUN test=gray_walk stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_gray_ptr hdl/holdout3/rtl/gray_ptr.v hdl/holdout3/tb/tb_gray_ptr.v
+#RUN test=gray_walk stage=compile exit=0 elapsed_s=0.159 timed_out=false output_truncated=false
+#RUN test=gray_walk stage=run cmd=vvp.exe -n sim.vvp
+tb_gray_ptr: W=4, 64 increments (two full wraps)
+== tb_gray_ptr: 64 checks, 0 failures == PASSED
+hdl/holdout3/tb/tb_gray_ptr.v:61: $finish called at 656000 (1ps)
+#RUN test=gray_walk stage=run exit=0 elapsed_s=0.057 timed_out=false output_truncated=false
+#RUN regression=gray_lint_host end tests=2 finished_utc=2026-10-26T03:40:47+00:00

@@ -1,0 +1,15 @@
+#RUN regression=clkdiv_verbose run_id=20261026T034034Z-clkdiv_verbose-fecec2 started_utc=2026-10-26T03:40:35+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=clkdiv_div3 stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_clk_div -DTB_VERBOSE hdl/holdout3/rtl/clk_div.v hdl/holdout3/tb/tb_clk_div.v
+#RUN test=clkdiv_div3 stage=compile exit=0 elapsed_s=0.103 timed_out=false output_truncated=false
+#RUN test=clkdiv_div3 stage=run cmd=vvp.exe -n sim.vvp
+[tb_clk_div] DIV=3, expecting a clk_out period of 60 ns
+[tb_clk_div] config: fatal_on_error=1 error_limit=0 timeout_ns=5000 abort_on_x=1
+[tb_clk_div] note: error-injection hooks are compiled out of this build
+WARNING: hdl/holdout3/tb/tb_clk_div.v:44: [tb_clk_div] duty cycle is not checked in this configuration
+         Time: 285000  Scope: tb_clk_div
+[tb_clk_div] summary: periods=4 errors=0 warnings=1 fatals=0 timeouts=0
+[tb_clk_div] RESULT: OK
+hdl/holdout3/tb/tb_clk_div.v:49: $finish called at 285000 (1ps)
+#RUN test=clkdiv_div3 stage=run exit=0 elapsed_s=0.048 timed_out=false output_truncated=false
+#RUN regression=clkdiv_verbose end tests=1 finished_utc=2026-10-26T03:40:35+00:00

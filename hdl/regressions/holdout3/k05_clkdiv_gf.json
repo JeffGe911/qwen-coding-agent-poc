@@ -1,0 +1,18 @@
+{
+  "regression": "clkdiv_gf",
+  "description": "DIV_GLITCHFREE: clk_out never toggles; testbench watchdog ends the run",
+  "tests": [
+    {
+      "test_id": "clkdiv_div3",
+      "top": "tb_clk_div",
+      "sources": [
+        "hdl/holdout3/rtl/clk_div.v",
+        "hdl/holdout3/tb/tb_clk_div.v"
+      ],
+      "defines": [
+        "DIV_GLITCHFREE"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

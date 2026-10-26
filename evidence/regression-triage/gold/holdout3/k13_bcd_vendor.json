@@ -1,0 +1,21 @@
+{
+  "sample_id": "k13_bcd_vendor",
+  "log_status": "complete",
+  "tests": {
+    "tb_bcd_counter": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        41,
+        42,
+        43,
+        44,
+        45,
+        47,
+        48
+      ]
+    }
+  },
+  "notes": "no runner lines; test id from the verdict line 'FAIL: tb_bcd_counter'; 'errors: 0, warnings: 0' compile summary lines are not failures"
+}

@@ -1,0 +1,30 @@
+{
+  "regression": "bcd_async_load",
+  "description": "BCD_ASYNC_LOAD keyword typo seen by lint and by the simulation compile",
+  "tests": [
+    {
+      "test_id": "bcd_lint",
+      "top": "bcd_counter",
+      "sources": [
+        "hdl/holdout3/rtl/bcd_counter.v"
+      ],
+      "defines": [
+        "BCD_ASYNC_LOAD"
+      ],
+      "timeout_s": 10,
+      "kind": "lint"
+    },
+    {
+      "test_id": "bcd_count",
+      "top": "tb_bcd_counter",
+      "sources": [
+        "hdl/holdout3/rtl/bcd_counter.v",
+        "hdl/holdout3/tb/tb_bcd_counter.v"
+      ],
+      "defines": [
+        "BCD_ASYNC_LOAD"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

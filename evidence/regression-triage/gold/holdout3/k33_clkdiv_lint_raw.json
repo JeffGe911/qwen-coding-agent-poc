@@ -1,0 +1,16 @@
+{
+  "sample_id": "k33_clkdiv_lint_raw",
+  "log_status": "complete",
+  "tests": {
+    "(log)": {
+      "result": "fail",
+      "category": "compile_error",
+      "side": "design_or_test",
+      "evidence_lines": [
+        1,
+        7
+      ]
+    }
+  },
+  "notes": "raw Verilator output (CRLF exactly as printed), no runner lines and no verdict line naming a test, so the test id is (log); lint fails on warnings only (-Wall promotes them): evidence is the first %Warning line and the '%Error: Exiting due to N warning(s)' line that states the failure; later warnings are not accepted"
+}

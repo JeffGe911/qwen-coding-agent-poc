@@ -1,0 +1,59 @@
+{
+  "run_id": "20261026T034022Z-arb_compat-1169aa",
+  "regression": "arb_compat",
+  "manifest": "hdl/regressions/holdout3/k04_arb_compat.json",
+  "manifest_sha256": "62e701533ffc1019925dd5e419728c0a6c1d2120397586a379a583d126534788",
+  "started_utc": "2026-10-26T03:40:22+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "arb_patterns",
+      "defines": [
+        "ARB_COMPAT_MODE"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout3/rtl/prio_arbiter.v": "5fbec74212adf5fd91879201988aa25e617c54dcc2f4bb34088d50e84e3e7740",
+        "hdl/holdout3/tb/tb_prio_arbiter.sv": "326da9942a0906361f2dd8ec29f4ae3932cc7ee0805cd6b443112c68922db7c1"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_prio_arbiter -DARB_COMPAT_MODE hdl/holdout3/rtl/prio_arbiter.v hdl/holdout3/tb/tb_prio_arbiter.sv",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.104,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.039,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 25
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-26T03:40:22+00:00"
+}

@@ -1,0 +1,16 @@
+{
+  "sample_id": "k24_mult_rev_a",
+  "log_status": "complete",
+  "tests": {
+    "mult_exhaustive": {
+      "result": "not_run",
+      "category": "compile_error",
+      "side": "design_or_test",
+      "evidence_lines": [
+        4,
+        5
+      ]
+    }
+  },
+  "notes": "iverilog prints the identical port error twice; both copies are accepted as 'the first error'"
+}

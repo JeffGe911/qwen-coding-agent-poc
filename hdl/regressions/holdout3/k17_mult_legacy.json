@@ -1,0 +1,18 @@
+{
+  "regression": "mult_legacy",
+  "description": "TB_LEGACY_SUMMARY: bench prints a product count but no verdict; exit 0",
+  "tests": [
+    {
+      "test_id": "mult_exhaustive",
+      "top": "tb_serial_mult",
+      "sources": [
+        "hdl/holdout3/rtl/serial_mult.v",
+        "hdl/holdout3/tb/tb_serial_mult.v"
+      ],
+      "defines": [
+        "TB_LEGACY_SUMMARY"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

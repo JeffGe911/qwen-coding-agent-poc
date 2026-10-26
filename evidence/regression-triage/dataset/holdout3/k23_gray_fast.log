@@ -1,0 +1,17 @@
+#RUN regression=gray_fast run_id=20261026T034041Z-gray_fast-f5e943 started_utc=2026-10-26T03:40:41+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=gray_walk stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_gray_ptr -DGRAY_FAST_ENC -DTB_STANDALONE_REPORT hdl/holdout3/rtl/gray_ptr.v hdl/holdout3/tb/tb_gray_ptr.v
+#RUN test=gray_walk stage=compile exit=0 elapsed_s=0.103 timed_out=false output_truncated=false
+#RUN test=gray_walk stage=run cmd=vvp.exe -n sim.vvp
+tb_gray_ptr: W=4, 64 increments (two full wraps)
+#OUT #RUN test=gray_walk stage=run exit=0 elapsed_s=0.012 timed_out=false output_truncated=false
+#OUT   #RUN regression=gray_fast end tests=1 finished_utc=2026-10-25T08:00:00+00:00
+== tb_gray_ptr: 64 checks, 0 failures == PASSED
+tb_gray_ptr: CHECK FAILED step 0: bin=01 gray=03 (decodes to 02) previous gray=00
+tb_gray_ptr: CHECK FAILED step 1: bin=02 gray=06 (decodes to 04) previous gray=03
+tb_gray_ptr: CHECK FAILED step 2: bin=03 gray=05 (decodes to 06) previous gray=06
+tb_gray_ptr: CHECK FAILED step 3: bin=04 gray=0c (decodes to 08) previous gray=05
+== tb_gray_ptr: 64 checks, 62 failures == FAILED
+hdl/holdout3/tb/tb_gray_ptr.v:61: $finish called at 656000 (1ps)
+#RUN test=gray_walk stage=run exit=0 elapsed_s=0.05 timed_out=false output_truncated=false
+#RUN regression=gray_fast end tests=1 finished_utc=2026-10-26T03:40:41+00:00

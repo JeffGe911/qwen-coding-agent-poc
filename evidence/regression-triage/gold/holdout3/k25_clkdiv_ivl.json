@@ -1,0 +1,18 @@
+{
+  "sample_id": "k25_clkdiv_ivl",
+  "log_status": "complete",
+  "tests": {
+    "clkdiv_div3": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure",
+      "evidence_lines": [
+        4
+      ]
+    }
+  },
+  "flags": [
+    "tool_internal_assertion"
+  ],
+  "notes": "compiler crashed on its own internal assertion (exit 3); this is a tool defect, not a design assertion -> tool_error/infrastructure, simulation not_run"
+}

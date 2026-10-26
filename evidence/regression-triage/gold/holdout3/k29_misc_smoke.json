@@ -1,0 +1,23 @@
+{
+  "sample_id": "k29_misc_smoke",
+  "log_status": "complete",
+  "tests": {
+    "clkdiv_timeout_recovery": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        7
+      ]
+    },
+    "alu_flags_overflow_errors": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        23
+      ]
+    }
+  },
+  "notes": "test names contain timeout/overflow/errors; both benches pass"
+}

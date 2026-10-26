@@ -1,0 +1,18 @@
+{
+  "regression": "clkdiv_verbose",
+  "description": "clean clock divider with TB_VERBOSE: config banner with error/fatal/timeout words, a $warning, then RESULT: OK",
+  "tests": [
+    {
+      "test_id": "clkdiv_div3",
+      "top": "tb_clk_div",
+      "sources": [
+        "hdl/holdout3/rtl/clk_div.v",
+        "hdl/holdout3/tb/tb_clk_div.v"
+      ],
+      "defines": [
+        "TB_VERBOSE"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

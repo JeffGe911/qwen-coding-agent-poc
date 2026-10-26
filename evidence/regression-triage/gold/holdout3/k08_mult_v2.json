@@ -1,0 +1,15 @@
+{
+  "sample_id": "k08_mult_v2",
+  "log_status": "complete",
+  "tests": {
+    "mult_exhaustive": {
+      "result": "fail",
+      "category": "timeout",
+      "side": "undetermined",
+      "evidence_lines": [
+        6
+      ]
+    }
+  },
+  "notes": "runner wall-clock limit (timed_out=true) ended the run; vvp's buffered output was lost when it was killed, so the run stage shows no tool output at all. result recorded as fail (a run that did not finish within its limit), side undetermined per convention"
+}

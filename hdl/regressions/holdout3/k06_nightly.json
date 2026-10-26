@@ -1,0 +1,100 @@
+{
+  "regression": "nightly_full",
+  "description": "nine-test nightly: 6 sim passes, 1 lint pass, BCD keyword typo (compile error), ALU V flag defect (exit 0 fail)",
+  "tests": [
+    {
+      "test_id": "crc8_kat",
+      "top": "tb_crc8",
+      "sources": [
+        "hdl/holdout3/rtl/crc8.v",
+        "hdl/holdout3/tb/tb_crc8.v"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "bcd_count",
+      "top": "tb_bcd_counter",
+      "sources": [
+        "hdl/holdout3/rtl/bcd_counter.v",
+        "hdl/holdout3/tb/tb_bcd_counter.v"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "bcd_async_load",
+      "top": "tb_bcd_counter",
+      "sources": [
+        "hdl/holdout3/rtl/bcd_counter.v",
+        "hdl/holdout3/tb/tb_bcd_counter.v"
+      ],
+      "defines": [
+        "BCD_ASYNC_LOAD"
+      ],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "arb_patterns",
+      "top": "tb_prio_arbiter",
+      "sources": [
+        "hdl/holdout3/rtl/prio_arbiter.v",
+        "hdl/holdout3/tb/tb_prio_arbiter.sv"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "clkdiv_div3",
+      "top": "tb_clk_div",
+      "sources": [
+        "hdl/holdout3/rtl/clk_div.v",
+        "hdl/holdout3/tb/tb_clk_div.v"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "gray_walk",
+      "top": "tb_gray_ptr",
+      "sources": [
+        "hdl/holdout3/rtl/gray_ptr.v",
+        "hdl/holdout3/tb/tb_gray_ptr.v"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "alu_flags_rand",
+      "top": "tb_alu_flags",
+      "sources": [
+        "hdl/holdout3/rtl/alu_flags.v",
+        "hdl/holdout3/tb/tb_alu_flags.v"
+      ],
+      "defines": [
+        "ALU_FAST_FLAGS"
+      ],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "mult_exhaustive",
+      "top": "tb_serial_mult",
+      "sources": [
+        "hdl/holdout3/rtl/serial_mult.v",
+        "hdl/holdout3/tb/tb_serial_mult.v"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "gray_ptr_lint",
+      "top": "gray_ptr",
+      "sources": [
+        "hdl/holdout3/rtl/gray_ptr.v"
+      ],
+      "defines": [],
+      "timeout_s": 10,
+      "kind": "lint"
+    }
+  ]
+}

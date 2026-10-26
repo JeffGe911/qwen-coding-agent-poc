@@ -1,0 +1,7 @@
+%Warning-WIDTHEXPAND: hdl/holdout3/rtl\clk_div.v:14:26: Operator EQ expects 32 bits on the LHS, but LHS's VARREF 'cnt' generates 8 bits.
+                                                      : ... note: In instance 'clk_div'
+   14 |         end else if (cnt == DIV - 1) begin
+      |                          ^~
+                      ... For warning description see https://verilator.org/warn/WIDTHEXPAND?v=5.053
+                      ... Use "/* verilator lint_off WIDTHEXPAND */" and lint_on around source to disable this message.
+%Error: Exiting due to 1 warning(s)

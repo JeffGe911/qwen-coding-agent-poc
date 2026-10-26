@@ -1,0 +1,26 @@
+{
+  "sample_id": "k04_arb_compat",
+  "log_status": "complete",
+  "tests": {
+    "arb_patterns": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        7,
+        9,
+        11,
+        13,
+        15,
+        17,
+        19,
+        21,
+        23,
+        25,
+        27,
+        29
+      ]
+    }
+  },
+  "notes": "$error from immediate assertions does not stop the run and vvp exits 0; the indented 'Time: ... Scope:' continuation lines are not counted as evidence"
+}

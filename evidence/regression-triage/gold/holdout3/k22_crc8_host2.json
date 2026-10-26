@@ -1,0 +1,15 @@
+{
+  "sample_id": "k22_crc8_host2",
+  "log_status": "complete",
+  "tests": {
+    "crc8_kat": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure",
+      "evidence_lines": [
+        6
+      ]
+    }
+  },
+  "notes": "compile succeeded but the simulator process could not be created (WinError 1455, commit limit); tool did not start -> not_run"
+}

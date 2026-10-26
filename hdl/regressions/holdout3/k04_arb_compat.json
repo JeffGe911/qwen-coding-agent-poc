@@ -1,0 +1,18 @@
+{
+  "regression": "arb_compat",
+  "description": "ARB_COMPAT_MODE: highest-numbered requester wins; immediate assertions fire via $error, exit 0",
+  "tests": [
+    {
+      "test_id": "arb_patterns",
+      "top": "tb_prio_arbiter",
+      "sources": [
+        "hdl/holdout3/rtl/prio_arbiter.v",
+        "hdl/holdout3/tb/tb_prio_arbiter.sv"
+      ],
+      "defines": [
+        "ARB_COMPAT_MODE"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

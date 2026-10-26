@@ -1,0 +1,44 @@
+{
+  "sample_id": "k21_crc8_seeds",
+  "log_status": "complete",
+  "tests": {
+    "crc8_seed1": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ]
+    },
+    "gray_walk": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        20
+      ]
+    },
+    "crc8_seed7": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        28,
+        29,
+        30,
+        31,
+        32,
+        33
+      ]
+    }
+  },
+  "flags": [
+    "duplicate_failures"
+  ],
+  "notes": "both crc8 failures come from the same RTL defect (the KAT mismatch line is identical)"
+}

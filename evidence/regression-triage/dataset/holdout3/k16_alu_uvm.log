@@ -1,0 +1,28 @@
+UVM_INFO @ 0: reporter [RNTST] Running test alu_flags_rand_test...
+UVM_INFO /proj/alu/verif/env/alu_env.sv(38) @ 0: uvm_test_top.env [ENV] build_phase: agent=ACTIVE scoreboard=ON coverage=OFF
+UVM_INFO /proj/alu/verif/seq/alu_rand_seq.sv(22) @ 0: uvm_test_top.env.agent.sqr@@seq [SEQ] starting alu_rand_seq: 48 items, ops ADD..PASS
+UVM_WARNING /proj/alu/verif/env/alu_cov.sv(17) @ 0: uvm_test_top.env [COVOFF] functional coverage disabled for this run
+UVM_ERROR /proj/alu/verif/env/alu_scoreboard.sv(91) @ 13000: uvm_test_top.env.sb [SB_MISMATCH] op=SUB a=ba b=ab got y=0f nzcv=0001 exp y=0f nzcv=0000
+UVM_ERROR /proj/alu/verif/env/alu_scoreboard.sv(91) @ 29000: uvm_test_top.env.sb [SB_MISMATCH] op=SUB a=e8 b=ae got y=3a nzcv=0001 exp y=3a nzcv=0000
+UVM_INFO /proj/alu/verif/env/alu_scoreboard.sv(120) @ 48000: uvm_test_top.env.sb [SB_SUMMARY] 48 transactions compared, 2 mismatches
+UVM_INFO /tools/uvm-1.2/src/base/uvm_objection.svh(1271) @ 48000: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+UVM_INFO /tools/uvm-1.2/src/base/uvm_report_server.svh(847) @ 48000: reporter [UVM/REPORT/SERVER] 
+--- UVM Report Summary ---
+
+** Report counts by severity
+UVM_INFO :    6
+UVM_WARNING :    1
+UVM_ERROR :    2
+UVM_FATAL :    0
+** Report counts by id
+[COVOFF]     1
+[ENV]     1
+[RNTST]     1
+[SB_MISMATCH]     2
+[SB_SUMMARY]     1
+[SEQ]     1
+[TEST_DONE]     1
+[UVM/REPORT/SERVER]     1
+
+$finish called from file "/tools/uvm-1.2/src/base/uvm_root.svh", line 517.
+$finish at simulation time                48000

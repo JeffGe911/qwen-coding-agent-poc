@@ -1,0 +1,92 @@
+#RUN regression=weekly_full run_id=20261026T034038Z-weekly_full-d17860 started_utc=2026-10-26T03:40:38+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=crc8_seed5 stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_crc8 -DCRC_POLY_ALT hdl/holdout3/rtl/crc8.v hdl/holdout3/tb/tb_crc8.v
+#RUN test=crc8_seed5 stage=compile exit=0 elapsed_s=0.103 timed_out=false output_truncated=false
+#RUN test=crc8_seed5 stage=run cmd=vvp.exe -n sim.vvp +SEED=5
+tb_crc8: start seed=5 blocks=4
+tb_crc8: KAT crc=0x01 (reference 0xf4, published check value 0xf4)
+ERROR: [211000] tb_crc8 KAT mismatch: crc=0x01 expected=0xf4
+ERROR: [251000] tb_crc8 block 0 (1 bytes): crc=0x77 expected=0x41
+ERROR: [571000] tb_crc8 block 1 (15 bytes): crc=0x8c expected=0x1c
+ERROR: [651000] tb_crc8 block 2 (3 bytes): crc=0x80 expected=0xf3
+ERROR: [871000] tb_crc8 block 3 (10 bytes): crc=0x9d expected=0xa5
+TEST FAILED: tb_crc8 (5 mismatches)
+hdl/holdout3/tb/tb_crc8.v:100: $finish called at 871000 (1ps)
+#RUN test=crc8_seed5 stage=run exit=0 elapsed_s=0.058 timed_out=false output_truncated=false
+#RUN test=arb_lock_top stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_prio_arbiter -DARB_LOCK_TOP hdl/holdout3/rtl/prio_arbiter.v hdl/holdout3/tb/tb_prio_arbiter.sv
+#RUN test=arb_lock_top stage=compile exit=0 elapsed_s=0.151 timed_out=false output_truncated=false
+#RUN test=arb_lock_top stage=run cmd=vvp.exe -n sim.vvp
+== tb_prio_arbiter: exhaustive request patterns, req[0] highest priority ==
+ERROR: hdl/holdout3/tb/tb_prio_arbiter.sv:38: grant not one-hot: req=1001 gnt=1001
+       Time: 101000  Scope: tb_prio_arbiter.$ivl_for_loop1
+ERROR: hdl/holdout3/tb/tb_prio_arbiter.sv:40: wrong grant: req=1001 gnt=1001 expected=0001
+       Time: 101000  Scope: tb_prio_arbiter.$ivl_for_loop1
+ERROR: hdl/holdout3/tb/tb_prio_arbiter.sv:38: grant not one-hot: req=1010 gnt=1010
+       Time: 109000  Scope: tb_prio_arbiter.$ivl_for_loop1
+ERROR: hdl/holdout3/tb/tb_prio_arbiter.sv:40: wrong grant: req=1010 gnt=1010 expected=0010
+       Time: 109000  Scope: tb_prio_arbiter.$ivl_for_loop1
+ERROR: hdl/holdout3/tb/tb_prio_arbiter.sv:38: grant not one-hot: req=1011 gnt=1001
+       Time: 117000  Scope: tb_prio_arbiter.$ivl_for_loop1
+ERROR: hdl/holdout3/tb/tb_prio_arbiter.sv:40: wrong grant: req=1011 gnt=1001 expected=0001
+       Time: 117000  Scope: tb_prio_arbiter.$ivl_for_loop1
+ERROR: hdl/holdout3/tb/tb_prio_arbiter.sv:38: grant not one-hot: req=1100 gnt=1100
+       Time: 125000  Scope: tb_prio_arbiter.$ivl_for_loop1
+ERROR: hdl/holdout3/tb/tb_prio_arbiter.sv:40: wrong grant: req=1100 gnt=1100 expected=0100
+       Time: 125000  Scope: tb_prio_arbiter.$ivl_for_loop1
+ERROR: hdl/holdout3/tb/tb_prio_arbiter.sv:38: grant not one-hot: req=1101 gnt=1001
+       Time: 133000  Scope: tb_prio_arbiter.$ivl_for_loop1
+ERROR: hdl/holdout3/tb/tb_prio_arbiter.sv:40: wrong grant: req=1101 gnt=1001 expected=0001
+       Time: 133000  Scope: tb_prio_arbiter.$ivl_for_loop1
+ERROR: hdl/holdout3/tb/tb_prio_arbiter.sv:38: grant not one-hot: req=1110 gnt=1010
+       Time: 141000  Scope: tb_prio_arbiter.$ivl_for_loop1
+ERROR: hdl/holdout3/tb/tb_prio_arbiter.sv:40: wrong grant: req=1110 gnt=1010 expected=0010
+       Time: 141000  Scope: tb_prio_arbiter.$ivl_for_loop1
+ERROR: hdl/holdout3/tb/tb_prio_arbiter.sv:38: grant not one-hot: req=1111 gnt=1001
+       Time: 149000  Scope: tb_prio_arbiter.$ivl_for_loop1
+ERROR: hdl/holdout3/tb/tb_prio_arbiter.sv:40: wrong grant: req=1111 gnt=1001 expected=0001
+       Time: 149000  Scope: tb_prio_arbiter.$ivl_for_loop1
+*** SIMULATION FAILED *** (14 assertion failures in 16 patterns)
+hdl/holdout3/tb/tb_prio_arbiter.sv:44: $finish called at 149000 (1ps)
+#RUN test=arb_lock_top stage=run exit=0 elapsed_s=0.066 timed_out=false output_truncated=false
+#RUN test=clkdiv_gf stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_clk_div -DDIV_GLITCHFREE hdl/holdout3/rtl/clk_div.v hdl/holdout3/tb/tb_clk_div.v
+#RUN test=clkdiv_gf stage=compile exit=0 elapsed_s=0.094 timed_out=false output_truncated=false
+#RUN test=clkdiv_gf stage=run cmd=vvp.exe -n sim.vvp
+[tb_clk_div] DIV=3, expecting a clk_out period of 60 ns
+[tb_clk_div] WATCHDOG: no clk_out edge seen by t=5000 ns -- giving up
+[tb_clk_div] RESULT: FAIL (hang)
+hdl/holdout3/tb/tb_clk_div.v:21: $finish called at 5000000 (1ps)
+#RUN test=clkdiv_gf stage=run exit=0 elapsed_s=0.025 timed_out=false output_truncated=false
+#RUN test=mult_exhaustive stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_serial_mult hdl/holdout3/rtl/serial_mult.v hdl/holdout3/tb/tb_serial_mult.v
+#RUN test=mult_exhaustive stage=compile exit=0 elapsed_s=0.068 timed_out=false output_truncated=false
+#RUN test=mult_exhaustive stage=run cmd=vvp.exe -n sim.vvp
+mult: exhaustive 4x4 check (256 products)
+mult: ALL TESTS PASSED (256 products)
+hdl/holdout3/tb/tb_serial_mult.v:46: $finish called at 12816000 (1ps)
+#RUN test=mult_exhaustive stage=run exit=0 elapsed_s=0.032 timed_out=false output_truncated=false
+#RUN test=alu_flags_stop stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_alu_flags -DALU_FAST_FLAGS -DSTOP_ON_FIRST hdl/holdout3/rtl/alu_flags.v hdl/holdout3/tb/tb_alu_flags.v
+#RUN test=alu_flags_stop stage=compile exit=0 elapsed_s=0.139 timed_out=false output_truncated=false
+#RUN test=alu_flags_stop stage=run cmd=vvp.exe -n sim.vvp
+tb_alu_flags: scoreboard run, 8 ops x 24 vectors
+FATAL: hdl/holdout3/tb/tb_alu_flags.v:70: [SB] op=SUB  a=ba b=ab: got y=0f nzcv=0001, expected y=0f nzcv=0000 (stop_on_first)
+       Time: 25000  Scope: tb_alu_flags
+#RUN test=alu_flags_stop stage=run exit=1 elapsed_s=0.038 timed_out=false output_truncated=false
+#RUN test=gray_walk stage=compile cmd=iverilog-not-installed.exe -g2012 -o sim.vvp -s tb_gray_ptr hdl/holdout3/rtl/gray_ptr.v hdl/holdout3/tb/tb_gray_ptr.v
+#RUN test=gray_walk stage=compile tool_error="FileNotFoundError: [WinError 2] 系统找不到指定的文件。" elapsed_s=0.001
+#RUN test=bcd_count stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_bcd_counter hdl/holdout3/rtl/bcd_counter.v hdl/holdout3/tb/tb_bcd_counter.v
+#RUN test=bcd_count stage=compile exit=0 elapsed_s=0.096 timed_out=false output_truncated=false
+#RUN test=bcd_count stage=run cmd=vvp.exe -n sim.vvp
+[bcd] tb_bcd_counter starting: 250 increments, expecting two wraps through 99
+[bcd] 250 checks, 0 mismatches, terminal count seen 2 times
+PASS: tb_bcd_counter
+hdl/holdout3/tb/tb_bcd_counter.v:49: $finish called at 2516000 (1ps)
+#RUN test=bcd_count stage=run exit=0 elapsed_s=0.039 timed_out=false output_truncated=false
+#RUN test=clk_div_lint stage=lint cmd=verilator_bin.exe --lint-only -Wall --top-module clk_div hdl/holdout3/rtl/clk_div.v
+%Warning-WIDTHEXPAND: hdl/holdout3/rtl\clk_div.v:14:26: Operator EQ expects 32 bits on the LHS, but LHS's VARREF 'cnt' generates 8 bits.
+                                                      : ... note: In instance 'clk_div'
+   14 |         end else if (cnt == DIV - 1) begin
+      |                          ^~
+                      ... For warning description see https://verilator.org/warn/WIDTHEXPAND?v=5.053
+                      ... Use "/* verilator lint_off WIDTHEXPAND */" and lint_on around source to disable this message.
+%Error: Exiting due to 1 warning(s)
+#RUN test=clk_div_lint stage=lint exit=1 elapsed_s=0.051 timed_out=false output_truncated=false
+#RUN regression=weekly_full end tests=8 finished_utc=2026-10-26T03:40:39+00:00

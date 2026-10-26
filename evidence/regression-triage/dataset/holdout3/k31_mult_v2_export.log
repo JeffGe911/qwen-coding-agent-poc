@@ -1,0 +1,6 @@
+#RUN regression=mult_v2 run_id=20261026T034026Z-mult_v2-eaeb31
+#RUN test=mult_exhaustive stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_serial_mult -DMULT_V2_FSM hdl/holdout3/rtl/serial_mult.v hdl/holdout3/tb/tb_serial_mult.v
+#RUN test=mult_exhaustive stage=compile exit=0
+#RUN test=mult_exhaustive stage=run cmd=vvp.exe -n sim.vvp
+#RUN test=mult_exhaustive stage=run exit=1 elapsed_s=4.028
+#RUN regression=mult_v2 end tests=1

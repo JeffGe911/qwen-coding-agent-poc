@@ -1,0 +1,18 @@
+{
+  "regression": "mult_rev_a",
+  "description": "MULT_REV_A: testbench connects a port that the multiplier does not have; elaboration error",
+  "tests": [
+    {
+      "test_id": "mult_exhaustive",
+      "top": "tb_serial_mult",
+      "sources": [
+        "hdl/holdout3/rtl/serial_mult.v",
+        "hdl/holdout3/tb/tb_serial_mult.v"
+      ],
+      "defines": [
+        "MULT_REV_A"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

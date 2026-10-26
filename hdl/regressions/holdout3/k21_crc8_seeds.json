@@ -1,0 +1,46 @@
+{
+  "regression": "crc8_seeds",
+  "description": "same CRC poly defect seen by two seeds, plus one passing gray test",
+  "tests": [
+    {
+      "test_id": "crc8_seed1",
+      "top": "tb_crc8",
+      "sources": [
+        "hdl/holdout3/rtl/crc8.v",
+        "hdl/holdout3/tb/tb_crc8.v"
+      ],
+      "defines": [
+        "CRC_POLY_ALT"
+      ],
+      "timeout_s": 10,
+      "plusargs": [
+        "+SEED=1"
+      ]
+    },
+    {
+      "test_id": "gray_walk",
+      "top": "tb_gray_ptr",
+      "sources": [
+        "hdl/holdout3/rtl/gray_ptr.v",
+        "hdl/holdout3/tb/tb_gray_ptr.v"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "crc8_seed7",
+      "top": "tb_crc8",
+      "sources": [
+        "hdl/holdout3/rtl/crc8.v",
+        "hdl/holdout3/tb/tb_crc8.v"
+      ],
+      "defines": [
+        "CRC_POLY_ALT"
+      ],
+      "timeout_s": 10,
+      "plusargs": [
+        "+SEED=7"
+      ]
+    }
+  ]
+}

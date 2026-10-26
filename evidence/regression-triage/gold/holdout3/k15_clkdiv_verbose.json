@@ -1,0 +1,15 @@
+{
+  "sample_id": "k15_clkdiv_verbose",
+  "log_status": "complete",
+  "tests": {
+    "clkdiv_div3": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        12
+      ]
+    }
+  },
+  "notes": "config/summary lines mention fatal, error, timeout and a $warning, none of which is a failure"
+}

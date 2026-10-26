@@ -1,0 +1,26 @@
+{
+  "sample_id": "k32_gray_lint_host",
+  "log_status": "complete",
+  "tests": {
+    "gray_ptr_lint": {
+      "result": "not_run",
+      "category": "tool_error",
+      "side": "infrastructure",
+      "evidence_lines": [
+        4
+      ]
+    },
+    "gray_walk": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        9
+      ]
+    }
+  },
+  "flags": [
+    "tool_setup_error"
+  ],
+  "notes": "lint executable missing (FileNotFoundError) -> not_run/tool_error; the simulation of the same block passes"
+}

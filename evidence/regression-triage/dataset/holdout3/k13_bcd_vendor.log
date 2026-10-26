@@ -1,0 +1,52 @@
+SIMRUN: Release 24.09-s012: Started on Oct 25, 2026 at 09:14:03 UTC
+SIMRUN: (c) Copyright 1995-2026. All rights reserved.
+TOOL:	simrun	24.09-s012: Started on Oct 25, 2026 at 09:14:03 UTC
+simrun
+	-sv
+	-access +r
+	-define BCD_CARRY_LOOKAHEAD
+	-top tb_bcd_counter
+	hdl/holdout3/rtl/bcd_counter.v
+	hdl/holdout3/tb/tb_bcd_counter.v
+
+file: hdl/holdout3/rtl/bcd_counter.v
+	module worklib.bcd_counter:v
+		errors: 0, warnings: 0
+file: hdl/holdout3/tb/tb_bcd_counter.v
+	module worklib.tb_bcd_counter:v
+		errors: 0, warnings: 0
+	Elaborating the design hierarchy:
+	Top level design units:
+		tb_bcd_counter
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+		worklib.bcd_counter:v <0x2b1c0f3e>
+			streams:   3, words:  1544
+		worklib.tb_bcd_counter:v <0x7f3a91d2>
+			streams:   9, words: 18762
+	Building instance specific data structures.
+	Loading native compiled code:     .................... Done
+	Design hierarchy summary:
+		                 Instances  Unique
+		Modules:                 2       2
+		Registers:              14      14
+		Scalar wires:            4       -
+		Initial blocks:          1       1
+		Always blocks:           2       2
+	Writing initial simulation snapshot: worklib.tb_bcd_counter:v
+Loading snapshot worklib.tb_bcd_counter:v .................... Done
+simrun> source /tools/sim/24.09/tcl/simrun.tcl
+simrun> run
+[bcd] tb_bcd_counter starting: 250 increments, expecting two wraps through 99
+[bcd] Mismatch @ 116000: count expected 10 got 0a
+[bcd] Mismatch @ 126000: count expected 11 got 10
+[bcd] Mismatch @ 136000: count expected 12 got 11
+[bcd] Mismatch @ 146000: count expected 13 got 12
+[bcd] Mismatch @ 156000: count expected 14 got 13
+[bcd] (236 further mismatches not shown)
+[bcd] 250 checks, 241 mismatches, terminal count seen 2 times
+FAIL: tb_bcd_counter
+Simulation complete via $finish(1) at time 2516 NS + 0
+./hdl/holdout3/tb/tb_bcd_counter.v:49         $finish;
+simrun> exit
+TOOL:	simrun	24.09-s012: Exiting on Oct 25, 2026 at 09:14:05 UTC  (total: 00:00:02)

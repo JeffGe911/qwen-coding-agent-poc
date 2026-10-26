@@ -1,0 +1,15 @@
+{
+  "sample_id": "k27_arb_sva",
+  "log_status": "complete",
+  "tests": {
+    "arb_patterns_sva": {
+      "result": "not_run",
+      "category": "compile_error",
+      "side": "design_or_test",
+      "evidence_lines": [
+        4
+      ]
+    }
+  },
+  "notes": "'sorry: concurrent_assertion_item not supported' stops compilation (exit 1): the testbench uses a construct this simulator does not support. Labelled compile_error/design_or_test (the compiler ran normally and rejected the source; the fix is in the testbench or its flags), not tool_error"
+}

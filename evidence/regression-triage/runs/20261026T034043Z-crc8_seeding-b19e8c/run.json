@@ -1,0 +1,94 @@
+{
+  "run_id": "20261026T034043Z-crc8_seeding-b19e8c",
+  "regression": "crc8_seeding",
+  "manifest": "hdl/regressions/holdout3/k26_crc8_seeding.json",
+  "manifest_sha256": "0bf0ef95a004a9bbb2cbfbefd95596423b2f1abf6f5383eb527e81e7b5f0f594",
+  "started_utc": "2026-10-26T03:40:43+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "crc8_seeded",
+      "defines": [
+        "REQUIRE_SEED"
+      ],
+      "plusargs": [
+        "+SEED=3"
+      ],
+      "sources_sha256": {
+        "hdl/holdout3/rtl/crc8.v": "0721cfebb0f72dc1b2681fdce1751290fa5fc5ff40793164f76173e33702d332",
+        "hdl/holdout3/tb/tb_crc8.v": "48f0c19e255bc0b198ddd6e5a2186e58c9bebfccb4ccee256fc56b121adb532e"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_crc8 -DREQUIRE_SEED hdl/holdout3/rtl/crc8.v hdl/holdout3/tb/tb_crc8.v",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.116,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp +SEED=3",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.05,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 4
+        }
+      ]
+    },
+    {
+      "test_id": "crc8_unseeded",
+      "defines": [
+        "REQUIRE_SEED"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout3/rtl/crc8.v": "0721cfebb0f72dc1b2681fdce1751290fa5fc5ff40793164f76173e33702d332",
+        "hdl/holdout3/tb/tb_crc8.v": "48f0c19e255bc0b198ddd6e5a2186e58c9bebfccb4ccee256fc56b121adb532e"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_crc8 -DREQUIRE_SEED hdl/holdout3/rtl/crc8.v hdl/holdout3/tb/tb_crc8.v",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.169,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 1,
+          "timed_out": false,
+          "elapsed_s": 0.055,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 2
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-26T03:40:43+00:00"
+}

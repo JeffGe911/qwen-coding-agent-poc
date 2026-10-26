@@ -1,0 +1,16 @@
+{
+  "sample_id": "k05_clkdiv_gf",
+  "log_status": "complete",
+  "tests": {
+    "clkdiv_div3": {
+      "result": "fail",
+      "category": "timeout",
+      "side": "design_or_test",
+      "evidence_lines": [
+        7,
+        8
+      ]
+    }
+  },
+  "notes": "testbench watchdog, simulator exit 0; the RESULT: FAIL (hang) line restates the watchdog verdict"
+}

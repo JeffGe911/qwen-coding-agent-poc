@@ -171,7 +171,7 @@ def main(argv=None):
     t.add_argument("--out", required=True); t.add_argument("--engine", choices=["rules", "qwen", "both"], default="rules", help="both: rules, qwen and their hybrid")
     v = sub.add_parser("review"); v.add_argument("triage"); v.add_argument("--test", required=True); v.add_argument("--decision", required=True)
     v.add_argument("--reviewer", required=True); v.add_argument("--note", default="")
-    e = sub.add_parser("eval"); e.add_argument("--contract", required=True); e.add_argument("--split", choices=["dev", "holdout", "holdout2"], required=True)
+    e = sub.add_parser("eval"); e.add_argument("--contract", required=True); e.add_argument("--split", choices=["dev", "holdout", "holdout2", "holdout3"], required=True)
     e.add_argument("--engine", choices=["rules", "qwen", "hybrid"], required=True)
     d = sub.add_parser("demo"); d.add_argument("--out", required=True); d.add_argument("--with-model", action="store_true")
     for sp in (t, d):

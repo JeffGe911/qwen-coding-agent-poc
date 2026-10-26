@@ -1,0 +1,14 @@
+#RUN regression=bcd_async_load run_id=20261026T034046Z-bcd_async_load-240ec7 started_utc=2026-10-26T03:40:46+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=bcd_lint stage=lint cmd=verilator_bin.exe --lint-only -Wall --top-module bcd_counter -DBCD_ASYNC_LOAD hdl/holdout3/rtl/bcd_counter.v
+%Error: hdl/holdout3/rtl\bcd_counter.v:28:26: syntax error, unexpected IDENTIFIER
+   28 |             elsif (1'b1) ones <= ones + 4'd1;
+      |                          ^~~~
+        ... See the manual at https://verilator.org/verilator_doc.html?v=5.053 for more assistance.
+%Error: Exiting due to 1 error(s)
+#RUN test=bcd_lint stage=lint exit=1 elapsed_s=0.058 timed_out=false output_truncated=false
+#RUN test=bcd_count stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_bcd_counter -DBCD_ASYNC_LOAD hdl/holdout3/rtl/bcd_counter.v hdl/holdout3/tb/tb_bcd_counter.v
+hdl/holdout3/rtl/bcd_counter.v:28: syntax error
+hdl/holdout3/rtl/bcd_counter.v:28: Syntax in assignment statement l-value.
+#RUN test=bcd_count stage=compile exit=2 elapsed_s=0.114 timed_out=false output_truncated=false
+#RUN regression=bcd_async_load end tests=2 finished_utc=2026-10-26T03:40:46+00:00

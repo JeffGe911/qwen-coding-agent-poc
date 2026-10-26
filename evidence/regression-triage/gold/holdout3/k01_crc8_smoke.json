@@ -1,0 +1,14 @@
+{
+  "sample_id": "k01_crc8_smoke",
+  "log_status": "complete",
+  "tests": {
+    "crc8_kat": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        8
+      ]
+    }
+  }
+}

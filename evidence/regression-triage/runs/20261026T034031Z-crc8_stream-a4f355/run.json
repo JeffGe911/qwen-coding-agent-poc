@@ -1,0 +1,49 @@
+{
+  "run_id": "20261026T034031Z-crc8_stream-a4f355",
+  "regression": "crc8_stream",
+  "manifest": "hdl/regressions/holdout3/k09_crc8_stream.json",
+  "manifest_sha256": "ab5a09ff6986d3be7e99aae8564ec250165434cd6d899f95d5058cb5bf0ed7c4",
+  "started_utc": "2026-10-26T03:40:31+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "crc8_kat",
+      "defines": [
+        "CRC_STREAM_IF"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout3/rtl/crc8.v": "0721cfebb0f72dc1b2681fdce1751290fa5fc5ff40793164f76173e33702d332",
+        "hdl/holdout3/tb/tb_crc8.v": "48f0c19e255bc0b198ddd6e5a2186e58c9bebfccb4ccee256fc56b121adb532e"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_crc8 -DCRC_STREAM_IF hdl/holdout3/rtl/crc8.v hdl/holdout3/tb/tb_crc8.v",
+          "exit_code": 1,
+          "timed_out": false,
+          "elapsed_s": 0.124,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 2
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-26T03:40:31+00:00"
+}

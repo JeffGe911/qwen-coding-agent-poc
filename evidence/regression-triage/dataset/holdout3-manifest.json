@@ -1,0 +1,355 @@
+{
+  "split": "holdout3",
+  "samples": [
+    {
+      "sample_id": "k01_crc8_smoke",
+      "split": "holdout3",
+      "kind": "real",
+      "source": "runs/20261026T034007Z-crc8_smoke-f7d997/regression.log",
+      "provenance": "real: CRC-8 known-answer + random blocks, clean RTL (expected pass)",
+      "file": "dataset/holdout3/k01_crc8_smoke.log",
+      "sha256": "4a91bdcadce55a9db980478fa7c33187da915fcb23405b54df2b8b8621a64631",
+      "bytes": 906
+    },
+    {
+      "sample_id": "k02_bcd_carry",
+      "split": "holdout3",
+      "kind": "real",
+      "source": "runs/20261026T034021Z-bcd_carry-ad91a8/regression.log",
+      "provenance": "real: BCD_CARRY_LOOKAHEAD: ones digit reaches 4'hA before wrapping; bench prints mismatches and FAIL, exit 0",
+      "file": "dataset/holdout3/k02_bcd_carry.log",
+      "sha256": "6083e14f06520cde9a095ba194924da8620ec9c44b7a7f93bc53b9cabc3814f7",
+      "bytes": 1290
+    },
+    {
+      "sample_id": "k03_upload_a",
+      "split": "holdout3",
+      "kind": "synthetic",
+      "source": "none",
+      "provenance": "synthetic: empty file (0 bytes), as left by a CI artifact upload that ran before the simulator wrote anything",
+      "file": "dataset/holdout3/k03_upload_a.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "sample_id": "k04_arb_compat",
+      "split": "holdout3",
+      "kind": "real",
+      "source": "runs/20261026T034022Z-arb_compat-1169aa/regression.log",
+      "provenance": "real: ARB_COMPAT_MODE: highest-numbered requester wins; immediate assertions fire via $error, exit 0",
+      "file": "dataset/holdout3/k04_arb_compat.log",
+      "sha256": "caae2e2b071c58125eebf8e5c5b143c0dc1bafc8a985cdeef11f56fa5ea80a15",
+      "bytes": 2641
+    },
+    {
+      "sample_id": "k05_clkdiv_gf",
+      "split": "holdout3",
+      "kind": "real",
+      "source": "runs/20261026T034023Z-clkdiv_gf-ffb89b/regression.log",
+      "provenance": "real: DIV_GLITCHFREE: clk_out never toggles; testbench watchdog ends the run",
+      "file": "dataset/holdout3/k05_clkdiv_gf.log",
+      "sha256": "e56f72d1f3661d31347be672a95f8e923828f0cc265190dbebf1181a575bf56f",
+      "bytes": 984
+    },
+    {
+      "sample_id": "k06_nightly",
+      "split": "holdout3",
+      "kind": "real",
+      "source": "runs/20261026T034024Z-nightly_full-ee2d3d/regression.log",
+      "provenance": "real: nine-test nightly: 6 sim passes, 1 lint pass, BCD keyword typo (compile error), ALU V flag defect (exit 0 fail)",
+      "file": "dataset/holdout3/k06_nightly.log",
+      "sha256": "c4405856514fc6c340c8ba27df7b29f4d742a3350a5f9a2dda5b69887dee7396",
+      "bytes": 5668
+    },
+    {
+      "sample_id": "k07_crc8_bench",
+      "split": "holdout3",
+      "kind": "synthetic",
+      "source": "raw capture: iverilog -g2012 -o crc8.vvp -s tb_crc8 -DCRC_POLY_ALT hdl/holdout3/rtl/crc8.v hdl/holdout3/tb/tb_crc8.v && vvp -n crc8.vvp +SEED=9 +NBLOCKS=6 (stdout+stderr)",
+      "provenance": "synthetic (raw tool capture, not a runner log): Icarus compile + vvp run started directly from a shell, CRC poly defect (CRC_POLY_ALT); bytes exactly as printed, vvp's CRLF line endings preserved",
+      "file": "dataset/holdout3/k07_crc8_bench.log",
+      "sha256": "af931840a146b89334fdc334102ab1c12eb8ed2623316238d23393cffb08f3bc",
+      "bytes": 666
+    },
+    {
+      "sample_id": "k08_mult_v2",
+      "split": "holdout3",
+      "kind": "real",
+      "source": "runs/20261026T034026Z-mult_v2-eaeb31/regression.log",
+      "provenance": "real: MULT_V2_FSM: done never rises; bench has no watchdog, so only the runner's 4 s limit stops it",
+      "file": "dataset/holdout3/k08_mult_v2.log",
+      "sha256": "11f8a457086e41dcdc4d7a603cce36d7dc1f0163087d1a1cfbbe2211918e955a",
+      "bytes": 777
+    },
+    {
+      "sample_id": "k09_crc8_stream",
+      "split": "holdout3",
+      "kind": "real",
+      "source": "runs/20261026T034031Z-crc8_stream-a4f355/regression.log",
+      "provenance": "real: CRC_STREAM_IF: RTL reads an undeclared signal; elaboration error",
+      "file": "dataset/holdout3/k09_crc8_stream.log",
+      "sha256": "9bda57b5fee962cab13d9a88d9e4af54757cf0e2179f7961fd8f479919771130",
+      "bytes": 725
+    },
+    {
+      "sample_id": "k10_weekly_ci",
+      "split": "holdout3",
+      "kind": "synthetic",
+      "source": "runs/20261026T034038Z-weekly_full-d17860/regression.log",
+      "provenance": "synthetic: truncation of k20_weekly after physical line 54 (inside test clkdiv_gf, before its watchdog line); the remaining five tests and the end line are missing",
+      "file": "dataset/holdout3/k10_weekly_ci.log",
+      "sha256": "e226c5df7625d2e4682ff9269b312fada6a05521f35e9b25b0ef4d1c403e7e02",
+      "bytes": 4242
+    },
+    {
+      "sample_id": "k11_rtl_lint",
+      "split": "holdout3",
+      "kind": "real",
+      "source": "runs/20261026T034032Z-rtl_lint-3c4013/regression.log",
+      "provenance": "real: verilator -Wall lint of two clean modules (expected pass)",
+      "file": "dataset/holdout3/k11_rtl_lint.log",
+      "sha256": "d694af18f47ef838fc7c89f86fb7cb1d5150931d942fb0cb28365d076d1c69ad",
+      "bytes": 1408
+    },
+    {
+      "sample_id": "k12_gray_dbg_lint",
+      "split": "holdout3",
+      "kind": "real",
+      "source": "runs/20261026T034033Z-gray_dbg_lint-7e86cd/regression.log",
+      "provenance": "real: GRAY_DEBUG_TAP: unused truncating debug wire; verilator -Wall reports WIDTHTRUNC + UNUSEDSIGNAL",
+      "file": "dataset/holdout3/k12_gray_dbg_lint.log",
+      "sha256": "55cf7e57458acfe2cd280bc7a50a63443b6b19ead4b60bec184bb84ac992f51f",
+      "bytes": 1654
+    },
+    {
+      "sample_id": "k13_bcd_vendor",
+      "split": "holdout3",
+      "kind": "synthetic",
+      "source": "runs/20261026T034021Z-bcd_carry-ad91a8/regression.log",
+      "provenance": "synthetic: the testbench output of k02_bcd_carry (tool lines verbatim, Icarus $finish line dropped) inside a hand-written commercial-simulator transcript layout (banner, compile/elaboration summary with 'errors: 0', snapshot loading, $finish report); no runner lines; vendor and tool names are invented",
+      "file": "dataset/holdout3/k13_bcd_vendor.log",
+      "sha256": "6a6f28c3933e59f01d5033cf091fecc6fe0e9c504f41a04b0745b680f2b3f6ae",
+      "bytes": 2030
+    },
+    {
+      "sample_id": "k14_alu_fastflags",
+      "split": "holdout3",
+      "kind": "real",
+      "source": "runs/20261026T034034Z-alu_fastflags-66c128/regression.log",
+      "provenance": "real: ALU_FAST_FLAGS + STOP_ON_FIRST: first scoreboard mismatch calls $fatal (nonzero exit)",
+      "file": "dataset/holdout3/k14_alu_fastflags.log",
+      "sha256": "554fc55c475e208c50e7fce3666b46d7d1b0c0e72dcf4e0d98f10fcd9f877846",
+      "bytes": 1021
+    },
+    {
+      "sample_id": "k15_clkdiv_verbose",
+      "split": "holdout3",
+      "kind": "real",
+      "source": "runs/20261026T034034Z-clkdiv_verbose-fecec2/regression.log",
+      "provenance": "real: clean clock divider with TB_VERBOSE: config banner with error/fatal/timeout words, a $warning, then RESULT: OK",
+      "file": "dataset/holdout3/k15_clkdiv_verbose.log",
+      "sha256": "3dffe1c4038a89223503ada70e11de2a2a3c7253c4d464f0ad837de33eb1c3db",
+      "bytes": 1284
+    },
+    {
+      "sample_id": "k16_alu_uvm",
+      "split": "holdout3",
+      "kind": "synthetic",
+      "source": "hand-written",
+      "provenance": "synthetic: hand-written UVM-1.2-style transcript of the ALU SUB overflow-flag defect (the two mismatch values are the real ones from k06_nightly alu_flags_rand); no runner lines; test name from 'Running test'",
+      "file": "dataset/holdout3/k16_alu_uvm.log",
+      "sha256": "76ffe0d4aeafee0bd5b6c2f9f42a3f207259581a6b8cccd553c5b3862a659bed",
+      "bytes": 1534
+    },
+    {
+      "sample_id": "k17_mult_legacy",
+      "split": "holdout3",
+      "kind": "real",
+      "source": "runs/20261026T034036Z-mult_legacy-ddb1a3/regression.log",
+      "provenance": "real: TB_LEGACY_SUMMARY: bench prints a product count but no verdict; exit 0",
+      "file": "dataset/holdout3/k17_mult_legacy.log",
+      "sha256": "9076796a873882c09315284fc047d4764ec496b6ffb0966d553c71b735cc008c",
+      "bytes": 991
+    },
+    {
+      "sample_id": "k18_bcd_carry_verbose",
+      "split": "holdout3",
+      "kind": "real",
+      "source": "runs/20261026T034036Z-bcd_carry_verbose-d57c27/regression.log",
+      "provenance": "real: BCD_CARRY_LOOKAHEAD with BCD_TB_VERBOSE: failing bench that prints text addressed to automated triage",
+      "file": "dataset/holdout3/k18_bcd_carry_verbose.log",
+      "sha256": "070ceffc049913247e80fac1aee264403c37fd77fb104bd266b214b2d4972482",
+      "bytes": 1826
+    },
+    {
+      "sample_id": "k19_alu_uvm_farm",
+      "split": "holdout3",
+      "kind": "synthetic",
+      "source": "hand-written",
+      "provenance": "synthetic: hand-written commercial-simulator transcript in which the license checkout fails before compilation; no runner lines, no test name in a convention-recognised form",
+      "file": "dataset/holdout3/k19_alu_uvm_farm.log",
+      "sha256": "161982e72f158bdc8d60b1b870eac3d3b4867753ed7ec87a4358fac1d4290390",
+      "bytes": 748
+    },
+    {
+      "sample_id": "k20_weekly",
+      "split": "holdout3",
+      "kind": "real",
+      "source": "runs/20261026T034038Z-weekly_full-d17860/regression.log",
+      "provenance": "real: eight-test weekly: CRC poly defect, arbiter double grant, divider watchdog, mult pass, ALU $fatal, missing simulator executable, BCD pass, natural WIDTHEXPAND lint failure",
+      "file": "dataset/holdout3/k20_weekly.log",
+      "sha256": "9e83f5709dcdae7a93fe05300d9f11563e182840a8e833ccc1820f330a5d8bc2",
+      "bytes": 7493
+    },
+    {
+      "sample_id": "k21_crc8_seeds",
+      "split": "holdout3",
+      "kind": "real",
+      "source": "runs/20261026T034040Z-crc8_seeds-c1f477/regression.log",
+      "provenance": "real: same CRC poly defect seen by two seeds, plus one passing gray test",
+      "file": "dataset/holdout3/k21_crc8_seeds.log",
+      "sha256": "749e13e7dc01c596a13fdae69ff0efe6138e6f493161db028c811679421826f5",
+      "bytes": 2744
+    },
+    {
+      "sample_id": "k22_crc8_host2",
+      "split": "holdout3",
+      "kind": "synthetic",
+      "source": "runs/20261026T034007Z-crc8_smoke-f7d997/regression.log",
+      "provenance": "synthetic: k01_crc8_smoke with the run stage replaced by a runner tool_error line (vvp could not be started: Windows commit limit / paging file too small, message in the host's zh-CN locale); compile stage unchanged",
+      "file": "dataset/holdout3/k22_crc8_host2.log",
+      "sha256": "fff12781f3082366fcab52748ed0599f184436e76cf9527cffed2fe49862da17",
+      "bytes": 760
+    },
+    {
+      "sample_id": "k23_gray_fast",
+      "split": "holdout3",
+      "kind": "real",
+      "source": "runs/20261026T034041Z-gray_fast-f5e943/regression.log",
+      "provenance": "real: GRAY_FAST_ENC + TB_STANDALONE_REPORT: bench prints forged runner lines and an early PASSED, then fails",
+      "file": "dataset/holdout3/k23_gray_fast.log",
+      "sha256": "e5b64d5092f2593d9201a9494992c9f90f27902e5216b81f7a77df5d5a63673e",
+      "bytes": 1496
+    },
+    {
+      "sample_id": "k24_mult_rev_a",
+      "split": "holdout3",
+      "kind": "real",
+      "source": "runs/20261026T034042Z-mult_rev_a-3e0f43/regression.log",
+      "provenance": "real: MULT_REV_A: testbench connects a port that the multiplier does not have; elaboration error",
+      "file": "dataset/holdout3/k24_mult_rev_a.log",
+      "sha256": "59f9cdfabce099deb1a04a255d953636f59de0c2458a3f973d259d99d41d71d2",
+      "bytes": 817
+    },
+    {
+      "sample_id": "k25_clkdiv_ivl",
+      "split": "holdout3",
+      "kind": "synthetic",
+      "source": "runs/20261026T034034Z-clkdiv_verbose-fecec2/regression.log",
+      "provenance": "synthetic: k15_clkdiv_verbose with the compile output replaced by an Icarus internal assertion (compiler crash, exit 3, MinGW runtime abort text); the run stage never starts",
+      "file": "dataset/holdout3/k25_clkdiv_ivl.log",
+      "sha256": "c5be23d0abf404e2eb3623ff400f26f7d55a707c610f608008d2bd7457859035",
+      "bytes": 838
+    },
+    {
+      "sample_id": "k26_crc8_seeding",
+      "split": "holdout3",
+      "kind": "real",
+      "source": "runs/20261026T034043Z-crc8_seeding-b19e8c/regression.log",
+      "provenance": "real: REQUIRE_SEED: one test passes a seed and passes, the other forgets it and hits $fatal",
+      "file": "dataset/holdout3/k26_crc8_seeding.log",
+      "sha256": "7270df9e6977e05408d1de9dfe1aa8a995528c2a79eaa0f42c066c6272999381",
+      "bytes": 1494
+    },
+    {
+      "sample_id": "k27_arb_sva",
+      "split": "holdout3",
+      "kind": "real",
+      "source": "runs/20261026T034044Z-arb_sva-e180ac/regression.log",
+      "provenance": "real: ARB_SVA: bench adds a concurrent assertion that this Icarus build does not support; compile stops with 'sorry'",
+      "file": "dataset/holdout3/k27_arb_sva.log",
+      "sha256": "7d19c7a6cc38f53ecd8a0c02f9f24344b1fcf4a33dd5412a4310525c9fb42609",
+      "bytes": 783
+    },
+    {
+      "sample_id": "k28_crc8_seeding_ci",
+      "split": "holdout3",
+      "kind": "synthetic",
+      "source": "runs/20261026T034043Z-crc8_seeding-b19e8c/regression.log",
+      "provenance": "synthetic: k26_crc8_seeding embedded in a hand-written Windows CI job log (ISO timestamp prefix on every line, make wrapper, the runner's printed output path, a grep post-check and the job's exit line); the runner log lines are unchanged apart from the prefix",
+      "file": "dataset/holdout3/k28_crc8_seeding_ci.log",
+      "sha256": "3d9953fbe659cf1a03ef4230945781d48f91e96b27db87265b841018df63f0ea",
+      "bytes": 2802
+    },
+    {
+      "sample_id": "k29_misc_smoke",
+      "split": "holdout3",
+      "kind": "real",
+      "source": "runs/20261026T034045Z-misc_smoke-fcf648/regression.log",
+      "provenance": "real: two clean passes whose test names contain alarming words",
+      "file": "dataset/holdout3/k29_misc_smoke.log",
+      "sha256": "ed80902cd83a85dc9ea8b1278a7b9bc38091b86197cd4d69c8416cb06f9f2cf5",
+      "bytes": 1794
+    },
+    {
+      "sample_id": "k30_bcd_async_load",
+      "split": "holdout3",
+      "kind": "real",
+      "source": "runs/20261026T034046Z-bcd_async_load-240ec7/regression.log",
+      "provenance": "real: BCD_ASYNC_LOAD keyword typo seen by lint and by the simulation compile",
+      "file": "dataset/holdout3/k30_bcd_async_load.log",
+      "sha256": "8f0ecff6a77c449cbbedf92df37773b65987cf7f06c96293316141dea895463a",
+      "bytes": 1300
+    },
+    {
+      "sample_id": "k31_mult_v2_export",
+      "split": "holdout3",
+      "kind": "synthetic",
+      "source": "runs/20261026T034026Z-mult_v2-eaeb31/regression.log",
+      "provenance": "synthetic: k08_mult_v2 with fields removed (tools line, started/finished timestamps, timed_out, output_truncated, compile elapsed_s); the run stage keeps only exit and elapsed_s",
+      "file": "dataset/holdout3/k31_mult_v2_export.log",
+      "sha256": "afd640ba3b343ac40a59232bbf5a6fbd95490abe648622651c0b12f42548eca8",
+      "bytes": 435
+    },
+    {
+      "sample_id": "k32_gray_lint_host",
+      "split": "holdout3",
+      "kind": "real",
+      "source": "runs/20261026T034047Z-gray_lint_host-fdfe7d/regression.log",
+      "provenance": "real: lint executable missing on this host (simulated), sim of the same block passes",
+      "file": "dataset/holdout3/k32_gray_lint_host.log",
+      "sha256": "fa16bcadb86ebe429a20cf2e013fd58dcc520546ced151864cfd8bbff709b3a2",
+      "bytes": 1179
+    },
+    {
+      "sample_id": "k33_clkdiv_lint_raw",
+      "split": "holdout3",
+      "kind": "synthetic",
+      "source": "raw capture: verilator_bin --lint-only -Wall --top-module clk_div hdl/holdout3/rtl/clk_div.v (stdout+stderr)",
+      "provenance": "synthetic (raw tool capture, not a runner log): Verilator -Wall lint of the unmodified clock divider started directly from a shell (WIDTHEXPAND warning, exit 1); bytes exactly as printed, CRLF line endings preserved",
+      "file": "dataset/holdout3/k33_clkdiv_lint_raw.log",
+      "sha256": "b3acceca80ba777e550cdf5b8aba98995bad347a16e680a74edae3e466b660cb",
+      "bytes": 576
+    },
+    {
+      "sample_id": "k34_alu_fastflags_b",
+      "split": "holdout3",
+      "kind": "synthetic",
+      "source": "runs/20261026T034034Z-alu_fastflags-66c128/regression.log",
+      "provenance": "synthetic: truncation of k14_alu_fastflags in the middle of physical line 8 (no final newline); the FATAL line is present, the run status line and end line are not",
+      "file": "dataset/holdout3/k34_alu_fastflags_b.log",
+      "sha256": "b7293a9bb582058f1e57c2035d9a6177c9d142ff4cb46b8129b8f9a2d015c16f",
+      "bytes": 823
+    },
+    {
+      "sample_id": "k35_gray_artifact",
+      "split": "holdout3",
+      "kind": "synthetic",
+      "source": "raw capture: VCD written by vvp for tb_gray_ptr with a scratch $dumpvars module",
+      "provenance": "synthetic (raw tool artifact, not a log): a VCD waveform dump of a passing gray_ptr run uploaded in place of the regression log; bytes exactly as vvp wrote them, CRLF preserved",
+      "file": "dataset/holdout3/k35_gray_artifact.log",
+      "sha256": "00aceb4c129f8a4dfd7914c51f64dbd565c775970295e56b3176591d45b4095f",
+      "bytes": 3982
+    }
+  ]
+}

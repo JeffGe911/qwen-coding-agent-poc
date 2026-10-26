@@ -1,0 +1,11 @@
+tb_crc8: start seed=9 blocks=6
+tb_crc8: KAT crc=0x01 (reference 0xf4, published check value 0xf4)
+ERROR: [211000] tb_crc8 KAT mismatch: crc=0x01 expected=0xf4
+ERROR: [251000] tb_crc8 block 0 (1 bytes): crc=0x09 expected=0xf4
+ERROR: [411000] tb_crc8 block 1 (7 bytes): crc=0x14 expected=0xaf
+ERROR: [571000] tb_crc8 block 2 (7 bytes): crc=0xed expected=0xf9
+ERROR: [751000] tb_crc8 block 3 (8 bytes): crc=0xa6 expected=0x2e
+ERROR: [891000] tb_crc8 block 4 (6 bytes): crc=0xf2 expected=0xb3
+ERROR: [1051000] tb_crc8 block 5 (7 bytes): crc=0xd0 expected=0xc1
+TEST FAILED: tb_crc8 (7 mismatches)
+hdl/holdout3/tb/tb_crc8.v:100: $finish called at 1051000 (1ps)

@@ -1,0 +1,18 @@
+{
+  "sample_id": "k16_alu_uvm",
+  "log_status": "complete",
+  "tests": {
+    "alu_flags_rand_test": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        5,
+        6,
+        7,
+        15
+      ]
+    }
+  },
+  "notes": "UVM style; test id from 'Running test alu_flags_rand_test...'; UVM_WARNING and 'UVM_FATAL :    0' are not failures"
+}

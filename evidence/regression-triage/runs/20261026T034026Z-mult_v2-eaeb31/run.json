@@ -1,0 +1,59 @@
+{
+  "run_id": "20261026T034026Z-mult_v2-eaeb31",
+  "regression": "mult_v2",
+  "manifest": "hdl/regressions/holdout3/k08_mult_v2.json",
+  "manifest_sha256": "d9ae3db80a4334b3c01dd31d08e69379fd28b2dffef865508a5d554ef424d544",
+  "started_utc": "2026-10-26T03:40:26+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "mult_exhaustive",
+      "defines": [
+        "MULT_V2_FSM"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout3/rtl/serial_mult.v": "2de34248124c33755fc8e7fe9401458ee2a8c85ab3b3dd5d73f360d28e206a8b",
+        "hdl/holdout3/tb/tb_serial_mult.v": "128ccd0d18001394af8ad5c82a16ba45857276b905eae1f61b6dfe461aa2fb58"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_serial_mult -DMULT_V2_FSM hdl/holdout3/rtl/serial_mult.v hdl/holdout3/tb/tb_serial_mult.v",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.11,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 1,
+          "timed_out": true,
+          "elapsed_s": 4.028,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-26T03:40:30+00:00"
+}

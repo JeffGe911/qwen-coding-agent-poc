@@ -1,0 +1,19 @@
+{
+  "regression": "alu_fastflags",
+  "description": "ALU_FAST_FLAGS + STOP_ON_FIRST: first scoreboard mismatch calls $fatal (nonzero exit)",
+  "tests": [
+    {
+      "test_id": "alu_flags_stop",
+      "top": "tb_alu_flags",
+      "sources": [
+        "hdl/holdout3/rtl/alu_flags.v",
+        "hdl/holdout3/tb/tb_alu_flags.v"
+      ],
+      "defines": [
+        "ALU_FAST_FLAGS",
+        "STOP_ON_FIRST"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

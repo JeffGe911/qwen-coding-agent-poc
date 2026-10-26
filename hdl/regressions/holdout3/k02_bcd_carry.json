@@ -1,0 +1,18 @@
+{
+  "regression": "bcd_carry",
+  "description": "BCD_CARRY_LOOKAHEAD: ones digit reaches 4'hA before wrapping; bench prints mismatches and FAIL, exit 0",
+  "tests": [
+    {
+      "test_id": "bcd_count",
+      "top": "tb_bcd_counter",
+      "sources": [
+        "hdl/holdout3/rtl/bcd_counter.v",
+        "hdl/holdout3/tb/tb_bcd_counter.v"
+      ],
+      "defines": [
+        "BCD_CARRY_LOOKAHEAD"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

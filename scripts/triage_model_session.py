@@ -115,7 +115,7 @@ def write(path, obj):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--contract", required=True)
-    p.add_argument("--split", choices=["dev", "holdout", "holdout2"])
+    p.add_argument("--split", choices=["dev", "holdout", "holdout2", "holdout3"])
     p.add_argument("--unload", action="store_true", help="unload the model after the run")
     p.add_argument("--preflight-only", action="store_true")
     p.add_argument("--unload-only", action="store_true")

@@ -1,0 +1,18 @@
+{
+  "regression": "mult_v2",
+  "description": "MULT_V2_FSM: done never rises; bench has no watchdog, so only the runner's 4 s limit stops it",
+  "tests": [
+    {
+      "test_id": "mult_exhaustive",
+      "top": "tb_serial_mult",
+      "sources": [
+        "hdl/holdout3/rtl/serial_mult.v",
+        "hdl/holdout3/tb/tb_serial_mult.v"
+      ],
+      "defines": [
+        "MULT_V2_FSM"
+      ],
+      "timeout_s": 4
+    }
+  ]
+}

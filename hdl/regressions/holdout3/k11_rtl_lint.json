@@ -1,0 +1,26 @@
+{
+  "regression": "rtl_lint",
+  "description": "verilator -Wall lint of two clean modules (expected pass)",
+  "tests": [
+    {
+      "test_id": "gray_ptr_lint",
+      "top": "gray_ptr",
+      "sources": [
+        "hdl/holdout3/rtl/gray_ptr.v"
+      ],
+      "defines": [],
+      "timeout_s": 10,
+      "kind": "lint"
+    },
+    {
+      "test_id": "alu_flags_lint",
+      "top": "alu_flags",
+      "sources": [
+        "hdl/holdout3/rtl/alu_flags.v"
+      ],
+      "defines": [],
+      "timeout_s": 10,
+      "kind": "lint"
+    }
+  ]
+}

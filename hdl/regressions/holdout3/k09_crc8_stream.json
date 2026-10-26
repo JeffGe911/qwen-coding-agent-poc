@@ -1,0 +1,18 @@
+{
+  "regression": "crc8_stream",
+  "description": "CRC_STREAM_IF: RTL reads an undeclared signal; elaboration error",
+  "tests": [
+    {
+      "test_id": "crc8_kat",
+      "top": "tb_crc8",
+      "sources": [
+        "hdl/holdout3/rtl/crc8.v",
+        "hdl/holdout3/tb/tb_crc8.v"
+      ],
+      "defines": [
+        "CRC_STREAM_IF"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

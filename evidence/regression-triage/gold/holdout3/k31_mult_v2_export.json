@@ -1,0 +1,18 @@
+{
+  "sample_id": "k31_mult_v2_export",
+  "log_status": "complete",
+  "tests": {
+    "mult_exhaustive": {
+      "result": "unknown",
+      "category": "unknown",
+      "side": "undetermined",
+      "evidence_lines": [
+        5
+      ]
+    }
+  },
+  "flags": [
+    "missing_fields"
+  ],
+  "notes": "export without timed_out/output_truncated fields: the run stage exited 1 after ~4 s with no output and no verdict. Without the timed_out field it cannot be shown to be a wall-clock timeout (vs. a crash or a kill), so unknown/undetermined"
+}

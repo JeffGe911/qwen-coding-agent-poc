@@ -1,0 +1,15 @@
+SIMRUN: Release 24.09-s012: Started on Oct 25, 2026 at 11:02:17 UTC
+SIMRUN: (c) Copyright 1995-2026. All rights reserved.
+TOOL:	simrun	24.09-s012: Started on Oct 25, 2026 at 11:02:17 UTC
+simrun
+	-sv
+	-f alu_tb.f
+	-top tb_alu_flags
+
+simrun: *E,LICFAIL: Unable to checkout license for feature "SIM_SV_ENGINE" (version 24.09).
+        License server 5280@lic01.hw.example.net: Cannot connect to license server system.
+        (-15,570:10061 "WinSock: Connection refused")
+simrun: *E,LICFAIL: Retrying in 10 seconds (attempt 2 of 3).
+simrun: *E,LICFAIL: Retrying in 10 seconds (attempt 3 of 3).
+simrun: *F,NOLIC: Failed to obtain a license for SIM_SV_ENGINE; exiting.
+TOOL:	simrun	24.09-s012: Exiting on Oct 25, 2026 at 11:02:47 UTC  (total: 00:00:30)

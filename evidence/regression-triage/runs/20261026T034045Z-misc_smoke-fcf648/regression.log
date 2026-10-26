@@ -1,0 +1,26 @@
+#RUN regression=misc_smoke run_id=20261026T034045Z-misc_smoke-fcf648 started_utc=2026-10-26T03:40:45+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=clkdiv_timeout_recovery stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_clk_div hdl/holdout3/rtl/clk_div.v hdl/holdout3/tb/tb_clk_div.v
+#RUN test=clkdiv_timeout_recovery stage=compile exit=0 elapsed_s=0.078 timed_out=false output_truncated=false
+#RUN test=clkdiv_timeout_recovery stage=run cmd=vvp.exe -n sim.vvp
+[tb_clk_div] DIV=3, expecting a clk_out period of 60 ns
+[tb_clk_div] RESULT: OK
+hdl/holdout3/tb/tb_clk_div.v:49: $finish called at 285000 (1ps)
+#RUN test=clkdiv_timeout_recovery stage=run exit=0 elapsed_s=0.035 timed_out=false output_truncated=false
+#RUN test=alu_flags_overflow_errors stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_alu_flags hdl/holdout3/rtl/alu_flags.v hdl/holdout3/tb/tb_alu_flags.v
+#RUN test=alu_flags_overflow_errors stage=compile exit=0 elapsed_s=0.087 timed_out=false output_truncated=false
+#RUN test=alu_flags_overflow_errors stage=run cmd=vvp.exe -n sim.vvp
+tb_alu_flags: scoreboard run, 8 ops x 24 vectors
+  subtest ADD  : 24/24 ok  
+  subtest SUB  : 24/24 ok  
+  subtest AND  : 24/24 ok  
+  subtest OR   : 24/24 ok  
+  subtest XOR  : 24/24 ok  
+  subtest SHL  : 24/24 ok  
+  subtest SHR  : 24/24 ok  
+  subtest PASS : 24/24 ok  
+Scoreboard: 192 transactions, 0 mismatches
+Simulation result: PASS
+hdl/holdout3/tb/tb_alu_flags.v:84: $finish called at 192000 (1ps)
+#RUN test=alu_flags_overflow_errors stage=run exit=0 elapsed_s=0.042 timed_out=false output_truncated=false
+#RUN regression=misc_smoke end tests=2 finished_utc=2026-10-26T03:40:45+00:00

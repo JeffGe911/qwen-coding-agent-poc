@@ -1,0 +1,18 @@
+{
+  "regression": "gray_dbg_lint",
+  "description": "GRAY_DEBUG_TAP: unused truncating debug wire; verilator -Wall reports WIDTHTRUNC + UNUSEDSIGNAL",
+  "tests": [
+    {
+      "test_id": "gray_ptr_lint",
+      "top": "gray_ptr",
+      "sources": [
+        "hdl/holdout3/rtl/gray_ptr.v"
+      ],
+      "defines": [
+        "GRAY_DEBUG_TAP"
+      ],
+      "timeout_s": 10,
+      "kind": "lint"
+    }
+  ]
+}

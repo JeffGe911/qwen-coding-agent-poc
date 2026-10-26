@@ -1,0 +1,13 @@
+{
+  "sample_id": "k35_gray_artifact",
+  "log_status": "unknown_format",
+  "tests": {
+    "(log)": {
+      "result": "unknown",
+      "category": "unknown",
+      "side": "undetermined",
+      "evidence_lines": []
+    }
+  },
+  "notes": "a VCD waveform dump, not a regression log; lines starting with '#' are VCD timestamps"
+}

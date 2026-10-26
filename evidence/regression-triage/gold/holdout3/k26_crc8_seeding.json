@@ -1,0 +1,23 @@
+{
+  "sample_id": "k26_crc8_seeding",
+  "log_status": "complete",
+  "tests": {
+    "crc8_seeded": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        8
+      ]
+    },
+    "crc8_unseeded": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        14
+      ]
+    }
+  },
+  "notes": "crc8_unseeded: the bench's $fatal fires because the regression did not pass +SEED; a test configuration error, labelled test_failure/design_or_test because it is a $fatal from the testbench"
+}

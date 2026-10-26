@@ -1,0 +1,23 @@
+{
+  "sample_id": "k11_rtl_lint",
+  "log_status": "complete",
+  "tests": {
+    "gray_ptr_lint": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        7
+      ]
+    },
+    "alu_flags_lint": {
+      "result": "pass",
+      "category": "pass",
+      "side": "none",
+      "evidence_lines": [
+        12
+      ]
+    }
+  },
+  "notes": "lint pass: there is no verdict line for a lint step, so the evidence is the lint stage's exit=0 runner line (no warnings under -Wall)"
+}

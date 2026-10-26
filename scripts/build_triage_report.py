@@ -12,7 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 EV = ROOT / "evidence" / "regression-triage"
 ENGINES = ("rules", "qwen", "hybrid")
-SPLITS = ("dev", "holdout", "holdout2")
+SPLITS = ("dev", "holdout", "holdout2", "holdout3")
 QUALITY = [("category", "类别准确率"), ("result", "结果准确率（pass/fail/not_run/unknown）"), ("side", "责任方准确率（设计或测试 / 基础设施）")]
 
 

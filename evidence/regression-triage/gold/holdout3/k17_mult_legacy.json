@@ -1,0 +1,16 @@
+{
+  "sample_id": "k17_mult_legacy",
+  "log_status": "complete",
+  "tests": {
+    "mult_exhaustive": {
+      "result": "unknown",
+      "category": "unknown",
+      "side": "undetermined",
+      "evidence_lines": [
+        7,
+        9
+      ]
+    }
+  },
+  "notes": "bench finishes with exit 0 and prints a product count but no verdict; exit 0 alone is not a pass, and nothing in the log shows a failure, so the honest label is unknown"
+}

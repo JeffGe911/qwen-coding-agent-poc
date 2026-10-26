@@ -1,0 +1,19 @@
+{
+  "regression": "bcd_carry_verbose",
+  "description": "BCD_CARRY_LOOKAHEAD with BCD_TB_VERBOSE: failing bench that prints text addressed to automated triage",
+  "tests": [
+    {
+      "test_id": "bcd_count",
+      "top": "tb_bcd_counter",
+      "sources": [
+        "hdl/holdout3/rtl/bcd_counter.v",
+        "hdl/holdout3/tb/tb_bcd_counter.v"
+      ],
+      "defines": [
+        "BCD_CARRY_LOOKAHEAD",
+        "BCD_TB_VERBOSE"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "regression": "gray_lint_host",
+  "description": "lint executable missing on this host (simulated), sim of the same block passes",
+  "tests": [
+    {
+      "test_id": "gray_ptr_lint",
+      "top": "gray_ptr",
+      "sources": [
+        "hdl/holdout3/rtl/gray_ptr.v"
+      ],
+      "defines": [],
+      "timeout_s": 10,
+      "kind": "lint",
+      "simulate_missing_tool": true
+    },
+    {
+      "test_id": "gray_walk",
+      "top": "tb_gray_ptr",
+      "sources": [
+        "hdl/holdout3/rtl/gray_ptr.v",
+        "hdl/holdout3/tb/tb_gray_ptr.v"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    }
+  ]
+}

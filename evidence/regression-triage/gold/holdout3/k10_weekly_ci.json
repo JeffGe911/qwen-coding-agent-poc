@@ -1,0 +1,51 @@
+{
+  "sample_id": "k10_weekly_ci",
+  "log_status": "incomplete",
+  "tests": {
+    "crc8_seed5": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ]
+    },
+    "arb_lock_top": {
+      "result": "fail",
+      "category": "test_failure",
+      "side": "design_or_test",
+      "evidence_lines": [
+        20,
+        22,
+        24,
+        26,
+        28,
+        30,
+        32,
+        34,
+        36,
+        38,
+        40,
+        42,
+        44,
+        46,
+        48
+      ]
+    },
+    "clkdiv_gf": {
+      "result": "unknown",
+      "category": "incomplete_log",
+      "side": "infrastructure",
+      "evidence_lines": [
+        53,
+        54
+      ]
+    }
+  },
+  "notes": "log ends after the first output line of clkdiv_gf with no truncation marker; the five later tests of the source regression never appear and are not labelled; the two completed sections keep their labels"
+}

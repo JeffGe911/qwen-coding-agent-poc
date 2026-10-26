@@ -1,0 +1,33 @@
+{
+  "regression": "crc8_seeding",
+  "description": "REQUIRE_SEED: one test passes a seed and passes, the other forgets it and hits $fatal",
+  "tests": [
+    {
+      "test_id": "crc8_seeded",
+      "top": "tb_crc8",
+      "sources": [
+        "hdl/holdout3/rtl/crc8.v",
+        "hdl/holdout3/tb/tb_crc8.v"
+      ],
+      "defines": [
+        "REQUIRE_SEED"
+      ],
+      "timeout_s": 10,
+      "plusargs": [
+        "+SEED=3"
+      ]
+    },
+    {
+      "test_id": "crc8_unseeded",
+      "top": "tb_crc8",
+      "sources": [
+        "hdl/holdout3/rtl/crc8.v",
+        "hdl/holdout3/tb/tb_crc8.v"
+      ],
+      "defines": [
+        "REQUIRE_SEED"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

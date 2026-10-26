@@ -1,0 +1,16 @@
+{
+  "sample_id": "k12_gray_dbg_lint",
+  "log_status": "complete",
+  "tests": {
+    "gray_ptr_lint": {
+      "result": "fail",
+      "category": "compile_error",
+      "side": "design_or_test",
+      "evidence_lines": [
+        4,
+        16
+      ]
+    }
+  },
+  "notes": "lint fails on warnings only (-Wall promotes them): evidence is the first %Warning line and the '%Error: Exiting due to N warning(s)' line that states the failure; later warnings are not accepted"
+}

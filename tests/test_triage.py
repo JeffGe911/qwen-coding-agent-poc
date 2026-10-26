@@ -75,7 +75,7 @@ def test_log_reading_is_scoped_and_bounded(tmp_path):
         logio.read_log("big.log", tmp_path)
 
 
-@pytest.mark.parametrize("split", [s for s in ("dev", "holdout", "holdout2") if (EV / "dataset" / f"{s}-manifest.json").exists()])
+@pytest.mark.parametrize("split", [s for s in ("dev", "holdout", "holdout2", "holdout3") if (EV / "dataset" / f"{s}-manifest.json").exists()])
 def test_dataset_bytes_match_the_manifest_and_are_stored_verbatim(split):
     manifest = json.loads((EV / "dataset" / f"{split}-manifest.json").read_text(encoding="utf-8"))
     for s in manifest["samples"]:

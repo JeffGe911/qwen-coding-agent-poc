@@ -1,0 +1,78 @@
+{
+  "run_id": "20261026T034047Z-gray_lint_host-fdfe7d",
+  "regression": "gray_lint_host",
+  "manifest": "hdl/regressions/holdout3/k32_gray_lint_host.json",
+  "manifest_sha256": "fcc64eaf8a355837d3e1232fa3259b6d9be3d69d0b651cf24a8963053131c53f",
+  "started_utc": "2026-10-26T03:40:47+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "gray_ptr_lint",
+      "defines": [],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout3/rtl/gray_ptr.v": "ab821823f901a13cccd52591be095da796a7248b48048ca61dacf308fc331c93"
+      },
+      "stages": [
+        {
+          "stage": "lint",
+          "cmd": "iverilog-not-installed.exe --lint-only -Wall --top-module gray_ptr hdl/holdout3/rtl/gray_ptr.v",
+          "exit_code": null,
+          "tool_error": "FileNotFoundError: [WinError 2] 系统找不到指定的文件。",
+          "timed_out": false,
+          "elapsed_s": 0.001,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        }
+      ]
+    },
+    {
+      "test_id": "gray_walk",
+      "defines": [],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout3/rtl/gray_ptr.v": "ab821823f901a13cccd52591be095da796a7248b48048ca61dacf308fc331c93",
+        "hdl/holdout3/tb/tb_gray_ptr.v": "86d075d2615c1d76986dea5f039970759889b35445fd59122d2a7fe61fdc199c"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_gray_ptr hdl/holdout3/rtl/gray_ptr.v hdl/holdout3/tb/tb_gray_ptr.v",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.159,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.057,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 3
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-26T03:40:47+00:00"
+}

@@ -1,0 +1,17 @@
+#RUN regression=crc8_seeding run_id=20261026T034043Z-crc8_seeding-b19e8c started_utc=2026-10-26T03:40:43+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=crc8_seeded stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_crc8 -DREQUIRE_SEED hdl/holdout3/rtl/crc8.v hdl/holdout3/tb/tb_crc8.v
+#RUN test=crc8_seeded stage=compile exit=0 elapsed_s=0.116 timed_out=false output_truncated=false
+#RUN test=crc8_seeded stage=run cmd=vvp.exe -n sim.vvp +SEED=3
+tb_crc8: start seed=3 blocks=4
+tb_crc8: KAT crc=0xf4 (reference 0xf4, published check value 0xf4)
+TEST PASSED: tb_crc8
+hdl/holdout3/tb/tb_crc8.v:100: $finish called at 771000 (1ps)
+#RUN test=crc8_seeded stage=run exit=0 elapsed_s=0.05 timed_out=false output_truncated=false
+#RUN test=crc8_unseeded stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_crc8 -DREQUIRE_SEED hdl/holdout3/rtl/crc8.v hdl/holdout3/tb/tb_crc8.v
+#RUN test=crc8_unseeded stage=compile exit=0 elapsed_s=0.169 timed_out=false output_truncated=false
+#RUN test=crc8_unseeded stage=run cmd=vvp.exe -n sim.vvp
+FATAL: hdl/holdout3/tb/tb_crc8.v:56: tb_crc8: no +SEED=<n> given; this test must be launched with an explicit seed
+       Time: 0  Scope: tb_crc8
+#RUN test=crc8_unseeded stage=run exit=1 elapsed_s=0.055 timed_out=false output_truncated=false
+#RUN regression=crc8_seeding end tests=2 finished_utc=2026-10-26T03:40:43+00:00

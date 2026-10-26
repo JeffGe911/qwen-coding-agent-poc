@@ -1,0 +1,13 @@
+#RUN regression=rtl_lint run_id=20261026T034032Z-rtl_lint-3c4013 started_utc=2026-10-26T03:40:32+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=gray_ptr_lint stage=lint cmd=verilator_bin.exe --lint-only -Wall --top-module gray_ptr hdl/holdout3/rtl/gray_ptr.v
+- V e r i l a t i o n   R e p o r t: Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)
+- Verilator: Built from 0.049 MB sources in 3 modules, into 0.020 MB in 3 C++ files needing 0.000 MB
+- Verilator: Walltime 0.014 s (elab=0.000, cvt=0.004, bld=0.000); cpu 0.000 s on 1 threads; allocated 14.586 MB
+#RUN test=gray_ptr_lint stage=lint exit=0 elapsed_s=0.063 timed_out=false output_truncated=false
+#RUN test=alu_flags_lint stage=lint cmd=verilator_bin.exe --lint-only -Wall --top-module alu_flags hdl/holdout3/rtl/alu_flags.v
+- V e r i l a t i o n   R e p o r t: Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)
+- Verilator: Built from 0.049 MB sources in 3 modules, into 0.027 MB in 3 C++ files needing 0.000 MB
+- Verilator: Walltime 0.024 s (elab=0.002, cvt=0.013, bld=0.000); cpu 0.000 s on 1 threads; allocated 14.898 MB
+#RUN test=alu_flags_lint stage=lint exit=0 elapsed_s=0.068 timed_out=false output_truncated=false
+#RUN regression=rtl_lint end tests=2 finished_utc=2026-10-26T03:40:32+00:00

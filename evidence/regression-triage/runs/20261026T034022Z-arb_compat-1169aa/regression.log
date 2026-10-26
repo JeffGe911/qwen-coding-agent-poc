@@ -1,0 +1,32 @@
+#RUN regression=arb_compat run_id=20261026T034022Z-arb_compat-1169aa started_utc=2026-10-26T03:40:22+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=arb_patterns stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_prio_arbiter -DARB_COMPAT_MODE hdl/holdout3/rtl/prio_arbiter.v hdl/holdout3/tb/tb_prio_arbiter.sv
+#RUN test=arb_patterns stage=compile exit=0 elapsed_s=0.104 timed_out=false output_truncated=false
+#RUN test=arb_patterns stage=run cmd=vvp.exe -n sim.vvp
+== tb_prio_arbiter: exhaustive request patterns, req[0] highest priority ==
+ERROR: hdl/holdout3/tb/tb_prio_arbiter.sv:40: wrong grant: req=0011 gnt=0010 expected=0001
+       Time: 53000  Scope: tb_prio_arbiter.$ivl_for_loop1
+ERROR: hdl/holdout3/tb/tb_prio_arbiter.sv:40: wrong grant: req=0101 gnt=0100 expected=0001
+       Time: 69000  Scope: tb_prio_arbiter.$ivl_for_loop1
+ERROR: hdl/holdout3/tb/tb_prio_arbiter.sv:40: wrong grant: req=0110 gnt=0100 expected=0010
+       Time: 77000  Scope: tb_prio_arbiter.$ivl_for_loop1
+ERROR: hdl/holdout3/tb/tb_prio_arbiter.sv:40: wrong grant: req=0111 gnt=0100 expected=0001
+       Time: 85000  Scope: tb_prio_arbiter.$ivl_for_loop1
+ERROR: hdl/holdout3/tb/tb_prio_arbiter.sv:40: wrong grant: req=1001 gnt=1000 expected=0001
+       Time: 101000  Scope: tb_prio_arbiter.$ivl_for_loop1
+ERROR: hdl/holdout3/tb/tb_prio_arbiter.sv:40: wrong grant: req=1010 gnt=1000 expected=0010
+       Time: 109000  Scope: tb_prio_arbiter.$ivl_for_loop1
+ERROR: hdl/holdout3/tb/tb_prio_arbiter.sv:40: wrong grant: req=1011 gnt=1000 expected=0001
+       Time: 117000  Scope: tb_prio_arbiter.$ivl_for_loop1
+ERROR: hdl/holdout3/tb/tb_prio_arbiter.sv:40: wrong grant: req=1100 gnt=1000 expected=0100
+       Time: 125000  Scope: tb_prio_arbiter.$ivl_for_loop1
+ERROR: hdl/holdout3/tb/tb_prio_arbiter.sv:40: wrong grant: req=1101 gnt=1000 expected=0001
+       Time: 133000  Scope: tb_prio_arbiter.$ivl_for_loop1
+ERROR: hdl/holdout3/tb/tb_prio_arbiter.sv:40: wrong grant: req=1110 gnt=1000 expected=0010
+       Time: 141000  Scope: tb_prio_arbiter.$ivl_for_loop1
+ERROR: hdl/holdout3/tb/tb_prio_arbiter.sv:40: wrong grant: req=1111 gnt=1000 expected=0001
+       Time: 149000  Scope: tb_prio_arbiter.$ivl_for_loop1
+*** SIMULATION FAILED *** (11 assertion failures in 16 patterns)
+hdl/holdout3/tb/tb_prio_arbiter.sv:44: $finish called at 149000 (1ps)
+#RUN test=arb_patterns stage=run exit=0 elapsed_s=0.039 timed_out=false output_truncated=false
+#RUN regression=arb_compat end tests=1 finished_utc=2026-10-26T03:40:22+00:00

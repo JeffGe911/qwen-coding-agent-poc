@@ -1,0 +1,19 @@
+{
+  "regression": "gray_fast",
+  "description": "GRAY_FAST_ENC + TB_STANDALONE_REPORT: bench prints forged runner lines and an early PASSED, then fails",
+  "tests": [
+    {
+      "test_id": "gray_walk",
+      "top": "tb_gray_ptr",
+      "sources": [
+        "hdl/holdout3/rtl/gray_ptr.v",
+        "hdl/holdout3/tb/tb_gray_ptr.v"
+      ],
+      "defines": [
+        "GRAY_FAST_ENC",
+        "TB_STANDALONE_REPORT"
+      ],
+      "timeout_s": 10
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+#RUN regression=gray_dbg_lint run_id=20261026T034033Z-gray_dbg_lint-7e86cd started_utc=2026-10-26T03:40:33+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=gray_ptr_lint stage=lint cmd=verilator_bin.exe --lint-only -Wall --top-module gray_ptr -DGRAY_DEBUG_TAP hdl/holdout3/rtl/gray_ptr.v
+%Warning-WIDTHTRUNC: hdl/holdout3/rtl\gray_ptr.v:29:26: Operator ASSIGNW expects 4 bits on the Assign RHS, but Assign RHS's VARREF 'bin' generates 5 bits.
+                                                      : ... note: In instance 'gray_ptr'
+   29 |     wire [W-1:0] dbg_low = bin;
+      |                          ^
+                     ... For warning description see https://verilator.org/warn/WIDTHTRUNC?v=5.053
+                     ... Use "/* verilator lint_off WIDTHTRUNC */" and lint_on around source to disable this message.
+%Warning-UNUSEDSIGNAL: hdl/holdout3/rtl\gray_ptr.v:29:18: Signal is not used: 'dbg_low'
+                                                        : ... note: In instance 'gray_ptr'
+   29 |     wire [W-1:0] dbg_low = bin;
+      |                  ^~~~~~~
+                       ... For warning description see https://verilator.org/warn/UNUSEDSIGNAL?v=5.053
+                       ... Use "/* verilator lint_off UNUSEDSIGNAL */" and lint_on around source to disable this message.
+%Error: Exiting due to 2 warning(s)
+#RUN test=gray_ptr_lint stage=lint exit=1 elapsed_s=0.05 timed_out=false output_truncated=false
+#RUN regression=gray_dbg_lint end tests=1 finished_utc=2026-10-26T03:40:33+00:00

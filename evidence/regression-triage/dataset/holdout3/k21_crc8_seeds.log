@@ -1,0 +1,36 @@
+#RUN regression=crc8_seeds run_id=20261026T034040Z-crc8_seeds-c1f477 started_utc=2026-10-26T03:40:40+00:00 host_os=Windows
+#RUN tools iverilog="Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)" verilator="Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+#RUN test=crc8_seed1 stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_crc8 -DCRC_POLY_ALT hdl/holdout3/rtl/crc8.v hdl/holdout3/tb/tb_crc8.v
+#RUN test=crc8_seed1 stage=compile exit=0 elapsed_s=0.111 timed_out=false output_truncated=false
+#RUN test=crc8_seed1 stage=run cmd=vvp.exe -n sim.vvp +SEED=1
+tb_crc8: start seed=1 blocks=4
+tb_crc8: KAT crc=0x01 (reference 0xf4, published check value 0xf4)
+ERROR: [211000] tb_crc8 KAT mismatch: crc=0x01 expected=0xf4
+ERROR: [251000] tb_crc8 block 0 (1 bytes): crc=0xd8 expected=0xa8
+ERROR: [411000] tb_crc8 block 1 (7 bytes): crc=0x10 expected=0x1b
+ERROR: [591000] tb_crc8 block 2 (8 bytes): crc=0x65 expected=0xb8
+ERROR: [811000] tb_crc8 block 3 (10 bytes): crc=0x27 expected=0xb1
+TEST FAILED: tb_crc8 (5 mismatches)
+hdl/holdout3/tb/tb_crc8.v:100: $finish called at 811000 (1ps)
+#RUN test=crc8_seed1 stage=run exit=0 elapsed_s=0.052 timed_out=false output_truncated=false
+#RUN test=gray_walk stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_gray_ptr hdl/holdout3/rtl/gray_ptr.v hdl/holdout3/tb/tb_gray_ptr.v
+#RUN test=gray_walk stage=compile exit=0 elapsed_s=0.082 timed_out=false output_truncated=false
+#RUN test=gray_walk stage=run cmd=vvp.exe -n sim.vvp
+tb_gray_ptr: W=4, 64 increments (two full wraps)
+== tb_gray_ptr: 64 checks, 0 failures == PASSED
+hdl/holdout3/tb/tb_gray_ptr.v:61: $finish called at 656000 (1ps)
+#RUN test=gray_walk stage=run exit=0 elapsed_s=0.035 timed_out=false output_truncated=false
+#RUN test=crc8_seed7 stage=compile cmd=iverilog.exe -g2012 -o sim.vvp -s tb_crc8 -DCRC_POLY_ALT hdl/holdout3/rtl/crc8.v hdl/holdout3/tb/tb_crc8.v
+#RUN test=crc8_seed7 stage=compile exit=0 elapsed_s=0.085 timed_out=false output_truncated=false
+#RUN test=crc8_seed7 stage=run cmd=vvp.exe -n sim.vvp +SEED=7
+tb_crc8: start seed=7 blocks=4
+tb_crc8: KAT crc=0x01 (reference 0xf4, published check value 0xf4)
+ERROR: [211000] tb_crc8 KAT mismatch: crc=0x01 expected=0xf4
+ERROR: [251000] tb_crc8 block 0 (1 bytes): crc=0xb6 expected=0xad
+ERROR: [491000] tb_crc8 block 1 (11 bytes): crc=0xc4 expected=0xbb
+ERROR: [791000] tb_crc8 block 2 (14 bytes): crc=0xac expected=0x84
+ERROR: [831000] tb_crc8 block 3 (1 bytes): crc=0x20 expected=0x67
+TEST FAILED: tb_crc8 (5 mismatches)
+hdl/holdout3/tb/tb_crc8.v:100: $finish called at 831000 (1ps)
+#RUN test=crc8_seed7 stage=run exit=0 elapsed_s=0.041 timed_out=false output_truncated=false
+#RUN regression=crc8_seeds end tests=3 finished_utc=2026-10-26T03:40:40+00:00

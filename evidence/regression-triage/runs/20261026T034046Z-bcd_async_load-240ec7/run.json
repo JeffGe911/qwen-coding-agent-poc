@@ -1,0 +1,71 @@
+{
+  "run_id": "20261026T034046Z-bcd_async_load-240ec7",
+  "regression": "bcd_async_load",
+  "manifest": "hdl/regressions/holdout3/k30_bcd_async_load.json",
+  "manifest_sha256": "844bd3567a455ea5d30c23db2fb3cc37081771827961c4d2ff9b74ac37f8ebd1",
+  "started_utc": "2026-10-26T03:40:46+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "bcd_lint",
+      "defines": [
+        "BCD_ASYNC_LOAD"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout3/rtl/bcd_counter.v": "af2e7783ddde4b7a41e6c2b4a4fb0af583c34b4e660c156064b3211cb8374050"
+      },
+      "stages": [
+        {
+          "stage": "lint",
+          "cmd": "verilator_bin.exe --lint-only -Wall --top-module bcd_counter -DBCD_ASYNC_LOAD hdl/holdout3/rtl/bcd_counter.v",
+          "exit_code": 1,
+          "timed_out": false,
+          "elapsed_s": 0.058,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 5
+        }
+      ]
+    },
+    {
+      "test_id": "bcd_count",
+      "defines": [
+        "BCD_ASYNC_LOAD"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout3/rtl/bcd_counter.v": "af2e7783ddde4b7a41e6c2b4a4fb0af583c34b4e660c156064b3211cb8374050",
+        "hdl/holdout3/tb/tb_bcd_counter.v": "2e1d9c86039fde2497bfbaf829ddba1359e2dfc29e0d567313e600d6316c2f99"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_bcd_counter -DBCD_ASYNC_LOAD hdl/holdout3/rtl/bcd_counter.v hdl/holdout3/tb/tb_bcd_counter.v",
+          "exit_code": 2,
+          "timed_out": false,
+          "elapsed_s": 0.114,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 2
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-26T03:40:46+00:00"
+}

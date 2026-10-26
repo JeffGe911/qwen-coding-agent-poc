@@ -1,0 +1,59 @@
+{
+  "run_id": "20261026T034023Z-clkdiv_gf-ffb89b",
+  "regression": "clkdiv_gf",
+  "manifest": "hdl/regressions/holdout3/k05_clkdiv_gf.json",
+  "manifest_sha256": "bfec7a0eb3446ddafa1c500a8760029eb0f55a667ef2d631559a856c738d191a",
+  "started_utc": "2026-10-26T03:40:23+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "clkdiv_div3",
+      "defines": [
+        "DIV_GLITCHFREE"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout3/rtl/clk_div.v": "990c7f3e12a549e29bc626c3ff72ab8e1620254047f6f2c9743ff4b010ac16b1",
+        "hdl/holdout3/tb/tb_clk_div.v": "706c33eb5258f4d14c2711ae8a931d307a53183136f730a219ec6826191d84c2"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_clk_div -DDIV_GLITCHFREE hdl/holdout3/rtl/clk_div.v hdl/holdout3/tb/tb_clk_div.v",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.141,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.049,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 4
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-26T03:40:23+00:00"
+}

@@ -1,0 +1,26 @@
+{
+  "regression": "misc_smoke",
+  "description": "two clean passes whose test names contain alarming words",
+  "tests": [
+    {
+      "test_id": "clkdiv_timeout_recovery",
+      "top": "tb_clk_div",
+      "sources": [
+        "hdl/holdout3/rtl/clk_div.v",
+        "hdl/holdout3/tb/tb_clk_div.v"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    },
+    {
+      "test_id": "alu_flags_overflow_errors",
+      "top": "tb_alu_flags",
+      "sources": [
+        "hdl/holdout3/rtl/alu_flags.v",
+        "hdl/holdout3/tb/tb_alu_flags.v"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    }
+  ]
+}

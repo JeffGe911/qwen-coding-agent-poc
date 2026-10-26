@@ -1,0 +1,60 @@
+{
+  "run_id": "20261026T034034Z-alu_fastflags-66c128",
+  "regression": "alu_fastflags",
+  "manifest": "hdl/regressions/holdout3/k14_alu_fastflags.json",
+  "manifest_sha256": "1da69e935a48e14a45b01a0320ccaaa9cb1ff01c4c614df01901b673fb92aee1",
+  "started_utc": "2026-10-26T03:40:34+00:00",
+  "host": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.4"
+  },
+  "tools": {
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-664-g9cfecc9c9-dirty)"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-567-g0041d207c (mod)"
+    ]
+  },
+  "eda_root": "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\tools\\oss-cad-suite-20261024\\oss-cad-suite",
+  "tests": [
+    {
+      "test_id": "alu_flags_stop",
+      "defines": [
+        "ALU_FAST_FLAGS",
+        "STOP_ON_FIRST"
+      ],
+      "plusargs": [],
+      "sources_sha256": {
+        "hdl/holdout3/rtl/alu_flags.v": "233bc1de3cea14dc172c47198b736c720b5e8cd12d60439f7e8b6ce8b05f2f1b",
+        "hdl/holdout3/tb/tb_alu_flags.v": "57f073f2bc902fdf0f8245da907b806f883061fe38af050a5f5e613f689e0719"
+      },
+      "stages": [
+        {
+          "stage": "compile",
+          "cmd": "iverilog.exe -g2012 -o sim.vvp -s tb_alu_flags -DALU_FAST_FLAGS -DSTOP_ON_FIRST hdl/holdout3/rtl/alu_flags.v hdl/holdout3/tb/tb_alu_flags.v",
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 0.085,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 0
+        },
+        {
+          "stage": "run",
+          "cmd": "vvp.exe -n sim.vvp",
+          "exit_code": 1,
+          "timed_out": false,
+          "elapsed_s": 0.048,
+          "output_truncated": false,
+          "escaped_annotation_lines": 0,
+          "output_lines": 3
+        }
+      ]
+    }
+  ],
+  "finished_utc": "2026-10-26T03:40:34+00:00"
+}

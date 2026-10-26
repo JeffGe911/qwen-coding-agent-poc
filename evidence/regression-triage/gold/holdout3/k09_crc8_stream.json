@@ -1,0 +1,14 @@
+{
+  "sample_id": "k09_crc8_stream",
+  "log_status": "complete",
+  "tests": {
+    "crc8_kat": {
+      "result": "not_run",
+      "category": "compile_error",
+      "side": "design_or_test",
+      "evidence_lines": [
+        4
+      ]
+    }
+  }
+}

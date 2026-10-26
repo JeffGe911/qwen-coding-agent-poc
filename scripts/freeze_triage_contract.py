@@ -42,7 +42,7 @@ def main():
     if subprocess.run(["git", "status", "--porcelain", "--", *CODE], cwd=ROOT, capture_output=True, text=True).stdout.strip():
         raise SystemExit("commit the triage code first: a contract must point at a commit that contains exactly the hashed code")
     dataset = {}
-    for split in ("dev", "holdout", "holdout2"):
+    for split in ("dev", "holdout", "holdout2", "holdout3"):
         if not (EV / "dataset" / f"{split}-manifest.json").exists():
             continue
         manifest = json.loads((EV / "dataset" / f"{split}-manifest.json").read_text(encoding="utf-8"))

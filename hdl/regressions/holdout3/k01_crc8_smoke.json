@@ -1,0 +1,16 @@
+{
+  "regression": "crc8_smoke",
+  "description": "CRC-8 known-answer + random blocks, clean RTL (expected pass)",
+  "tests": [
+    {
+      "test_id": "crc8_kat",
+      "top": "tb_crc8",
+      "sources": [
+        "hdl/holdout3/rtl/crc8.v",
+        "hdl/holdout3/tb/tb_crc8.v"
+      ],
+      "defines": [],
+      "timeout_s": 10
+    }
+  ]
+}
