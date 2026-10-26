@@ -1,0 +1,16 @@
+{
+  "started_utc": "2026-10-26T06:47:47+00:00",
+  "command": [
+    "C:\\Users\\Jeff1\\Documents\\Codex\\2026-10-23\\qwen-coding-agent-poc-ollama-vllm\\work\\.venv\\Scripts\\python.exe",
+    "-u",
+    "-m",
+    "doc_qa",
+    "eval",
+    "--contract",
+    "evidence/doc-qa/contract/qa-v1.json",
+    "--split",
+    "dev",
+    "--unload"
+  ],
+  "cwd": "."
+}

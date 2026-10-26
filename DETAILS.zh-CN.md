@@ -1,6 +1,6 @@
 # Qwen Coding Agent PoC（详细版）
 
-> 这是按轮次记录的详细说明。简要介绍见 [README.md](README.md)。
+> 这是按轮次保留的历史记录，各节日期对应当时状态。当前展示请先看 [README.md](README.md)、[一页说明](CEO_ONE_PAGER.md) 和 [RAG 运行记录](evidence/doc-qa/REPORT.md)。
 
 单机可运行的小型 Coding Agent：**本地 Qwen API → pytest 失败基线 → 单文件修复提案 → 策略校验与差异 → 人工审批 → 受限执行 pytest → 审计记录**。同一个本地模型 API 还用于芯片测试数据分析和日常工程自动化（见“芯片数据分析”一节）。不做通用 Agent 平台。
 

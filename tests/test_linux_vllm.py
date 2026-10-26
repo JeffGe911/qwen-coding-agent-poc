@@ -76,11 +76,16 @@ def acceptance(tmp_path, free_mb=8000, gpu_used=300, confirm="yes", key=KEY, lea
     }
     for name, body in stubs.items():
         (bin_dir / name).write_text(f"#!/usr/bin/env bash\n{body}\n", encoding="utf-8", newline="\n")
+        (bin_dir / name).chmod(0o755)
     env_file = tmp_path / "test.env"
     env_file.write_text(f"VLLM_API_KEY={key}\nVLLM_IMAGE=vllm/vllm-openai:v0.32.0@sha256:{'0' * 64}\nHOST_PORT=18999\n", encoding="utf-8", newline="\n")
     env = {**os.environ, "PATH": str(bin_dir) + os.pathsep + os.environ["PATH"], "ENV_FILE": env_file.as_posix(), "EVID_ROOT": evid.as_posix(),
            "QWEN_VLLM_CONFIRM": confirm}
-    p = subprocess.run([shutil.which("bash"), str(DEPLOY / "acceptance.sh")], env=env, capture_output=True, text=True, timeout=60)
+    # Git for Windows may prepend its own tools while starting bash. Add the stubs inside
+    # the shell, after startup, so this test can never fall through to real docker/GPU tools.
+    harness = 'stub=$1; shift; if command -v cygpath >/dev/null 2>&1; then stub=$(cygpath -u "$stub"); fi; export PATH="$stub:$PATH"; source "$1"'
+    script = (DEPLOY / "acceptance.sh").as_posix()
+    p = subprocess.run([shutil.which("bash"), "-c", harness, script, bin_dir.as_posix(), script], env=env, capture_output=True, text=True, timeout=60)
     docker_calls = Path(calls).read_text(encoding="utf-8") if Path(calls).exists() else ""
     files = {f.name: f.read_text(encoding="utf-8") for f in evid.rglob("*") if f.is_file()} if evid.exists() else {}
     return p, docker_calls, files

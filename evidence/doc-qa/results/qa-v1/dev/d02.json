@@ -1,0 +1,141 @@
+{
+ "question": {
+  "id": "d02",
+  "question": "Verilator 里怎么只对某几行代码关闭一个 lint 警告？",
+  "language": "zh",
+  "answerable": true,
+  "gold_facts": [
+   "lint_off",
+   "lint_on"
+  ],
+  "gold_sources": [
+   {
+    "file": "knowledge/verilator/docs/guide/warnings.rst",
+    "lines": [
+     24,
+     38
+    ]
+   }
+  ],
+  "notes": "metacomment pair"
+ },
+ "record": {
+  "question": "Verilator 里怎么只对某几行代码关闭一个 lint 警告？",
+  "language": "zh",
+  "prompt_version": "docqa-prompt-v1",
+  "prompt_sha256": "3397753408c3999e76966ec33bc247fd5579e1b94635575dc630fe4442a95ebd",
+  "backend": "ollama-r2",
+  "retrieved": [
+   {
+    "chunk_id": "verilator:docs/guide/control.rst:205",
+    "file": "knowledge/verilator/docs/guide/control.rst",
+    "lines": [
+     205,
+     220
+    ],
+    "dense": 0.7009,
+    "bm25": 5.184
+   },
+   {
+    "chunk_id": "verilator:docs/guide/warnings.rst:585",
+    "file": "knowledge/verilator/docs/guide/warnings.rst",
+    "lines": [
+     585,
+     619
+    ],
+    "dense": 0.6562,
+    "bm25": 4.799
+   },
+   {
+    "chunk_id": "verilator:docs/guide/warnings.rst:152",
+    "file": "knowledge/verilator/docs/guide/warnings.rst",
+    "lines": [
+     152,
+     198
+    ],
+    "dense": 0.6494,
+    "bm25": 4.887
+   },
+   {
+    "chunk_id": "verilator:docs/guide/warnings.rst:1366",
+    "file": "knowledge/verilator/docs/guide/warnings.rst",
+    "lines": [
+     1366,
+     1407
+    ],
+    "dense": 0.686,
+    "bm25": 4.32
+   },
+   {
+    "chunk_id": "verilator:docs/guide/exe_verilator.rst:2213",
+    "file": "knowledge/verilator/docs/guide/exe_verilator.rst",
+    "lines": [
+     2213,
+     2235
+    ],
+    "dense": 0.6705,
+    "bm25": 4.548
+   },
+   {
+    "chunk_id": "verilator:docs/guide/warnings.rst:477",
+    "file": "knowledge/verilator/docs/guide/warnings.rst",
+    "lines": [
+     477,
+     508
+    ],
+    "dense": 0.6337,
+    "bm25": 5.134
+   }
+  ],
+  "max_tokens": 700,
+  "request_chars": 8961,
+  "seconds": 1.684,
+  "usage": {
+   "prompt_tokens": 2080,
+   "prompt_tokens_details": {
+    "cached_tokens": 191
+   },
+   "completion_tokens": 106,
+   "total_tokens": 2186
+  },
+  "finish_reason": "stop",
+  "status": "ok",
+  "problems": [],
+  "shown": {
+   "found": true,
+   "answer": "使用 `-Wno-lint` 和 `-line <line_number>` 选项来关闭特定行的 lint 警告。",
+   "citations": [
+    {
+     "source": "S1",
+     "quote": "Enable/disables the specified lint warning, in the specified filename (or wildcard with '\\*' or '?', or all files if omitted) and range of line numbers (or all lines if omitted).",
+     "file": "knowledge/verilator/docs/guide/control.rst",
+     "section": "Verilator Control Files",
+     "lines": [
+      205,
+      220
+     ],
+     "url": "https://github.com/verilator/verilator/blob/ea338be98e1e838d3518809ce8899f85a009963c/docs/guide/control.rst#L205-L220",
+     "chunk_id": "verilator:docs/guide/control.rst:205"
+    }
+   ],
+   "model_found": true,
+   "model_answer": "使用 `-Wno-lint` 和 `-line <line_number>` 选项来关闭特定行的 lint 警告。",
+   "rejected_citations": []
+  }
+ },
+ "score": {
+  "id": "d02",
+  "language": "zh",
+  "answerable": true,
+  "status": "ok",
+  "found": true,
+  "citations_given": 1,
+  "citations_valid": 1,
+  "seconds": 1.684,
+  "facts_found": 0,
+  "facts_total": 2,
+  "correct": false,
+  "supported": false,
+  "retrieval_hit": false
+ }
+}

@@ -1,0 +1,10 @@
+{
+  "utc": "2026-10-26T06:48:03+00:00",
+  "unloaded": [
+    "qwen2.5-coder:7b"
+  ],
+  "errors": [],
+  "after": {
+    "models": []
+  }
+}

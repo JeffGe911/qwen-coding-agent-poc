@@ -1,19 +1,20 @@
 # Local LLM for chip-verification workflows (PoC)
 
-A small, single-machine proof of concept: a local Qwen2.5-Coder 7B, served on a laptop GPU, used for two chip-verification
-chores. Every number below is computed from raw evidence in this repo, and failures are reported as failures.
+A small, single-machine proof of concept: a local Qwen2.5-Coder 7B, served on a laptop GPU, used for chip-verification workflows and local document questions. Every number below is computed from raw evidence in this repo, and failures are reported as failures.
 
 1. **Regression-log triage**: read a simulation regression log, classify every test (pass, compile error, test failure,
    timeout, tool problem, incomplete log, unknown), cite the exact log lines, and suggest a next step. Suggestions are
    shown only; nothing is executed.
 2. **Coding agent**: propose a one-file fix for a failing Python task. A person approves the proposal, and only then is it
    run against frozen tests in a restricted executor.
+3. **Local document QA (RAG)**: retrieve from pinned public lowRISC, Icarus and Verilator documents with local bge-m3
+   plus BM25, answer with Qwen, and check quotations against the retrieved passages.
 
 中文详细说明（含每一轮的过程、审批记录与排障）：[DETAILS.zh-CN.md](DETAILS.zh-CN.md)
 
 ## Results (measured)
 
-**Log triage on an independently built blind set** (holdout2: 32 logs from real Icarus Verilog / Verilator runs plus
+**Log triage on an independently built blind set** (holdout2: 32 logs from real Icarus simulations, Verilator lint runs, and
 labelled synthetic cases, 45 tests). Built and labelled by a separate session that never saw the engines; the code was
 frozen before it was handed over, and each engine ran on it once.
 
@@ -23,9 +24,9 @@ frozen before it was handed over, and each engine ran on it once.
 | Qwen 7B only | 31 / 45 | **2** | 3 / 27 | 93 / 97 |
 | **Rules first, guarded Qwen where rules are unsure** | **33 / 45** | **0** | 5 / 27 | 87 / 87 |
 
-- The rules never pass a failing test, but they only understand the verdict wording they were written for. On another
+- The rules produced no false passes in these measured sets, but only understand the verdict wording they were written for. On another
   team's testbenches they mostly answer "unknown".
-- The model covers unfamiliar wording, but on logs with no verdict line it twice reported "pass". The guard enforces the
+- The model covers unfamiliar wording, but reported "pass" for an unverified completion and a truncated log. The guard enforces the
   rule in code instead of in the prompt: a pass must cite a verdict line, and the runner must have recorded a clean end
   of the run.
 - **Coding agent:** a report-pass-rate bug was fixed after human approval, passing 21/21 tests, 12 of which were never
@@ -34,6 +35,22 @@ frozen before it was handed over, and each engine ran on it once.
 - **Serving issues found from server logs:**
   - a 4K context silently truncated prompts (llama.cpp context shift) while the API still returned `stop`;
   - a 10× generation slowdown was the laptop running on battery under a 33 W GPU power cap.
+
+## Local document QA (RAG)
+
+The knowledge base contains **674 passages** from pinned public chip-design and simulator documents. Retrieval combines
+local **bge-m3 embeddings + BM25** with reciprocal-rank fusion; **Qwen2.5-Coder 7B** answers from the six retrieved passages.
+The output links to a source file, section and line range. A quotation must occur in the retrieved text before it is shown.
+An existing quotation does **not** prove that the model's answer follows from it.
+
+Two real dev answers and their raw responses are saved: one matches the frozen answer-token check, while the second
+gives a wrong option combination despite quoting real documentation. The run stopped when system commit headroom
+crossed the existing 2 GiB stop threshold; the models were unloaded. This is a partial development run, **not a full
+accuracy result**; the independent 40-question set has not been run.
+
+- [RAG run report and examples](evidence/doc-qa/REPORT.md)
+- `python scripts/show_doc_qa.py` replays both saved answers, scores and citations without loading a model.
+- [Knowledge-base sources and interactive usage](docs/LOCAL_DOC_QA.md)
 
 ## How results are kept honest
 
@@ -55,17 +72,23 @@ frozen before it was handed over, and each engine ran on it once.
 | Area | State |
 |---|---|
 | Local serving on Windows (Ollama, Qwen2.5-Coder 7B Q4_K_M, RTX 5070 Ti Laptop 12 GB) | Measured: release manifests, layered health checks, a config change with restore |
-| Regression triage: rules, Qwen, hybrid; 4 dataset splits | Measured (reports: [eval-v4](evidence/regression-triage/REPORT-eval-v4.md), [eval-v3](evidence/regression-triage/REPORT-eval-v3.md)) |
+| Regression triage: rules, Qwen, hybrid | Three splits measured; fourth split reserved (reports: [eval-v4](evidence/regression-triage/REPORT-eval-v4.md), [eval-v3](evidence/regression-triage/REPORT-eval-v3.md)) |
 | Hybrid v2 + per-test output budget (fixes found on holdout2) | Code and unit tests only; blind run on holdout3 pending |
-| Linux + Docker + vLLM migration | **Not run.** Deployment kit, 8-check acceptance script and migration script are written and statically tested ([deploy/linux-vllm/](deploy/linux-vllm/)); WSL2 is installed on the laptop, nothing deployed |
+| Server deployment kit | Docker/vLLM configuration, eight acceptance checks and migration scripts are available in [deploy/linux-vllm/](deploy/linux-vllm/). The running demo uses Windows + Ollama; WSL2 is installed. |
+| Local document QA | Public corpus and local index built; two real Qwen answers saved, resource stop and cleanup recorded ([report](evidence/doc-qa/REPORT.md)) |
 
 Laptop numbers are single-user and single-GPU, and are not extrapolated to servers.
 
 ## Try it
 
+Clone this repository and run commands from its root; the examples use the bundled data and evidence.
+
 ```bash
 python -m pip install -r requirements-lock.txt    # test dependencies; the code itself uses only the standard library
 python -m pytest -q                               # unit and integration tests (simulator tests skip if it is absent)
+
+# Replay the saved RAG answers: no model, GPU or simulator needed
+python scripts/show_doc_qa.py
 
 # Rule-based triage of a bundled log: no model and no simulator needed
 python -m regression_triage triage dataset/dev/d07_mixed.log --root evidence/regression-triage --out out --engine rules
@@ -82,6 +105,7 @@ python -m regression_triage demo --out out/demo
 
 | Path | What |
 |---|---|
+| `doc_qa/`, `knowledge/` | local document retrieval, answers with checked quotations, public corpus and pinned index |
 | `regression_triage/` | restricted simulator runner, rules, model client, guards and hybrid, scorer, report |
 | `qwen_agent/`, `qwen_ops/` | coding agent with human approval; service operations (health, releases, log scan) |
 | `hdl/` | small self-written RTL and testbenches with injected defects (no company data) |

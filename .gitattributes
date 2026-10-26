@@ -7,3 +7,8 @@
 evidence/regression-triage/** -text
 # Knowledge-base documents are stored exactly as published (hashed in knowledge/MANIFEST.json).
 knowledge/** -text
+
+# RAG contracts, raw responses and resource sessions retain their original bytes.
+evidence/doc-qa/** -text
+# The evaluator progress output can contain a trailing space; retain that raw output.
+evidence/doc-qa/sessions/** -whitespace

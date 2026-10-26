@@ -1,0 +1,5 @@
+........................................................................ [ 38%]
+........................................................................ [ 77%]
+...........................................                              [100%]
+- generated xml file: C:\Users\Jeff1\Documents\Codex\2026-10-23\qwen-coding-agent-poc-ollama-vllm\work\qwen-showcase-rag\evidence\verification\showcase-tests.xml -
+187 passed in 51.56s

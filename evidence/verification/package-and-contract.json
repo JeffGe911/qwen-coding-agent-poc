@@ -1,0 +1,12 @@
+{
+  "wheel_modules": {
+    "qwen_agent": true,
+    "chip_analysis": true,
+    "qwen_ops": true,
+    "regression_triage": true,
+    "doc_qa": true
+  },
+  "wheel_sha256": "b9190688ba5c70bf444f55d41d28878f13ca4071fef15f59a991f00dbaf03140",
+  "frozen_qa_v1_code_changed": [],
+  "note": "Wheel contains Python modules; public examples require a repository checkout for corpus, index, configs and evidence. This check did not load a model."
+}

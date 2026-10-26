@@ -1,0 +1,25 @@
+{
+ "id": "chatcmpl-986",
+ "object": "chat.completion",
+ "created": 1792997282,
+ "model": "qwen2.5-coder:7b",
+ "system_fingerprint": "fp_ollama",
+ "choices": [
+  {
+   "index": 0,
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"found\": true,\n  \"answer\": \"使用 `-Wno-lint` 和 `-line <line_number>` 选项来关闭特定行的 lint 警告。\",\n  \"citations\": [\n    {\n      \"source\": \"S1\",\n      \"quote\": \"Enable/disables the specified lint warning, in the specified filename (or wildcard with '\\\\*' or '?', or all files if omitted) and range of line numbers (or all lines if omitted).\"\n    }\n  ]\n}"
+   },
+   "finish_reason": "stop"
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 2080,
+  "prompt_tokens_details": {
+   "cached_tokens": 191
+  },
+  "completion_tokens": 106,
+  "total_tokens": 2186
+ }
+}

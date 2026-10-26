@@ -1,0 +1,17 @@
+{
+  "utc": "2026-10-26T06:47:47+00:00",
+  "memory": {
+    "total_mb": 32129,
+    "available_mb": 7059,
+    "commit_limit_mb": 47524,
+    "commit_headroom_mb": 8715
+  },
+  "gpu": {
+    "vram_used_mb": 0,
+    "vram_total_mb": 12227,
+    "vram_free_mb": 12227,
+    "gpu_util_pct": 0,
+    "gpu_temp_c": 41
+  },
+  "ac_power": true
+}

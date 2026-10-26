@@ -1,0 +1,15 @@
+{
+  "finished_utc": "2026-10-26T06:48:03+00:00",
+  "seconds": 16.02,
+  "exit_code": 1,
+  "aborted": {
+    "utc": "2026-10-26T06:48:03+00:00",
+    "reason": "existing memory stop threshold reached",
+    "memory": {
+      "total_mb": 32129,
+      "available_mb": 6066,
+      "commit_limit_mb": 47524,
+      "commit_headroom_mb": 2041
+    }
+  }
+}

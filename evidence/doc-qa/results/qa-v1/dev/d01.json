@@ -1,0 +1,140 @@
+{
+ "question": {
+  "id": "d01",
+  "question": "How do I turn off one Verilator warning for the whole run?",
+  "language": "en",
+  "answerable": true,
+  "gold_facts": [
+   "-Wno-"
+  ],
+  "gold_sources": [
+   {
+    "file": "knowledge/verilator/docs/guide/warnings.rst",
+    "lines": [
+     14,
+     22
+    ]
+   }
+  ],
+  "notes": "global disable"
+ },
+ "record": {
+  "question": "How do I turn off one Verilator warning for the whole run?",
+  "language": "en",
+  "prompt_version": "docqa-prompt-v1",
+  "prompt_sha256": "3397753408c3999e76966ec33bc247fd5579e1b94635575dc630fe4442a95ebd",
+  "backend": "ollama-r2",
+  "retrieved": [
+   {
+    "chunk_id": "verilator:docs/guide/exe_verilator.rst:2144",
+    "file": "knowledge/verilator/docs/guide/exe_verilator.rst",
+    "lines": [
+     2144,
+     2171
+    ],
+    "dense": 0.6729,
+    "bm25": 9.825
+   },
+   {
+    "chunk_id": "verilator:docs/guide/warnings.rst:2462",
+    "file": "knowledge/verilator/docs/guide/warnings.rst",
+    "lines": [
+     2462,
+     2488
+    ],
+    "dense": 0.6432,
+    "bm25": 8.878
+   },
+   {
+    "chunk_id": "verilator:docs/guide/warnings.rst:152",
+    "file": "knowledge/verilator/docs/guide/warnings.rst",
+    "lines": [
+     152,
+     198
+    ],
+    "dense": 0.6244,
+    "bm25": 9.219
+   },
+   {
+    "chunk_id": "verilator:docs/guide/warnings.rst:11",
+    "file": "knowledge/verilator/docs/guide/warnings.rst",
+    "lines": [
+     11,
+     38
+    ],
+    "dense": 0.6755,
+    "bm25": 5.425
+   },
+   {
+    "chunk_id": "verilator:docs/guide/faq.rst:329",
+    "file": "knowledge/verilator/docs/guide/faq.rst",
+    "lines": [
+     329,
+     334
+    ],
+    "dense": 0.5102,
+    "bm25": 17.866
+   },
+   {
+    "chunk_id": "verilator:docs/guide/faq.rst:290",
+    "file": "knowledge/verilator/docs/guide/faq.rst",
+    "lines": [
+     290,
+     306
+    ],
+    "dense": 0.497,
+    "bm25": 17.499
+   }
+  ],
+  "max_tokens": 700,
+  "request_chars": 8526,
+  "seconds": 6.048,
+  "usage": {
+   "prompt_tokens": 1923,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens": 88,
+   "total_tokens": 2011
+  },
+  "finish_reason": "stop",
+  "status": "ok",
+  "problems": [],
+  "shown": {
+   "found": true,
+   "answer": "Use the -Wno-<message> option to disable a specific warning for the whole run.",
+   "citations": [
+    {
+     "source": "S1",
+     "quote": "Disable the specified warning/error message. This will override any lint_on directives in the source, i.e., the warning will still not be printed.",
+     "file": "knowledge/verilator/docs/guide/exe_verilator.rst",
+     "section": "verilator Arguments",
+     "lines": [
+      2144,
+      2171
+     ],
+     "url": "https://github.com/verilator/verilator/blob/ea338be98e1e838d3518809ce8899f85a009963c/docs/guide/exe_verilator.rst#L2144-L2171",
+     "chunk_id": "verilator:docs/guide/exe_verilator.rst:2144"
+    }
+   ],
+   "model_found": true,
+   "model_answer": "Use the -Wno-<message> option to disable a specific warning for the whole run.",
+   "rejected_citations": []
+  }
+ },
+ "score": {
+  "id": "d01",
+  "language": "en",
+  "answerable": true,
+  "status": "ok",
+  "found": true,
+  "citations_given": 1,
+  "citations_valid": 1,
+  "seconds": 6.048,
+  "facts_found": 1,
+  "facts_total": 1,
+  "correct": true,
+  "supported": false,
+  "retrieval_hit": true
+ }
+}

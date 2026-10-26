@@ -12,3 +12,7 @@ deploy/.env
 deploy/linux-vllm/.env
 deploy/**/*.env.local
 deploy/linux-vllm/.env.*
+
+# Local Python distribution build output
+/build/
+/dist/

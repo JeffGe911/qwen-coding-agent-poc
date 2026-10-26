@@ -1,0 +1,25 @@
+{
+ "id": "chatcmpl-368",
+ "object": "chat.completion",
+ "created": 1792997280,
+ "model": "qwen2.5-coder:7b",
+ "system_fingerprint": "fp_ollama",
+ "choices": [
+  {
+   "index": 0,
+   "message": {
+    "role": "assistant",
+    "content": "{\n  \"found\": true,\n  \"answer\": \"Use the -Wno-<message> option to disable a specific warning for the whole run.\",\n  \"citations\": [\n    {\n      \"source\": \"S1\",\n      \"quote\": \"Disable the specified warning/error message. This will override any lint_on directives in the source, i.e., the warning will still not be printed.\"\n    }\n  ]\n}"
+   },
+   "finish_reason": "stop"
+  }
+ ],
+ "usage": {
+  "prompt_tokens": 1923,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "completion_tokens": 88,
+  "total_tokens": 2011
+ }
+}

@@ -1,0 +1,24 @@
+{
+  "contract": "qa-v1",
+  "dev_expected": 17,
+  "dev_completed": 2,
+  "holdout_expected": 40,
+  "holdout_completed": 0,
+  "complete": false,
+  "request_failures_in_saved_answers": 0,
+  "invalid_outputs_in_saved_answers": 0,
+  "minimum_available_mb": 5640,
+  "minimum_commit_headroom_mb": 2041,
+  "stop": {
+    "utc": "2026-10-26T06:48:03+00:00",
+    "reason": "existing memory stop threshold reached",
+    "memory": {
+      "total_mb": 32129,
+      "available_mb": 6066,
+      "commit_limit_mb": 47524,
+      "commit_headroom_mb": 2041
+    }
+  },
+  "models_after_cleanup": [],
+  "cleanup_errors": []
+}

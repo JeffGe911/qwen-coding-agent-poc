@@ -14,7 +14,7 @@ qwen-agent = "qwen_agent.cli:main"
 chip-analysis = "chip_analysis.cli:main"
 
 [tool.setuptools.packages.find]
-include = ["qwen_agent*", "chip_analysis*"]
+include = ["qwen_agent*", "chip_analysis*", "qwen_ops*", "regression_triage*", "doc_qa*"]
 
 [tool.setuptools.package-data]
 qwen_agent = ["tasks/*/*.py", "tasks/*/*.json"]
