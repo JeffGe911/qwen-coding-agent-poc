@@ -9,6 +9,6 @@ evidence/regression-triage/** -text
 knowledge/** -text
 
 # RAG contracts, raw responses and resource sessions retain their original bytes.
-evidence/doc-qa/** -text
+evidence/doc-qa/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 # The evaluator progress output can contain a trailing space; retain that raw output.
 evidence/doc-qa/sessions/** -whitespace
