@@ -411,3 +411,77 @@ def test_a_single_log_prediction_is_scored_against_the_single_gold_test():
     assert s["tests"][0]["category_ok"] and not s["unmatched_tests"]
     two = {**gold, "tests": {**gold["tests"], "tb_other": gold["tests"][next(iter(gold["tests"]))]}}
     assert evaluate.score_sample(pred, two, log)["unmatched_tests"] == ["(log)"]  # ambiguous with two gold tests: no guessing
+
+
+# ---------- hybrid-v2 and the output budget ----------
+
+def write_log(tmp_path, lines, name="v2.log"):
+    (tmp_path / name).write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+    return logio.read_log(name, tmp_path)
+
+
+def mtest(log, tid, line, result, category, side="design_or_test"):
+    return {"test_id": tid, "result": result, "category": category, "side": side, "suggestion": "",
+            "evidence": [{"file": log.name, "line": line, "quote": log.line(line)}]}
+
+
+def test_output_budget_grows_with_the_test_count():
+    p = backend.load(BACKENDS / "ollama-r2.json")
+    one = logio.Log("a.log", ["#RUN test=t1 stage=compile cmd=x"], 1, "", False)
+    six = logio.Log("b.log", [f"[2026-10-25T00:00:00Z] #RUN test=t{i} stage=run cmd=x" for i in range(6)], 1, "", False)  # behind CI timestamps
+    many = logio.Log("c.log", [f"#RUN test=t{i} stage=run cmd=x" for i in range(30)], 1, "", False)
+    assert model.output_budget(one, p) == (1200, 1) and model.output_budget(six, p) == (2100, 6) and model.output_budget(many, p) == (3200, 30)
+    assert model.output_budget(one, {k: v for k, v in p.items() if k not in ("max_tokens_per_test", "max_tokens_cap")}) == (1200, 1)
+
+
+def test_hybrid_adopts_named_model_tests_when_the_rules_found_none(tmp_path):
+    from regression_triage import hybrid
+    log = write_log(tmp_path, ["[ci 00:01] stage regression", "[ci 00:02] t_alpha: all 12 checks passed", "[ci 00:03] t_beta: mismatch at cycle 40: exp 3 got 4",
+                               "[ci 00:04] t_beta: FAILED", "[ci 00:05] done"])
+    r = rules.triage(log)
+    assert [t["test_id"] for t in r["tests"]] == ["(log)"] and r["tests"][0]["result"] == "unknown"
+    m = {"engine": "qwen:fake", "log_status": "complete", "notes": "", "tests": [mtest(log, "t_alpha", 2, "pass", "pass", "none"),
+         mtest(log, "t_beta", 4, "fail", "test_failure"), mtest(log, "t_ghost", 5, "fail", "test_failure")]}
+    c = hybrid.combine(r, m, log)
+    assert [(t["test_id"], t["category"], t["source"]) for t in c["tests"]] == [("t_alpha", "pass", "model"), ("t_beta", "test_failure", "model")]  # t_ghost is not in the log
+
+
+def test_hybrid_asks_the_model_when_the_rules_say_incomplete(tmp_path):
+    from regression_triage import hybrid
+    log = write_log(tmp_path, ["#RUN regression=r run_id=x started_utc=2026-10-25T00:00:00+00:00 host_os=Windows",
+                               "#RUN test=t1 stage=compile cmd=iverilog.exe -o sim.vvp tb.v",
+                               "#RUN test=t1 stage=compile exit=0 elapsed_s=0.05 timed_out=false output_truncated=false",
+                               "#RUN test=t1 stage=run cmd=vvp.exe -n sim.vvp", "tb: start", "check 7: mismatch, expected 0x1f got 0x0f", "SUMMARY: 1 check FAILED"])
+    r = rules.triage(log)
+    assert r["tests"][0]["result"] == "unknown"  # no run-end record: the rules call it incomplete
+    c = hybrid.combine(r, {"engine": "qwen:fake", "log_status": "incomplete", "notes": "", "tests": [mtest(log, "t1", 7, "fail", "test_failure")]}, log)
+    assert c["tests"][0]["category"] == "test_failure" and c["tests"][0]["source"] == "model"
+    keep = hybrid.combine(r, {"engine": "qwen:fake", "log_status": "incomplete", "notes": "", "tests": [mtest(log, "t1", 5, "unknown", "unknown", "undetermined")]}, log)
+    assert keep["tests"][0]["category"] == r["tests"][0]["category"] and keep["tests"][0]["source"] == "rules"  # a vaguer model answer does not replace it
+
+
+def test_watchdog_failures_become_timeouts_and_clean_lint_may_pass(tmp_path):
+    from regression_triage import hybrid
+    log = write_log(tmp_path, ["tb: start", "WATCHDOG expired after 5000 cycles waiting for done", "tb: aborting"])
+    t = hybrid.normalize_result(mtest(log, "t1", 2, "fail", "test_failure"), {}, log)
+    assert (t["category"], t["side"]) == ("timeout", "design_or_test")
+    lint = write_log(tmp_path, ["#RUN regression=r run_id=x started_utc=2026-10-25T00:00:00+00:00 host_os=Windows",
+                                "#RUN test=l1 stage=lint cmd=verilator_bin.exe --lint-only -Wall x.v",
+                                "- V e r i l a t i o n   R e p o r t: Verilator 5.053", "- Verilator: Built from 0.012 MB sources in 2 modules",
+                                "#RUN test=l1 stage=lint exit=0 elapsed_s=0.2 timed_out=false output_truncated=false"], "lint.log")
+    stages = hybrid._stages(lint)
+    assert hybrid.guard_pass(mtest(lint, "l1", 4, "pass", "pass", "none"), lint, stages)["result"] == "pass"  # lint exit 0, no verdict wording
+    failed = write_log(tmp_path, lint.lines[:4] + ["#RUN test=l1 stage=lint exit=1 elapsed_s=0.2 timed_out=false output_truncated=false"], "lint1.log")
+    assert hybrid.guard_pass(mtest(failed, "l1", 4, "pass", "pass", "none"), failed, hybrid._stages(failed))["result"] == "unknown"
+
+
+def test_a_truncated_run_cannot_pass_even_with_ok_progress_lines(tmp_path):
+    from regression_triage import hybrid
+    log = write_log(tmp_path, ["#RUN regression=r run_id=x started_utc=2026-10-25T00:00:00+00:00 host_os=Windows",
+                               "#RUN test=t1 stage=compile cmd=iverilog.exe -o sim.vvp tb.v",
+                               "#RUN test=t1 stage=compile exit=0 elapsed_s=0.05 timed_out=false output_truncated=false",
+                               "#RUN test=t1 stage=run cmd=vvp.exe -n sim.vvp", "tb: item 1 ok", "tb: item 2 ok", "tb: item 3 o"])  # cut mid-line
+    t = hybrid.guard_pass(mtest(log, "t1", 6, "pass", "pass", "none"), log, hybrid._stages(log))
+    assert t["result"] == "unknown" and "运行阶段结束" in t["guard"]
+    c = hybrid.combine(rules.triage(log), {"engine": "qwen:fake", "log_status": "complete", "notes": "", "tests": [mtest(log, "t1", 6, "pass", "pass", "none")]}, log)
+    assert c["tests"][0]["result"] == "unknown" and c["tests"][0]["source"] == "rules"  # the rules' incomplete_log stays

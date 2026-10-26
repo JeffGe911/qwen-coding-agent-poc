@@ -22,6 +22,8 @@
   "timeout_s": 180,
   "context_tokens": 8192,
   "max_tokens": 1200,
+  "max_tokens_per_test": 350,
+  "max_tokens_cap": 3200,
   "margin_tokens": 300,
   "chars_per_token_estimate": 3.0,
   "request_sampling": {"temperature": 0},

@@ -184,15 +184,28 @@ def http_error(exc):
     return detail
 
 
+ANY_RUN_TEST = re.compile(r"#RUN test=(\S+) stage=")
+
+
+def output_budget(log, profile):
+    """(max_tokens, tests counted). One answer covers every test of the log, so the budget grows with the test count
+    (eval-v4: a 6-test log was cut off at a flat 1200). Tests are counted loosely, also behind CI timestamp prefixes."""
+    n = len({m.group(1) for line in log.lines for m in [ANY_RUN_TEST.search(line)] if m}) or 1
+    if "max_tokens_per_test" not in profile:
+        return profile["max_tokens"], n
+    return min(profile["max_tokens_cap"], max(profile["max_tokens"], profile["max_tokens_per_test"] * n)), n
+
+
 def triage(log, profile, client=None):
     """One request to the backend described by `profile` (regression_triage/backend.py). The prompt, schema and
     validation are the same for every backend. Never raises for model problems; the outcome is recorded in 'status'."""
-    model, context_tokens, max_tokens = profile["model"], profile["context_tokens"], profile["max_tokens"]
+    model, context_tokens = profile["model"], profile["context_tokens"]
+    max_tokens, n_tests = output_budget(log, profile)
     budget_chars = int((context_tokens - max_tokens - profile["margin_tokens"]) * profile["chars_per_token_estimate"]) - len(SYSTEM) - 2000
     body, omitted = request_body(log, model, max_tokens, budget_chars, profile["request_sampling"])
     out = {"engine": f"qwen:{model}", "backend": profile["name"], "backend_sha256": backend.sha256(profile), "prompt_version": PROMPT_VERSION,
            "prompt_sha256": prompt_sha256(), "file": log.name, "input_truncated": bool(omitted), "omitted_line_ranges": omitted,
-           "request_chars": len(json.dumps(body, ensure_ascii=False)), "timeout_s": profile["timeout_s"]}
+           "request_chars": len(json.dumps(body, ensure_ascii=False)), "timeout_s": profile["timeout_s"], "max_tokens": max_tokens, "tests_counted": n_tests}
     started = time.monotonic()
     try:
         client = client or Client(profile["base_url"], model, timeout=profile["timeout_s"], api_key=backend.api_key(profile) or "")
